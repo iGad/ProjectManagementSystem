@@ -14,7 +14,7 @@ namespace PMS.Model.Models.Identity
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<Context>()));
+            return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<ApplicationContext>()));
         }
     }
 }

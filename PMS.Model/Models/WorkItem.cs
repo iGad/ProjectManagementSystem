@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace PMS.Model.Models
 {
-    public abstract class WorkItem : NamedEntity
+    public class WorkItem : NamedEntity
     {
+        public int? ParentId { get; set; }
+        public WorkItem Parent { get; set; }
+        public WorkItemType Type { get; set; }
         public string Description { get; set; }
         [Required]
         public string CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
         public string ExecutorId { get; set; }
         public ApplicationUser Executor { get; set; }
-        [Required]
         public WorkItemState State { get; set; }
-        [Required]
         public WorkItemStatus Status { get; set; }
+        public DateTime DeadLine { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
