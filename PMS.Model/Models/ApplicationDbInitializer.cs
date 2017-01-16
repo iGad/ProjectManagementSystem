@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -29,8 +31,8 @@ namespace PMS.Model.Models.Identity
             {
                 var owinContext = new OwinContext();
                 owinContext.Set(applicationContext);
-                var userManager = ApplicationUserManager.Create(null, owinContext);
-                var roleManager = ApplicationRoleManager.Create(null, owinContext);
+                var userManager = ApplicationUserManager.Create(new IdentityFactoryOptions<ApplicationUserManager>(), owinContext);
+                var roleManager = ApplicationRoleManager.Create(new IdentityFactoryOptions<ApplicationRoleManager>(), owinContext);
                 List<string> rolesName = new List<string>() { "Руководитель направления", "Главный инженер проекта", "Исполнитель", "Директор", "Администратор" };
                 for (int i = 0; i < rolesName.Count; i++)
                 {
@@ -44,9 +46,9 @@ namespace PMS.Model.Models.Identity
                 }
                 applicationContext.SaveChanges();
                 
-                const string name = "admin@admin.ru";
+                const string name = "admin@admin.com";
                 const string password = "admin@123456";
-                var admin = userManager.FindByName("admin@admin.com");
+                var admin = userManager.FindByName(name);
                 if (admin == null)
                 {
                     admin = new ApplicationUser {UserName = name, Email = name, EmailConfirmed = true, Name="Admin"};
@@ -54,6 +56,15 @@ namespace PMS.Model.Models.Identity
                     userManager.SetLockoutEnabled(admin.Id, false);
                     userManager.AddToRole(admin.Id, rolesName.Last());
                 }
+                try
+                {
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                }
+                
                 //var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 //var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
                 //const string name = "admin@admin.ru";

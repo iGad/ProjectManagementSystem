@@ -1,6 +1,6 @@
 ﻿var angapp = angular.module("authapp", ['ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages'])
 .controller("authController", function ($scope, $http, authProvider, $window, $location) {
-    $scope.login = "";
+    $scope.email = "";
     $scope.password = "";
     $scope.rememberMe = false;
 
@@ -9,7 +9,7 @@
         $scope.errorResult = "";
 
         var model = {
-            UserName: $scope.login,
+            Email: $scope.email,
             Password: $scope.password,
             RememberMe: $scope.rememberMe
         }

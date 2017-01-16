@@ -23,7 +23,7 @@ namespace PMS.Model.Migrations
                 List<string> rolesName = new List<string>() { "Руководитель направления", "Главный инженер проекта", "Исполнитель", "Администратор", "Директор" };
                 for (int i = 0; i < rolesName.Count; i++)
                 {
-                    if (!applicationContext.Roles.Any(k => k.Name == rolesName[i]))
+                    if (applicationContext.Roles.AsEnumerable().All(k => k.Name != rolesName[i]))
                         applicationContext.Roles.Add(new IdentityRole(rolesName[i]));
 
                 }

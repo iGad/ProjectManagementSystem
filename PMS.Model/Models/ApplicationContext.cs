@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using Microsoft.AspNet.Identity.EntityFramework;
+using PMS.Model.Migrations;
 using PMS.Model.Models.Identity;
 
 namespace PMS.Model.Models
@@ -14,7 +15,11 @@ namespace PMS.Model.Models
             {
                 Database.SetInitializer(new ApplicationDbInitializer());
             }
-           
+            else
+            {
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationContext,Configuration>());
+            }
+           Database.Initialize(false);
         }
 
         public DbSet<WorkItem> WorkItems { get; set; } 
