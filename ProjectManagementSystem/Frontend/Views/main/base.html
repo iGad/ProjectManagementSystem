@@ -1,0 +1,21 @@
+﻿<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a ui-sref="base.main" class="navbar-brand">Пангея</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{active:activeIndex === 0}">Проекты</a></li>
+                <li><a ui-sref="base.tasks" ui-sref-active="active" ng-class="{active:activeIndex === 1}">Задачи</a></li>
+                <li><a ui-sref="base.about" ui-sref-active="active" ng-class="{active:activeIndex === 2}">Контакты</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<ui-view></ui-view>

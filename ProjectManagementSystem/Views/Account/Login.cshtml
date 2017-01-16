@@ -1,63 +1,133 @@
-﻿@using ProjectManagementSystem.Models
-@model LoginViewModel
-@{
-    ViewBag.Title = "Log in";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Resource.EnterLogin.</title>
+    @Styles.Render("~/Content/reset")
+    @Styles.Render("~/Content/angular-material")
+    @Styles.Render("~/Content/css")
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/login")
+</head>
+<body>
+    <div ng-app="authapp" ng-controller="authController" id="form-logon">
+        <md-content layout="row" layout-align="center center" ng-cloak class="login-form">
+            <md-card flex="flex" flex-gt-sm="50" flex-gt-md="33">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2><span>@Resource.LoginSystem</span></h2>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+                </md-toolbar>
+                <md-card-content>
+                    <form name="Form">
+                        <label>@Resource.Login</label>
+                        <md-input-container class="md-block">
+                            <input type="text" name="login" ng-model="login" required="" />
+                            <div ng-messages="Form.login.$error" role="alert" multiple="">
+                                <div ng-message="required">@Resource.EnterLogin.</div>
+                            </div>
+                        </md-input-container>
+                        <label>@Resource.Password</label>
+                        <md-input-container class="md-block">
+                            <input type="password" name="password" ng-model="password" required="" />
+                            <div ng-messages="Form.password.$error" role="alert" multiple="">
+                                <div ng-message="required">@Resource.EnterPassword.</div>
+                            </div>
+                        </md-input-container>
+                        <div layout="row" layout-align="space-between center">
+                            <span><md-checkbox ng-model="rememberMe">@Resource.Remember</md-checkbox></span>
+                            <md-button type="submit" ng-click="logOn()" class="md-raised md-primary">&nbsp @Resource.LoginEnterButton &nbsp</md-button>
+                        </div>
+                        <div ng-bind="errorResult" ng-if="errorResult" style="color:red;">
+                        </div>
+                        @if (ViewBag.AccountAlreadyUsed != null)
+                        {
+                            <div style="color:red;">
+                                @ViewBag.AccountAlreadyUsed
+                            </div>
+                        }
+                    </form>
+                </md-card-content>
+            </md-card>
+        </md-content>
+    </div>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+    @*
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+</body>
+</html>
+
+
+
+
+
+
+
+@*@model ProjectManagementSystem.ViewModels.LoginViewModel
+    @{
+        ViewBag.Title = "Log in";
+    }
+
+    <h2>@ViewBag.Title.</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
                     <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+                    @* Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>
+    }
+    </section>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+<div class="col-md-4">
+    <section id="socialLoginForm">
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+    </section>
 </div>
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

@@ -19,7 +19,7 @@ namespace ProjectManagementSystem
                         "~/Scripts/angular-material/svg-assets-cache.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/site").IncludeDirectory("~/Scripts/Site","*.js", true));
-
+            bundles.Add(new ScriptBundle("~/bundles/login").IncludeDirectory("~/Frontend/Scripts/angapp/login", "*.js", true));
 
 
             //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(

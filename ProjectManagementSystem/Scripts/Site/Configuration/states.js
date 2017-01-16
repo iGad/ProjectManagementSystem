@@ -3,23 +3,27 @@
     var states = [
     {
         name: 'base',
-        url: '/',
-        templateUrl: 'Views/'
+        templateUrl: 'Frontend/Views/main/base.html'
     },
         {
             name: 'base.main',
-            url: 'main',
+            url: '/',
             template: '<h1>Main</h1>'
         },
     {
         name: 'base.tasks',
-        url: 'tasks',
+        url: '/tasks',
         template: '<h1>Tasks</h1>'
     },
         {
             name: 'base.about',
-            url: 'about',
+            url: '/about',
             template: '<h1>about</h1>'
+        },
+        {
+            name: 'base.projects',
+            url: '/projects',
+            template: '<h1>Projects</h1>'
         }
     ];
 
