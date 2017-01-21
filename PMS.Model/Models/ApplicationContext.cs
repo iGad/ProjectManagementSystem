@@ -11,6 +11,7 @@ namespace PMS.Model.Models
     {
         public ApplicationContext(): base("DefaultConnection", throwIfV1Schema: false)//"DefaultConnection"
         {
+            RequireUniqueEmail = false;
             if (!Database.Exists())
             {
                 Database.SetInitializer(new ApplicationDbInitializer());

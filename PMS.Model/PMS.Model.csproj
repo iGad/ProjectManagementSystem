@@ -110,10 +110,19 @@
     <Compile Include="Models\WorkItemStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IWorkItemRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\WorkItemRepository.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\PmsExeption.cs" />
     <Compile Include="Services\TreeService.cs" />
+    <Compile Include="Services\UsersService.cs" />
     <Compile Include="Services\WorkItemService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +132,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701060749441_Initial.resx">
       <DependentUpon>201701060749441_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

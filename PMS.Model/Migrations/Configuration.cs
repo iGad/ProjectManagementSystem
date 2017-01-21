@@ -20,7 +20,7 @@ namespace PMS.Model.Migrations
         {
             using (var transaction = applicationContext.Database.BeginTransaction())
             {
-                List<string> rolesName = new List<string>() { "Руководитель направления", "Главный инженер проекта", "Исполнитель", "Администратор", "Директор" };
+                List<string> rolesName = new List<string>() { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
                 for (int i = 0; i < rolesName.Count; i++)
                 {
                     if (applicationContext.Roles.AsEnumerable().All(k => k.Name != rolesName[i]))
@@ -28,6 +28,14 @@ namespace PMS.Model.Migrations
 
                 }
                 applicationContext.SaveChanges();
+                try
+                {
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                }
                 //var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 //var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
                 //const string name = "admin@admin.ru";
