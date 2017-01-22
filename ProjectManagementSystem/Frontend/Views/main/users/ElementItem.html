@@ -1,0 +1,12 @@
+﻿<md-content class="md-padding">
+    <div layout="row" ng-repeat="item in elementModel.DictionaryAttributes">
+        <ng-form name="attributeFieldForm" flex>
+            <dict-attr-val attr-data="item"></dict-attr-val>
+        </ng-form>
+    </div>
+    <div layout="row">
+        <md-checkbox ng-model="elementModel.IsActive" aria-label="element accessible" flex="40">
+           {{elementModel.label}}
+        </md-checkbox>
+    </div>
+</md-content>

@@ -1,0 +1,64 @@
+﻿<md-content class="md-padding">
+    <div layout="row">
+        <md-input-container flex="60">
+            <label>{{attribute.NameString}}</label>
+            <input ng-model="attribute.Name" name="attributeName" required>
+            <div ng-messages="attributeForm.attributeName.$error">
+                <div ng-message="required">{{attribute.RequiredFieldString}}!</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex="40">
+            <label>{{attribute.TypeString}}</label>
+            <md-select ng-model="attribute.ValueTypeId" name="valueType" required ng-change="valueTypeChanged()">
+                <md-option ng-repeat="attr in AttributeTypes" ng-value="attr.ValueTypeId">
+                    {{attr.AttributeTypeName}}
+                </md-option>
+            </md-select>
+            <div ng-messages="attributeForm.valueType.$error" ng-if="attributeForm.$dirty">
+                <div ng-message="required">{{attribute.RequiredFieldString}}!</div>
+            </div>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-autocomplete md-no-cache="false" flex
+                         md-search-text="searchText"
+                         md-selected-item-change="selectedItemChange(item)"
+                         md-selected-item="attribute.DictionaryTypeReferenceItem"
+                         md-items="item in querySearch(searchText)"
+                         md-item-text="item.Name"
+                         ng-show="displayDictionaryChoice"
+                         ng-model="attribute.DictionaryTypeReferenceItem"
+                         md-input-name="dictionaryForReferenceAutocomplete"
+                         md-floating-label="{{attribute.TypeDictionaryString}}"
+                         md-min-length="0"
+                         ng-required="displayDictionaryChoice">
+            <md-item-template>
+                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Name}}</span>
+            </md-item-template>
+            <md-not-found>
+                {{attribute.DictionariesNamedString}} "{{searchText}}" {{attribute.NotFoundString}}.
+            </md-not-found>
+        </md-autocomplete>
+        <div ng-messages="attributeForm.dictionaryForReferenceAutocomplete.$error"
+             ng-if="attributeForm.dictionaryForReferenceAutocomplete.$touched">
+            <div ng-message="required">{{attribute.RequiredFieldString}}!</div>
+        </div>
+    </div>
+    <div layout="row">
+        <md-input-container flex>
+            <label>{{attribute.DescriptionString}}</label>
+            <input ng-model="attribute.Description" name="attributeDescription">
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-checkbox ng-model="attribute.IsDisplay" aria-label="attribute display" flex="75">
+            {{attribute.DisplayRepresentationElementString}}: {{ attribute.IsDisplay? attribute.YesString : attribute.NoString }}
+        </md-checkbox>
+        <md-checkbox ng-model="attribute.IsRequired" aria-label="attribute required" flex="35">
+            {{attribute.RequiredString}}: {{ attribute.IsRequired? attribute.YesString : attribute.NoString}}
+        </md-checkbox>
+    </div>
+
+</md-content>
+
+

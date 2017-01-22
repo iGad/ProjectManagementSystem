@@ -201,21 +201,156 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\angular-material.css" />
-    <Content Include="Content\angular-material.layout-attributes.css" />
-    <Content Include="Content\angular-material.layout-attributes.min.css" />
-    <Content Include="Content\angular-material.layouts.css" />
-    <Content Include="Content\angular-material.layouts.ie_fixes.css" />
-    <Content Include="Content\angular-material.layouts.min.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.min.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.ie_fixes.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.min.css" />
     <Content Include="Content\angular-material.min.css" />
-    <Content Include="Content\bootstrap.css" />
+    <Content Include="Frontend\Content\css\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\reset.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Frontend\Content\css\ui-grid\ui-grid-custom.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\ui-grid\ui-grid.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\ui-grid\ui-grid.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\ui-grid.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\delete.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\action-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\alert-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\av-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\communication-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\content-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\device-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\editor-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\file-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\hardware-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\image-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\maps-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\mdi-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\navigation-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\notification-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\social-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\iconsets\toggle-icons.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_check_box_false_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_check_box_true_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_clear_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_edit_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_exposure_neg_1_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_exposure_plus_1_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_fast_forward_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_keyboard_arrow_left_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_keyboard_arrow_right_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\images\material-icons\ic_menu_black_24px.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
+    <Content Include="Frontend\Scripts\angapp\main\users\Controllers\AddUpdateUserController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\users\Controllers\UsersMainController.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\angapp\main\users\Directives\PaginationDirective.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\angapp\main\users\Providers\UsersServiceProvider.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Views\main\addWorkItem.html" />
+    <Content Include="Frontend\Views\main\users\AddUpdateUser.html" />
+    <Content Include="Frontend\Views\main\users\AddUser.html" />
+    <Content Include="Frontend\Views\main\users\AttributeCard.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\AttributeCardDialog.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\Content.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\ElementAttribute.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\ElementAttributeCardDialog.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\ElementCardDialog.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\ElementItem.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\users\Pagination.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\angular-animate\angular-animate.js">
@@ -288,18 +423,19 @@
     <Content Include="Scripts\i18n\angular-locale_ru.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Site\angapp.js">
+    <Content Include="Frontend\Scripts\angapp\main\angapp.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Site\Configuration\states.js">
+    <Content Include="Frontend\Scripts\angapp\main\Configuration\states.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Site\index\IndexController.js">
+    <Content Include="Frontend\Scripts\angapp\main\index\IndexController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Frontend\Views\main\base.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\ui-grid\ui-grid.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -345,12 +481,44 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Site\" />
+    <Folder Include="Frontend\Scripts\angapp\global\" />
+    <Folder Include="Scripts\Site\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\ui-grid.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\ui-grid.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\fonts\ui-grid.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\ui-grid\ui-grid.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\ui-grid\ui-grid.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\ui-grid\ui-grid.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\errors.json" />

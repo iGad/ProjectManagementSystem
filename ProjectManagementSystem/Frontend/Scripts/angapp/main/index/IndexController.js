@@ -1,5 +1,20 @@
 ﻿angapp.controller('IndexController',['$scope','$rootScope', '$location', '$state', function ($scope, $rootScope, $location, $state) {
     $scope.title = 'Привет!';
+    function getActiveStateIndex() {
+        var path = $location.path().split('?')[0];
+        var tabName = path.slice(path.lastIndexOf('/') + 1);
+        switch (tabName.toLowerCase()) {
+            case 'projects': return 0;
+            case 'tasks': return 1;
+            case 'about': return 2;
+                //case 'tasks': return 3;
+                //case 'map': return 4;
+            case 'users': return 3;
+            default:
+                return -1;
+        }
+    };
+    $scope.activeIndex = getActiveStateIndex();
     $rootScope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
         console.log("$stateChangeStart " + fromState.name + JSON.stringify(fromParams) + " -> " + toState.name + JSON.stringify(toParams));
     });
@@ -20,6 +35,11 @@
     //        //$state.go('tool.suggestions');
     //    };
     //});
+
+
+
+    
+
     if($location.path().length < 1)
         $state.go('base.main');
 }]);

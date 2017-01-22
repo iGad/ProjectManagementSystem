@@ -1,0 +1,19 @@
+﻿<md-dialog aria-label="dictionary attribute card" ng-cloak flex="30">
+    <form name="attributeForm" ng-submit="$event.preventDefault()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{attribute.Action}} '{{attribute.Title}}'</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-icon="content:clear" aria-label="Close attribute dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding: 10px;">
+            <attribute-card attribute="attribute"></attribute-card>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" style="padding: 10px;">
+            <md-button ng-click="answer()" ng-disabled="attributeForm.$invalid">{{attribute.ActionConfirm}}</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,20 @@
+﻿{{gridApi.CurrentPageLabel}} : {{ gridApi.pagination.getPage() }} {{gridApi.OfLabelString}} {{ gridApi.pagination.getTotalPages() }}
+<md-button class="md-icon-button" ng-click="gridApi.pagination.previousPage()">
+    <md-tooltip md-direction="bottom">
+        {{gridApi.BackString}}
+    </md-tooltip>
+    <md-icon md-svg-icon="hardware:keyboard_arrow_left" aria-label="previous page"></md-icon>
+</md-button>
+<md-button class="md-icon-button" ng-click="gridApi.pagination.nextPage()">
+    <md-tooltip md-direction="bottom">
+        {{gridApi.ForwardString}}
+    </md-tooltip>
+    <md-icon md-svg-icon="hardware:keyboard_arrow_right" aria-label="next page"></md-icon>
+</md-button>
+<md-button class="md-icon-button" ng-click="gridApi.pagination.seek(moveToPage)">
+    <md-tooltip md-direction="bottom">
+        {{gridApi.GotoString}}
+    </md-tooltip>
+    <md-icon md-svg-icon="av:fast_forward" aria-label="move to page"></md-icon>
+</md-button>
+<input ng-model="moveToPage" type="number" step="1" min="1" max="{{gridApi.pagination.getTotalPages()}}" style="margin-top: 10px" />

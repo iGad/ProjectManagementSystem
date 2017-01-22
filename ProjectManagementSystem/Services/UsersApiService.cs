@@ -32,7 +32,7 @@ namespace ProjectManagementSystem.Services
 
         public List<UserViewModel> GetActualUsers()
         {
-            return this.userRepository.GetUsers(x => !x.IsDeleted).Select(CreateUserViewModel).ToList();
+            return this.userRepository.GetUsers(x => !x.IsDeleted).ToArray().Select(CreateUserViewModel).ToList();
         }
 
         private UserViewModel CreateUserViewModel(ApplicationUser user)
@@ -99,6 +99,15 @@ namespace ProjectManagementSystem.Services
             user.IsDeleted = true;
             user.UserName += Guid.NewGuid();
             this.userRepository.SaveChanges();
+        }
+
+        public RoleViewModel[] GetRoles()
+        {
+            return this.userRepository.GetRoles().Select(x => new RoleViewModel
+            {
+                Name = x.Name,
+                Id = x.Id
+            }).ToArray();
         }
     }
 }

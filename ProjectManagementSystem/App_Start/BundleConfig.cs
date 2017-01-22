@@ -16,20 +16,23 @@ namespace ProjectManagementSystem
                         "~/Scripts/angular-ui-router/angular-ui-router.js",
                         "~/Scripts/i18n/*.js", 
                         "~/Scripts/angular-material/angular-material.js",
-                        "~/Scripts/angular-material/svg-assets-cache.js"));
+                        "~/Scripts/angular-material/svg-assets-cache.js",
+                        "~/Scripts/ui-grid/ui-grid.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/site").IncludeDirectory("~/Scripts/Site","*.js", true));
+            bundles.Add(new ScriptBundle("~/bundles/uigrid").IncludeDirectory("~/Scripts/ui-grid", "*.js", true));
+            bundles.Add(new ScriptBundle("~/bundles/site").IncludeDirectory("~/Frontend/Scripts/angapp/main","*.js", true));
+
             bundles.Add(new ScriptBundle("~/bundles/login").IncludeDirectory("~/Frontend/Scripts/angapp/login", "*.js", true));
-
+            //bundles.Add(new ScriptBundle("~/Scripts/users").IncludeDirectory("~/Frontend/Scripts/angapp/users"));
 
             //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
             //          "~/Scripts/bootstrap.js",
             //          "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/angular-material").Include("~/Content/*.css"));
-
+            bundles.Add(new StyleBundle("~/Content/angular-material").IncludeDirectory("~/Frontend/Content/css/angular-material","*.css"));
+            bundles.Add(new StyleBundle("~/Content/ui-grid").IncludeDirectory("~/Frontend/Content/css/ui-grid", "*.css"));
             bundles.Add(new StyleBundle("~/Content/reset").Include("~/Content/reset.css"));
-
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Frontend/Content/css/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css"));
             //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css"));
         }

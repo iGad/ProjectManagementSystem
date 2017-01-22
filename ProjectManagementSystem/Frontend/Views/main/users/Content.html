@@ -1,0 +1,258 @@
+﻿<md-content class="md-padding" ng-controller="GeneralController">
+    <md-tabs md-dynamic-height md-border-bottom md-selected="activeTabIndex" ng-cloak>
+        <md-tab label="{{resources['TypesDictionaries']}}">
+            <md-content class="md-padding" ng-controller="DictionariesController"  ng-if="resources">
+                <div layout="row">
+                    <div flex="80">
+                        <md-checkbox ng-model="displayDescription" aria-label="description display" ng-change="toggleDescription()">
+                            {{resources['ShowDescription']}} : {{ displayDescription ? resources['Yes_LowerCase'] : resources['No_LowerCase'] }}
+                        </md-checkbox>
+                        <md-checkbox ng-model="displaySystemDictionaries" aria-label="description display" ng-change="toggleDisplaySystemDictionaries()">
+                            {{resources['ShowSystemDictionaries']}} : {{ displaySystemDictionaries ? resources['Yes_LowerCase'] : resources['No_LowerCase'] }}
+                        </md-checkbox>
+                        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-edit>
+                        </div>
+                        <div layout="row">
+                            <grid-pagination grid-api="gridApi" subscribe="false"></grid-pagination>
+                            <md-button class="md-icon-button" ng-click="edit($event)" ng-disabled="!gridApi.selection.getSelectedRows().length || !gridApi.selection.getSelectedRows()[0].IsActual">
+                                <md-tooltip md-direction="bottom">
+                                    {{resources['Edit']}}
+                                </md-tooltip>
+                                <md-icon md-svg-icon="image:edit" aria-label="edit attribute"></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" ng-click="delete($event)" ng-disabled="!gridApi.selection.getSelectedRows().length">
+                                <md-tooltip md-direction="bottom">
+                                    {{resources['Delete']}}
+                                </md-tooltip>
+                                <md-icon md-svg-icon="action:delete" aria-label="delete attribute"></md-icon>
+                            </md-button>
+                        </div>
+                        <div layout="row">
+                            <md-button ng-click="moveToSection('attributes')" layout layout-align="center end" ng-disabled="!gridApi.selection.getSelectedRows().length">{{resources['ToAttributes']}}</md-button>
+                            <md-button ng-click="moveToSection('elements')" layout layout-align="center end" ng-disabled="!gridApi.selection.getSelectedRows().length">{{resources['ToElements']}}</md-button>
+                            <md-button ng-click="moveToSection('elementAttributes')" layout layout-align="center end" ng-disabled="!gridApi.selection.getSelectedRows().length">{{resources['ToElementAttributes']}}</md-button>
+                        </div>
+                        <form name="addDictionaryForm">
+                            <div layout="row">
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>{{resources['Name']}}</label>
+                                    <input ng-model="newDictionaryItem.name" name="dictionaryName">
+                                </md-input-container>
+                                <md-input-container class="md-block" flex-gt-sm>
+                                    <label>{{resources['Description']}}</label>
+                                    <input ng-model="newDictionaryItem.description">
+                                    </md-input-container>
+                                    <md-input-container class="md-secondary">
+                                        <label>{{resources['Category']}}</label>
+                                        <md-select ng-model="newDictionaryItem.category">
+                                            <md-option ng-repeat="category in categories" value="{{category}}">
+                                                {{category.CategoryName}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                            </div>
+                            <div layout="row">
+                                <md-button style="margin-left: -5px" ng-click="addNewDictionary()" ng-disabled="!newDictionaryItem.name || !newDictionaryItem.category" class="md-primary">{{resources['Add']}}</md-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="{{resources['AttributesDictionary']}}">
+            <md-content class="md-padding" ng-controller="AttributesController">
+                <div layout="row">
+                    <div flex="40">
+                        <form ng-submit="$event.preventDefault()">
+                            <md-autocomplete md-no-cache="true" md-selected-item="selectedDictionaryItem"
+                                             md-search-text="searchText"
+                                             md-selected-item-change="selectedItemChange(item)"
+                                             md-items="item in querySearch(searchText)"
+                                             md-item-text="item.Name" md-min-length="0" placeholder="{{resources['TypeDictionary']}}">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    {{resources['DictionariesNamed']}} "{{searchText}}" {{resources['NotFound_LowerCase']}}.
+                                </md-not-found>
+                            </md-autocomplete>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="80">
+                        <div id="grid2" ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-edit></div>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="80">
+                        <grid-pagination grid-api="gridApi" subscribe="true"></grid-pagination>
+                        <md-button class="md-icon-button" ng-click="changeOrder(false)" ng-disabled="!gridApi.selection.getSelectedRows().length || gridApi.selection.getSelectedRows()[0].AttributeOrder == 1 || selectedDictionaryItem.IsSystem">
+                            <md-tooltip md-direction="bottom">
+                                Назад в порядке следования
+                            </md-tooltip>
+                            <md-icon md-svg-icon="image:exposure_neg_1" aria-label="prev attribute order"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="changeOrder(true)" ng-disabled="!gridApi.selection.getSelectedRows().length || gridApi.selection.getSelectedRows()[0].AttributeOrder == gridOptions.data.length || selectedDictionaryItem.IsSystem">
+                            <md-tooltip md-direction="bottom">
+                                Вперед в порядке следования
+                            </md-tooltip>
+                            <md-icon md-svg-icon="image:exposure_plus_1" aria-label="plus attribute order"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="edit($event)" ng-disabled="!gridApi.selection.getSelectedRows().length || selectedDictionaryItem.IsSystem">
+                            <md-tooltip md-direction="bottom">
+                                {{resources['Edit']}}
+                            </md-tooltip>
+                            <md-icon md-svg-icon="image:edit" aria-label="edit attribute"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="delete($event)" ng-disabled="!gridApi.selection.getSelectedRows().length || selectedDictionaryItem.IsSystem">
+                            <md-tooltip md-direction="bottom">
+                                {{resources['Delete']}}
+                            </md-tooltip>
+                            <md-icon md-svg-icon="action:delete" aria-label="delete attribute"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-button style="margin-left: -5px" ng-click="add($event)" ng-disabled="selectedDictionaryItem == null || selectedDictionaryItem.IsSystem" class="md-primary">{{resources['Add']}}</md-button>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="{{resources['DictionaryItems']}}">
+            <md-content class="md-padding" ng-controller="ElementsController">
+                <div layout="row">
+                    <div flex="40">
+                        <form ng-submit="$event.preventDefault()">
+                            <md-autocomplete md-no-cache="true"
+                                             md-selected-item="selectedDictionaryItem"
+                                             md-search-text="searchText"
+                                             md-selected-item-change="selectedItemChange(item)"
+                                             md-items="item in querySearch(searchText)"
+                                             md-item-text="item.Name"
+                                             md-min-length="0"
+                                             placeholder="{{resources['TypeDictionary']}}">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    {{resources['DictionariesNamed']}} "{{searchText}}" {{resources['NotFound_LowerCase']}}.
+                                </md-not-found>
+                            </md-autocomplete>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="80">
+                        <div id="grid3" ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-edit></div>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="80">
+                        <grid-pagination grid-api="gridApi" subscribe="true"></grid-pagination>
+                        <md-button class="md-icon-button" ng-click="edit($event)" ng-disabled="!gridApi.selection.getSelectedRows().length || !gridApi.selection.getSelectedRows()[0].IsActual">
+                            <md-tooltip md-direction="bottom">
+                                {{resources['Edit']}}
+                            </md-tooltip>
+                            <md-icon md-svg-icon="image:edit" aria-label="edit attribute"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="delete($event)" ng-disabled="!gridApi.selection.getSelectedRows().length">
+                            <md-tooltip md-direction="bottom">
+                                {{resources['Delete']}}
+                            </md-tooltip>
+                            <md-icon md-svg-icon="action:delete" aria-label="delete attribute"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-button style="margin-left: -5px" ng-click="add($event)" ng-disabled="selectedDictionaryItem == null" class="md-primary">{{resources['Add']}}</md-button>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="{{resources['DictionaryElementAttributes']}}">
+            <md-content class="md-padding" ng-controller="ElementAttributesController">
+                <div layout="row">
+                    <div flex="40">
+                        <form ng-submit="$event.preventDefault()">
+                            <md-autocomplete md-no-cache="true"
+                                             md-selected-item="selectedDictionaryItem"
+                                             md-search-text="searchText"
+                                             md-selected-item-change="selectedItemChange(item)"
+                                             md-items="item in querySearch(searchText)"
+                                             md-item-text="item.Name"
+                                             md-min-length="0"
+                                             placeholder="{{resources['TypeDictionary']}}">
+                                <md-item-template>
+                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    {{resources['DictionariesNamed']}} "{{searchText}}" {{resources['NotFound_LowerCase']}}.
+                                </md-not-found>
+                            </md-autocomplete>
+                            <br>
+                        </form>
+                    </div>
+                    <div flex="40">
+                        <form ng-submit="$event.preventDefault()">
+                            <md-autocomplete md-no-cache="true"
+                                             md-selected-item="selectedElement"
+                                             md-search-text="searchElementText"
+                                             md-selected-item-change="selectedElementChange(element)"
+                                             md-items="element in queryElementSearch(searchElementText)"
+                                             md-item-text="element.Name"
+                                             md-min-length="0"
+                                             placeholder="{{resources['DictionaryElement']}}">
+                                <md-item-template>
+                                    <span md-highlight-text="searchElementText" md-highlight-flags="^i">{{element.Name}}</span>
+                                </md-item-template>
+                                <md-not-found>
+                                    {{resources['ElementsNamed']}} "{{searchElementText}}" {{resources['NotFound_LowerCase']}}.
+                                </md-not-found>
+                            </md-autocomplete>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="80">
+                        <div id="grid3" ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-edit></div>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="80">
+                        <grid-pagination grid-api="gridApi" subscribe="true"></grid-pagination>
+                        <md-button class="md-icon-button" ng-click="changeOrder(false)" ng-disabled="!gridApi.selection.getSelectedRows().length || gridApi.selection.getSelectedRows()[0].Order == 1">
+                            <md-tooltip md-direction="bottom">
+                                Поднять на строку вверх
+                            </md-tooltip>
+                            <md-icon md-svg-icon="hardware:keyboard_arrow_up" aria-label="prev attribute order"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="changeOrder(true)" ng-disabled="!gridApi.selection.getSelectedRows().length || gridApi.selection.getSelectedRows()[0].Order == gridOptions.data.length">
+                            <md-tooltip md-direction="bottom">
+                                Опустить на строку вниз
+                            </md-tooltip>
+                            <md-icon md-svg-icon="hardware:keyboard_arrow_down" aria-label="plus attribute order"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="edit($event)" ng-disabled="!gridApi.selection.getSelectedRows().length">
+                            <md-tooltip md-direction="bottom">
+                                {{resources['Edit']}}
+                            </md-tooltip>
+                            <md-icon md-svg-icon="image:edit" aria-label="edit attribute"></md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" ng-click="delete($event)" ng-disabled="!gridApi.selection.getSelectedRows().length">
+                            <md-tooltip md-direction="bottom">
+                                {{resources['Delete']}}
+                            </md-tooltip>
+                            <md-icon md-svg-icon="action:delete" aria-label="delete attribute"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+                <div layout="row">
+                    <md-button style="margin-left: -5px" ng-click="add($event)" ng-disabled="selectedDictionaryItem == null || selectedElement == null" class="md-primary">{{resources['Add']}}</md-button>
+                </div>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>
+
