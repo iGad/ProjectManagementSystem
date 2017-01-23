@@ -56,7 +56,7 @@
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(role) {
-                return (role.Name.toLowerCase().indexOf(lowercaseQuery) === 0);
+                return (role.Name.toLowerCase().indexOf(lowercaseQuery) >= 0);
             };
 
         }
@@ -80,22 +80,28 @@
             return roles;
         };
 
-        $scope.removedItem = function (role, $chip) {
-            var index = $scope.User.Roles.indexOf(role);
-            $scope.User.Roles.splice(index, 1);
-            $scope.roles.push(role);
+        $scope.removedItem = function ($chip) {
+            $scope.roles.push($chip);
         };
 
         function hideAutocomplete() {
             var autoChild = document.getElementById('autocomplete').firstElementChild;
             var el = angular.element(autoChild);
             el.scope().$mdAutocompleteCtrl.blur();
+            //$('#autocomplete').setUntouched();
+            //$scope.addUpdateUserForm.$setUntouched();
         };
 
-        $scope.selectedItemChange = function(role) {
-            var index = $scope.roles.indexOf(role);
-            $scope.roles.splice(index, 1);
-            hideAutocomplete();
+        $scope.addedItem = function($chip) {
+            var a = $chip;
+        };
+
+        $scope.selectedItemChange = function (role) {
+            if (role) {
+                var index = $scope.roles.indexOf(role);
+                $scope.roles.splice(index, 1);
+                hideAutocomplete();
+            } 
             //$scope.User.Roles.push(role);
         };
 
