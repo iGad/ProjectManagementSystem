@@ -26,19 +26,20 @@
     function getDefaultGridOptions() {
         return {
             enableRowSelection: true,
-            enableRowHeaderSelection: false,
-            enableRowReordering: false,
+            fullRowSelection: true,
+            //enableRowHeaderSelection: false,
+            //enableRowReordering: false,
 
-            enableSorting: false,
+            //enableSorting: false,
 
-            enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
-            enableVerticalScrollbar: uiGridConstants.scrollbars.NEVER,
+            //enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
+            //enableVerticalScrollbar: uiGridConstants.scrollbars.NEVER,
 
-            enableFiltering: true,
-            enablePaginationControls: false,
-            multiSelect: false,
-            modifierKeysToMultiSelect: false,
-            noUnselect: true,
+            //enableFiltering: true,
+            //enablePaginationControls: false,
+            //multiSelect: false,
+            //modifierKeysToMultiSelect: false,
+            //noUnselect: true,
             paginationPageSize: 20,
         };
     };

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Models;
@@ -24,8 +25,15 @@ namespace ProjectManagementSystem.Services
         public UserViewModel AddUser(UserViewModel userViewModel, string password)
         {
             var user = userViewModel.ToApplicationUser();
-            this.userManager.Create(user, password);
-            this.userManager.AddToRoles(user.Id, userViewModel.Roles.Select(x => x.Name).ToString());
+            var result = this.userManager.Create(user, password);
+            if (!result.Succeeded)
+            {
+                throw new PmsExeption("Не удалось создать пользователя. Ошибки:" + result.Errors.Aggregate(string.Empty, (s, s1) => s + ", " + s1));
+            }
+            
+            this.userManager.AddToRoles(user.Id, userViewModel.Roles.Select(x => x.Name).ToArray());
+            
+            
             userViewModel.Id = user.Id;
             return userViewModel;
         }

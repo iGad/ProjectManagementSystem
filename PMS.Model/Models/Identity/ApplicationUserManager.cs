@@ -30,12 +30,12 @@ namespace PMS.Model.Models.Identity
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
-                RequireDigit = true,
-                RequireLowercase = true,
+                RequireDigit = false,
+                RequireLowercase = false,
                 RequireUppercase = false,
             };
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
+            manager.UserLockoutEnabledByDefault = false;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(60);
             manager.MaxFailedAccessAttemptsBeforeLockout = 10;
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user

@@ -1,10 +1,28 @@
-﻿angapp.controller('UsersMainController', ['$scope', '$mdDialog', 'UsersService', function ($scope, $mdDialog, UsersService) {
+﻿angapp.controller('UsersMainController', [
+    '$scope', '$mdDialog', "uiGridConstants", 'UsersService', function ($scope, $mdDialog, uiGridConstants, UsersService) {
     var onError = function(err) {
         console.error(err);
     };
     $scope.users = [];
     $scope.moveToPage = 1;
-    $scope.gridOptions = UsersService.getDefaultGridOptions();
+    $scope.gridOptions = {
+        enableRowSelection: true,
+        enableFullRowSelection: true,
+        enableRowHeaderSelection: false,
+        enableRowReordering: false,
+
+        enableSorting: false,
+
+        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
+        enableVerticalScrollbar: uiGridConstants.scrollbars.NEVER,
+
+        enableFiltering: true,
+        enablePaginationControls: false,
+        multiSelect: false,
+        modifierKeysToMultiSelect: false,
+        noUnselect: true,
+        paginationPageSize: 20,
+    };  //UsersService.getDefaultGridOptions();
 
     $scope.gridOptions.onRegisterApi = function (gridApi) {
         $scope.gridApi = gridApi;
