@@ -11,7 +11,7 @@
         enableRowHeaderSelection: false,
         enableRowReordering: false,
 
-        enableSorting: false,
+        enableSorting: true,
 
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         enableVerticalScrollbar: uiGridConstants.scrollbars.NEVER,
@@ -44,7 +44,7 @@
             displayName: 'Имя',
             field: 'Name',
             enableHiding: false,
-            enableSorting: false,
+            enableSorting: true,
             enableFiltering: true,
             enableCellEdit: false,
             headerTooltip: true,
@@ -55,7 +55,7 @@
             displayName: 'Фамилия',
             field: 'Surname',
             enableHiding: false,
-            enableSorting: false,
+            enableSorting: true,
             enableFiltering: true,
             enableCellEdit: false,
             headerTooltip: true,
@@ -66,7 +66,7 @@
             displayName: 'E-mail',
             field: 'Email',
             enableHiding: false,
-            enableSorting: false,
+            enableSorting: true,
             enableFiltering: true,
             enableCellEdit: false,
             headerTooltip: true,
@@ -115,7 +115,7 @@
         var selectedRows = $scope.gridApi.selection.getSelectedRows();
         if (selectedRows.length === 1) {
             var user = selectedRows[0];
-            var index = $scope.gridOptions.data.indexOf(row);
+            var index = $scope.gridOptions.data.indexOf(user);
             if (index !== -1) {
                 dialog(ev, user, function (edittedUser) {
                     UsersService.updateUser(edittedUser).then(function () {
@@ -133,7 +133,7 @@
             index = $scope.gridOptions.data.indexOf(row);
             if (index !== -1) {
                 var confirm = $mdDialog.confirm()
-                .title('Вы действительно хотите удалить пользователя ' + row.Surname + ' ' + row.Name + '?')
+                .title('Вы действительно хотите удалить пользователя ' + (row.Surname?row.Surname + ' ':'') + row.Name + '?')
                 .ariaLabel('delete user')
                 .targetEvent(ev)
                 .ok('Удалить')

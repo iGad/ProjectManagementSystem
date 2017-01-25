@@ -70,7 +70,7 @@
             var roles = [];
             for (var i = 0; i < $scope.allRoles.length; i++) {
                 var isUsed = false;
-                for (var j = 0; j < $scope.User.allRoles.length; j++) {
+                for (var j = 0; j < $scope.User.Roles.length; j++) {
                     if ($scope.User.Roles[j].Name === $scope.allRoles[i].Name)
                         isUsed = true;
                 }

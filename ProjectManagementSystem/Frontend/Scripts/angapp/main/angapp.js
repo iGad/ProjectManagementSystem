@@ -1,1 +1,1 @@
-﻿var angapp = angular.module('angapp', ['ui.router', 'ngMaterial', 'ngMessages', 'ui.grid', 'material.svgAssetsCache']);
+﻿var angapp = angular.module('angapp', ['ui.router', 'ngMaterial', 'ngMessages', 'ui.grid', 'ui.grid.selection', 'material.svgAssetsCache']);
