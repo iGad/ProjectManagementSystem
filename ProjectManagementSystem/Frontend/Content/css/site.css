@@ -1,0 +1,19 @@
+﻿body {
+    background: #f6f6f6;
+}
+label {
+    margin: 0;
+    font-weight: normal;
+}
+.content-back{
+  border: 1px solid #e1e1e1; 
+  height: 100%;
+}
+
+md-input-container {
+    margin-bottom: 0 !important;
+}
+
+.without-errors .md-errors-spacer{
+    min-height: 1px !important;
+}

@@ -132,4 +132,19 @@
   <data name="Manager" xml:space="preserve">
     <value>Руководитель направления</value>
   </data>
+  <data name="Partition" xml:space="preserve">
+    <value>Раздел</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Стадия</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Задание</value>
+  </data>
+  <data name="WorkItemNotFound" xml:space="preserve">
+    <value>Элемент с идентификатором {0} отсутствует</value>
+  </data>
 </root>

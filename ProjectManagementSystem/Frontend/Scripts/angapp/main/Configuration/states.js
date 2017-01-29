@@ -30,12 +30,12 @@ angapp.config(function ($stateProvider) {
         {
             name: 'base.main',
             url: '/',
-            templateUrl: 'Frontend/Views/main/base/panel.html'
+            templateUrl: 'Frontend/Views/main/base/workItem.html'
         },
     {
         name: 'base.tasks',
         url: '/tasks',
-        template: '<h1>Tasks</h1>'
+        templateUrl: '<h1>Tasks</h1>'
     },
         {
             name: 'base.about',

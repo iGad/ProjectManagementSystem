@@ -8,7 +8,7 @@ namespace PMS.Model.Models
 {
     public enum WorkItemStatus
     {
-        Work,
+        InWork,
         NotAccepted,
         WaitInspection,
         Inspection,

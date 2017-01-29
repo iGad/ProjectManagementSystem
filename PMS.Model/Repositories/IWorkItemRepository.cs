@@ -9,6 +9,7 @@ namespace PMS.Model.Repositories
         WorkItem GetById(int id);
         IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter);
         WorkItem Add(WorkItem workItem);
+
         int SaveChanges();
     }
 }

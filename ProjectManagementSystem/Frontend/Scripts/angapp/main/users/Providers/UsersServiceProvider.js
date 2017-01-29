@@ -60,6 +60,13 @@
                 getAllUsers: function () {
                     return getAllUsers($http);
                 },
+                getAllowedUsersForWorkItemType: function(typeId) {
+                    return $http({
+                        url: usersUrl + 'GetAllowedUsersForWorkItemType',
+                        method: 'GET',
+                        params: { typeId: typeId }
+                    });
+                },
                 getRoles: function() {
                     return $http({
                         url: usersUrl + 'GetRoles',

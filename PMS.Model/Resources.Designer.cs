@@ -104,5 +104,50 @@ namespace PMS.Model {
                 return ResourceManager.GetString("Manager", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Раздел.
+        /// </summary>
+        internal static string Partition {
+            get {
+                return ResourceManager.GetString("Partition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проект.
+        /// </summary>
+        internal static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Стадия.
+        /// </summary>
+        internal static string Stage {
+            get {
+                return ResourceManager.GetString("Stage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Задание.
+        /// </summary>
+        internal static string Task {
+            get {
+                return ResourceManager.GetString("Task", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Элемент с идентификатором {0} отсутствует.
+        /// </summary>
+        internal static string WorkItemNotFound {
+            get {
+                return ResourceManager.GetString("WorkItemNotFound", resourceCulture);
+            }
+        }
     }
 }

@@ -178,9 +178,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
+    <Compile Include="Controllers\WorkItemsApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,6 +215,9 @@
     <Content Include="Content\reset.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Frontend\Content\css\site.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Content\css\ui-grid\ui-grid.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -308,6 +313,13 @@
     </Content>
     <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\ShowItemsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemController.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemServiceProvider.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\angapp\main\index\PanelController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -330,6 +342,7 @@
     <Content Include="Frontend\Views\main\base\panel.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Views\main\base\workItem.html" />
     <Content Include="Frontend\Views\main\users\AddUpdateUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

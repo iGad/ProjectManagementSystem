@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Models;
 
@@ -38,6 +36,21 @@ namespace PMS.Model.Repositories
             if (role != null)
             {
                 return this.context.Users.Include(x => x.Roles).Where(x => x.Roles.Any(r => r.RoleId == role.Id));
+            }
+            return new ApplicationUser[0];
+        }
+
+        public IEnumerable<ApplicationUser> GetUsersByRoles(IEnumerable<string> rolesName)
+        {
+            var usersIds =
+                this.context.Roles.Include(x => x.Users)
+                    .Where(x => rolesName.Contains(x.Name))
+                    .SelectMany(x => x.Users.Select(u => u.UserId))
+                    .Distinct()
+                    .ToArray();
+            if (usersIds.Any())
+            {
+                return this.context.Users.Where(x => usersIds.Contains(x.Id));
             }
             return new ApplicationUser[0];
         }

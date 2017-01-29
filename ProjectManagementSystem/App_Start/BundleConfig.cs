@@ -33,7 +33,7 @@ namespace ProjectManagementSystem
             bundles.Add(new StyleBundle("~/Content/ui-grid").IncludeDirectory("~/Frontend/Content/css/ui-grid", "*.css"));
             bundles.Add(new StyleBundle("~/Content/reset").Include("~/Content/reset.css"));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Frontend/Content/css/bootstrap.css"));
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Frontend/Content/css/site.css"));
             //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css"));
         }
     }

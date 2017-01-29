@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using PMS.Model.Models;
 using PMS.Model.Models.Identity;
 using PMS.Model.Repositories;
+using PMS.Model.Services;
 using ProjectManagementSystem.Services;
 using ProjectManagementSystem.ViewModels;
 
@@ -123,6 +124,22 @@ namespace ProjectManagementSystem.Controllers
                 return new JsonResult
                 {
                     Data = isUnique,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    MaxJsonLength = int.MaxValue
+                };
+            }
+        }
+
+        [HttpGet]
+        public ActionResult GetAllowedUsersForWorkItemType(int typeId)
+        {
+            using (var context = new ApplicationContext())
+            {
+                var api = new UsersService(new UserRepository(context));
+                var users = api.GetAllowedUsersForWorkItemType(typeId).Select(x => new UserViewModel(x));
+                return new JsonResult
+                {
+                    Data = users,
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet,
                     MaxJsonLength = int.MaxValue
                 };
