@@ -1,3 +1,10 @@
 ﻿<md-content class="md-padding" ng-controller="PanelController">
-  Привет, я норм, а заодно и главная страница
+    <md-button ng-click="add()">Добавить</md-button>
+
+    <md-content>
+        <div layout="row" ng-repeat="project in projects">
+            <p>{{project.Name}}</p>
+            <md-button aria-label="edit element " ng-click="edit(project)"><span class="glyphicon glyphicon-edit"></span></md-button>
+        </div>
+    </md-content>
 </md-content>

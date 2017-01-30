@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using PMS.Model;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
@@ -17,6 +18,10 @@ namespace ProjectManagementSystem.Controllers
         {
             using (var context = new ApplicationContext())
             {
+                workItem.CreatorId = User.Identity.GetUserId();
+                workItem.State = WorkItemState.New;
+                workItem.Status = WorkItemStatus.InWork;
+                
                 var api = new WorkItemService(new WorkItemRepository(context));
                 return TryAction(() => CreateJsonResult(api.Add(workItem)));
             }

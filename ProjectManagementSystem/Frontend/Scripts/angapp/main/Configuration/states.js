@@ -27,25 +27,25 @@ angapp.config(function ($stateProvider) {
         name: 'base',
         templateUrl: 'Frontend/Views/main/base.html'
     },
-        {
-            name: 'base.main',
-            url: '/',
-            templateUrl: 'Frontend/Views/main/base/workItem.html'
-        },
+    {
+        name: 'base.main',
+        url: '/',
+        templateUrl: 'Frontend/Views/main/base/workItem.html'
+    },
     {
         name: 'base.tasks',
         url: '/tasks',
         templateUrl: '<h1>Tasks</h1>'
     },
-        {
-            name: 'base.about',
-            url: '/about',
-            template: '<h1>about</h1>'
-        },
-        {
-            name: 'base.projects',
-            url: '/projects',
-            template: '<h1>Projects</h1>'
+    {
+        name: 'base.about',
+        url: '/about',
+        template: '<h1>about</h1>'
+    },
+    {
+        name: 'base.projects',
+        url: '/projects',
+        templateUrl: 'Frontend/Views/main/base/panel.html'
         },
         {
             name: 'base.users',

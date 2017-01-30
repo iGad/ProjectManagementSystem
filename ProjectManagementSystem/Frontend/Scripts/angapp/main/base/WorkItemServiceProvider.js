@@ -31,6 +31,30 @@
                         params: {parentId: parentId}
                     });
                 },
+                addWorkItem: function (workItem) {
+                    return $http({
+                        url: workItemUrl + 'AddWorkItem',
+                        method: 'POST',
+                        data: { workItem: workItem }
+                    });
+                },
+                updateWorkItem: function (workItem) {
+                    return $http({
+                        url: workItemUrl + 'UpdateWorkItem',
+                        method: 'POST',
+                        data: { workItem: workItem }
+                    });
+                },
+                deleteWorkItem: function (userId) {
+                    return $http({
+                        url: usersUrl + 'DeleteUser',
+                        method: 'POST',
+                        data: { userId: userId }
+                    });
+                },
+
+
+
                 getDefaultGridOptions: function () {
                     return getDefaultGridOptions();
                 },
@@ -50,27 +74,7 @@
                         params: { id: id }
                     });
                 },
-                addWorkItem: function (user, password) {
-                    return $http({
-                        url: usersUrl + 'AddUser',
-                        method: 'POST',
-                        data: { user: user, password: password }
-                    });
-                },
-                updateWorkItem: function (user) {
-                    return $http({
-                        url: usersUrl + 'UpdateUser',
-                        method: 'POST',
-                        data: { user: user }
-                    });
-                },
-                deleteUser: function (userId) {
-                    return $http({
-                        url: usersUrl + 'DeleteUser',
-                        method: 'POST',
-                        data: { userId: userId }
-                    });
-                },
+                
                 isEmailUnique: function (email) {
                     return $http({
                         url: usersUrl + 'IsEmailUnique',
