@@ -9,10 +9,12 @@
              DeadLine: moment().add(1, 'days').toDate()
          };
 
+         $scope.isNew = $scope.workItem.Id == undefined;
+
          function getUsers(typeId) {
              UsersService.getAllowedUsersForWorkItemType(typeId).then(function (content) {
                  $scope.users = angular.fromJson(content.data);
-                 if ($scope.users.length)
+                 if (!$scope.workItem.ExecutorId)
                      $scope.workItem.ExecutorId = $scope.users[0].Id;
              });
          };
@@ -20,14 +22,34 @@
          function getTypes() {
              WorkItemService.getTypes().then(function(content) {
                  $scope.types = angular.fromJson(content.data);
-                 if ($scope.types.length && !$scope.workItem.Type) {
+                 if (!$scope.workItem.Type) {
                      $scope.workItem.Type = $scope.types[1].Id;
-                     $scope.typeChanged($scope.types[1].Id);
                  }
+                 $scope.typeChanged($scope.workItem.Type);
              });
          };
          getTypes();
          
+         function setFlags(workItemType) {
+             $scope.isProject = false;
+             $scope.isStage = false;
+             $scope.isPartition = false;
+             $scope.isTask = false;
+             switch (workItemType) {
+                 case $scope.types[0].Id:
+                     $scope.isProject = true;
+                     break;
+                 case $scope.types[1].Id:
+                     $scope.isStage = true;
+                     break;
+                 case $scope.types[2].Id:
+                     $scope.isPartition = true;
+                     break;
+                 case $scope.types[3].Id:
+                     $scope.isTask = true;
+                     break;
+             }
+         }
 
          $scope.getUserDisplayText = function (user) {
              var text = '';
@@ -43,8 +65,13 @@
          function getPartitions(stageId) {
              WorkItemService.getChildItems(stageId).then(function (content) {
                  $scope.partitions = angular.fromJson(content.data);
-                 if ($scope.partitions.length)
-                     $scope.parentPartitionId = $scope.partitions[0].Id;
+                 if ($scope.partitions.length) {
+                     if ($scope.isTask && $scope.workItem.ParentId) {
+                         $scope.parentPartitionId = $scope.workItem.ParentId;
+                     } else {
+                         $scope.parentPartitionId = $scope.partitions[0].Id;
+                     }
+                 }
              });
          }
 
@@ -52,8 +79,12 @@
              WorkItemService.getChildItems(projectId).then(function (content) {
                  $scope.stages = angular.fromJson(content.data);
                  if ($scope.stages.length) {
-                     $scope.parentStageId = $scope.types[1].Id;
-                     $scope.stageChanged($scope.stages[0].Id);
+                     if ($scope.isPartition && $scope.workItem.ParentId) {
+                         $scope.parentStageId = $scope.workItem.ParentId;
+                     } else {
+                         $scope.parentStageId = $scope.stages[0].Id;
+                     }
+                     $scope.stageChanged($scope.parentStageId);
                  }
              });
          }
@@ -62,8 +93,12 @@
              WorkItemService.getProjects().then(function (content) {
                  $scope.projects = angular.fromJson(content.data);
                  if ($scope.projects.length) {
-                     $scope.parentProjectId = $scope.types[1].Id;
-                     $scope.projectChanged($scope.projects[0].Id);
+                     if ($scope.isStage && $scope.workItem.ParentId) {
+                         $scope.parentProjectId = $scope.workItem.ParentId;
+                     } else {
+                         $scope.parentProjectId = $scope.projects[0].Id;
+                     }
+                     $scope.projectChanged($scope.parentProjectId);
                  }
              });
          }
@@ -74,10 +109,11 @@
 
          $scope.typeChanged = function (typeId) {
              if (typeId) {
+                 setFlags(typeId);
                  getUsers(typeId);
+                 if (typeId !== $scope.types[0].Id && !$scope.projects)
+                     getProjects();
              }
-             if (typeId !== $scope.types[0].Id)
-                 getProjects();
          };
 
          $scope.projectChanged = function (projectId) {
@@ -96,16 +132,16 @@
                  $scope.partitions = [];
          }
 
-         $scope.isProject = function () {
-             return  $scope.workItem.Type === $scope.types[0].Id;
-         };
+         //$scope.isProject = function () {
+         //    return  $scope.workItem.Type === $scope.types[0].Id;
+         //};
 
-         $scope.isStage = function () {
-             return $scope.workItem.Type === $scope.types[1].Id;
-         };
-         $scope.isPartition = function () {
-             return $scope.workItem.Type === $scope.types[2].Id;
-         };
+         //$scope.isStage = function () {
+         //    return $scope.workItem.Type === $scope.types[1].Id;
+         //};
+         //$scope.isPartition = function () {
+         //    return $scope.workItem.Type === $scope.types[2].Id;
+         //};
          $scope.save = function () {
              var parentId;
              switch($scope.workItem.Type) {
