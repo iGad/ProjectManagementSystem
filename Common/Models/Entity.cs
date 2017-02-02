@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PMS.Model.Models
+namespace Common.Models
 {
     /// <summary>
     /// Базовый класс для сущностей

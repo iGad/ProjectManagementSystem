@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using Common.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Migrations;
 using PMS.Model.Models.Identity;
@@ -9,7 +10,7 @@ namespace PMS.Model.Models
 {
     public class ApplicationContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationContext(): base("DefaultConnection", throwIfV1Schema: false)//"DefaultConnection"
+        public ApplicationContext(): base("DefaultConnection", false)//"DefaultConnection"
         {
             RequireUniqueEmail = false;
             if (!Database.Exists())

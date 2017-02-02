@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PMS.Model
 {
     public static class Extensions
     {
+       
         public static IList<TEnum> ToEnumList<TEnum>() where TEnum : struct, IConvertible
         {
             return Enum.GetValues(typeof (TEnum)).OfType<TEnum>().OrderBy(x => x).ToList();

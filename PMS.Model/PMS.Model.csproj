@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Export\Export.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Migrations\201701060749441_Initial.cs" />
     <Compile Include="Migrations\201701060749441_Initial.Designer.cs">
@@ -94,18 +95,15 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
-    <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\ApplicationDbInitializer.cs" />
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\ApplicationSignInManager.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
-    <Compile Include="Models\NamedEntity.cs" />
     <Compile Include="Models\Partition.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\WorkItemType.cs" />
     <Compile Include="Models\Task.cs" />
-    <Compile Include="Models\TreeNode.cs" />
     <Compile Include="Models\WorkItem.cs" />
     <Compile Include="Models\WorkItemState.cs" />
     <Compile Include="Models\WorkItemStatus.cs" />
@@ -122,7 +120,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\PmsExeption.cs" />
-    <Compile Include="Services\TreeService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Services\WorkItemService.cs" />
   </ItemGroup>
@@ -139,7 +136,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d24b1233-a5c3-4b62-a0b0-38680b82784c}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

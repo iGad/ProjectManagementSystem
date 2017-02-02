@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -33,7 +31,7 @@ namespace PMS.Model.Models.Identity
                 owinContext.Set(applicationContext);
                 var userManager = ApplicationUserManager.Create(new IdentityFactoryOptions<ApplicationUserManager>(), owinContext);
                 var roleManager = ApplicationRoleManager.Create(new IdentityFactoryOptions<ApplicationRoleManager>(), owinContext);
-                List<string> rolesName = new List<string>() { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
+                List<string> rolesName = new List<string> { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
                 //List<string> rolesName = new List<string>() { "Руководитель направления", "Главный инженер проекта", "Исполнитель", "Директор", "Администратор" };
                 for (int i = 0; i < rolesName.Count; i++)
                 {

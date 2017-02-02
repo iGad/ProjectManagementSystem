@@ -1,26 +1,24 @@
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Models;
 
 namespace PMS.Model.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<Models.ApplicationContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Models.ApplicationContext applicationContext)
+        protected override void Seed(ApplicationContext applicationContext)
         {
             using (var transaction = applicationContext.Database.BeginTransaction())
             {
-                List<string> rolesName = new List<string>() { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
+                List<string> rolesName = new List<string> { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
                 for (int i = 0; i < rolesName.Count; i++)
                 {
                     if (applicationContext.Roles.AsEnumerable().All(k => k.Name != rolesName[i]))

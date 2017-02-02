@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Common.Models;
+using Common.Repositories;
 using PMS.Model.Models;
 
 namespace PMS.Model.Repositories
 {
-    public class WorkItemRepository : IWorkItemRepository
+    public class WorkItemRepository : IWorkItemRepository, ITreeRepository
     {
         private readonly ApplicationContext context;
         public WorkItemRepository(ApplicationContext context)
@@ -33,6 +33,11 @@ namespace PMS.Model.Repositories
         public int SaveChanges()
         {
             return this.context.SaveChanges();
+        }
+
+        public ICollection<TreeNode> GetNodes(Func<IHierarchicalEntity, bool> whereExpression)
+        {
+            return Get(whereExpression).Select(x => x.ToTreeNode()).ToList();
         }
     }
 }

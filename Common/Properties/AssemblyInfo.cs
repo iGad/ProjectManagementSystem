@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PMS.Model")]
+[assembly: AssemblyTitle("Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("WZT")]
-[assembly: AssemblyProduct("PMS.Model")]
+[assembly: AssemblyProduct("Common")]
 [assembly: AssemblyCopyright("Copyright © WZT 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9c120db8-0928-4afd-a6b9-91d1d769c050")]
+[assembly: Guid("d24b1233-a5c3-4b62-a0b0-38680b82784c")]
 
 // Version information for an assembly consists of the following four values:
 //

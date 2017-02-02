@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace PMS.Model.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class Initial : DbMigration
     {
         public override void Up()
@@ -11,16 +10,16 @@ namespace PMS.Model.Migrations
                 "dbo.Comments",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        WorkItemId = c.Int(nullable: false),
+                        Id = c.Int(false, true),
+                        WorkItemId = c.Int(false),
                         Text = c.String(),
                         UserId = c.String(maxLength: 128),
-                        CreatedDate = c.DateTime(nullable: false),
-                        UpdatedDate = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(false),
+                        UpdatedDate = c.DateTime(false)
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.WorkItems", t => t.WorkItemId, cascadeDelete: true)
+                .ForeignKey("dbo.WorkItems", t => t.WorkItemId, true)
                 .Index(t => t.WorkItemId)
                 .Index(t => t.UserId);
             
@@ -28,23 +27,23 @@ namespace PMS.Model.Migrations
                 "dbo.AspNetUsers",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false),
+                        Id = c.String(false, 128),
+                        Name = c.String(false),
                         Surname = c.String(),
                         Fathername = c.String(),
                         Birthday = c.DateTime(),
-                        IsDeleted = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(false),
                         Email = c.String(maxLength: 256),
-                        EmailConfirmed = c.Boolean(nullable: false),
+                        EmailConfirmed = c.Boolean(false),
                         PasswordHash = c.String(),
                         SecurityStamp = c.String(),
                         PhoneNumber = c.String(),
-                        PhoneNumberConfirmed = c.Boolean(nullable: false),
-                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        PhoneNumberConfirmed = c.Boolean(false),
+                        TwoFactorEnabled = c.Boolean(false),
                         LockoutEndDateUtc = c.DateTime(),
-                        LockoutEnabled = c.Boolean(nullable: false),
-                        AccessFailedCount = c.Int(nullable: false),
-                        UserName = c.String(nullable: false, maxLength: 256),
+                        LockoutEnabled = c.Boolean(false),
+                        AccessFailedCount = c.Int(false),
+                        UserName = c.String(false, 256)
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
@@ -53,37 +52,37 @@ namespace PMS.Model.Migrations
                 "dbo.AspNetUserClaims",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(nullable: false, maxLength: 128),
+                        Id = c.Int(false, true),
+                        UserId = c.String(false, 128),
                         ClaimType = c.String(),
-                        ClaimValue = c.String(),
+                        ClaimValue = c.String()
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, true)
                 .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
                 c => new
                     {
-                        LoginProvider = c.String(nullable: false, maxLength: 128),
-                        ProviderKey = c.String(nullable: false, maxLength: 128),
-                        UserId = c.String(nullable: false, maxLength: 128),
+                        LoginProvider = c.String(false, 128),
+                        ProviderKey = c.String(false, 128),
+                        UserId = c.String(false, 128)
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, true)
                 .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUserRoles",
                 c => new
                     {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
+                        UserId = c.String(false, 128),
+                        RoleId = c.String(false, 128)
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -91,21 +90,21 @@ namespace PMS.Model.Migrations
                 "dbo.WorkItems",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(false, true),
                         ParentId = c.Int(),
-                        Type = c.Int(nullable: false),
+                        Type = c.Int(false),
                         Description = c.String(),
-                        CreatorId = c.String(nullable: false, maxLength: 128),
+                        CreatorId = c.String(false, 128),
                         ExecutorId = c.String(maxLength: 128),
-                        State = c.Int(nullable: false),
-                        Status = c.Int(nullable: false),
-                        DeadLine = c.DateTime(nullable: false),
-                        Name = c.String(nullable: false),
-                        CreatedDate = c.DateTime(nullable: false),
-                        UpdatedDate = c.DateTime(nullable: false),
+                        State = c.Int(false),
+                        Status = c.Int(false),
+                        DeadLine = c.DateTime(false),
+                        Name = c.String(false),
+                        CreatedDate = c.DateTime(false),
+                        UpdatedDate = c.DateTime(false)
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId, true)
                 .ForeignKey("dbo.AspNetUsers", t => t.ExecutorId)
                 .ForeignKey("dbo.WorkItems", t => t.ParentId)
                 .Index(t => t.ParentId)
@@ -116,8 +115,8 @@ namespace PMS.Model.Migrations
                 "dbo.AspNetRoles",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
+                        Id = c.String(false, 128),
+                        Name = c.String(false, 256)
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");

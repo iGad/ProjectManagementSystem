@@ -3,38 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Common.Models;
 using Microsoft.AspNet.Identity;
 using PMS.Model;
 using PMS.Model.Models;
-using PMS.Model.Repositories;
 using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
     public class WorkItemsApiController : BaseController
     {
+        private readonly WorkItemService workItemService;
+        public WorkItemsApiController(WorkItemService workItemService)
+        {
+            this.workItemService = workItemService;
+        }
         [HttpPost]
         public ActionResult AddWorkItem(WorkItem workItem)
         {
-            using (var context = new ApplicationContext())
-            {
-                workItem.CreatorId = User.Identity.GetUserId();
-                workItem.State = WorkItemState.New;
-                workItem.Status = WorkItemStatus.InWork;
+            workItem.CreatorId = User.Identity.GetUserId();
+            workItem.State = WorkItemState.New;
+            workItem.Status = WorkItemStatus.InWork;
                 
-                var api = new WorkItemService(new WorkItemRepository(context));
-                return TryAction(() => CreateJsonResult(api.Add(workItem)));
-            }
+            return TryAction(() => CreateJsonResult(this.workItemService.Add(workItem)));
         }
 
         [HttpPost]
         public ActionResult UpdateWorkItem(WorkItem workItem)
         {
-            using (var context = new ApplicationContext())
-            {
-                var api = new WorkItemService(new WorkItemRepository(context));
-                return TryAction(() => api.Update(workItem));
-            }
+            return TryAction(() => this.workItemService.Update(workItem));
         }
 
         [HttpGet]
@@ -47,23 +44,15 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetProjects()
         {
-            using (var context = new ApplicationContext())
-            {
-                var api = new WorkItemService(new WorkItemRepository(context));
-                var projects = api.GetActualProjects();
-                return CreateJsonResult(projects);
-            }
+            var projects = this.workItemService.GetActualProjects();
+            return CreateJsonResult(projects);
         }
 
         [HttpGet]
         public ActionResult GetChildWorkItems(int parentId)
         {
-            using (var context = new ApplicationContext())
-            {
-                var api = new WorkItemService(new WorkItemRepository(context));
-                var projects = api.GetChildWorkItems(parentId);
-                return CreateJsonResult(projects);
-            }
+            var projects = this.workItemService.GetChildWorkItems(parentId);
+            return CreateJsonResult(projects);
         }
 
         

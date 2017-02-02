@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Controllers\WorkItemsApiController.cs" />
+    <Compile Include="Export\DependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -578,6 +579,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d24b1233-a5c3-4b62-a0b0-38680b82784c}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PMS.Model\PMS.Model.csproj">
       <Project>{9c120db8-0928-4afd-a6b9-91d1d769c050}</Project>
       <Name>PMS.Model</Name>

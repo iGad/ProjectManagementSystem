@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -32,7 +31,7 @@ namespace PMS.Model.Models.Identity
                 RequireNonLetterOrDigit = false,
                 RequireDigit = false,
                 RequireLowercase = false,
-                RequireUppercase = false,
+                RequireUppercase = false
             };
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = false;

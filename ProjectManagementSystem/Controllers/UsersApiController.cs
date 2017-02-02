@@ -18,6 +18,12 @@ namespace ProjectManagementSystem.Controllers
     public class UsersApiController : Controller
     {
         private ApplicationUserManager userManager;
+        private readonly UsersService usersService;
+
+        public UsersApiController(UsersService usersService)
+        {
+            this.usersService = usersService;
+        }
 
         public ApplicationUserManager UserManager
         {
@@ -133,17 +139,14 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetAllowedUsersForWorkItemType(int typeId)
         {
-            using (var context = new ApplicationContext())
+            var users = this.usersService.GetAllowedUsersForWorkItemType(typeId).Select(x => new UserViewModel(x));
+            return new JsonResult
             {
-                var api = new UsersService(new UserRepository(context));
-                var users = api.GetAllowedUsersForWorkItemType(typeId).Select(x => new UserViewModel(x));
-                return new JsonResult
-                {
-                    Data = users,
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                    MaxJsonLength = int.MaxValue
-                };
-            }
+                Data = users,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = int.MaxValue
+            };
+            
         }
     }
 }
