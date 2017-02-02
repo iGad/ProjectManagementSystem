@@ -18,6 +18,13 @@
                         method: "GET"
                     });
                 },
+                getWorkItem: function(id) {
+                    return $http({
+                        url: workItemUrl + 'GetWorkItem',
+                        method: 'GET',
+                        params: { id: id }
+                    });
+                },
                 getProjects: function () {
                     return $http({
                         url: workItemUrl + 'GetProjects',

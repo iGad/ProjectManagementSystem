@@ -28,8 +28,14 @@ angapp.config(function ($stateProvider) {
         templateUrl: 'Frontend/Views/main/base.html'
     },
     {
+        name: 'base.edit',
+        url: '/edit/{workItemId}',
+        templateUrl: 'Frontend/Views/main/base/workItem.html'
+    },
+    {
         name: 'base.main',
         url: '/',
+        params: { workItem: null },
         templateUrl: 'Frontend/Views/main/base/workItem.html'
     },
     {

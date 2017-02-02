@@ -14,11 +14,11 @@
                         </md-input-container>
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" style="width: 100px" ng-if="workItem.Id">
-                                <label></label>
+                                <label>Идентификатор</label>
                                 <input ng-model="workItem.Id" disabled></input>
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label>Название</label>
+                                <label>{{workItemName}}</label>
                                 <input ng-model="workItem.Name" md-select-on-focus required></input>
                             </md-input-container>
                         </div>

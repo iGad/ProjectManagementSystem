@@ -57,7 +57,7 @@
     <Compile Include="Export\Export.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\HierarchicallEntity.cs" />
+    <Compile Include="Models\IHierarchicalEntity.cs" />
     <Compile Include="Models\NamedEntity.cs" />
     <Compile Include="Models\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

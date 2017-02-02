@@ -42,6 +42,13 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetWorkItem(int id)
+        {
+            var workItem = this.workItemService.Get(id);
+            return CreateJsonResult(workItem);
+        }
+
+        [HttpGet]
         public ActionResult GetProjects()
         {
             var projects = this.workItemService.GetActualProjects();
