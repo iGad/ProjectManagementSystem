@@ -56,6 +56,7 @@
     <Compile Include="DI\NinjectCompositionContainer.cs" />
     <Compile Include="Export\Export.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="LocalizedAttribute.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\IHierarchicalEntity.cs" />
     <Compile Include="Models\NamedEntity.cs" />

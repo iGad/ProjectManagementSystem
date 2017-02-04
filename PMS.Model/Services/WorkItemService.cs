@@ -23,6 +23,7 @@ namespace PMS.Model.Services
 
         public WorkItem Add(WorkItem workItem)
         {
+            workItem.State = string.IsNullOrWhiteSpace(workItem.ExecutorId) ? WorkItemState.New : WorkItemState.Planned;
             var item = this.repository.Add(workItem);
             this.repository.SaveChanges();
             return item;
@@ -53,5 +54,29 @@ namespace PMS.Model.Services
             oldWorkItem.ExecutorId = workItem.ExecutorId;
             this.repository.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var item = Get(id);
+            this.repository.Delete(item);
+            this.repository.SaveChanges();
+        }
+
+        public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems()
+        {
+            var states = new[] {WorkItemState.New, WorkItemState.Planned, WorkItemState.AtWork, WorkItemState.Reviewing, WorkItemState.Done};
+            var items = this.repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
+            var itemsDictionary = new Dictionary<WorkItemState, List<WorkItem>>();
+            foreach (var state in states)
+            {
+                itemsDictionary.Add(state, items.Where(x => x.State == state).ToList());
+            }
+            return itemsDictionary;
+        }
+
+        public List<WorkItemState> GetStates()
+        {
+            return Extensions.ToEnumList<WorkItemState>().Where(x => x != WorkItemState.Deleted).ToList();
+        } 
     }
 }

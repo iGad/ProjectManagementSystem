@@ -30,13 +30,13 @@ angapp.config(function ($stateProvider) {
     {
         name: 'base.edit',
         url: '/edit/{workItemId}',
+        params: {returnStateName: 'base.main'},
         templateUrl: 'Frontend/Views/main/base/workItem.html'
     },
     {
         name: 'base.main',
         url: '/',
-        params: { workItem: null },
-        templateUrl: 'Frontend/Views/main/base/workItem.html'
+        templateUrl: 'Frontend/Views/main/base/workboard.html'
     },
     {
         name: 'base.tasks',
@@ -51,7 +51,7 @@ angapp.config(function ($stateProvider) {
     {
         name: 'base.projects',
         url: '/projects',
-        templateUrl: 'Frontend/Views/main/base/panel.html'
+        templateUrl: 'Frontend/Views/main/base/projects.html'
         },
         {
             name: 'base.users',

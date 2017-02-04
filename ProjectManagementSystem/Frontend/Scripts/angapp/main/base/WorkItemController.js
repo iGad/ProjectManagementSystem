@@ -3,12 +3,22 @@
          function onError(err) {
              console.error(err);
          };
+         function goToReturnState() {
+             $state.go($stateParams.returnStateName);
+         }
+         function getStates() {
+             WorkItemService.getStates().then(function(content) {
+                 $scope.states = content.data;
+             });
+         };
+
+         getStates();
 
          function getUsers(typeId) {
              UsersService.getAllowedUsersForWorkItemType(typeId).then(function (content) {
                  $scope.users = angular.fromJson(content.data);
-                 if (!$scope.workItem.ExecutorId)
-                     $scope.workItem.ExecutorId = $scope.users[0].Id;
+                 //if (!$scope.workItem.ExecutorId)
+                 //    $scope.workItem.ExecutorId = $scope.users[0].Id;
              });
          };
 
@@ -169,26 +179,28 @@
              $scope.workItem.DeadLine.setSeconds(0);
              if (!$scope.isNew) {
                  WorkItemService.updateWorkItem($scope.workItem).then(function () {
-                     $state.go('base.projects', { workItem: null });
+                     goToReturnState();
                  }, onError);
              } else {
                  WorkItemService.addWorkItem($scope.workItem).then(function() {
-                     $state.go('base.projects', { workItem: null });
+                     goToReturnState();
                  }, onError);
              }
          };
 
-         $scope.cancel = function (ev) {
+         $scope.cancel = function(ev) {
              var confirm = $mdDialog.confirm()
-                  .title('Вы уверены, что хотите выйти?')
-                  .textContent('Все изменения будут потеряны')
-                  .ariaLabel('Lucky day')
-                  .targetEvent(ev)
-                  .ok('Да')
-                  .cancel('Нет');
+                 .title('Вы уверены, что хотите выйти?')
+                 .textContent('Все изменения будут потеряны')
+                 .ariaLabel('Lucky day')
+                 .targetEvent(ev)
+                 .ok('Да')
+                 .cancel('Нет');
 
-             $mdDialog.show(confirm).then(function () {
-                 $state.go('base.projects');
-             }, function () {});
-         }
+             $mdDialog.show(confirm).then(function() {
+                 goToReturnState();
+             }, function() {});
+         };
+
+         
      }]);

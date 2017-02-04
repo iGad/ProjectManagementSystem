@@ -141,6 +141,24 @@
   <data name="Stage" xml:space="preserve">
     <value>Стадия</value>
   </data>
+  <data name="StateArchive" xml:space="preserve">
+    <value>В архиве</value>
+  </data>
+  <data name="StateAtWork" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="StateDone" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
+  <data name="StateNew" xml:space="preserve">
+    <value>Без исполнителя</value>
+  </data>
+  <data name="StatePlanned" xml:space="preserve">
+    <value>В планах</value>
+  </data>
+  <data name="StateReviewing" xml:space="preserve">
+    <value>На проверке</value>
+  </data>
   <data name="Task" xml:space="preserve">
     <value>Задание</value>
   </data>

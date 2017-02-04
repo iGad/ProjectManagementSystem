@@ -198,10 +198,13 @@
     </Compile>
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\UsersApiService.cs" />
+    <Compile Include="Services\WorkItemApiService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\EnumViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemTileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Frontend\Content\css\angular-material\angular-material.css" />
@@ -317,7 +320,9 @@
     </Content>
     <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\ShowItemsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\WorkBoardController.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\angapp\main\base\WorkItemController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -349,7 +354,10 @@
     <Content Include="Frontend\Views\main\addWorkItem.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\panel.html">
+    <Content Include="Frontend\Views\main\base\workboard.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\base\projects.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Frontend\Views\main\base\workItem.html" />

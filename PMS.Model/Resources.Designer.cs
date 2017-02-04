@@ -8,15 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.CodeDom.Compiler;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Resources;
-using System.Runtime.CompilerServices;
-
 namespace PMS.Model {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -24,27 +19,27 @@ namespace PMS.Model {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
-    [DebuggerNonUserCode()]
-    [CompilerGenerated()]
-    internal class Resources {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    public class Resources {
         
-        private static ResourceManager resourceMan;
+        private static global::System.Resources.ResourceManager resourceMan;
         
-        private static CultureInfo resourceCulture;
+        private static global::System.Globalization.CultureInfo resourceCulture;
         
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static ResourceManager ResourceManager {
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if (ReferenceEquals(resourceMan, null)) {
-                    ResourceManager temp = new ResourceManager("PMS.Model.Resources", typeof(Resources).Assembly);
+                if (object.ReferenceEquals(resourceMan, null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PMS.Model.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -55,8 +50,8 @@ namespace PMS.Model {
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        internal static CultureInfo Culture {
+        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -68,7 +63,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Администратор.
         /// </summary>
-        internal static string Admin {
+        public static string Admin {
             get {
                 return ResourceManager.GetString("Admin", resourceCulture);
             }
@@ -77,7 +72,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Директор.
         /// </summary>
-        internal static string Director {
+        public static string Director {
             get {
                 return ResourceManager.GetString("Director", resourceCulture);
             }
@@ -86,7 +81,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Исполнитель.
         /// </summary>
-        internal static string Executor {
+        public static string Executor {
             get {
                 return ResourceManager.GetString("Executor", resourceCulture);
             }
@@ -95,7 +90,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Главный инженер проекта.
         /// </summary>
-        internal static string MainProjectEngineer {
+        public static string MainProjectEngineer {
             get {
                 return ResourceManager.GetString("MainProjectEngineer", resourceCulture);
             }
@@ -104,7 +99,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Руководитель направления.
         /// </summary>
-        internal static string Manager {
+        public static string Manager {
             get {
                 return ResourceManager.GetString("Manager", resourceCulture);
             }
@@ -113,7 +108,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Раздел.
         /// </summary>
-        internal static string Partition {
+        public static string Partition {
             get {
                 return ResourceManager.GetString("Partition", resourceCulture);
             }
@@ -122,7 +117,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Проект.
         /// </summary>
-        internal static string Project {
+        public static string Project {
             get {
                 return ResourceManager.GetString("Project", resourceCulture);
             }
@@ -131,16 +126,70 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Стадия.
         /// </summary>
-        internal static string Stage {
+        public static string Stage {
             get {
                 return ResourceManager.GetString("Stage", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to В архиве.
+        /// </summary>
+        public static string StateArchive {
+            get {
+                return ResourceManager.GetString("StateArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В работе.
+        /// </summary>
+        public static string StateAtWork {
+            get {
+                return ResourceManager.GetString("StateAtWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Завершено.
+        /// </summary>
+        public static string StateDone {
+            get {
+                return ResourceManager.GetString("StateDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Без исполнителя.
+        /// </summary>
+        public static string StateNew {
+            get {
+                return ResourceManager.GetString("StateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to В планах.
+        /// </summary>
+        public static string StatePlanned {
+            get {
+                return ResourceManager.GetString("StatePlanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to На проверке.
+        /// </summary>
+        public static string StateReviewing {
+            get {
+                return ResourceManager.GetString("StateReviewing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Задание.
         /// </summary>
-        internal static string Task {
+        public static string Task {
             get {
                 return ResourceManager.GetString("Task", resourceCulture);
             }
@@ -149,7 +198,7 @@ namespace PMS.Model {
         /// <summary>
         ///   Looks up a localized string similar to Элемент с идентификатором {0} отсутствует.
         /// </summary>
-        internal static string WorkItemNotFound {
+        public static string WorkItemNotFound {
             get {
                 return ResourceManager.GetString("WorkItemNotFound", resourceCulture);
             }

@@ -2,20 +2,36 @@
     var usersUrl = '/UsersApi/';
     var workItemUrl = '/WorkItemsApi/';
 
-    var getAllUsers = function ($http) {
-        return $http({
-            url: usersUrl + 'GetUsers',
-            method: "GET"
-        });
+    var getWorkItemTypeName = function(type) {
+        switch (type) {
+            case 1:
+                return 'project';
+            case 2:
+                return 'stage';
+            case 3:
+                return 'partition';
+            case 4:
+                return 'task';
+        }
+        return 'task';
     };
 
     return {
         $get: ["$q", "$http", function ($q, $http) {
             var service = {
+                getWorkItemTypeName: function(type) {
+                    return getWorkItemTypeName(type);
+                },
                 getTypes: function () {
                     return $http({
                         url: workItemUrl + 'GetWorkItemTypes',
                         method: "GET"
+                    });
+                },
+                getStates: function() {
+                    return $http({
+                        url: workItemUrl + 'GetStates',
+                        method: 'GET'
                     });
                 },
                 getWorkItem: function(id) {
@@ -52,45 +68,21 @@
                         data: { workItem: workItem }
                     });
                 },
-                deleteWorkItem: function (userId) {
+                deleteWorkItem: function (id) {
                     return $http({
-                        url: usersUrl + 'DeleteUser',
+                        url: workItemUrl + 'DeleteWorkItem',
                         method: 'POST',
-                        data: { userId: userId }
+                        data: { id: id }
                     });
                 },
-
-
-
-                getDefaultGridOptions: function () {
-                    return getDefaultGridOptions();
-                },
-                getAllUsers: function () {
-                    return getAllUsers($http);
-                },
-                getRoles: function () {
+                getActualWorkItems: function() {
                     return $http({
-                        url: usersUrl + 'GetRoles',
+                        url: workItemUrl + 'GetActualWorkItems',
                         method: 'GET'
                     });
                 },
-                getMainInfo: function (id) {
-                    return $http({
-                        url: usersUrl + 'GetMainInfo',
-                        method: 'GET',
-                        params: { id: id }
-                    });
-                },
+
                 
-                isEmailUnique: function (email) {
-                    return $http({
-                        url: usersUrl + 'IsEmailUnique',
-                        method: 'GET',
-                        params: { email: email }
-                    });
-                }
-
-
             };
             return service;
         }]

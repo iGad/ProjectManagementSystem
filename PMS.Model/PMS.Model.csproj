@@ -99,11 +99,7 @@
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\ApplicationSignInManager.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
-    <Compile Include="Models\Partition.cs" />
-    <Compile Include="Models\Project.cs" />
-    <Compile Include="Models\Stage.cs" />
     <Compile Include="Models\WorkItemType.cs" />
-    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\WorkItem.cs" />
     <Compile Include="Models\WorkItemState.cs" />
     <Compile Include="Models\WorkItemStatus.cs" />
@@ -132,7 +128,7 @@
       <DependentUpon>201701060749441_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

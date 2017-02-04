@@ -4,14 +4,25 @@
             <div layout="column" style="width: 100%; height: 100%">
                 <ng-form name="addUpdateWorkItemForm" flex>
                     <md-content class="md-padding content-back">
-                        <md-input-container class="md-block">
-                            <label>Тип</label>
-                            <md-select ng-model="workItem.Type" required ng-change="typeChanged(workItem.Type)">
-                                <md-option ng-repeat="type in types" ng-value="type.Id">
-                                    {{type.Name}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block">
+                                <label>Тип</label>
+                                <md-select ng-model="workItem.Type" required ng-change="typeChanged(workItem.Type)">
+                                    <md-option ng-repeat="type in types" ng-value="type.Id">
+                                        {{type.Name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex ng-if="!isNew">
+                                <label>Состояние</label>
+                                <md-select ng-model="workItem.State">
+                                    <md-option ng-repeat="state in states" value="{{state.Value}}">
+                                        {{state.Description}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                     
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" style="width: 100px" ng-if="workItem.Id">
                                 <label>Идентификатор</label>
@@ -54,7 +65,8 @@
                         <div layout-gt-xs="row">
                             <md-input-container class="md-block" flex="50">
                                 <label>Исполнитель</label>
-                                <md-select ng-model="workItem.ExecutorId" required>
+                                <md-select ng-model="workItem.ExecutorId">
+                                    <md-option>Отсутствует</md-option>
                                     <md-option ng-repeat="user in users" value="{{user.Id}}">
                                         {{getUserDisplayText(user)}}
                                     </md-option>

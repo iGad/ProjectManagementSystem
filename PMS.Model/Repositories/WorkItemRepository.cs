@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Common.Models;
 using Common.Repositories;
@@ -22,7 +23,12 @@ namespace PMS.Model.Repositories
 
         public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)
         {
-            return this.context.WorkItems.Where(filter);
+            return this.context.WorkItems.Include(x => x.Creator).Where(filter);
+        }
+
+        public IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter)
+        {
+            return this.context.WorkItems.Include(x => x.Creator).Include(x => x.Executor).Where(filter);
         }
 
         public WorkItem Add(WorkItem workItem)
@@ -33,6 +39,11 @@ namespace PMS.Model.Repositories
         public int SaveChanges()
         {
             return this.context.SaveChanges();
+        }
+
+        public void Delete(WorkItem item)
+        {
+            this.context.WorkItems.Remove(item);
         }
 
         public ICollection<TreeNode> GetNodes(Func<IHierarchicalEntity, bool> whereExpression)

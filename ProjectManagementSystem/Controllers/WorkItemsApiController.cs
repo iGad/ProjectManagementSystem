@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Common.Models;
 using Microsoft.AspNet.Identity;
 using PMS.Model;
 using PMS.Model.Models;
 using PMS.Model.Services;
+using ProjectManagementSystem.Services;
+using Extensions = PMS.Model.Extensions;
 
 namespace ProjectManagementSystem.Controllers
 {
@@ -22,9 +21,6 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult AddWorkItem(WorkItem workItem)
         {
             workItem.CreatorId = User.Identity.GetUserId();
-            workItem.State = WorkItemState.New;
-            workItem.Status = WorkItemStatus.InWork;
-                
             return TryAction(() => CreateJsonResult(this.workItemService.Add(workItem)));
         }
 
@@ -32,6 +28,13 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult UpdateWorkItem(WorkItem workItem)
         {
             return TryAction(() => this.workItemService.Update(workItem));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteWorkItem(int id)
+        {
+            this.workItemService.Delete(id);
+            return Json("OK");
         }
 
         [HttpGet]
@@ -62,6 +65,22 @@ namespace ProjectManagementSystem.Controllers
             return CreateJsonResult(projects);
         }
 
-        
+        [HttpGet]
+        public ActionResult GetActualWorkItems()
+        {
+            var api = new WorkItemApiService(this.workItemService);
+            var itemsDictionary = api.GetActualWorkItems();
+            return CreateJsonResult(itemsDictionary);
+        }
+
+        [HttpGet]
+        public ActionResult GetStates()
+        {
+            var api = new WorkItemApiService(this.workItemService);
+            var states =
+                api.GetStatesViewModels(User.IsInRole(Resources.Director) || User.IsInRole(Resources.MainProjectEngineer) || User.IsInRole(Resources.Admin),
+                    User.IsInRole(Resources.Manager));
+            return CreateJsonResult(states);
+        }
     }
 }
