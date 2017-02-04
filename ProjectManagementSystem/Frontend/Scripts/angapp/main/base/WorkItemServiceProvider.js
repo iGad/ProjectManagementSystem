@@ -19,6 +19,9 @@
     return {
         $get: ["$q", "$http", function ($q, $http) {
             var service = {
+                isItemInWork: function(workItem) {
+                    return workItem.State !== 2 && workItem.State !== 4;
+                },
                 getWorkItemTypeName: function(type) {
                     return getWorkItemTypeName(type);
                 },

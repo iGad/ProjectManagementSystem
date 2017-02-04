@@ -1,0 +1,12 @@
+﻿<div class="workitem-tile" layout="row" ng-controller="WorkItemTileController">
+    <div class="tile-type" ng-class="getWorkItemClass(workItem)">
+    </div>
+    <div layout="column">
+        <div class="tile-row tile-title-container" ng-click="edit(workItem.Id)">
+            <div class="id">{{workItem.Id}}</div>
+            <div class="title">{{workItem.Name}}</div>
+        </div>
+        <div class="tile-row">{{getUserString(workItem.Executor)}}</div>
+        <div class="tile-row">{{workItem.DeadLine}}</div>
+    </div>
+</div>
