@@ -61,6 +61,15 @@ namespace ProjectManagementSystem {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дочерние элементы.
+        /// </summary>
+        public static string ChildElements {
+            get {
+                return ResourceManager.GetString("ChildElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите логин.
         /// </summary>
         public static string EnterLogin {
@@ -102,6 +111,15 @@ namespace ProjectManagementSystem {
         public static string LoginSystem {
             get {
                 return ResourceManager.GetString("LoginSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Родителькие элементы.
+        /// </summary>
+        public static string ParentElements {
+            get {
+                return ResourceManager.GetString("ParentElements", resourceCulture);
             }
         }
         

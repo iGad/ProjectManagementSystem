@@ -18,17 +18,27 @@ namespace PMS.Model.Repositories
 
         public WorkItem GetById(int id)
         {
-            return this.context.WorkItems.SingleOrDefault(x => x.Id == id);
+            return this.context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
+        }
+
+        public WorkItem GetByIdWithParents(int id)
+        {
+            return this.context.WorkItems.AsNoTracking().Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)
         {
-            return this.context.WorkItems.Include(x => x.Creator).Where(filter);
+            return this.context.WorkItems.AsNoTracking().Where(filter);
         }
 
         public IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter)
         {
-            return this.context.WorkItems.Include(x => x.Creator).Include(x => x.Executor).Where(filter);
+            return this.context.WorkItems.AsNoTracking().Include(x => x.Creator).Include(x => x.Executor).Where(filter);
+        }
+
+        public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
+        {
+            return this.context.WorkItems.Include(x=>x.Parent.Parent.Parent).Include(x=>x.Children).Single(x => x.Id == workItemId);
         }
 
         public WorkItem Add(WorkItem workItem)

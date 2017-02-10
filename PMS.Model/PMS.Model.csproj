@@ -91,6 +91,10 @@
     <Compile Include="Migrations\201701060749441_Initial.Designer.cs">
       <DependentUpon>201701060749441_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702101904006_1.cs" />
+    <Compile Include="Migrations\201702101904006_1.Designer.cs">
+      <DependentUpon>201702101904006_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\ApplicationSignInManager.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
+    <Compile Include="Models\PermissionsEnum.cs" />
     <Compile Include="Models\WorkItemType.cs" />
     <Compile Include="Models\WorkItem.cs" />
     <Compile Include="Models\WorkItemState.cs" />
@@ -126,6 +131,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701060749441_Initial.resx">
       <DependentUpon>201701060749441_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702101904006_1.resx">
+      <DependentUpon>201702101904006_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -21,6 +21,14 @@ namespace PMS.Model.Services
             return workItem;
         }
 
+        public WorkItem GetWithParents(int id)
+        {
+            var workItem = this.repository.GetByIdWithParents(id);
+            if (workItem == null)
+                throw new PmsExeption(string.Format(Resources.WorkItemNotFound, id));
+            return workItem;
+        }
+
         public WorkItem Add(WorkItem workItem)
         {
             workItem.State = string.IsNullOrWhiteSpace(workItem.ExecutorId) ? WorkItemState.New : WorkItemState.Planned;
@@ -55,12 +63,21 @@ namespace PMS.Model.Services
             this.repository.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(int id, bool cascade)
         {
             var item = Get(id);
+            if (cascade)
+            {
+                var children = GetChildWorkItems(id);
+                foreach (var workItem in children)
+                {
+                    Delete(workItem.Id, true);
+                }
+            }
             this.repository.Delete(item);
             this.repository.SaveChanges();
         }
+
 
         public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems()
         {
@@ -77,6 +94,11 @@ namespace PMS.Model.Services
         public List<WorkItemState> GetStates()
         {
             return Extensions.ToEnumList<WorkItemState>().Where(x => x != WorkItemState.Deleted).ToList();
+        }
+
+        public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
+        {
+            return this.repository.GetWorkItemWithAllLinkedItems(workItemId);
         } 
     }
 }

@@ -1,16 +1,16 @@
-﻿using System.ComponentModel;
+﻿using Common;
 
 namespace PMS.Model.Models
 {
     public enum WorkItemType
     {
-        [Description("Project")]
+        [LocalizedDescription("Project", typeof(Resources))]
         Project = 1,
-        [Description("Stage")]
+        [LocalizedDescription("Stage", typeof(Resources))]
         Stage = 2,
-        [Description("Partition")]
+        [LocalizedDescription("Partition", typeof(Resources))]
         Partition = 3,
-        [Description("Task")]
+        [LocalizedDescription("Task", typeof(Resources))]
         Task = 4
     }
 }

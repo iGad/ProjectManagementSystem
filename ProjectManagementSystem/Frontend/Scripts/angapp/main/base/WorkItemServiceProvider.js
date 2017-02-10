@@ -84,7 +84,13 @@
                         method: 'GET'
                     });
                 },
-
+                getLinkedItemsForItem: function(workItemId) {
+                    return $http({
+                        url: workItemUrl + 'GetLinkedItemsForItem',
+                        method: 'GET',
+                        params: { workItemId: workItemId }
+                    });
+                }
                 
             };
             return service;

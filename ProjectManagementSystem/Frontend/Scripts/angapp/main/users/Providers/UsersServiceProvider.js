@@ -1,27 +1,6 @@
 ﻿angapp.provider("UsersService", ["uiGridConstants", function (uiGridConstants) {
     var usersUrl = '/UsersApi/';
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(dictionary) {
-            var name = dictionary.Name.trim();
-            var words = name.split(' ');
-            var i = 0;
-            while (i != words.length && words[i].toLowerCase().indexOf(lowercaseQuery) !== 0) {
-                i += 1;
-            }
-            return (i !== words.length);
-        }
-    };
-
-    function createFilterForElements(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(element) {
-            var name = element.Name.toLowerCase().trim();
-            return name.indexOf(lowercaseQuery) >= 0;
-        }
-    };
+    
 
     function getDefaultGridOptions() {
         return {
@@ -100,45 +79,22 @@
                         method: 'GET',
                         params: { email: email }
                     });
+                },
+                /******User permissions******/
+                hasPermissions: function(actions) {
+                    return $http({
+                        url: usersUrl + 'HasPermissions',
+                        method: 'GET',
+                        params: {actions: actions}
+                    });
+                },
+                hasPermissionsForWorkItem: function (actions, workItemId) {
+                    return $http({
+                        url: usersUrl + 'HasPermissionsForWorkItem',
+                        method: 'GET',
+                        params: { actions: actions, workItemId: workItemId }
+                    });
                 }
-                
-                //----------------------------Атрибуты элементов------------------------------
-                //getElementAttributesByElementId: function (id) {
-                //    return utils.get({
-                //        url: "/" + this.systemNameUrl + "/DictionaryApi/GetElementAttributesByElementId",
-                //        data: { elementId: id }
-                //    });
-                //},
-                //saveNewElementAttribute: function (elementAttribute, async) {
-                //    return utils.post({
-                //        url: "/" + this.systemNameUrl + "/DictionaryApi/AddNewElementAttribute",
-                //        data: elementAttribute,
-                //        async: async || false
-                //    }, function (err) {
-                //        console.log(err);
-                //    });
-                //},
-                //updateElementAttribute: function (elementAttribute, async) {
-                //    return utils.post({
-                //        url: "/" + this.systemNameUrl + "/DictionaryApi/UpdateElementAttribute",
-                //        data: elementAttribute,
-                //        async: async || false
-                //    });
-                //},
-                //deleteElementAttribute: function (id, async) {
-                //    return utils.post({
-                //        url: "/" + this.systemNameUrl + "/DictionaryApi/DeleteDictionaryElementAttribute",
-                //        data: { id: id },
-                //        async: async || false
-                //    });
-                //},
-                //changeElementAttributeOrder: function (id, isIncrement) {
-                //    return utils.post({
-                //        url: "/" + this.systemNameUrl + "/DictionaryApi/ChangeElementAttributeOrder",
-                //        data: { id: id, isIncrement },
-                //                async: false
-                //    });
-                //}
 
             };
             return service;

@@ -6,7 +6,6 @@ using Common.Models;
 
 namespace PMS.Model.Models
 {
-    [Table("WorkItems")]
     public class WorkItem : NamedEntity, IHierarchicalEntity
     {
         public int? ParentId { get; set; }
@@ -34,6 +33,8 @@ namespace PMS.Model.Models
         public WorkItemState State { get; set; }
         public WorkItemStatus Status { get; set; }
         public DateTime DeadLine { get; set; }
+        public DateTime? FinishDate { get; set; }
+        public ICollection<WorkItem> Children { get; set; } 
         public ICollection<Comment> Comments { get; set; }
     }
 

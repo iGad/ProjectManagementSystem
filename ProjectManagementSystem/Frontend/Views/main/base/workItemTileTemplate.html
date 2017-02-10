@@ -7,6 +7,6 @@
             <div class="title">{{workItem.Name}}</div>
         </div>
         <div class="tile-row">{{getUserString(workItem.Executor)}}</div>
-        <div class="tile-row">{{workItem.DeadLine}}</div>
+        <div class="tile-row" ng-class="{'warn-color': isDeadlineSoon(workItem), 'fail-color': isDeadlineHappend(workItem)}">{{workItem.DeadLine}}</div>
     </div>
 </div>

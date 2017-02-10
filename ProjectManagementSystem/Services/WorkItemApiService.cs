@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using PMS.Model;
 using PMS.Model.Models;
+using PMS.Model.Repositories;
 using PMS.Model.Services;
 using ProjectManagementSystem.ViewModels;
 
 namespace ProjectManagementSystem.Services
 {
-    public class WorkItemApiService
+    public class WorkItemApiService : WorkItemService
     {
-        private readonly WorkItemService workItemService;
-        public WorkItemApiService(WorkItemService workItemService)
+        public WorkItemApiService(IWorkItemRepository repository):base(repository)
         {
-            this.workItemService = workItemService;
         }
-        public Dictionary<string, List<WorkItemTileViewModel>> GetActualWorkItems()
+
+        public WorkItemViewModel GetWorkItem(int id)
         {
-            return this.workItemService.GetActualWorkItems()
+            return new WorkItemViewModel(GetWithParents(id));
+        }
+
+        public Dictionary<string, List<WorkItemTileViewModel>> GetActualWorkItemModels()
+        {
+            return GetActualWorkItems()
                 .ToDictionary(pair => pair.Key.ToString(), pair => pair.Value.Select(x => new WorkItemTileViewModel(x)).ToList());
         }
 
@@ -40,6 +45,21 @@ namespace ProjectManagementSystem.Services
                 Value = x,
                 Description = x.GetDescription()
             }).ToList();
+        }
+
+        public List<LinkedItemsCollection> GetLinkedWorkItemsForItem(int itemId)
+        {
+            var workItem = GetWorkItemWithAllLinkedItems(itemId);
+            var parentsCollection = new LinkedItemsCollection(Resource.ParentElements);
+            var parent = workItem.Parent;
+            while (parent != null)
+            {
+                parentsCollection.WorkItems.Insert(0, new WorkItemTileViewModel(parent));
+                parent = parent.Parent;
+            }
+            var childCollection = new LinkedItemsCollection(Resource.ChildElements);
+            childCollection.WorkItems.AddRange(workItem.Children.OrderBy(x => x.Id).Select(x => new WorkItemTileViewModel(x)));
+            return new List<LinkedItemsCollection> {parentsCollection, childCollection};
         } 
     }
 }

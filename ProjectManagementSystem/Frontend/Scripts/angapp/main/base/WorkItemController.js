@@ -4,7 +4,15 @@
              console.error(err);
          };
          function goToReturnState() {
-             $state.go($stateParams.returnStateName);
+             var returnStates = $stateParams.returnStates;
+             if (returnStates && returnStates.length) {
+                 var returnState = returnStates.splice(0, 1)[0];
+                 var params = returnState.params ? returnState.params : {};
+                 params.returnStates = returnStates;
+                 $state.go(returnState.name, params);
+             } else {
+                 $state.go('base.main');
+             }
          }
          function getStates() {
              WorkItemService.getStates().then(function(content) {
@@ -12,13 +20,9 @@
              });
          };
 
-         getStates();
-
          function getUsers(typeId) {
              UsersService.getAllowedUsersForWorkItemType(typeId).then(function (content) {
                  $scope.users = angular.fromJson(content.data);
-                 //if (!$scope.workItem.ExecutorId)
-                 //    $scope.workItem.ExecutorId = $scope.users[0].Id;
              });
          };
 
@@ -32,7 +36,21 @@
              });
          };
 
+         UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function(content) {
+             var permissions = content.data;
+             $scope.canAdd = permissions[0];
+             $scope.canEdit = permissions[0] && permissions[1];
+         }, onError);
+
+         getStates();
+
+         
+         $scope.isFormChanged = false;
+         $scope.canEdit = false;
+         $scope.canAdd = false;
+         
          if ($stateParams.workItemId) {
+             $scope.isNew = false;
              WorkItemService.getWorkItem($stateParams.workItemId).then(function(content) {
                  $scope.workItem = angular.fromJson(content.data);
                  $scope.workItem.DeadLine = moment($scope.workItem.DeadLine).toDate();
@@ -40,19 +58,33 @@
                  $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
                  getTypes();
              }, onError);
-             $scope.isNew = false;
+             
          } else {
+             $scope.isNew = true;
              $scope.workItem = {
                  DeadLineHours: 17,
                  DeadLineMinutes: 0,
-                 DeadLine: moment().add(1, 'days').toDate()
+                 DeadLine: moment().add(1, 'days').toDate(),
+                 Type: $stateParams.type,
+                 ProjectId: $stateParams.projectId,
+                 StageId: $stateParams.stageId,
+                 PartitionId: $stateParams.partitionId
              };
-             $scope.isNew = $scope.workItem.Id == undefined;
              getTypes();
          }
-
-         
-
+         Object.defineProperty($scope, 'IsNew', {
+             get:function() {
+                 return $scope.isNew;
+             },
+             set:function(value) {
+                 $scope.isNew = value;
+             }
+         });
+         Object.defineProperty($scope, 'WorkItem', {
+             get:function() {
+                 return $scope.workItem;
+             }
+         });
          
          
          
@@ -79,14 +111,16 @@
              }
          }
 
+         $scope.formChanged = function() {
+             $scope.isFormChanged = true;
+         };
+
          $scope.getUserDisplayText = function (user) {
              var text = '';
              if (user.Surname)
                  text = user.Surname + ' ';
              if (user.Name)
                  text += user.Name;
-             if (user.Email)
-                 text += ' (' + user.Email + ')';
              return text;
          };
 
@@ -94,8 +128,8 @@
              WorkItemService.getChildItems(stageId).then(function (content) {
                  $scope.partitions = angular.fromJson(content.data);
                  if ($scope.partitions.length) {
-                     if ($scope.isTask && $scope.workItem.ParentId) {
-                         $scope.parentPartitionId = $scope.workItem.ParentId;
+                     if ($scope.workItem.PartitionId && $scope.partitions.indexOf($scope.workItem.PartitionId) >= 0) {
+                         $scope.parentPartitionId = $scope.workItem.PartitionId;
                      } else {
                          $scope.parentPartitionId = $scope.partitions[0].Id;
                      }
@@ -107,8 +141,8 @@
              WorkItemService.getChildItems(projectId).then(function (content) {
                  $scope.stages = angular.fromJson(content.data);
                  if ($scope.stages.length) {
-                     if ($scope.isPartition && $scope.workItem.ParentId) {
-                         $scope.parentStageId = $scope.workItem.ParentId;
+                     if ($scope.workItem.StageId && $scope.stages.indexOf($scope.workItem.StageId) >= 0) {
+                         $scope.parentStageId = $scope.workItem.StageId;
                      } else {
                          $scope.parentStageId = $scope.stages[0].Id;
                      }
@@ -121,8 +155,8 @@
              WorkItemService.getProjects().then(function (content) {
                  $scope.projects = angular.fromJson(content.data);
                  if ($scope.projects.length) {
-                     if ($scope.isStage && $scope.workItem.ParentId) {
-                         $scope.parentProjectId = $scope.workItem.ParentId;
+                     if ($scope.workItem.ProjectsId && $scope.projects.indexOf($scope.workItem.ProjectId) >= 0) {
+                         $scope.parentProjectId = $scope.workItem.ProjectId;
                      } else {
                          $scope.parentProjectId = $scope.projects[0].Id;
                      }
@@ -188,19 +222,33 @@
              }
          };
 
-         $scope.cancel = function(ev) {
+         function showDialog(ev, title, text, callback, cancel) {
              var confirm = $mdDialog.confirm()
-                 .title('Вы уверены, что хотите выйти?')
-                 .textContent('Все изменения будут потеряны')
-                 .ariaLabel('Lucky day')
-                 .targetEvent(ev)
-                 .ok('Да')
-                 .cancel('Нет');
+               .title(title)
+               .textContent(text)
+               .ariaLabel('are you sure')
+               .targetEvent(ev)
+               .ok('Да')
+               .cancel('Нет');
 
-             $mdDialog.show(confirm).then(function() {
+             $mdDialog.show(confirm).then(function () {
+                 callback();
+             }, cancel());
+         }
+
+         $scope.cancel = function (ev) {
+             if (!$scope.isFormChanged) {
                  goToReturnState();
-             }, function() {});
+                 return;
+             }
+             showDialog(ev, 'Вы уверены, что хотите выйти?', 'Все изменения будут потеряны', function() {
+                 goToReturnState();
+             }, function () { });
          };
 
-         
+         $scope.delete = function(ev) {
+             showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные о работе будут удалены', function () {
+                 WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, onError);
+             }, function () { });
+         };
      }]);

@@ -22,6 +22,13 @@ namespace PMS.Model.Models
                 Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationContext,Configuration>());
             }
            Database.Initialize(false);
+           
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<WorkItem>().HasMany(x => x.Children).WithOptional().HasForeignKey(x => x.ParentId);
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<WorkItem> WorkItems { get; set; } 

@@ -140,13 +140,29 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult GetAllowedUsersForWorkItemType(int typeId)
         {
             var users = this.usersService.GetAllowedUsersForWorkItemType(typeId).Select(x => new UserViewModel(x));
-            return new JsonResult
+            return Json(users, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult HasPermissions(IEnumerable<int> actions)
+        {
+            IEnumerable<bool> result = new bool[0];
+            if (actions != null)
             {
-                Data = users,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                MaxJsonLength = int.MaxValue
-            };
-            
+                result = Enumerable.Repeat(true, actions.Count());
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult HasPermissionsForWorkItem(IEnumerable<int> actions, int workItemId)
+        {
+            IEnumerable<bool> result = new bool[0];
+            if (actions != null)
+            {
+                result = Enumerable.Repeat(true, actions.Count());
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

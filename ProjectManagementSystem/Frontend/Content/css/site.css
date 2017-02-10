@@ -98,9 +98,25 @@ md-input-container {
 .task-color {
     background: #ffff00;
 }
+.fail-color {
+    color: red;
+    font-weight: bold;
+}
 .warn-color {
-    background: red;
+    color: #dddd00;
+    font-weight: bold;
 }
 .tile-row {
     margin: 4px 6px 6px 6px;
+}
+.linked-item-row {
+    margin: 5px 10px;
+    cursor: pointer;
+}
+.linked-item-row .id {
+    margin: 0 5px;
+    font-weight: bold;
+}
+.linked-item-row .title {
+    text-overflow: ellipsis;
 }

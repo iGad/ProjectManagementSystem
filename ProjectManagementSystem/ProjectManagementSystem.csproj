@@ -102,13 +102,13 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-    </Reference>
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +184,7 @@
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Controllers\WorkItemsApiController.cs" />
     <Compile Include="Export\DependencyResolver.cs" />
+    <Compile Include="Export\Export.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,11 +201,14 @@
     <Compile Include="Services\UsersApiService.cs" />
     <Compile Include="Services\WorkItemApiService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\LinkedItemsCollection.cs" />
     <Compile Include="ViewModels\EnumViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\WorkItemTileViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemTreeViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Frontend\Content\css\angular-material\angular-material.css" />
@@ -320,6 +324,9 @@
     </Content>
     <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\LinkedWorkItemsController.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\angapp\main\base\WorkBoardController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

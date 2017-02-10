@@ -15,7 +15,7 @@ namespace ProjectManagementSystem.Export
 
         public PmsDependencyResolver()
         {
-            this.container = CompositionContainerProvider.CreateCompositionContainer(new [] {"PMS", "Common", "Project"});
+            this.container = CompositionContainerProvider.CreateCompositionContainer(new [] {"PMS", "Common", "ProjectManagementSystem"});
         }
 
         /// <summary>

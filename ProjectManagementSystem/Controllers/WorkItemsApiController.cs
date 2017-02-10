@@ -4,16 +4,16 @@ using Common.Models;
 using Microsoft.AspNet.Identity;
 using PMS.Model;
 using PMS.Model.Models;
-using PMS.Model.Services;
 using ProjectManagementSystem.Services;
+using ProjectManagementSystem.ViewModels;
 using Extensions = PMS.Model.Extensions;
 
 namespace ProjectManagementSystem.Controllers
 {
     public class WorkItemsApiController : BaseController
     {
-        private readonly WorkItemService workItemService;
-        public WorkItemsApiController(WorkItemService workItemService)
+        private readonly WorkItemApiService workItemService;
+        public WorkItemsApiController(WorkItemApiService workItemService)
         {
             this.workItemService = workItemService;
         }
@@ -33,7 +33,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpPost]
         public ActionResult DeleteWorkItem(int id)
         {
-            this.workItemService.Delete(id);
+            this.workItemService.Delete(id, true);
             return Json("OK");
         }
 
@@ -55,7 +55,7 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult GetProjects()
         {
             var projects = this.workItemService.GetActualProjects();
-            return CreateJsonResult(projects);
+            return CreateJsonResult(projects.Select(x => new WorkItemViewModel(x)));
         }
 
         [HttpGet]
@@ -68,19 +68,28 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetActualWorkItems()
         {
-            var api = new WorkItemApiService(this.workItemService);
-            var itemsDictionary = api.GetActualWorkItems();
+            var itemsDictionary = this.workItemService.GetActualWorkItemModels();
             return CreateJsonResult(itemsDictionary);
         }
 
         [HttpGet]
         public ActionResult GetStates()
         {
-            var api = new WorkItemApiService(this.workItemService);
             var states =
-                api.GetStatesViewModels(User.IsInRole(Resources.Director) || User.IsInRole(Resources.MainProjectEngineer) || User.IsInRole(Resources.Admin),
+                this.workItemService.GetStatesViewModels(User.IsInRole(Resources.Director) || User.IsInRole(Resources.MainProjectEngineer) || User.IsInRole(Resources.Admin),
                     User.IsInRole(Resources.Manager));
             return CreateJsonResult(states);
+        }
+
+        [HttpGet]
+        public ActionResult GetLinkedItemsForItem(int workItemId)
+        {
+            var itemsCollection = this.workItemService.GetLinkedWorkItemsForItem(workItemId);
+            return Json(itemsCollection, JsonRequestBehavior.AllowGet);
+            //Parent
+            //Children (first-level)
+            //depends on
+            //depends by
         }
     }
 }

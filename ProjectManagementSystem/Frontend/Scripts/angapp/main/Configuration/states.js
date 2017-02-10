@@ -15,6 +15,7 @@
         .icon('delete', 'Frontend/Content/Images/material-icons/delete.svg')
         .iconSet('av', 'Frontend/Content/Images/material-icons/iconsets/av-icons.svg', 24)
         .icon('fast_forward', 'Frontend/Content/Images/material-icons/ic_fast_forward_black_24px.svg')
+        .iconSet('communication', 'Frontend/Content/Images/material-icons/iconsets/communication-icons.svg', 24)
         .iconSet('toggle', 'Frontend/Content/Images/material-icons/iconsets/toggle-icons.svg', 24)
         .icon('check_box', 'Frontend/Content/Images/material-icons/ic_check_box_true_24px.svg')
         .icon('check_box_outline_blank', 'Frontend/Content/Images/material-icons/ic_check_box_false_24px.svg');
@@ -30,7 +31,7 @@ angapp.config(function ($stateProvider) {
     {
         name: 'base.edit',
         url: '/edit/{workItemId}',
-        params: {returnStateName: 'base.main'},
+        params: { returnStates: null, projectId: null, stageId : null, partitionId : null, type: null },
         templateUrl: 'Frontend/Views/main/base/workItem.html'
     },
     {

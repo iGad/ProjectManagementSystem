@@ -12,6 +12,7 @@ namespace PMS.Model.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            
         }
 
         protected override void Seed(ApplicationContext applicationContext)
