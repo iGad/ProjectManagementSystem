@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using PMS.Model;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
@@ -40,11 +38,7 @@ namespace ProjectManagementSystem.Services
                     states.Add(WorkItemState.Archive);
                 }
             }
-            return states.Select(x => new EnumViewModel<WorkItemState>
-            {
-                Value = x,
-                Description = x.GetDescription()
-            }).ToList();
+            return states.Select(x => new EnumViewModel<WorkItemState>(x)).ToList();
         }
 
         public List<LinkedItemsCollection> GetLinkedWorkItemsForItem(int itemId)
@@ -60,6 +54,13 @@ namespace ProjectManagementSystem.Services
             var childCollection = new LinkedItemsCollection(Resource.ChildElements);
             childCollection.WorkItems.AddRange(workItem.Children.OrderBy(x => x.Id).Select(x => new WorkItemTileViewModel(x)));
             return new List<LinkedItemsCollection> {parentsCollection, childCollection};
+        }
+
+        public List<WorkItemTreeViewModel> GetProjectsTree()
+        {
+            var projects = GetWorkItemsWithAllIncludedElements(x => x.State != WorkItemState.Deleted && !x.ParentId.HasValue);
+            var projectsTree = projects.Select(x => new WorkItemTreeViewModel(x)).ToList();
+            return projectsTree;
         } 
     }
 }

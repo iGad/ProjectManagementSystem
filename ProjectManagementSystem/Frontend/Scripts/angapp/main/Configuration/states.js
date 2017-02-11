@@ -9,16 +9,12 @@
         .iconSet('editor', 'Frontend/Content/Images/material-icons/iconsets/editor-icons.svg', 24)
         .iconSet('navigation', 'Frontend/Content/Images/material-icons/iconsets/navigation-icons.svg', 24)
         .iconSet('hardware', 'Frontend/Content/Images/material-icons/iconsets/hardware-icons.svg', 24)
-        .icon('keyboard_arrow_right', 'Frontend/Content/Images/material-icons/ic_keyboard_arrow_left_black_24px.svg')
-        .icon('keyboard_arrow_left', 'Frontend/Content/Images/material-icons/ic_keyboard_arrow_right_black_24px.svg')
         .iconSet('action', 'Frontend/Content/Images/material-icons/iconsets/action-icons.svg', 24)
         .icon('delete', 'Frontend/Content/Images/material-icons/delete.svg')
         .iconSet('av', 'Frontend/Content/Images/material-icons/iconsets/av-icons.svg', 24)
         .icon('fast_forward', 'Frontend/Content/Images/material-icons/ic_fast_forward_black_24px.svg')
         .iconSet('communication', 'Frontend/Content/Images/material-icons/iconsets/communication-icons.svg', 24)
-        .iconSet('toggle', 'Frontend/Content/Images/material-icons/iconsets/toggle-icons.svg', 24)
-        .icon('check_box', 'Frontend/Content/Images/material-icons/ic_check_box_true_24px.svg')
-        .icon('check_box_outline_blank', 'Frontend/Content/Images/material-icons/ic_check_box_false_24px.svg');
+        .iconSet('toggle', 'Frontend/Content/Images/material-icons/iconsets/toggle-icons.svg', 24);
 });
 
 angapp.config(function ($stateProvider) {
@@ -31,7 +27,12 @@ angapp.config(function ($stateProvider) {
     {
         name: 'base.edit',
         url: '/edit/{workItemId}',
-        params: { returnStates: null, projectId: null, stageId : null, partitionId : null, type: null },
+        templateUrl: 'Frontend/Views/main/base/workItem.html'
+    },
+    {
+        name: 'base.add',
+        url: '/add',
+        params: { returnStates: null, projectId: null, stageId: null, partitionId: null, type: null },
         templateUrl: 'Frontend/Views/main/base/workItem.html'
     },
     {
@@ -52,7 +53,7 @@ angapp.config(function ($stateProvider) {
     {
         name: 'base.projects',
         url: '/projects',
-        templateUrl: 'Frontend/Views/main/base/projects.html'
+        templateUrl: 'Frontend/Views/main/projects/index.html'
         },
         {
             name: 'base.users',

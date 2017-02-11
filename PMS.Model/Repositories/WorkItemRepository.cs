@@ -41,6 +41,16 @@ namespace PMS.Model.Repositories
             return this.context.WorkItems.Include(x=>x.Parent.Parent.Parent).Include(x=>x.Children).Single(x => x.Id == workItemId);
         }
 
+        public IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Func<WorkItem, bool> filter)
+        {
+            return
+                this.context.WorkItems.Include(x => x.Parent.Parent.Parent)
+                    .Include(x => x.Children.Select(y => y.Children.Select(z => z.Children)))
+                    .Include(x => x.Creator)
+                    .Include(x => x.Executor)
+                    .Where(filter);
+        }
+
         public WorkItem Add(WorkItem workItem)
         {
             return this.context.WorkItems.Add(workItem);

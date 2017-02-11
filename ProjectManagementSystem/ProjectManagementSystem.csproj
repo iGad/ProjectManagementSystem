@@ -205,7 +205,9 @@
     <Compile Include="ViewModels\EnumViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemTreeParentViewModel.cs" />
     <Compile Include="ViewModels\WorkItemTileViewModel.cs" />
     <Compile Include="ViewModels\WorkItemTreeViewModel.cs" />
     <Compile Include="ViewModels\WorkItemViewModel.cs" />
@@ -342,6 +344,7 @@
     <Content Include="Frontend\Scripts\angapp\main\index\PanelController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\main\projects\ProjectsController.js" />
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\AddUpdateUserController.js" />
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\UsersMainController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -374,6 +377,8 @@
     <Content Include="Frontend\Views\main\base\workItemTileTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Views\main\projects\index.html" />
+    <Content Include="Frontend\Views\main\projects\workItemRowTemplate.html" />
     <Content Include="Frontend\Views\main\users\AddUpdateUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -91,5 +91,12 @@ namespace ProjectManagementSystem.Controllers
             //depends on
             //depends by
         }
+
+        [HttpGet]
+        public ActionResult GetProjectsTree()
+        {
+            var projects = this.workItemService.GetProjectsTree();
+            return Json(projects, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -1,0 +1,17 @@
+﻿<div layout="column" ng-controller="ProjectsController">
+    <div layout="row" layout-align="space-around center">
+        <div>
+            <md-button aria-label="add project button" ng-click="addProject()">
+                <md-icon md-svg-icon="content:add"></md-icon>
+                Добавить проект
+            </md-button>
+        </div>
+        <div>
+            <md-checkbox aria-label="show archive" ng-change="showArchiveChanged()" ng-model="filterOptions.showArchive">Показывать архивные проекты</md-checkbox>
+        </div>
+        <div>
+            <md-checkbox aria-label="show done" ng-change="showDoneChanged()" ng-model="filterOptions.showDone">Показывать завершенные проекты</md-checkbox>
+        </div>
+    </div>
+    <ng-include ng-repeat="workItem in projects" src="'Frontend/Views/main/projects/workItemRowTemplate.html'"></ng-include>
+</div>

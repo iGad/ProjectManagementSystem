@@ -84,7 +84,7 @@
                             <md-input-container class="md-block" flex="50">
                                 <label>Исполнитель</label>
                                 <md-select ng-model="workItem.ExecutorId"  ng-change="formChanged()" ng-disabled="!canEdit">
-                                    <md-option>Отсутствует</md-option>
+                                    <md-option value="">Отсутствует</md-option>
                                     <md-option ng-repeat="user in users" value="{{user.Id}}">
                                         {{getUserDisplayText(user)}}
                                     </md-option>
@@ -106,7 +106,7 @@
 
                         <md-input-container class="md-block without-errors">
                             <label>Описание</label>
-                            <textarea ng-model="worItem.Description" rows="3" md-select-on-focus ng-change="formChanged()" ng-disabled="!canEdit"></textarea>
+                            <textarea ng-model="workItem.Description" rows="3" md-select-on-focus ng-change="formChanged()" ng-disabled="!canEdit"></textarea>
                         </md-input-container>
                     </md-content>
 

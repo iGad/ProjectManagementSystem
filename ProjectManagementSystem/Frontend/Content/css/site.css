@@ -120,3 +120,26 @@ md-input-container {
 .linked-item-row .title {
     text-overflow: ellipsis;
 }
+
+.row-item-type {
+    max-width: 5px;
+    min-width: 5px;
+}
+.workitem-row {
+    margin: 5px;
+}
+.project-row {
+    
+}
+.stage-row {
+    margin-left: 20px;
+}
+.partition-row {
+    margin-left: 40px;
+}
+.task-row {
+    margin-left: 100px;
+}
+.green-btn {
+    color: #0c0;
+}

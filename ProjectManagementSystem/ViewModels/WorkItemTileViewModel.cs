@@ -1,4 +1,5 @@
 ﻿using System;
+using PMS.Model;
 using PMS.Model.Models;
 
 namespace ProjectManagementSystem.ViewModels
@@ -10,17 +11,21 @@ namespace ProjectManagementSystem.ViewModels
             Id = workItem.Id;
             Name = workItem.Name;
             Type = workItem.Type;
-            State = workItem.State;
-            DeadLine = workItem.DeadLine.ToString("dd.MM.yyyy HH:mm");
-            Executor = workItem.Executor != null ? new UserViewModel(workItem.Executor) : null;
-            IsOverdue = workItem.DeadLine < DateTime.Now;
+            State = new EnumViewModel<WorkItemState>(workItem.State);
+            FinishDate = workItem.FinishDate?.ToString(Constants.DateTimeFormat);
+            DeadLine = workItem.DeadLine.ToString(Constants.DateTimeFormat);
+            Executor = workItem.Executor != null ? new UserInfoViewModel(workItem.Executor) : null;
+            IsDeadLineSoon = FinishDate == null && workItem.DeadLine > DateTime.Now && (workItem.DeadLine - DateTime.Now).TotalHours < 48;
+            IsOverdue = FinishDate == null && workItem.DeadLine < DateTime.Now;
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public WorkItemType Type { get; set; }
-        public UserViewModel Executor { get; set; }
-        public WorkItemState  State { get; set; }
+        public UserInfoViewModel Executor { get; set; }
+        public EnumViewModel<WorkItemState>  State { get; set; }
         public string DeadLine { get; set; }
+        public string FinishDate { get; set; }
         public bool IsOverdue { get; set; }
+        public bool IsDeadLineSoon { get; set; }
     }
 }

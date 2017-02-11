@@ -11,7 +11,8 @@ namespace PMS.Model.Repositories
         IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter);
         WorkItem Add(WorkItem workItem);
         IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter);
-        WorkItem GetWorkItemWithAllLinkedItems(int workItemId); 
+        WorkItem GetWorkItemWithAllLinkedItems(int workItemId);
+        IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Func<WorkItem, bool> filter);
         int SaveChanges();
         void Delete(WorkItem item);
     }

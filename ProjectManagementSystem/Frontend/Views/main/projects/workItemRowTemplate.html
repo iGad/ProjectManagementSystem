@@ -1,0 +1,35 @@
+﻿<div layout="row" layout-align="space-between" class="workitem-row {{getWorkItemTypeName(workItem.Type)}}-row" ng-mouseover="workItem.over = true" ng-mouseleave="workItem.over = false">
+    <div ng-if="!workItem.Parent.Parent.Parent" style="width:40px">
+        <md-button aria-label="add child button" class="md-icon-button" ng-click="addChild(workItem)" ng-show="workItem.over">
+            <md-icon md-svg-icon="content:add" class="green-btn"></md-icon>
+            <md-tooltip md-direction="bottom">Добавить {{getWorkItemChildTypeDescription(workItem.Type)}}</md-tooltip>
+        </md-button>
+    </div>
+    <div class="row-item-type {{getWorkItemTypeName(workItem.Type)}}-color"></div>
+    <div ng-if="workItem.Children.length">
+        <md-button aria-label="collapse button" class="md-icon-button" ng-click="expand(workItem)">
+            <md-icon md-svg-icon="hardware:{{workItem.expanded?'keyboard_arrow_down':'keyboard_arrow_right'}}"></md-icon>
+        </md-button>
+    </div>
+    <div layout="column" flex style="margin-left: 5px">
+        <div layout="row" layout-align="space-between">
+            <div><b>{{workItem.Id}}</b>&nbsp;{{workItem.Name}}&nbsp;{{workItem.Children.length?'('+workItem.Children.length+')':''}}
+            </div>
+            <div>Состояние: {{workItem.State.Description}}</div>
+        </div>
+        <div layout="row" layout-align="space-between">
+            <div>{{getExecutorText(workItem.Type)}}:&nbsp;{{getUserDisplayText(workItem)}}</div>
+            <div ng-class="{'warn-color': workItem.IsDeadLineSoon, 'fail-color': workItem.IsOverdue}">{{getDeadlineText(workItem)}}</div>
+        </div>
+    </div>
+    <div>
+        <md-button aria-label="Open edit window" class="md-icon-button" ng-click="edit(workItem)">
+            <md-icon md-svg-icon="navigation:more_horiz"></md-icon>
+            <md-tooltip md-direction="bottom">Подробнее</md-tooltip>
+        </md-button>
+    </div>
+</div>
+<div ng-if="workItem.Children.length && workItem.expanded">
+    <ng-include ng-repeat="workItem in workItem.Children" src="'Frontend/Views/main/projects/workItemRowTemplate.html'"></ng-include>
+</div>
+<md-divider></md-divider>

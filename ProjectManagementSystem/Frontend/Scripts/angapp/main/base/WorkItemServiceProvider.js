@@ -16,6 +16,31 @@
         return 'task';
     };
 
+    var getExecutorText = function(workItemType) {
+        switch (workItemType) {
+        case 1:
+            return 'ГИП';
+        case 2:
+            return 'Менеджер';
+        case 3:
+            return 'Руководитель направления';
+        case 4:
+            return 'Исполнитель';
+        }
+        return 'Исполнитель';
+    };
+
+    var getUserDisplayText = function (user) {
+        if (!user)
+            return 'Отсутствует';
+        var text = user.Name + (user.Surname ? (' ' + user.Surname) : (' (' + user.Email + ')'));
+        return text;
+    };
+
+    var getDeadlineText = function (workItem) {
+        return workItem.FinishDate ? workItem.FinishDate : workItem.DeadLine;
+    };
+
     return {
         $get: ["$q", "$http", function ($q, $http) {
             var service = {
@@ -25,7 +50,16 @@
                 getWorkItemTypeName: function(type) {
                     return getWorkItemTypeName(type);
                 },
-                getTypes: function () {
+                getExecutorText: function(workItemType) {
+                    return getExecutorText(workItemType);
+                },
+                getUserDisplayText: function(user) {
+                    return getUserDisplayText(user);
+                },
+                getDeadlineText: function(workItem) {
+                    return getDeadlineText(workItem);
+                },
+                getTypes: function() {
                     return $http({
                         url: workItemUrl + 'GetWorkItemTypes',
                         method: "GET"
@@ -44,17 +78,23 @@
                         params: { id: id }
                     });
                 },
-                getProjects: function () {
+                getProjects: function() {
                     return $http({
                         url: workItemUrl + 'GetProjects',
                         method: "GET"
                     });
                 },
-                getChildItems: function (parentId) {
+                getChildItems: function(parentId) {
                     return $http({
                         url: workItemUrl + 'GetChildWorkItems',
                         method: "GET",
-                        params: {parentId: parentId}
+                        params: { parentId: parentId }
+                    });
+                },
+                getProjectsTree: function() {
+                    return $http({
+                        url: workItemUrl + 'GetProjectsTree',
+                        method: 'GET'
                     });
                 },
                 addWorkItem: function (workItem) {

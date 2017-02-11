@@ -1,4 +1,4 @@
-﻿angapp.controller('WorkItemController', ['$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 
+﻿angapp.controller('WorkItemController', ['$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService',
      function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService) {
          function onError(err) {
              console.error(err);
@@ -15,7 +15,7 @@
              }
          }
          function getStates() {
-             WorkItemService.getStates().then(function(content) {
+             WorkItemService.getStates().then(function (content) {
                  $scope.states = content.data;
              });
          };
@@ -36,58 +36,49 @@
              });
          };
 
-         UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function(content) {
-             var permissions = content.data;
-             $scope.canAdd = permissions[0];
-             $scope.canEdit = permissions[0] && permissions[1];
-         }, onError);
-
          getStates();
 
-         
+
          $scope.isFormChanged = false;
          $scope.canEdit = false;
          $scope.canAdd = false;
-         
+
          if ($stateParams.workItemId) {
              $scope.isNew = false;
-             WorkItemService.getWorkItem($stateParams.workItemId).then(function(content) {
+             WorkItemService.getWorkItem($stateParams.workItemId).then(function (content) {
                  $scope.workItem = angular.fromJson(content.data);
                  $scope.workItem.DeadLine = moment($scope.workItem.DeadLine).toDate();
                  $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
                  $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
                  getTypes();
              }, onError);
-             
+             UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function (content) {
+                 var permissions = content.data;
+                 $scope.canAdd = permissions[0];
+                 $scope.canEdit = permissions[0] && permissions[1];
+             }, onError);
          } else {
              $scope.isNew = true;
              $scope.workItem = {
                  DeadLineHours: 17,
                  DeadLineMinutes: 0,
                  DeadLine: moment().add(1, 'days').toDate(),
-                 Type: $stateParams.type,
-                 ProjectId: $stateParams.projectId,
-                 StageId: $stateParams.stageId,
-                 PartitionId: $stateParams.partitionId
+                 Type: $stateParams.type
              };
+             $scope.parentPartitionId = $stateParams.partitionId;
+             $scope.parentStageId = $stateParams.stageId;
+             $scope.parentProjectId = $stateParams.projectId;
+             UsersService.hasPermissions([1, 2]).then(function (content) {
+                 var permissions = content.data;
+                 $scope.canAdd = permissions[0];
+                 $scope.canEdit = permissions[0] && permissions[1];
+             }, onError);
              getTypes();
          }
-         Object.defineProperty($scope, 'IsNew', {
-             get:function() {
-                 return $scope.isNew;
-             },
-             set:function(value) {
-                 $scope.isNew = value;
-             }
-         });
-         Object.defineProperty($scope, 'WorkItem', {
-             get:function() {
-                 return $scope.workItem;
-             }
-         });
-         
-         
-         
+
+
+
+
          function setFlags(workItemType) {
              $scope.isProject = false;
              $scope.isStage = false;
@@ -111,7 +102,7 @@
              }
          }
 
-         $scope.formChanged = function() {
+         $scope.formChanged = function () {
              $scope.isFormChanged = true;
          };
 
@@ -130,7 +121,7 @@
                  if ($scope.partitions.length) {
                      if ($scope.workItem.PartitionId && $scope.partitions.indexOf($scope.workItem.PartitionId) >= 0) {
                          $scope.parentPartitionId = $scope.workItem.PartitionId;
-                     } else {
+                     } else if (!$scope.parentPartitionId) {
                          $scope.parentPartitionId = $scope.partitions[0].Id;
                      }
                  }
@@ -143,7 +134,7 @@
                  if ($scope.stages.length) {
                      if ($scope.workItem.StageId && $scope.stages.indexOf($scope.workItem.StageId) >= 0) {
                          $scope.parentStageId = $scope.workItem.StageId;
-                     } else {
+                     } else if (!$scope.parentStageId) {
                          $scope.parentStageId = $scope.stages[0].Id;
                      }
                      $scope.stageChanged($scope.parentStageId);
@@ -157,7 +148,7 @@
                  if ($scope.projects.length) {
                      if ($scope.workItem.ProjectsId && $scope.projects.indexOf($scope.workItem.ProjectId) >= 0) {
                          $scope.parentProjectId = $scope.workItem.ProjectId;
-                     } else {
+                     } else if (!$scope.parentProjectId) {
                          $scope.parentProjectId = $scope.projects[0].Id;
                      }
                      $scope.projectChanged($scope.parentProjectId);
@@ -165,9 +156,9 @@
              });
          }
 
-         
 
-        
+
+
 
          $scope.typeChanged = function (typeId) {
              if (typeId) {
@@ -196,7 +187,7 @@
 
          $scope.save = function () {
              var parentId;
-             switch($scope.workItem.Type) {
+             switch ($scope.workItem.Type) {
                  case $scope.types[1].Id:
                      parentId = $scope.parentProjectId;
                      break;
@@ -216,7 +207,7 @@
                      goToReturnState();
                  }, onError);
              } else {
-                 WorkItemService.addWorkItem($scope.workItem).then(function() {
+                 WorkItemService.addWorkItem($scope.workItem).then(function () {
                      goToReturnState();
                  }, onError);
              }
@@ -241,12 +232,12 @@
                  goToReturnState();
                  return;
              }
-             showDialog(ev, 'Вы уверены, что хотите выйти?', 'Все изменения будут потеряны', function() {
+             showDialog(ev, 'Вы уверены, что хотите выйти?', 'Все изменения будут потеряны', function () {
                  goToReturnState();
              }, function () { });
          };
 
-         $scope.delete = function(ev) {
+         $scope.delete = function (ev) {
              showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные о работе будут удалены', function () {
                  WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, onError);
              }, function () { });

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
@@ -99,6 +100,11 @@ namespace PMS.Model.Services
         public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
         {
             return this.repository.GetWorkItemWithAllLinkedItems(workItemId);
-        } 
+        }
+
+        public List<WorkItem> GetWorkItemsWithAllIncludedElements(Func<WorkItem, bool> whereExpression)
+        {
+            return this.repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
+        }
     }
 }
