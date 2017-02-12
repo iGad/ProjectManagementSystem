@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Web.Compilation;
 
 namespace Common.DI
 {
@@ -61,7 +62,7 @@ namespace Common.DI
         /// <returns></returns>
         private static ICollection<Assembly> GetLocalAssemblies()
         {
-            return AppDomain.CurrentDomain.GetAssemblies().Where(assembly => possibleAssemblyRegexes.Any(prefix => Regex.IsMatch(assembly.FullName, prefix))).ToList();
+            return BuildManager.GetReferencedAssemblies().OfType<Assembly>().Union(AppDomain.CurrentDomain.GetAssemblies()).Distinct().Where(assembly => possibleAssemblyRegexes.Any(prefix => Regex.IsMatch(assembly.FullName, prefix))).ToList();
         }
 
         #endregion

@@ -18,7 +18,7 @@ namespace PMS.Model.Repositories
 
         public WorkItem GetById(int id)
         {
-            return this.context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            return this.context.WorkItems.SingleOrDefault(x => x.Id == id);
         }
 
         public WorkItem GetByIdWithParents(int id)

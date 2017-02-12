@@ -1,18 +1,19 @@
-﻿angapp.controller('WorkItemController', ['$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService',
-     function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService) {
+﻿angapp.controller('WorkItemController', ['$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
+     function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
          function onError(err) {
              console.error(err);
          };
          function goToReturnState() {
-             var returnStates = $stateParams.returnStates;
-             if (returnStates && returnStates.length) {
-                 var returnState = returnStates.splice(0, 1)[0];
-                 var params = returnState.params ? returnState.params : {};
-                 params.returnStates = returnStates;
-                 $state.go(returnState.name, params);
-             } else {
-                 $state.go('base.main');
-             }
+             Utils.goToReturnState($stateParams);
+             //var returnStates = $stateParams.returnStates;
+             //if (returnStates && returnStates.length) {
+             //    var returnState = returnStates.splice(0, 1)[0];
+             //    var params = returnState.params ? returnState.params : {};
+             //    params.returnStates = returnStates;
+             //    $state.go(returnState.name, params);
+             //} else {
+             //    $state.go('base.main');
+             //}
          }
          function getStates() {
              WorkItemService.getStates().then(function (content) {
@@ -37,7 +38,6 @@
          };
 
          getStates();
-
 
          $scope.isFormChanged = false;
          $scope.canEdit = false;
@@ -77,7 +77,17 @@
          }
 
 
+         Object.defineProperty($scope, 'IsNew', {
+             get: function () {
+                 return $scope.isNew;
+             }
+         });
 
+         Object.defineProperty($scope, 'WorkItem', {
+             get: function () {
+                 return $scope.workItem;
+             }
+         });
 
          function setFlags(workItemType) {
              $scope.isProject = false;

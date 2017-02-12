@@ -73,11 +73,11 @@
             $state.go('base.edit', { workItemId: workItem.Id, returnStates: [{ name: 'base.projects', params: angular.copy($stateParams) }] });
         };
         $scope.showArchiveChanged = function() {
-            $scope.filterOptions.showArchive = !$scope.filterOptions.showArchive;
+            //$scope.filterOptions.showArchive = !$scope.filterOptions.showArchive;
             getProjects($scope.filterOptions);
         };
         $scope.showDoneChanged = function() {
-            $scope.filterOptions.showDone = !$scope.filterOptions.showDone;
+            //$scope.filterOptions.showDone = !$scope.filterOptions.showDone;
             getProjects($scope.filterOptions);
         };
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace ProjectManagementSystem.Controllers
 {
@@ -10,6 +6,7 @@ namespace ProjectManagementSystem.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Система управления проектами - Пангея";
             return View();
         }
 

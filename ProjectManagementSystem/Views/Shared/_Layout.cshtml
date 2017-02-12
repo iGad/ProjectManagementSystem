@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/reset")
     @Styles.Render("~/Content/angular-material")
     @Styles.Render("~/Content/ui-grid")
@@ -19,18 +19,14 @@
     @Scripts.Render("~/bundles/uigrid")
     @*@Scripts.Render("~/bundles/bootstrap")*@
     @Scripts.Render("~/bundles/site")
-    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script> @*для кэширования автокомплита*@
+    @Scripts.Render("~/bundles/global")
+    @*<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>*@ @*для кэширования автокомплита*@
 </head>
 <body>
     @RenderBody()
 
    
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
-    @*
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@
+   
 @RenderSection("scripts", required: false)
 </body>
 </html>

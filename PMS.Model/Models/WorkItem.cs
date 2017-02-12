@@ -7,6 +7,27 @@ namespace PMS.Model.Models
 {
     public class WorkItem : NamedEntity, IHierarchicalEntity
     {
+        public WorkItem()
+        {
+        }
+        /// <summary>
+        /// Конструктор копирования. не копирует связанные сущности
+        /// </summary>
+        /// <param name="workItem"></param>
+        public WorkItem(WorkItem workItem)
+        {
+            Id = workItem.Id;
+            ParentId = workItem.ParentId;
+            Type = workItem.Type;
+            State = workItem.State;
+            Status = workItem.Status;
+            Name = workItem.Name;
+            Description = workItem.Description;
+            DeadLine = workItem.DeadLine;
+            FinishDate = workItem.FinishDate;
+            ExecutorId = workItem.ExecutorId;
+        }
+
         public int? ParentId { get; set; }
         public WorkItem Parent { get; set; }
 

@@ -1,5 +1,5 @@
-﻿angapp.controller('WorkItemTileController', ['$scope', '$state', '$stateParams', '$location', 'WorkItemService',
-    function ($scope, $state, $stateParams, $location, WorkItemService) {
+﻿angapp.controller('WorkItemTileController', ['$scope', '$state', '$stateParams', '$location', 'WorkItemService', 'Utils',
+    function ($scope, $state, $stateParams, $location, WorkItemService, Utils) {
         var dateFormat = 'DD.MM.YYYY HH:mm';
        
 
@@ -8,8 +8,9 @@
         };
 
         $scope.edit = function (itemId) {
-            var returnStates = [{ name: $state.$current.name }];
-            $state.go('base.edit', { workItemId: itemId, returnStates : returnStates });
+            Utils.goToState('base.edit', { workItemId: itemId }, $stateParams);
+            //var returnStates = [{ name: $state.$current.name }];
+            //$state.go('base.edit', { workItemId: itemId, returnStates : returnStates });
         };
 
         $scope.getWorkItemClass = function (item) {
