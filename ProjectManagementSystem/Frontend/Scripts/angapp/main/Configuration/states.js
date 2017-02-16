@@ -44,7 +44,7 @@ angapp.config(function ($stateProvider) {
     {
         name: 'base.tasks',
         url: '/tasks',
-        templateUrl: '<h1>Tasks</h1>'
+        templateUrl: 'Frontend/Views/main/test.html'
     },
     {
         name: 'base.about',

@@ -1,7 +1,8 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.SignalR;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(ProjectManagementSystem.Startup))]
+[assembly: OwinStartup(typeof(ProjectManagementSystem.Startup))]
 namespace ProjectManagementSystem
 {
     public partial class Startup
@@ -9,7 +10,7 @@ namespace ProjectManagementSystem
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            
+            app.MapSignalR();
         }
     }
 }

@@ -45,6 +45,12 @@
 
         getProjects($scope.filterOptions);
 
+        $scope.$on("WorkItemChanged", function (event, workItem) {
+            getProjects($scope.filterOptions);
+            
+        });
+
+
         $scope.addProject = function () {
             var params = { type: 1 };
             params.returnStates = [{ name: 'base.projects', params: angular.copy($stateParams) }];

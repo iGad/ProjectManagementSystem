@@ -5,15 +5,6 @@
          };
          function goToReturnState() {
              Utils.goToReturnState($stateParams);
-             //var returnStates = $stateParams.returnStates;
-             //if (returnStates && returnStates.length) {
-             //    var returnState = returnStates.splice(0, 1)[0];
-             //    var params = returnState.params ? returnState.params : {};
-             //    params.returnStates = returnStates;
-             //    $state.go(returnState.name, params);
-             //} else {
-             //    $state.go('base.main');
-             //}
          }
          function getStates() {
              WorkItemService.getStates().then(function (content) {
@@ -36,6 +27,11 @@
                  $scope.typeChanged($scope.workItem.Type);
              });
          };
+
+         $scope.$on("WorkItemChanged", function (event, workItem) {
+             $state.reload();
+         });
+
 
          getStates();
 

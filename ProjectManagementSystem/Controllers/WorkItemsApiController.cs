@@ -13,9 +13,11 @@ namespace ProjectManagementSystem.Controllers
     public class WorkItemsApiController : BaseController
     {
         private readonly WorkItemApiService workItemService;
-        public WorkItemsApiController(WorkItemApiService workItemService)
+        private readonly NotificationService notifyService;
+        public WorkItemsApiController(WorkItemApiService workItemService, NotificationService notifyService)
         {
             this.workItemService = workItemService;
+            this.notifyService = notifyService;
         }
         [HttpPost]
         public ActionResult AddWorkItem(WorkItem workItem)
@@ -27,7 +29,11 @@ namespace ProjectManagementSystem.Controllers
         [HttpPost]
         public ActionResult UpdateWorkItem(WorkItem workItem)
         {
-            return TryAction(() => this.workItemService.Update(workItem));
+            this.workItemService.Update(workItem);
+            this.notifyService.SendEvent("WorkItemChanged", workItem, BroadcastType.All);
+            return Json("OK");
+
+            //return TryAction(() => this.workItemService.Update(workItem));
         }
 
         [HttpPost]

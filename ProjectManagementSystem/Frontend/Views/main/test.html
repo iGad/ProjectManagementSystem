@@ -1,0 +1,10 @@
+﻿<div ng-controller="TestController" layout="column">
+    <div layout="row">
+        <md-input-container class="md-block" flex>
+            <label>Текст сообщения</label>
+            <input ng-model="message" md-select-on-focus></input>
+        </md-input-container>
+        <md-button ng-click="sendMessage()">Отправить</md-button>
+    </div>
+    <p ng-repeat="msg in messages"><b>{{msg.name}}</b>&nbsp;{{msg.message}}</p>
+</div>

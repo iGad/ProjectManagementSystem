@@ -24,6 +24,16 @@
     $rootScope.$on('$stateChangeError', function () {
         console.log("$stateChangeError " + fromState.name + JSON.stringify(fromParams) + " -> " + toState.name + JSON.stringify(toParams));
     });
+    var notificationHub = $.connection.notificationHub;
+    // Create a function that the hub can call to broadcast messages.
+    notificationHub.client.raiseEvent = function (eventName, params) {
+        $scope.$broadcast(eventName, params);
+    };
+
+    $.connection.hub.start().done(function () {
+        $scope.isConnected = true;
+
+    });
     //$rootScope.$on('$stateChangeStart', function (e, toState, toParams, fromState, fromParams) {
     //    if (toState.module === 'private') {
     //        // If logged out and transitioning to a logged in page:
