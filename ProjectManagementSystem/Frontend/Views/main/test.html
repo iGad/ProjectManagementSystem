@@ -1,10 +1,64 @@
-﻿<div ng-controller="TestController" layout="column">
-    <div layout="row">
-        <md-input-container class="md-block" flex>
-            <label>Текст сообщения</label>
-            <input ng-model="message" md-select-on-focus></input>
-        </md-input-container>
-        <md-button ng-click="sendMessage()">Отправить</md-button>
+﻿<style>
+    .body {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  
+  display: flex;
+}
+
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: auto;
+}
+
+.box {
+  min-height: -webkit-min-content;
+  display: flex;
+}
+
+.column {
+  padding: 20px;
+  border-right: 1px solid #999;
+}
+
+.column > div {
+  height: 2000px;
+  background: red;
+}
+
+</style>
+<div class="body">
+
+
+    <div class="main">
+
+
+        <div class="content">
+
+            <div class="box">
+                <div style="height: 2000px" flex>
+                    <div>Column 1</div>
+                </div>
+                <!--<div class="column">
+                    <div>Column 1</div>
+                </div>
+                <div class="column">
+                    <div>Column 1</div>
+                </div>-->
+            </div>
+
+        </div>
     </div>
-    <p ng-repeat="msg in messages"><b>{{msg.name}}</b>&nbsp;{{msg.message}}</p>
+
 </div>

@@ -22,6 +22,9 @@ namespace ProjectManagementSystem.Hubs
             // After the code in this method completes, the client is informed that
             // the connection is established; for example, in a JavaScript client,
             // the start().done callback is executed.
+            string name = Context.User.Identity.Name;
+
+            Groups.Add(Context.ConnectionId, name);
             return base.OnConnected();
         }
 

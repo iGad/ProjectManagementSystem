@@ -1,5 +1,5 @@
-﻿angapp.controller('ProjectsController', ['$scope', '$state', '$stateParams', 'WorkItemService', "UsersService",
-    function ($scope, $state, $stateParams, WorkItemService, UsersService) {
+﻿angapp.controller('ProjectsController', ['$scope', '$state', '$stateParams', 'WorkItemService', "UsersService", 'Utils',
+    function ($scope, $state, $stateParams, WorkItemService, UsersService, Utils) {
         var onError = function(err) {
             console.error(err);
         };
@@ -51,10 +51,12 @@
         });
 
 
-        $scope.addProject = function () {
-            var params = { type: 1 };
-            params.returnStates = [{ name: 'base.projects', params: angular.copy($stateParams) }];
-            $state.go('base.add', params);
+        $scope.addProject = function() {
+            Utils.goToState('base.add', { type: 1 }, $stateParams);
+        
+            ////var params = { type: 1 };
+            ////params.returnStates = [{ name: 'base.projects', params: angular.copy($stateParams) }];
+            ////$state.go('base.add', params);
         };
         $scope.addChild = function(parentItem) {
             var params = { type: parentItem.Type + 1 };
@@ -72,11 +74,13 @@
                     params.ProjectId = parentItem.Parent.Parent.Id;
                     break;
             }
-            params.returnStates = [{ name: 'base.projects', params: angular.copy($stateParams) }];
-            $state.go('base.add', params);
+            Utils.goToState('base.add', params, $stateParams);
+            //params.returnStates = [{ name: 'base.projects', params: angular.copy($stateParams) }];
+            //$state.go('base.add', params);
         };
-        $scope.edit = function(workItem) {
-            $state.go('base.edit', { workItemId: workItem.Id, returnStates: [{ name: 'base.projects', params: angular.copy($stateParams) }] });
+        $scope.edit = function (workItem) {
+            Utils.goToState('base.edit', { workItemId: workItem.Id }, $stateParams);
+           // $state.go('base.edit', { workItemId: workItem.Id, returnStates: [{ name: 'base.projects', params: angular.copy($stateParams) }] });
         };
         $scope.showArchiveChanged = function() {
             //$scope.filterOptions.showArchive = !$scope.filterOptions.showArchive;

@@ -208,6 +208,7 @@
     </Compile>
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\UserIdProvider.cs" />
     <Compile Include="Services\UsersApiService.cs" />
     <Compile Include="Services\WorkItemApiService.cs" />
     <Compile Include="Startup.cs" />
@@ -217,6 +218,8 @@
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemChangesViewModel.cs" />
+    <Compile Include="ViewModels\WorkItemNotificationViewModel.cs" />
     <Compile Include="ViewModels\WorkItemTreeParentViewModel.cs" />
     <Compile Include="ViewModels\WorkItemTileViewModel.cs" />
     <Compile Include="ViewModels\WorkItemTreeViewModel.cs" />
@@ -331,6 +334,7 @@
     <Content Include="Frontend\Content\images\material-icons\ic_menu_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\global\Providers\NotificationServiceProvider.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\Utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

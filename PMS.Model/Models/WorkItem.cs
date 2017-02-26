@@ -26,6 +26,7 @@ namespace PMS.Model.Models
             DeadLine = workItem.DeadLine;
             FinishDate = workItem.FinishDate;
             ExecutorId = workItem.ExecutorId;
+            CreatorId = workItem.CreatorId;
         }
 
         public int? ParentId { get; set; }
@@ -56,18 +57,5 @@ namespace PMS.Model.Models
         public DateTime? FinishDate { get; set; }
         public ICollection<WorkItem> Children { get; set; } 
         public ICollection<Comment> Comments { get; set; }
-    }
-
-    public static class WorkItemExtensions
-    {
-        public static TreeNode ToTreeNode(this WorkItem workItem)
-        {
-            return new TreeNode
-            {
-                Id = workItem.Id,
-                Name = workItem.Name,
-                Type = workItem.Type.ToString()
-            };
-        }
     }
 }

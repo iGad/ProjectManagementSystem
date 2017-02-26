@@ -22,5 +22,10 @@ namespace PMS.Model.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public override string ToString()
+        {
+            return Name + (string.IsNullOrWhiteSpace(Surname) ? $"({Email})" : $" {Surname}");
+        }
     }
 }

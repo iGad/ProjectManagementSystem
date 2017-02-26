@@ -3,7 +3,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.AspNet.SignalR;
 using ProjectManagementSystem.Export;
+using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem
 {
@@ -14,7 +16,9 @@ namespace ProjectManagementSystem
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            DependencyResolver.SetResolver(new PmsDependencyResolver());
+            var dependencyResolver = new PmsDependencyResolver();
+            DependencyResolver.SetResolver(dependencyResolver);
+            //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), ()=> new UserIdProvider());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }

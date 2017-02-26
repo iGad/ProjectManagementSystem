@@ -104,7 +104,10 @@
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\ApplicationSignInManager.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
+    <Compile Include="Models\Notification\WorkItemNotificationModel.cs" />
     <Compile Include="Models\PermissionsEnum.cs" />
+    <Compile Include="Services\ApplicationUserExtensions.cs" />
+    <Compile Include="Services\WorkItemExtensions.cs" />
     <Compile Include="Models\WorkItemType.cs" />
     <Compile Include="Models\WorkItem.cs" />
     <Compile Include="Models\WorkItemState.cs" />
