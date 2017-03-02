@@ -1,4 +1,5 @@
-﻿body {
+﻿html,body {
+    height: 100%;
     background: white;
 }
 
@@ -142,4 +143,22 @@ md-input-container {
 }
 .green-btn {
     color: #0c0;
+}
+
+#body-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+    width: 100%;
+    overflow: hidden;
+}
+
+#body-container .navbar {
+    margin-bottom: 0;
+}
+#body-container .body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
 }

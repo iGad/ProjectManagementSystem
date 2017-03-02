@@ -1,50 +1,27 @@
 ﻿<style>
-    .body {
-  position: absolute;
-  top: 50px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  
-  display: flex;
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+    width: 100%;
+    overflow: hidden;
 }
 
-
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.container .header {
+    height: 50px;
 }
-
-.content {
-  flex: 1;
-  display: flex;
-  overflow: auto;
-}
-
-.box {
-  min-height: -webkit-min-content;
-  display: flex;
-}
-
-.column {
-  padding: 20px;
-  border-right: 1px solid #999;
-}
-
-.column > div {
-  height: 2000px;
-  background: red;
+.container .article {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
 }
 
 </style>
-<div class="body">
+<div class="container">
 
-
-    <div class="main">
-
-
-        <div class="content">
+   
+    <div class="article">
 
             <div class="box">
                 <div style="height: 2000px" flex>
@@ -58,7 +35,6 @@
                 </div>-->
             </div>
 
-        </div>
     </div>
 
 </div>
