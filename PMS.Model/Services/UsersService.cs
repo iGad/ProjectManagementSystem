@@ -28,6 +28,13 @@ namespace PMS.Model.Services
             }
             return this.userRepository.GetUsersByRoles(roles).Where(x => !x.IsDeleted).ToList();
         }
-        
+
+        public ApplicationUser Get(string id)
+        {
+            var user = this.userRepository.GetById(id);
+            if (user == null)
+                throw new PmsExeption("User with Id " + id + " not found");
+            return user;
+        }
     }
 }

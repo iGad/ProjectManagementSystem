@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -21,8 +22,18 @@ namespace ProjectManagementSystem
             //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), ()=> new UserIdProvider());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //this.Error+= OnError;
+            //this.AuthorizeRequest += OnAuthorizeRequest;
         }
 
-         
+        private void OnAuthorizeRequest(object sender, EventArgs eventArgs)
+        {
+            var i = 0;
+        }
+
+        private void OnError(object sender, EventArgs eventArgs)
+        {
+            
+        }
     }
 }

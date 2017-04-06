@@ -5,8 +5,8 @@
         <div flex="25">На проверке</div>
         <div flex="15">Завершенные</div>
     </div>
-    <div style="flex: 1; display: flex; overflow: auto;">
-        <div style="min-height: -webkit-min-content; display: flex;">
+    <div>
+        <div>
             <div layout="row" layout-padding="" layout-wrap="" layout-align="space-around">
                 <div layout="row" class="workitem-container" flex="25" layout-wrap="" layout-align="start start">
                     <ng-include src="'/Frontend/Views/main/base/workItemTileTemplate.html'" ng-repeat="workItem in New.concat(Planned)"></ng-include>

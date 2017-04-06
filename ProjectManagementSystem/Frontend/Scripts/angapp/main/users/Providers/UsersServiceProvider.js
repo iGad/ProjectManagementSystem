@@ -33,6 +33,13 @@
     return {
         $get: ["$q", "$http", function ($q, $http) {
             var service = {
+                sendNotification: function(userId) {
+                    return $http({
+                        url: '/EventsApi/SendNotification',
+                        method: 'GET',
+                        params: {userId}
+                    });
+                },
                 getDefaultGridOptions: function () {
                     return getDefaultGridOptions();
                 },

@@ -7,15 +7,19 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PMS.Model.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<string, IdentityUserLogin, UserRole, IdentityUserClaim>
     {
+        public ApplicationUser()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Fathername { get; set; }
         public DateTime? Birthday { get; set; }
         public bool IsDeleted { get; set; }
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, string> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

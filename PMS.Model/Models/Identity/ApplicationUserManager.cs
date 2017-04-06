@@ -7,9 +7,9 @@ using Microsoft.Owin;
 namespace PMS.Model.Models.Identity
 {
 
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<ApplicationUser, string>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
+        public ApplicationUserManager(IUserStore<ApplicationUser, string> store)
             : base(store)
         {
         }
@@ -17,7 +17,7 @@ namespace PMS.Model.Models.Identity
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
             IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, Role, string, IdentityUserLogin, UserRole, IdentityUserClaim>(context.Get<ApplicationContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

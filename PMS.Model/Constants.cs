@@ -10,5 +10,6 @@
         public const string WorkItemStateChangedEventName = "workitemstatechanged";
         public const string AppointEventName = "workitemappoint";
         public const string DisappointEventName = "workitemdisappoint";
+        public const string WorkItemEvent = "workitemevent";
     }
 }

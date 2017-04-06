@@ -1,4 +1,19 @@
 ﻿angapp.provider("NotificationService", function () {
+    var getActionInfo = function (eventName, notificationModel, Utils, $stateParams) {
+        var result = {};
+        switch (eventName.toLowerCase()) {
+            case 'workitemappointed':
+            case 'workitemdisappoint':
+            case 'workitemstatechanged':
+            case 'workitemchanged':
+            case 'workitemadded':
+                result.actionName = 'Посмотреть';
+                result.action =  function () { Utils.goToState('base.edit', { workItemId: notificationModel.WorkItemId }, $stateParams); };
+                break;
+        }
+        return result;
+    };
+
     function isProject(type) {
         return type === 0;
     };
@@ -120,8 +135,21 @@
                             toastData.action();
                         }
                     });
+               
+                },
+                showToast: function (eventName, notificationModel) {
+                    var actionInfo = getActionInfo(eventName, notificationModel, Utils, $stateParams);
+                    var toast = $mdToast.simple()
+                         .textContent(notificationModel.Text)
+                         .action(actionInfo.actionName.toUpperCase())
+                         .highlightAction(true)
+                         .position('bottom right');
+                    $mdToast.show(toast).then(function (response) {
+                        if (response === 'ok') {
+                            actionInfo.action();
+                        }
+                    });
                 }
-
             };
             return service;
         }]

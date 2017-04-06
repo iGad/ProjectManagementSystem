@@ -10,6 +10,7 @@ using Extensions = PMS.Model.Extensions;
 
 namespace ProjectManagementSystem.Controllers
 {
+    [Authorize]
     public class WorkItemsApiController : BaseController
     {
         private readonly WorkItemApiService workItemService;

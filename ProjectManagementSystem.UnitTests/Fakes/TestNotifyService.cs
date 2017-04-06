@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Models;
 using Common.Services;
+using PMS.Model.Models;
+using PMS.Model.Services;
 
 namespace ProjectManagementSystem.UnitTests.Fakes
 {
@@ -30,6 +32,34 @@ namespace ProjectManagementSystem.UnitTests.Fakes
             if (broadcastType != BroadcastType.All && (userNames == null || userNames.All(string.IsNullOrWhiteSpace)))
                 return;
             SendedNotifications.Add(new NotificationInfo {Name = eventName, SendedObject = sendedObject, Type = broadcastType, Users = userNames});
+        }
+
+        public void SendNotification(WorkEvent workEvent, BroadcastType broadcastType, params string[] userNames)
+        {
+            SendedNotifications.Add(new NotificationInfo
+            {
+                Name = workEvent.Type.ToString().ToLower(),
+                SendedObject = workEvent,
+                Type = BroadcastType.Users,
+                Users = userNames
+            });
+        }
+
+        public void SendNotifications(WorkEvent workEvent, ApplicationUser[] users)
+        {
+            SendedNotifications.Add(new NotificationInfo
+            {
+                Name = workEvent.Type.ToString().ToLower(),
+                SendedObject = workEvent,
+                Type = BroadcastType.Users,
+                Users = users.Select(x => x.Id).ToArray()
+            });
+        }
+
+        public void SendNotifications(WorkEvent workEvent, ApplicationUser user)
+        {
+            SendNotifications(workEvent, new [] {user});
+            
         }
     }
 }

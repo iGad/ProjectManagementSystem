@@ -1,6 +1,7 @@
 ﻿using Common.Models;
+using PMS.Model.Models;
 
-namespace Common.Services
+namespace PMS.Model.Services
 {
     public interface INotifyService
     {
@@ -20,5 +21,9 @@ namespace Common.Services
         /// <param name="broadcastType">Тип отправки (кому)</param>
         /// <param name="userNames">Включенные пользователи при отправке определенным пользователям</param>
         void SendNotification(string eventName, object sendedObject, BroadcastType broadcastType, params string[] userNames);
+
+        void SendNotification(WorkEvent workEvent, BroadcastType broadcastType, params string[] userNames);
+        void SendNotifications(WorkEvent workEvent, ApplicationUser[] users);
+        void SendNotifications(WorkEvent workEvent, ApplicationUser user);
     }
 }

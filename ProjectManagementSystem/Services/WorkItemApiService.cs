@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Models;
 using Common.Services;
+using Newtonsoft.Json;
 using PMS.Model;
+using PMS.Model.CommonModels.EventModels;
 using PMS.Model.Models;
-using PMS.Model.Models.Notification;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
 using ProjectManagementSystem.ViewModels;
@@ -13,14 +15,18 @@ namespace ProjectManagementSystem.Services
 {
     public class WorkItemApiService : WorkItemService
     {
+        private ApplicationUser currentUser;
         private readonly INotifyService notifyService;
         private readonly IUserRepository userRepository;
         private readonly ICurrentUsernameProvider currentUsernameProvider;
-        public WorkItemApiService(IWorkItemRepository repository, IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider, INotifyService notifyService) :base(repository)
+        private readonly IEventService eventService;
+        public WorkItemApiService(IWorkItemRepository repository, IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider, INotifyService notifyService, IEventService eventService) 
+            :base(repository)
         {
             this.notifyService = notifyService;
             this.userRepository = userRepository;
             this.currentUsernameProvider = currentUsernameProvider;
+            this.eventService = eventService;
         }
 
         public WorkItemViewModel GetWorkItem(int id)
@@ -75,94 +81,170 @@ namespace ProjectManagementSystem.Services
 
         private ApplicationUser GetCurrentUser()
         {
-            return this.userRepository.GetByUserName(this.currentUsernameProvider.GetCurrentUsername());
+            return this.currentUser ?? (this.currentUser = this.userRepository.GetByUserName(this.currentUsernameProvider.GetCurrentUsername()));
         }
+        
+        /// <summary>
+        /// Получение всех пользователей, кому необходимо сообщить о событии.
+        /// Не включает текущего пользователя
+        /// </summary>
+        /// <param name="workItem">Рабочий элемент, о событии с которым необходимо оповестить пользователей</param>
+        /// <returns></returns>
+        protected List<ApplicationUser> GetNotifyingUsers(WorkItem workItem)
+        {
+            var users = new List<ApplicationUser> {GetCurrentUser()};
+            var executor = this.userRepository.GetById(workItem.ExecutorId);
+            if (executor != null && users.All(x=>x.Id != executor.Id))
+                users.Add(executor);
+            if (workItem.ParentId.HasValue)
+            {
+                var parentItemExecutorId = Repository.GetById(workItem.ParentId.Value).ExecutorId;
+                var parentItemExecutor = this.userRepository.GetById(parentItemExecutorId);
+                if (parentItemExecutor != null && users.All(x => x.Id != parentItemExecutor.Id))
+                    users.Add(parentItemExecutor);
+            }
+            var directors = this.userRepository.GetUsersByRole(Resources.Director);
+            users.AddRange(directors.Where(x => users.All(u => u.Id != x.Id)));
+            users.RemoveAt(0);
+            return users;
+        } 
 
         #region Overrides
 
-        protected override void OnAdded(WorkItem item)
+        public override WorkItem Add(WorkItem workItem)
+        {
+            var item = base.Add(workItem);
+            NotifyOnAdded(item);
+            return item;
+        }
+
+        private void NotifyOnAdded(WorkItem item)
         {
             this.notifyService.SendEvent(Constants.WorkItemAddedEventName, item.Id, BroadcastType.All);
-            var currentUser = GetCurrentUser();
-            var model = new WorkItemNotificationViewModel(item, currentUser);
+            var user = GetCurrentUser();
+            var addedEvent = CreateBaseEvent(item.Id, EventType.WorkItemAdded);
             if (!string.IsNullOrWhiteSpace(item.ExecutorId))
             {
-                var executorName = this.userRepository.GetById(item.ExecutorId).UserName;
-                if (executorName != currentUser.UserName)
+                var executor = this.userRepository.GetById(item.ExecutorId);
+                var appointEvent = CreateBaseEvent(item.Id, EventType.WorkItemAppointed);
+                appointEvent.Data = item.ExecutorId;
+                SendNotificationToResponsibleUsers(addedEvent, item, user.Id, executor.Id);
+                this.eventService.AddEvent(appointEvent, new[] {item.ExecutorId});
+                if (executor.Id != user.Id)
                 {
-                    this.notifyService.SendNotification(Constants.AppointEventName, model, BroadcastType.Users, executorName);
+                    this.notifyService.SendNotifications(appointEvent, executor);
                 }
-                SendNotificationToManagerAndExecutor(Constants.WorkItemAddedEventName, model, item, currentUser.UserName, executorName);
             }
             else
             {
-                SendNotificationToManagerAndExecutor(Constants.WorkItemAddedEventName, model, item, currentUser.UserName);
+                SendNotificationToResponsibleUsers(addedEvent, item, user.Id);
             }
         }
 
-        protected override void OnUpdating(WorkItem oldWorkItem, WorkItem workItem, string[] differentProperties)
+        public void Update(WorkItem workItem)
         {
-            var currentUser = GetCurrentUser();
-            var oldExecutorUsername = this.userRepository.GetById(oldWorkItem.ExecutorId)?.UserName;
-            var model = new WorkItemNotificationViewModel(oldWorkItem, currentUser);
+            var oldWorkItem = Get(workItem.Id);
+            var differentProperties = oldWorkItem.GetDifferentProperties(workItem);
+            NotifyOnUpdating(oldWorkItem, workItem, differentProperties);
+            Update(oldWorkItem, workItem);
+            NotifyOnUpdated(oldWorkItem, differentProperties);
+        }
+
+        private void NotifyOnUpdating(WorkItem oldWorkItem, WorkItem workItem, string[] differentProperties)
+        {
+            var user = GetCurrentUser();
+            var oldExecutor = this.userRepository.GetById(oldWorkItem.ExecutorId);
             bool needNotification = true;
+            var changedEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemChanged);
             if (differentProperties.Any(x => x == nameof(WorkItem.ExecutorId)))
             {
-                var executorUsername = this.userRepository.GetById(workItem.ExecutorId)?.UserName;
-                if (currentUser.UserName != oldExecutorUsername)
-                    this.notifyService.SendNotification(Constants.DisappointEventName, model, BroadcastType.Users, oldExecutorUsername);
-                if (currentUser.UserName != executorUsername)
-                    this.notifyService.SendNotification(Constants.AppointEventName, model, BroadcastType.Users, executorUsername);
-                SendNotificationToManagerAndExecutor(Constants.WorkItemChangedEventName, model, oldWorkItem, currentUser.UserName, oldExecutorUsername, executorUsername);
+                var executor = this.userRepository.GetById(workItem.ExecutorId);
+                if (oldExecutor != null)
+                {
+                    var disappointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemDisappointed);
+                    disappointEvent = this.eventService.AddEvent(disappointEvent, new[] {oldExecutor.Id});
+                    if (user.UserName != oldExecutor.UserName)
+                        this.notifyService.SendNotifications(disappointEvent, new[] {oldExecutor});
+                }
+                if (executor != null)
+                {
+                    var appointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemAppointed);
+                    this.eventService.AddEvent(appointEvent, new[] { executor.Id });
+                    if (user.UserName != executor.UserName)
+                        this.notifyService.SendNotifications(appointEvent, new[] {executor});
+                }
+                
+                SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id, oldExecutor?.Id, executor?.Id);
                 needNotification = false;
             }
             if (needNotification && differentProperties.All(x=>x == nameof(WorkItem.State)))
             {
-                model.Data = new {Old = new EnumViewModel<WorkItemState>(oldWorkItem.State), New = new EnumViewModel<WorkItemState>(workItem.State)};
-                SendNotificationToManagerAndExecutor(Constants.WorkItemStateChangedEventName, model, oldWorkItem, currentUser.UserName);
-                //if(currentUser.UserName != oldExecutorUsername)
-                //    this.notifyService.SendNotification(Constants.WorkItemChangedEventName, model, BroadcastType.Users, oldExecutorUsername);
-                //if (currentUser.UserName != oldExecutorUsername)
-                //    this.notifyService.SendNotification(Constants.WorkItemChangedEventName, model, BroadcastType.Users, oldExecutorUsername);
+                var stateChangedEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemStateChanged,
+                    new StateChangedModel{Old = oldWorkItem.State, New = workItem.State});
+                SendNotificationToResponsibleUsers(stateChangedEvent, oldWorkItem, user.Id);
                 needNotification = false;
             }
             if (needNotification)
             {
-                SendNotificationToManagerAndExecutor(Constants.WorkItemChangedEventName, model, oldWorkItem, currentUser.UserName);
+                SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id);
             }
         }
 
-        private void SendNotificationToManagerAndExecutor(string notificationName, object model, WorkItem workItem, params string[] exceptUsers)
+        private WorkEvent CreateBaseEvent(int workItemId, EventType type, object data = null)
         {
-            var users = GetManagerAndExecutorNames(workItem, exceptUsers);
-            //todo: Надо ли всегда директора оповещать?
-            if(users.Any())
-                this.notifyService.SendNotification(notificationName, model, BroadcastType.Users, users.ToArray());
+            return new WorkEvent
+            {
+                UserId = GetCurrentUser().Id,
+                Type = type,
+                ObjectId = workItemId,
+                Data = data == null ? string.Empty : JsonConvert.SerializeObject(data)
+            };
+        }
+
+        private void SendNotificationToResponsibleUsers(WorkEvent @event, WorkItem workItem, params string[] exceptUsers)
+        {
+            var users = GetResponsibleUsers(workItem).Distinct(new ApplicationUserEqualityComparer()).ToArray();
+            var notifyingUsers = users.Where(x => (exceptUsers == null || !exceptUsers.Contains(x.Id)));
+            this.eventService.AddEvent(@event, users.Select(x => x.Id));
+            this.notifyService.SendNotifications(@event, notifyingUsers.ToArray());
         }
         
-        private List<string> GetManagerAndExecutorNames(WorkItem workItem, params string[] exceptUsers)
+        private List<ApplicationUser> GetResponsibleUsers(WorkItem workItem, params string[] exceptUsers)
         {
-            var executorUsername = this.userRepository.GetById(workItem.ExecutorId)?.UserName;
-            var users = new List<string>();
-            if (exceptUsers == null || !exceptUsers.Contains(executorUsername))
-                users.Add(executorUsername);
+            var executor = this.userRepository.GetById(workItem.ExecutorId);
+            var users = new List<ApplicationUser> {GetCurrentUser()};
+            if (exceptUsers == null || executor!= null && !exceptUsers.Contains(executor.Id))
+                users.Add(executor);
             if (workItem.ParentId.HasValue)
             {
                 var parentItemUserId = Repository.GetById(workItem.ParentId.Value).ExecutorId;
-                var parentItemUsername = this.userRepository.GetById(parentItemUserId)?.UserName;
-                if (exceptUsers == null || !exceptUsers.Contains(parentItemUsername))
-                    users.Add(parentItemUsername);
+                var parentItemExecutor = this.userRepository.GetById(parentItemUserId);
+                if (exceptUsers == null || !exceptUsers.Contains(parentItemExecutor.Id))
+                    users.Add(parentItemExecutor);
             }
+            var directorNames = this.userRepository.GetUsersByRole(RoleType.Director).ToArray();
+            users.AddRange(directorNames.Where(x => users.All(u => u.Id != x.Id)));
             return users;
         } 
 
-        protected override void OnUpdated(WorkItem workItem, string[] differentProperties)
+        private void NotifyOnUpdated(WorkItem workItem, string[] differentProperties)
         {
-            var sendModel = new { workItem.Id, ChangedProperties = differentProperties };
+            var sendModel = new WorkItemUpdatedModel { WorkItemId = workItem.Id, ChangedProperties = differentProperties };
             this.notifyService.SendEvent(Constants.WorkItemChangedEventName, sendModel, BroadcastType.All);
         }
 
+        public override void Delete(int id, bool cascade)
+        {
+            var item = Get(id);
+            base.Delete(id, cascade);
+            var @event = CreateBaseEvent(id, EventType.WorkItemDeleted, id);
+            SendNotificationToResponsibleUsers(@event, item, GetCurrentUser().Id);
+
+        }
+
         #endregion
+
+        
 
     }
 }

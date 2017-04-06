@@ -40,6 +40,16 @@ namespace PMS.Model.Repositories
             return new ApplicationUser[0];
         }
 
+        public IEnumerable<ApplicationUser> GetUsersByRole(RoleType roleCode)
+        {
+            var role = this.context.Roles.SingleOrDefault(x => x.RoleCode == roleCode);
+            if (role != null)
+            {
+                return this.context.Users.Include(x => x.Roles).Where(x => x.Roles.Any(r => r.RoleId == role.Id));
+            }
+            return new ApplicationUser[0];
+        }
+
         public IEnumerable<ApplicationUser> GetUsersByRoles(IEnumerable<string> rolesName)
         {
             var usersIds =
@@ -55,12 +65,12 @@ namespace PMS.Model.Repositories
             return new ApplicationUser[0];
         }
 
-        public IEnumerable<IdentityRole> GetRoles()
+        public IEnumerable<Role> GetRoles()
         {
             return this.context.Roles;
         }
 
-        public IdentityRole GetRoleById(string id)
+        public Role GetRoleById(string id)
         {
             return this.context.Roles.SingleOrDefault(x => x.Id == id);
         }

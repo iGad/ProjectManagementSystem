@@ -13,10 +13,10 @@ namespace ProjectManagementSystem.Services
 {
     public class UsersApiService
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser, string> userManager;
         private readonly IUserRepository userRepository;
 
-        public UsersApiService(IUserRepository repository, UserManager<ApplicationUser> manager)
+        public UsersApiService(IUserRepository repository, UserManager<ApplicationUser, string> manager)
         {
             this.userManager = manager;
             this.userRepository = repository;
@@ -72,7 +72,7 @@ namespace ProjectManagementSystem.Services
             UpdateUserRoles(userViewModel.Roles, user);
         }
 
-        private IdentityRole[] GetRolesByIds(IEnumerable<string> ids)
+        private Role[] GetRolesByIds(IEnumerable<string> ids)
         {
             var allRoles = this.userRepository.GetRoles().ToArray();
             return allRoles.Where(x => ids.Contains(x.Id)).ToArray();

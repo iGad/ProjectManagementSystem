@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PMS.Model.Models;
 
 namespace PMS.Model.Services
 {
     public static class ApplicationUserExtensions
     {
-        
+        public static string GetUserIdentityText(this ApplicationUser user)
+        {
+            var text = user.Name;
+            if (!string.IsNullOrWhiteSpace(user.Surname))
+                text += " " + user.Surname;
+            else
+                text += $" ({user.UserName})";
+            return text;
+        }
     }
 }

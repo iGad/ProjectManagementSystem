@@ -29,7 +29,8 @@ namespace PMS.Model.Models
             CreatorId = workItem.CreatorId;
         }
 
-        public int? ParentId { get; set; }
+        public int? ParentId { get;
+            set; }
         public WorkItem Parent { get; set; }
 
         IHierarchicalEntity IHierarchicalEntity.Parent

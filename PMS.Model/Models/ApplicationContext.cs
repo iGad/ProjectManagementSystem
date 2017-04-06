@@ -8,9 +8,9 @@ using PMS.Model.Models.Identity;
 
 namespace PMS.Model.Models
 {
-    public class ApplicationContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationContext : IdentityDbContext<ApplicationUser, Role, string, IdentityUserLogin, UserRole, IdentityUserClaim> 
     {
-        public ApplicationContext(): base("DefaultConnection", false)//"DefaultConnection"
+        public ApplicationContext(): base("DefaultConnection")//"DefaultConnection"
         {
             RequireUniqueEmail = false;
             if (!Database.Exists())
@@ -27,12 +27,15 @@ namespace PMS.Model.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<WorkItem>().HasMany(x => x.Children).WithOptional().HasForeignKey(x => x.ParentId);
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<WorkItem>().HasMany(x => x.Children).WithOptional().HasForeignKey(x => x.ParentId);
+            modelBuilder.Entity<WorkEventUserRelation>().HasKey(x => new {x.EventId, x.UserId});
         }
 
         public DbSet<WorkItem> WorkItems { get; set; } 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<WorkEvent> Events { get; set; }
+        public DbSet<WorkEventUserRelation> EventsUsers { get; set; }
 
         public static ApplicationContext Create()
         {

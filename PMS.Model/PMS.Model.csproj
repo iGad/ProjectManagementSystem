@@ -85,16 +85,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonModels\EventDisplayModel.cs" />
+    <Compile Include="CommonModels\EventModels\StateChangedModel.cs" />
+    <Compile Include="CommonModels\EventModels\WorkItemUpdatedModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Export\Export.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Migrations\201701060749441_Initial.cs" />
-    <Compile Include="Migrations\201701060749441_Initial.Designer.cs">
-      <DependentUpon>201701060749441_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702101904006_1.cs" />
-    <Compile Include="Migrations\201702101904006_1.Designer.cs">
-      <DependentUpon>201702101904006_1.cs</DependentUpon>
+    <Compile Include="Migrations\201703141435562_Initial.cs" />
+    <Compile Include="Migrations\201703141435562_Initial.Designer.cs">
+      <DependentUpon>201703141435562_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -106,7 +105,31 @@
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
     <Compile Include="Models\Notification\WorkItemNotificationModel.cs" />
     <Compile Include="Models\PermissionsEnum.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\WorkEvent.cs" />
+    <Compile Include="Models\WorkEventUserRelation.cs" />
+    <Compile Include="NotificationResources.Designer.cs">
+      <DependentUpon>NotificationResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Services\ApplicationUserEqualityComparer.cs" />
     <Compile Include="Services\ApplicationUserExtensions.cs" />
+    <Compile Include="Services\EventDescribers\ItemAddedEventDescriber.cs" />
+    <Compile Include="Services\EventDescribers\ItemAppointedEventDescriber.cs" />
+    <Compile Include="Services\EventDescribers\ItemChangedEventDecriber.cs" />
+    <Compile Include="Services\EventDescribers\ItemDeletedEventDescriber.cs" />
+    <Compile Include="Services\EventDescribers\ItemDisappointedEventDescriber.cs" />
+    <Compile Include="Services\EventDescribers\SimpleEventDescriber.cs" />
+    <Compile Include="Services\EventDescribers\StateChangedEventDescriber.cs" />
+    <Compile Include="Services\EventService.cs" />
+    <Compile Include="Services\EventDescriber.cs" />
+    <Compile Include="Services\IEventService.cs" />
+    <Compile Include="Services\INotifyService.cs" />
+    <Compile Include="Services\LexicalHelper.cs" />
     <Compile Include="Services\WorkItemExtensions.cs" />
     <Compile Include="Models\WorkItemType.cs" />
     <Compile Include="Models\WorkItem.cs" />
@@ -133,11 +156,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701060749441_Initial.resx">
-      <DependentUpon>201701060749441_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703141435562_Initial.resx">
+      <DependentUpon>201703141435562_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702101904006_1.resx">
-      <DependentUpon>201702101904006_1.cs</DependentUpon>
+    <EmbeddedResource Include="NotificationResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotificationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -150,6 +174,7 @@
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

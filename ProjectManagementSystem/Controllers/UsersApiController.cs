@@ -14,7 +14,7 @@ using ProjectManagementSystem.ViewModels;
 
 namespace ProjectManagementSystem.Controllers
 {
-    //[Author]
+    [Authorize]
     public class UsersApiController : Controller
     {
         private ApplicationUserManager userManager;

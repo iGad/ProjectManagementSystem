@@ -1,0 +1,30 @@
+﻿<md-content class="md-padding" ng-controller="EventsController">
+    <div layout="row">
+        <div flex>
+            <div id="grid3" ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-edit></div>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex>
+            <grid-pagination grid-api="gridApi"></grid-pagination>
+            <md-button class="md-icon-button" ng-click="edit($event)" ng-disabled="!gridApi.selection.getSelectedRows().length">
+                <md-tooltip md-direction="bottom">
+                    Редактировать
+                </md-tooltip>
+                <md-icon md-svg-icon="image:edit" aria-label="edit attribute"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="delete($event)" ng-disabled="!gridApi.selection.getSelectedRows().length">
+                <md-tooltip md-direction="bottom">
+                    Удалить
+                </md-tooltip>
+                <md-icon md-svg-icon="action:delete" aria-label="delete attribute"></md-icon>
+            </md-button>
+        </div>
+    </div>
+    <div layout="row">
+        <md-button style="margin-left: -5px" ng-click="add($event)" class="md-primary">
+            Добавить
+        </md-button>
+    </div>
+
+</md-content>

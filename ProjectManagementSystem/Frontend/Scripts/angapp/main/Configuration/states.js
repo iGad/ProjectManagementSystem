@@ -20,46 +20,56 @@
 angapp.config(function ($stateProvider) {
     // An array of state definitions
     var states = [
-    {
-        name: 'base',
-        templateUrl: 'Frontend/Views/main/base.html'
-    },
-    {
-        name: 'base.edit',
-        url: '/edit/{workItemId}',
-        params: { returnStates: null },
-        templateUrl: 'Frontend/Views/main/base/workItem.html'
-    },
-    {
-        name: 'base.add',
-        url: '/add',
-        params: { returnStates: null, projectId: null, stageId: null, partitionId: null, type: null },
-        templateUrl: 'Frontend/Views/main/base/workItem.html'
-    },
-    {
-        name: 'base.main',
-        url: '/',
-        templateUrl: 'Frontend/Views/main/base/workboard.html'
-    },
-    {
-        name: 'base.tasks',
-        url: '/tasks',
-        templateUrl: 'Frontend/Views/main/test.html'
-    },
-    {
-        name: 'base.about',
-        url: '/about',
-        template: '<h1>about</h1>'
-    },
-    {
-        name: 'base.projects',
-        url: '/projects',
-        templateUrl: 'Frontend/Views/main/projects/index.html'
+        {
+            name: 'base',
+            templateUrl: 'Frontend/Views/main/base.html'
+        },
+        {
+            name: 'base.edit',
+            url: '/edit/{workItemId}',
+            params: { returnStates: null },
+            templateUrl: 'Frontend/Views/main/base/workItem.html'
+        },
+        {
+            name: 'base.add',
+            url: '/add',
+            params: { returnStates: null, projectId: null, stageId: null, partitionId: null, type: null },
+            templateUrl: 'Frontend/Views/main/base/workItem.html'
+        },
+        {
+            name: 'base.main',
+            url: '/',
+            templateUrl: 'Frontend/Views/main/base/workboard.html'
+        },
+        {
+            name: 'base.tasks',
+            url: '/tasks',
+            templateUrl: 'Frontend/Views/main/test.html'
+        },
+        {
+            name: 'base.about',
+            url: '/about',
+            template: '<h1>about</h1>'
+        },
+        {
+            name: 'base.events',
+            url: '/events',
+            templateUrl: 'Frontend/Views/main/events/events.html'
+        },
+        {
+            name: 'base.test',
+            url: '/test',
+            templateUrl: 'Frontend/Views/main/test.html'
+        },
+        {
+            name: 'base.projects',
+            url: '/projects',
+            templateUrl: 'Frontend/Views/main/projects/index.html'
         },
         {
             name: 'base.users',
             url: '/users',
-            templateUrl:'Frontend/Views/main/users/index.html'
+            templateUrl: 'Frontend/Views/main/users/index.html'
         }
     ];
 

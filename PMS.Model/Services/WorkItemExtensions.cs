@@ -18,6 +18,12 @@ namespace PMS.Model.Services
             };
         }
 
+       
+        public static string GetWorkItemIdentityText(this WorkItem workItem)
+        {
+            return $"{workItem.Id} ({workItem.Name})";
+        }
+
         public static string[] GetDifferentProperties(this WorkItem item, WorkItem other)
         {
             var properties = new List<string>();

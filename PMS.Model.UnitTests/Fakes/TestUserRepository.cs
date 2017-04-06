@@ -12,16 +12,17 @@ namespace PMS.Model.UnitTests.Fakes
     public class TestUserRepository : IUserRepository, ICurrentUsernameProvider
     {
         private ApplicationUser currentUser;
-        public readonly List<IdentityRole> Roles = new List<IdentityRole>();
+        public readonly List<Role> Roles = new List<Role>();
         public readonly List<ApplicationUser> Users = new List<ApplicationUser>();
         public readonly List<IdentityUserRole> UsersRoles = new List<IdentityUserRole>();
 
         public TestUserRepository()
         {
             List<string> rolesName = new List<string> { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
+            List<RoleType> types = new List<RoleType> {RoleType.Manager, RoleType.MainProjectEngeneer, RoleType.Executor, RoleType.Director, RoleType.Admin};
             for (int i = 0; i < rolesName.Count; i++)
             {
-                this.Roles.Add(new IdentityRole(rolesName[i]) {Id = new TGuid(20 + i + 1).ToGuid().ToString()});
+                this.Roles.Add(new Role(rolesName[i], types[i]) {Id = new TGuid(20 + i + 1).ToGuid().ToString()});
             }
             
             
@@ -78,12 +79,19 @@ namespace PMS.Model.UnitTests.Fakes
             return GetUsers(x => usersRoles.Contains(x.Id));
         }
 
-        public IEnumerable<IdentityRole> GetRoles()
+        public IEnumerable<ApplicationUser> GetUsersByRole(RoleType roleCode)
+        {
+            var roleId = this.Roles.Single(x => x.RoleCode == roleCode).Id;
+            var usersRoles = this.UsersRoles.Where(x => x.RoleId == roleId).Select(x => x.UserId);
+            return GetUsers(x => usersRoles.Contains(x.Id));
+        }
+
+        public IEnumerable<Role> GetRoles()
         {
             return this.Roles;
         }
 
-        public IdentityRole GetRoleById(string id)
+        public Role GetRoleById(string id)
         {
             return this.Roles.SingleOrDefault(x => x.Id == id);
         }

@@ -11,6 +11,7 @@
                 //case 'tasks': return 3;
                 //case 'map': return 4;
             case 'users': return 3;
+                case 'events':return 4;
             default:
                 return -1;
         }
@@ -32,7 +33,7 @@
     };
 
     notificationHub.client.recieveNotification = function (eventName, args) {
-        notificationService.notify(eventName, args);
+        notificationService.showToast(eventName, args);
     };
 
     $.connection.hub.start().done(function () {

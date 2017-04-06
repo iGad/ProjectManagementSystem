@@ -11,8 +11,9 @@ namespace PMS.Model.Repositories
         ApplicationUser GetById(string id);
         ApplicationUser GetByUserName(string userName);
         IEnumerable<ApplicationUser> GetUsersByRole(string roleName);
-        IEnumerable<IdentityRole> GetRoles();
-        IdentityRole GetRoleById(string id);
+        IEnumerable<ApplicationUser> GetUsersByRole(RoleType roleCode);
+        IEnumerable<Role> GetRoles();
+        Role GetRoleById(string id);
         IEnumerable<ApplicationUser> GetUsersByRoles(IEnumerable<string> rolesName);
     }
 }

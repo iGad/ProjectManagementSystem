@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Models;
 
 namespace PMS.Model.Migrations
@@ -19,11 +18,11 @@ namespace PMS.Model.Migrations
         {
             using (var transaction = applicationContext.Database.BeginTransaction())
             {
-                List<string> rolesName = new List<string> { Resources.Manager, Resources.MainProjectEngineer, Resources.Executor, Resources.Director, Resources.Admin };
+                List<string> rolesName = new List<string> { Resources.Executor, Resources.Manager, Resources.MainProjectEngineer, Resources.Director, Resources.Admin };
                 for (int i = 0; i < rolesName.Count; i++)
                 {
                     if (applicationContext.Roles.AsEnumerable().All(k => k.Name != rolesName[i]))
-                        applicationContext.Roles.Add(new IdentityRole(rolesName[i]));
+                        applicationContext.Roles.Add(new Role(rolesName[i], (RoleType) i));
 
                 }
                 applicationContext.SaveChanges();

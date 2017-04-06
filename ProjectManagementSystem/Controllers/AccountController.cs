@@ -81,6 +81,8 @@ namespace ProjectManagementSystem.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (string.IsNullOrWhiteSpace(returnUrl) || returnUrl.Length < 3)
+                        return RedirectToAction("Index", "Home");
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -187,6 +187,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EventsApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
@@ -200,21 +201,30 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="NotificationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotificationResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\EventsApiService.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SignalrClientsProvider.cs" />
     <Compile Include="Services\UserIdProvider.cs" />
     <Compile Include="Services\UsersApiService.cs" />
     <Compile Include="Services\WorkItemApiService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\LinkedItemsCollection.cs" />
     <Compile Include="ViewModels\EnumViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
@@ -365,6 +375,9 @@
     <Content Include="Frontend\Scripts\angapp\main\base\WorkItemTileController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\main\events\EventsControler.js" />
+    <Content Include="Frontend\Scripts\angapp\main\events\EventsServiceProvider.js" />
+    <Content Include="Frontend\Scripts\angapp\main\events\NotifyController.js" />
     <Content Include="Frontend\Scripts\angapp\main\index\PanelController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -373,7 +386,7 @@
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\UsersMainController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\users\Directives\PaginationDirective.js">
+    <Content Include="Frontend\Scripts\angapp\global\Directives\PaginationDirective.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Frontend\Scripts\angapp\main\users\Providers\UsersServiceProvider.js">
@@ -388,6 +401,7 @@
     <Content Include="Frontend\Scripts\moment\moment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Views\main\events\events.html" />
     <Content Include="Frontend\Views\main\test.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -409,31 +423,10 @@
     <Content Include="Frontend\Views\main\users\AddUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\users\AttributeCard.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Frontend\Views\main\users\AttributeCardDialog.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Frontend\Views\main\users\Content.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Frontend\Views\main\users\ElementAttribute.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Frontend\Views\main\users\ElementAttributeCardDialog.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Frontend\Views\main\users\ElementCardDialog.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Frontend\Views\main\users\ElementItem.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Frontend\Views\main\users\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\users\Pagination.html">
+    <Content Include="Frontend\Views\shared\Pagination.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
@@ -597,6 +590,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Site\" />
+    <Folder Include="Frontend\Scripts\angapp\main\users\Directives\" />
     <Folder Include="Scripts\Site\" />
   </ItemGroup>
   <ItemGroup>
@@ -653,6 +647,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="NotificationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotificationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
