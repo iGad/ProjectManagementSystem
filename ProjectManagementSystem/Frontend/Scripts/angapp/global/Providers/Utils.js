@@ -21,8 +21,10 @@
                     returnStates.splice(0, 0, currentStateInfo);
                     stateParams.returnStates = returnStates;
                     $state.go(stateName, stateParams);
+                },
+                convertDateToJs: function(sharpDateTime) {
+                    return moment(parseInt(sharpDateTime.substr(6, sharpDateTime.length - 8))).format('DD.MM.YYYY HH:mm');
                 }
-
         };
             return service;
         }]

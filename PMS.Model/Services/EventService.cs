@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Common.Services;
 using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.EventModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 
@@ -72,22 +74,27 @@ namespace PMS.Model.Services
         }
 
         #region Description
-
-        public EventDisplayModel GetEventDisplayModel(WorkEvent workEvent, ApplicationUser user)
+        
+        public EventDisplayModel GetEventDisplayModel(EventUserModel eventUserModel, ApplicationUser user)
         {
-            return new EventDisplayModel(workEvent)
+            var workEvent = ExtractEvent(eventUserModel);
+            return new EventDisplayModel(eventUserModel)
             {
                 Description = GetEventDescription(workEvent, user),
-                State = Repository.GetRelation(workEvent.Id, GetCurrentUser().Id).State
             };
         }
 
-        public EventDisplayModel GetEventDisplayModel(WorkEvent workEvent, WorkEventUserRelation relation, ApplicationUser user)
+        private WorkEvent ExtractEvent(EventUserModel eventUserModel)
         {
-            return new EventDisplayModel(workEvent)
+            return new WorkEvent
             {
-                Description = GetEventDescription(workEvent, user),
-                State = relation.State
+                Id = eventUserModel.EventId,
+                UserId = eventUserModel.EventCreaterId,
+                ObjectId = eventUserModel.ObjectId,
+                ObjectStringId = eventUserModel.ObjectStringId,
+                Type = eventUserModel.Type,
+                Data = eventUserModel.Data,
+                CreatedDate = eventUserModel.Date
             };
         }
 
@@ -97,11 +104,16 @@ namespace PMS.Model.Services
             return describer.DescribeEvent(workEvent, forUser, GetCurrentUser());
         }
 
-        public List<EventDisplayModel> GetEventsForCurrentUser()
+        public TableCollectionModel<EventDisplayModel> GetEventsForCurrentUser(EventFilterModel filter)
         {
-            var events = Repository.GetEventsForUser(GetCurrentUser().Id).ToArray();
-            var models = events.Select(x => GetEventDisplayModel(x.Item1, x.Item2, GetCurrentUser())).ToList();
-            return models;
+            var events = Repository.GetEventsForUser(GetCurrentUser().Id, filter).ToArray();
+            var models = events.Select(x => GetEventDisplayModel(x, GetCurrentUser())).ToList();
+            var totalCount = Repository.GetTotalEventsForUserCount(GetCurrentUser().Id, filter);
+            return new TableCollectionModel<EventDisplayModel>
+            {
+                TotalCount = totalCount,
+                Collection = models
+            };
         }
 
         //private string GetSimpleEventText(ApplicationUser user, WorkItem item, string eventForCurrentUser, string eventName)

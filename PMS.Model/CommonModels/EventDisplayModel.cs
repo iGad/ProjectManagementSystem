@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Models;
+using PMS.Model.CommonModels.EventModels;
 using PMS.Model.Models;
 
 namespace PMS.Model.CommonModels
 {
     public class EventDisplayModel
     {
-        public EventDisplayModel(WorkEvent @event)
+        public EventDisplayModel(EventUserModel eventUserModel)
         {
-            Id = @event.Id;
-            ObjectId = @event.ObjectId;
-            ObjectStringId = @event.ObjectStringId;
-            Date = @event.CreatedDate;
-            UserId = @event.UserId;
-            Type = @event.Type;
+            Id = eventUserModel.EventId;
+            ObjectId = eventUserModel.ObjectId;
+            ObjectStringId = eventUserModel.ObjectStringId;
+            Date = eventUserModel.Date;
+            UserId = eventUserModel.EventCreaterId;
+            State = eventUserModel.State;
+            Type = eventUserModel.Type;
         }
         public int Id { get; set; }
         public string Description { get; set; }

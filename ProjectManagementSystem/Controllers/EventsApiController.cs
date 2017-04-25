@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Common.Services;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
@@ -30,10 +26,11 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetEventsForCurrentUser()
+        public ActionResult GetEventsForCurrentUser(EventFilterModel filterModel)
         {
-            var events = this.eventService.GetEventsForCurrentUser();
-            return Json(events, JsonRequestBehavior.AllowGet);
+            var filter = filterModel ?? new EventFilterModel();
+            var eventCollection = this.eventService.GetEventsForCurrentUser(filter);
+            return Json(eventCollection, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

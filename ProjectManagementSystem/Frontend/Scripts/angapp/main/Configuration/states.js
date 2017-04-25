@@ -53,7 +53,7 @@ angapp.config(function ($stateProvider) {
         },
         {
             name: 'base.events',
-            url: '/events',
+            url: '/events?PageNumber&PageSize&SortDirection&SortField&ItemsIds&DateStart&DateEnd',
             templateUrl: 'Frontend/Views/main/events/events.html'
         },
         {

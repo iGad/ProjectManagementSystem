@@ -29,7 +29,7 @@ namespace ProjectManagementSystem
             //bundles.Add(new ScriptBundle("~/Scripts/users").IncludeDirectory("~/Frontend/Scripts/angapp/users"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js"));
-
+            //bundles.Add(new StyleBundle("~/Content/angular-material").Include("~/Content/*.css"));
             bundles.Add(new StyleBundle("~/Content/angular-material").IncludeDirectory("~/Frontend/Content/css/angular-material","*.css"));
             bundles.Add(new StyleBundle("~/Content/ui-grid").IncludeDirectory("~/Frontend/Content/css/ui-grid", "*.css"));
             bundles.Add(new StyleBundle("~/Content/reset").Include("~/Content/reset.css"));

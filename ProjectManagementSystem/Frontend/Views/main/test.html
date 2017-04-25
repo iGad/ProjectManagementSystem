@@ -9,5 +9,13 @@
             </md-select>
         </md-input-container>
     </md-content>
-    <md-button ng-click="send()">Отправить</md-button>
+    <md-tooltip md-direction="up">
+        На предыдущую
+    </md-tooltip>
+    <md-button ng-click="send()">
+        Отправить
+        <md-tooltip md-direction="up">
+            На предыдущую
+        </md-tooltip>
+    </md-button>
 </div>

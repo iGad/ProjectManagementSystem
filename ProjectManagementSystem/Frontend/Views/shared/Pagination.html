@@ -1,19 +1,19 @@
-﻿{{gridApi.CurrentPageLabel}} : {{ gridApi.pagination.getPage() }} {{gridApi.OfLabelString}} {{ gridApi.pagination.getTotalPages() }}
+﻿Текущая страница : {{ gridApi.pagination.getPage() }} из {{ gridApi.pagination.getTotalPages() }}
 <md-button class="md-icon-button" ng-click="gridApi.pagination.previousPage()">
     <md-tooltip md-direction="bottom">
-        {{gridApi.BackString}}
+        На предыдущую
     </md-tooltip>
     <md-icon md-svg-icon="hardware:keyboard_arrow_left" aria-label="previous page"></md-icon>
 </md-button>
 <md-button class="md-icon-button" ng-click="gridApi.pagination.nextPage()">
     <md-tooltip md-direction="bottom">
-        {{gridApi.ForwardString}}
+        На следующую
     </md-tooltip>
     <md-icon md-svg-icon="hardware:keyboard_arrow_right" aria-label="next page"></md-icon>
 </md-button>
 <md-button class="md-icon-button" ng-click="gridApi.pagination.seek(moveToPage)">
     <md-tooltip md-direction="bottom">
-        {{gridApi.GotoString}}
+        К странице
     </md-tooltip>
     <md-icon md-svg-icon="av:fast_forward" aria-label="move to page"></md-icon>
 </md-button>

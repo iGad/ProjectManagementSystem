@@ -248,12 +248,27 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.css" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.css" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.min.css" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.css" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.ie_fixes.css" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.min.css" />
+    <Content Include="Frontend\Content\css\angular-material\angular-material.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.ie_fixes.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Content\css\angular-material\angular-material.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Content\css\bootstrap.css" />
     <Content Include="Content\reset.css" />
     <Content Include="favicon.ico" />
@@ -590,6 +605,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Site\" />
+    <Folder Include="Frontend\Scripts\angapp\global\Controllers\" />
     <Folder Include="Frontend\Scripts\angapp\main\users\Directives\" />
     <Folder Include="Scripts\Site\" />
   </ItemGroup>

@@ -86,8 +86,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonModels\EventDisplayModel.cs" />
+    <Compile Include="CommonModels\EventModels\EventUserModel.cs" />
     <Compile Include="CommonModels\EventModels\StateChangedModel.cs" />
     <Compile Include="CommonModels\EventModels\WorkItemUpdatedModel.cs" />
+    <Compile Include="CommonModels\FilterModels\EventFilterModel.cs" />
+    <Compile Include="CommonModels\TableCollectionModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Export\Export.cs" />
     <Compile Include="Extensions.cs" />

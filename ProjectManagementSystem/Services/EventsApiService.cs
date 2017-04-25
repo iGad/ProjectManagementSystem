@@ -17,12 +17,7 @@ namespace ProjectManagementSystem.Services
             : base(repository, userRepository, currentUsernameProvider, describers)
         {
         }
-
-        public List<EventDisplayModel> GetEvents()
-        {
-            return GetEventsForCurrentUser();
-        }
-
+        
         public void ChangeEventIsFavorite(int eventId, bool isFavorite)
         {
             var user = GetCurrentUser();
