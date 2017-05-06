@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using Common.Models;
 using Common.Repositories;
+using PMS.Model.CommonModels;
 using PMS.Model.Models;
 using PMS.Model.Services;
 
@@ -20,6 +21,11 @@ namespace PMS.Model.Repositories
         public WorkItem GetById(int id)
         {
             return this.context.WorkItems.SingleOrDefault(x => x.Id == id);
+        }
+
+        public WorkItem GetByIdNoTracking(int id)
+        {
+            return this.context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
         }
 
         public WorkItem GetByIdWithParents(int id)
@@ -55,6 +61,22 @@ namespace PMS.Model.Repositories
         public WorkItem Add(WorkItem workItem)
         {
             return this.context.WorkItems.Add(workItem);
+        }
+
+        public IEnumerable<UserItemsAggregateInfo> GetItemsAggregateInfoPerUser()
+        {
+            var itemsUsers = this.context.Users.Where(x => !x.IsDeleted)
+                .GroupJoin(this.context.WorkItems, user => user.Id, item => item.ExecutorId, (user, item) => new {User = user, Item = item})
+                .SelectMany(xy => xy.Item.DefaultIfEmpty(), (x, item) => new {x.User, Item = item})
+                .GroupBy(x => x.User, y => y.Item, (user, items) => new {User = user, Items = items}).ToDictionary(x => x.User, x => x.Items.Where(i=>i!=null).ToArray());
+            return itemsUsers.Select(x => new UserItemsAggregateInfo
+            {
+                UserInfo = x.Key.GetUserIdentityText(),
+                UserId = x.Key.Id,
+                AtWorkCount = x.Value.Count(i => i.State == WorkItemState.AtWork),
+                ReviewingCount = x.Value.Count(i=>i.State == WorkItemState.Reviewing),
+                PlannedCount = x.Value.Count(i=>i.State == WorkItemState.Planned)
+            });
         }
 
         public int SaveChanges()

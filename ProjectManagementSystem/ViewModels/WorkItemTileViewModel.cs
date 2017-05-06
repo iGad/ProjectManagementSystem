@@ -1,6 +1,7 @@
 ﻿using System;
 using PMS.Model;
 using PMS.Model.Models;
+using PMS.Model.Services;
 
 namespace ProjectManagementSystem.ViewModels
 {
@@ -15,8 +16,8 @@ namespace ProjectManagementSystem.ViewModels
             FinishDate = workItem.FinishDate?.ToString(Constants.DateTimeFormat);
             DeadLine = workItem.DeadLine.ToString(Constants.DateTimeFormat);
             Executor = workItem.Executor != null ? new UserInfoViewModel(workItem.Executor) : null;
-            IsDeadLineSoon = FinishDate == null && workItem.DeadLine > DateTime.Now && (workItem.DeadLine - DateTime.Now).TotalHours < 48;
-            IsOverdue = FinishDate == null && workItem.DeadLine < DateTime.Now;
+            IsDeadLineSoon = workItem.IsAtWork() && FinishDate == null && workItem.DeadLine > DateTime.Now && (workItem.DeadLine - DateTime.Now).TotalHours < 48;
+            IsOverdue = workItem.IsAtWork() && FinishDate == null && workItem.DeadLine < DateTime.Now;
         }
         public int Id { get; set; }
         public string Name { get; set; }

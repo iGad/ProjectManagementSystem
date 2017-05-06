@@ -80,6 +80,19 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpGet]
+        public ActionResult GetUserWorkItemsAggregateInfo()
+        {
+            return CreateJsonResult(this.workItemService.GetUserItemsAggregateInfos());
+        }
+
+        [HttpGet]
+        public ActionResult GetUserActualWorkItems(string userId)
+        {
+            var itemsDictionary = this.workItemService.GetActualWorkItemModels(userId);
+            return CreateJsonResult(itemsDictionary);
+        }
+
+        [HttpGet]
         public ActionResult GetStates()
         {
             var states =

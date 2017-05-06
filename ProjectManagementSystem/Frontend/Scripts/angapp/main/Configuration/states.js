@@ -17,11 +17,14 @@
         .iconSet('toggle', 'Frontend/Content/Images/material-icons/iconsets/toggle-icons.svg', 24);
 });
 
-angapp.config(function ($stateProvider) {
+angapp.config(function ($stateProvider, $routeProvider) {
+    $routeProvider.when('/main', { redirectTo: '/main/all' });
+    $routeProvider.when('/', { redirectTo: '/main/all' });
     // An array of state definitions
     var states = [
         {
             name: 'base',
+            abstract: true,
             templateUrl: 'Frontend/Views/main/base.html'
         },
         {
@@ -38,9 +41,19 @@ angapp.config(function ($stateProvider) {
         },
         {
             name: 'base.main',
-            url: '/',
+            url: '/main',
             templateUrl: 'Frontend/Views/main/base/workboard.html'
         },
+    {
+        name: 'base.main.all',
+        url: '/all',
+        templateUrl: 'Frontend/Views/main/base/allItems.html'
+    },
+    {
+        name: 'base.main.users',
+        url: '/users',
+        templateUrl: 'Frontend/Views/main/base/itemsPerUsers.html'
+    },
         {
             name: 'base.tasks',
             url: '/tasks',

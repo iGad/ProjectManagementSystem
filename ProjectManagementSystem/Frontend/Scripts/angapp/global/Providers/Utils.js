@@ -4,6 +4,9 @@
     return {
         $get: ['$state', '$stateParams', function ($state, $stateParams) {
             var service = {
+                onError: function(error) {
+                    console.error(error);
+                },
                 goToReturnState: function(stateParams) {
                     if (!stateParams || !stateParams.returnStates || !stateParams.returnStates.length) {
                         $state.go('base.main');

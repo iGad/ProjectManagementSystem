@@ -34,10 +34,22 @@ namespace ProjectManagementSystem.Services
             return new WorkItemViewModel(GetWithParents(id));
         }
 
+        
+
         public Dictionary<string, List<WorkItemTileViewModel>> GetActualWorkItemModels()
         {
-            return GetActualWorkItems()
-                .ToDictionary(pair => pair.Key.ToString(), pair => pair.Value.Select(x => new WorkItemTileViewModel(x)).ToList());
+            return ConvertToViewDictionary(GetActualWorkItems());
+
+        }
+
+        private Dictionary<string, List<WorkItemTileViewModel>> ConvertToViewDictionary(Dictionary<WorkItemState, List<WorkItem>> dictionary)
+        {
+            return dictionary.ToDictionary(pair => pair.Key.ToString(), pair => pair.Value.Select(x => new WorkItemTileViewModel(x)).ToList());
+        }
+
+        public Dictionary<string, List<WorkItemTileViewModel>> GetActualWorkItemModels(string userId)
+        {
+            return ConvertToViewDictionary(GetActualWorkItems(userId));
         }
 
         public List<EnumViewModel<WorkItemState>> GetStatesViewModels(bool isMainEngeneer, bool isManager)
@@ -98,7 +110,7 @@ namespace ProjectManagementSystem.Services
                 users.Add(executor);
             if (workItem.ParentId.HasValue)
             {
-                var parentItemExecutorId = Repository.GetById(workItem.ParentId.Value).ExecutorId;
+                var parentItemExecutorId = Repository.GetByIdNoTracking(workItem.ParentId.Value).ExecutorId;
                 var parentItemExecutor = this.userRepository.GetById(parentItemExecutorId);
                 if (parentItemExecutor != null && users.All(x => x.Id != parentItemExecutor.Id))
                     users.Add(parentItemExecutor);
@@ -217,7 +229,7 @@ namespace ProjectManagementSystem.Services
                 users.Add(executor);
             if (workItem.ParentId.HasValue)
             {
-                var parentItemUserId = Repository.GetById(workItem.ParentId.Value).ExecutorId;
+                var parentItemUserId = Repository.GetByIdNoTracking(workItem.ParentId.Value).ExecutorId;
                 var parentItemExecutor = this.userRepository.GetById(parentItemUserId);
                 if (exceptUsers == null || !exceptUsers.Contains(parentItemExecutor.Id))
                     users.Add(parentItemExecutor);

@@ -11,12 +11,7 @@ namespace ProjectManagementSystem.Controllers
     {
         protected ActionResult CreateJsonResult(object data)
         {
-            return new JsonResult
-            {
-                Data = data,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                MaxJsonLength = int.MaxValue
-            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         protected ActionResult TryAction(Func<ActionResult> action)

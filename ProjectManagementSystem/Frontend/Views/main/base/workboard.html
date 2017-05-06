@@ -1,4 +1,38 @@
-﻿<div layout="column" layout-wrap="" ng-controller="WorkBoardController">
+﻿<div ng-controller="WorkBoardController">
+    <md-nav-bar md-selected-nav-item="selectedTab" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goTo('base.main.all')" name="all">
+            Все
+        </md-nav-item>
+        <md-nav-item md-nav-click="goTo('base.main.users')" name="users">
+            По пользователям
+        </md-nav-item>
+        <!-- these require actual routing with ui-router or ng-route, so they
+        won't work in the demo
+        <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+        <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+        You can also add options for the <code>ui-sref-opts</code> attribute.
+        <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
+            Page Six
+        </md-nav-item>
+        -->
+    </md-nav-bar>
+    <ui-view></ui-view>
+    <!--<md-tabs>
+        <md-tab label="Все">
+            <div ng-controller="AllWorkItemsController">
+                <ng-include src="'/Frontend/Views/main/base/userWorkItemsTemplate.html'"></ng-include>
+            </div>
+        </md-tab>
+        <md-tab label="По пользователям">
+            <div ng-controller="WorkItemsPerUsersController">
+                <ng-include ng-repeat="userInfo in userInfos" src="'Frontend/Views/main/base/userItems.html'"></ng-include>
+            </div>
+        </md-tab>
+
+    </md-tabs>-->
+</div>
+
+<!--<div layout="column" layout-wrap="" ng-controller="WorkBoardController">
     <div layout="row" layout-padding="" layout-align="space-around start">
         <div flex="25">Запланированные</div>
         <div flex="25">Выполняемые</div>
@@ -27,12 +61,7 @@
             </div>
         </div>
     </div>
-
-
-
-
-
     
 
-</div>
+</div>-->
 

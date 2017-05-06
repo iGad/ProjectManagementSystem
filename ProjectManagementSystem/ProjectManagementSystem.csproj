@@ -368,16 +368,19 @@
     <Content Include="Frontend\Content\images\material-icons\ic_menu_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\global\Providers\HttpService.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\NotificationServiceProvider.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\Utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\AllWorkItemsController.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\LinkedWorkItemsController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Frontend\Scripts\angapp\main\base\TestController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\UserWorkItemsController.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\WorkBoardController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -387,6 +390,8 @@
     <Content Include="Frontend\Scripts\angapp\main\base\WorkItemServiceProvider.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemsPerUserController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemsPerUsersController.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\WorkItemTileController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -416,6 +421,10 @@
     <Content Include="Frontend\Scripts\moment\moment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Views\main\base\allItems.html" />
+    <Content Include="Frontend\Views\main\base\itemsPerUsers.html" />
+    <Content Include="Frontend\Views\main\base\userItems.html" />
+    <Content Include="Frontend\Views\main\base\userWorkItemsTemplate.html" />
     <Content Include="Frontend\Views\main\events\events.html" />
     <Content Include="Frontend\Views\main\test.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

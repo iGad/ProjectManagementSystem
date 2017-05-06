@@ -10,7 +10,8 @@ namespace ProjectManagementSystem
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Frontend/Scripts/jquery-3.1.1.js"));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                        "~/Scripts/angular/angular.js", 
+                        "~/Scripts/angular/angular.js",
+                        "~/Scripts/angular-route.js",
                         "~/Scripts/angular-animate/angular-animate.js",
                         "~/Scripts/angular-aria/angular-aria.js",
                         "~/Scripts/angular-messages/angular-messages.js",

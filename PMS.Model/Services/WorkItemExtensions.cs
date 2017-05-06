@@ -41,5 +41,10 @@ namespace PMS.Model.Services
                 properties.Add(nameof(WorkItem.DeadLine));
             return properties.ToArray();
         }
+
+        public static bool IsAtWork(this WorkItem workItem)
+        {
+            return workItem.State != WorkItemState.Deleted && workItem.State != WorkItemState.Archive && workItem.State != WorkItemState.Done;
+        }
     }
 }

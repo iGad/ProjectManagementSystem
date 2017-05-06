@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PMS.Model.CommonModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 
@@ -83,17 +84,23 @@ namespace PMS.Model.Services
             this.repository.SaveChanges();
         }
 
+        private WorkItemState[] GetActualStates()
+        {
+            return new[] { WorkItemState.New, WorkItemState.Planned, WorkItemState.AtWork, WorkItemState.Reviewing, WorkItemState.Done };
+        }
 
         public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems()
         {
-            var states = new[] {WorkItemState.New, WorkItemState.Planned, WorkItemState.AtWork, WorkItemState.Reviewing, WorkItemState.Done};
+            var states = GetActualStates();
             var items = this.repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
-            var itemsDictionary = new Dictionary<WorkItemState, List<WorkItem>>();
-            foreach (var state in states)
-            {
-                itemsDictionary.Add(state, items.Where(x => x.State == state).ToList());
-            }
-            return itemsDictionary;
+            return states.ToDictionary(state => state, state => items.Where(x => x.State == state).ToList());
+        }
+
+        public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems(string userId)
+        {
+            var states = new[] { WorkItemState.New, WorkItemState.Planned, WorkItemState.AtWork, WorkItemState.Reviewing, WorkItemState.Done };
+            var items = this.repository.GetItemsWithExecutor(x => x.ExecutorId == userId && states.Contains(x.State)).ToList();
+            return states.ToDictionary(state => state, state => items.Where(x => x.State == state).ToList());
         }
 
         public List<WorkItemState> GetStates()
@@ -111,6 +118,9 @@ namespace PMS.Model.Services
             return this.repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
         }
 
-        
+        public List<UserItemsAggregateInfo> GetUserItemsAggregateInfos()
+        {
+            return Repository.GetItemsAggregateInfoPerUser().ToList();
+        }
     }
 }
