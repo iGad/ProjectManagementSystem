@@ -1,0 +1,67 @@
+﻿<md-content class="md-padding" ng-controller="SeenEventsController">
+    <div>
+        <md-list>
+            <md-list-item>
+                <span style="width: 8%">
+                    <md-select style="max-width: 56px; margin: auto;" aria-label="favorite filter" ng-model="filterOptions.IsFavorite">
+                        <md-option></md-option>
+                        <md-option ng-value="false"><md-icon md-svg-icon="action:grade"></md-icon></md-option>
+                        <md-option ng-value="true"><md-icon md-svg-icon="action:grade" class="favorite"></md-icon></md-option>
+                    </md-select> 
+                </span>
+                <span style="width: 15%">
+                    Дата
+                   
+                </span>
+                <div style="width: 65%">
+                    Описание
+                    <md-menu>
+                        <md-button aria-label="Open filter menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
+                            <md-icon md-menu-origin="" md-svg-icon="content:filter_list" ng-class="{'filter-applyed': Type>=0}"></md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <input ng-model="filterOptions.Description" enter-press="applyFilter()" />
+                            </md-menu-item>
+                            <md-menu-item>
+                                <div layout="row" layout-align="space-around">
+                                    <md-button ng-click="applyFilter()">Применить</md-button>
+                                    <md-button ng-click="clearFilter()">Сбросить</md-button>
+                                </div>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+                <span style="width: 6%"> <input type="hidden" /></span>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
+        <md-list style="height: 500px; overflow-y:auto;">
+            <div ng-repeat="event in events track by $index">
+                <md-list-item ng-click="null">
+                    <span style="width: 8%; text-align: center">
+                        <md-button aria-label="Open filter menu" class="md-icon-button" ng-click="changeIsFavorite(event)">
+                            <md-tooltip md-direction="bottom">{{event.IsFavorite?'Снять отметку':'Отметить'}}</md-tooltip>
+                            <md-icon md-svg-icon="action:grade" ng-class="{'favorite': event.IsFavorite}"></md-icon>
+                        </md-button>
+                    </span>
+                    <span style="width: 15%"> {{event.Date}} </span>
+                    <span style="width: 65%"> {{event.Description}} </span>
+                    <span style="width: 6%">
+                        <md-button aria-label="Open filter menu" class="md-icon-button" ng-click="toDetails(event)">
+                            <md-tooltip md-direction="bottom">Детали</md-tooltip>
+                            <md-icon md-svg-icon="navigation:more_horiz"></md-icon>
+                        </md-button>
+                    </span>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+        </md-list>
+    </div>
+    <div layout="row">
+        <div flex>
+            <ng-include src="'Frontend/Views/shared/PaginationTemplate.html'"></ng-include>
+
+        </div>
+    </div>
+</md-content>

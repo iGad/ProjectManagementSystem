@@ -22,7 +22,7 @@ namespace PMS.Model.Services.EventDescribers
             var user = this.userService.Get(workEvent.Data);
             if (!workEvent.ObjectId.HasValue)
                 throw new PmsExeption("Error in event model");
-            var item = this.workItemService.Get(workEvent.ObjectId.Value);
+            var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             var text = GetStartText(forUser);
             text += IsCurrentUser ? $" {NotificationResources.HaveDisappointed} " : $" {NotificationResources.Disappointed} ";
             text += $"{LexicalHelper.GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()} c пользователя {user.GetUserIdentityText()}.";

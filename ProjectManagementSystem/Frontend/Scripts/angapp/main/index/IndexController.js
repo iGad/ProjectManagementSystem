@@ -1,5 +1,5 @@
-﻿angapp.controller('IndexController', ['$scope', '$rootScope', '$location', '$state', 'NotificationService',
-    function ($scope, $rootScope, $location, $state, notificationService) {
+﻿angapp.controller('IndexController', ['$scope', '$rootScope', '$location', '$state', 'NotificationService', 'EventsService', 'Utils',
+    function ($scope, $rootScope, $location, $state, notificationService, eventsService, utils) {
     $scope.title = 'Привет!';
     function getActiveStateIndex() {
         var path = $location.path().split('?')[0];
@@ -16,6 +16,15 @@
                 return -1;
         }
     };
+
+        function updateUnseenEventCount() {
+            eventsService.getUnseenEventCount().then(function(content) {
+                $scope.unseenEventCount = content.data;
+            }, utils.onError);
+        };
+
+        updateUnseenEventCount();
+
     $scope.activeIndex = getActiveStateIndex();
     $rootScope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
         console.log("$stateChangeStart " + fromState.name + JSON.stringify(fromParams) + " -> " + toState.name + JSON.stringify(toParams));
@@ -30,6 +39,7 @@
     // Create a function that the hub can call to broadcast messages.
     notificationHub.client.raiseEvent = function (eventName, params) {
         $scope.$broadcast(eventName, params);
+        updateUnseenEventCount();
     };
 
     notificationHub.client.recieveNotification = function (eventName, args) {

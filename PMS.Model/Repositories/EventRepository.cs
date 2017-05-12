@@ -33,7 +33,7 @@ namespace PMS.Model.Repositories
 
         public IEnumerable<EventUserModel> GetEventsForUser(string userId, EventFilterModel filterModel)
         {
-            var query = CreateUserEventsQuery(userId, filterModel);
+            var query = CreateUserEventsQueryWithFiltration(userId, filterModel);
             if (filterModel.Sorting.Direction == SortingDirection.Asc)
                 query = query.OrderBy(x => x.Date);
             else
@@ -43,7 +43,13 @@ namespace PMS.Model.Repositories
             return query.Skip((pageNumber - 1)*pageSize).Take(pageSize);
         }
 
-        private IQueryable<EventUserModel> CreateUserEventsQuery(string userId, EventFilterModel filterModel)
+        public IEnumerable<EventUserModel> GetNewEventsForUser(string userId)
+        {
+            var query = CreateUserEventsQuery(userId).Where(x => x.State == EventState.New);
+            return query;
+        }
+
+        private IQueryable<EventUserModel> CreateUserEventsQuery(string userId)
         {
             var query = this.context.Events.Join(this.context.EventsUsers.Where(x => x.UserId == userId), @event => @event.Id, relation => relation.EventId,
                 (@event, relation) => new EventUserModel
@@ -60,6 +66,12 @@ namespace PMS.Model.Repositories
                     State = relation.State,
                     IsFavorite = relation.IsFavorite,
                 });
+            return query;
+        }
+
+        private IQueryable<EventUserModel> CreateUserEventsQueryWithFiltration(string userId, EventFilterModel filterModel)
+        {
+            var query = CreateUserEventsQuery(userId).Where(x=>x.State == EventState.Seen);
             if (!string.IsNullOrWhiteSpace(filterModel.UserId))
                 query = query.Where(x => x.EventCreaterId == filterModel.UserId);
             if (filterModel.ItemsIds != null && filterModel.ItemsIds.Any())
@@ -78,7 +90,7 @@ namespace PMS.Model.Repositories
 
         public int GetTotalEventsForUserCount(string userId, EventFilterModel filterModel)
         {
-            return CreateUserEventsQuery(userId, filterModel).Count();
+            return CreateUserEventsQueryWithFiltration(userId, filterModel).Count();
         }
 
         public WorkEvent AddEvent(WorkEvent workEvent)
@@ -99,6 +111,11 @@ namespace PMS.Model.Repositories
         public WorkEventUserRelation GetRelation(int eventId, string userId)
         {
             return this.context.EventsUsers.Find(eventId, userId);
+        }
+
+        public int GetUnseenEventCountForUser(string userId)
+        {
+            return this.context.EventsUsers.Count(x => x.UserId == userId && x.State == EventState.New);
         }
 
         public int SaveChanges()

@@ -20,9 +20,15 @@ namespace PMS.Model.Services
         public WorkItem Get(int id)
         {
             var workItem = this.repository.GetById(id);
-            workItem.Parent = null;
-            workItem.Children = null;
             if(workItem == null)
+                throw new PmsExeption(string.Format(Resources.WorkItemNotFound, id));
+            return workItem;
+        }
+
+        public WorkItem GetWithNoTracking(int id)
+        {
+            var workItem = this.repository.GetByIdNoTracking(id);
+            if (workItem == null)
                 throw new PmsExeption(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
         }

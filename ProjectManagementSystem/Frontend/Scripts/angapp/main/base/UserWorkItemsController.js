@@ -1,13 +1,58 @@
-﻿angapp.controller('UserWorkItemsController', ['$scope', '$state', '$stateParams', 'WorkItemService',
-    function ($scope, $state, $stateParams, workItemService) {
+﻿var WorkItemStatesEnum = {
+    New: 0,
+    Planned: 1,
+    Done: 2,
+    Deleted: 3,
+    Archive: 4,
+    Reviewing: 5,
+    AtWork: 6
+}
+angapp.controller('UserWorkItemsController', ['$scope', '$state', '$stateParams', 'WorkItemService', 'Utils',
+    function ($scope, $state, $stateParams, workItemService, utils) {
 
         $scope.tileTemplate = '/Frontend/Views/main/base/workItemTileTemplate.html';
+
+        function canNotUserDrop(sortable) {
+            return false;
+        }
+
+        function getNewState(sortable) {
+            
+            if (sortable.droptargetModel === $scope.AtWork)
+                return WorkItemStatesEnum.AtWork;
+            if (sortable.droptargetModel === $scope.Reviewing)
+                return WorkItemStatesEnum.Reviewing;
+            if (sortable.droptargetModel === $scope.Done)
+                return WorkItemStatesEnum.Done;
+            if (sortable.model.Executor)
+                return WorkItemStatesEnum.Planned;
+            return WorkItemStatesEnum.New;
+            
+        }
+
+        $scope.sortableOptions = {
+            placeholder: "workitem-tile",
+            connectWith: "#uid" + ($scope.userInfo ? $scope.userInfo.UserId : '') + " .workitem-container",
+            update: function (e, ui) {
+                if (canNotUserDrop(ui.item.sortable)) {
+                    ui.item.sortable.cancel();
+                }
+                var newState = getNewState(ui.item.sortable);
+                if (ui.item.sortable.model.State.Value !== newState) {
+                    workItemService.updateWorkItemState(ui.item.sortable.model.Id, newState).then(function () { }, utils.onError);
+                    ui.item.sortable.model.State.Value = newState;
+                }
+            }
+        };
 
         function getData() {
             $scope.getData().then(function (content) {
                 var itemsPerType = content.data;
                 $scope.New = itemsPerType.New;
                 $scope.Planned = itemsPerType.Planned;
+                for (var i = 0; i < $scope.New.length; i++)
+                    $scope.Planned.push($scope.New[i]);
+                //$scope.AllPlanned = itemsPerType.New.concat(itemsPerType.Planned);
                 $scope.AtWork = itemsPerType.AtWork;
                 $scope.Reviewing = itemsPerType.Reviewing;
                 $scope.Done = itemsPerType.Done;
@@ -15,6 +60,11 @@
         };
 
         getData();
+
+        $scope.$on("WorkItemChanged", function (event, workItem) {
+            getData();
+            
+        });
 
         function findElementInArray(array, element) {
             for (var i = 0; i < array.length; i++) {

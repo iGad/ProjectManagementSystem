@@ -40,6 +40,18 @@ namespace PMS.Model.Services
             return workEvent;
         }
 
+        public int GetUnseenEventCountForCurrentUser()
+        {
+            var user = GetCurrentUser();
+            return Repository.GetUnseenEventCountForUser(user.Id);
+        }
+
+        public List<EventDisplayModel> GetNewEventsForCurrentUser()
+        {
+            var user = GetCurrentUser();
+            return Repository.GetNewEventsForUser(user.Id).Select(x => GetEventDisplayModel(x, user)).ToList();
+        }
+
         protected WorkEventUserRelation GetEventUserRelation(int workEventId, string userId)
         {
             var relation = Repository.GetRelation(workEventId, userId);
@@ -115,109 +127,7 @@ namespace PMS.Model.Services
                 Collection = models
             };
         }
-
-        //private string GetSimpleEventText(ApplicationUser user, WorkItem item, string eventForCurrentUser, string eventName)
-        //{
-        //    bool isCurrentUser = GetCurrentUser().Id == user.Id;
-        //    var text = isCurrentUser ? NotificationResources.You : (NotificationResources.User + " " + user.GetUserIdentityText());
-        //    text += isCurrentUser ? $" {eventForCurrentUser} " : $" {eventName} ";
-        //    text += $"{GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()}.";
-        //    return text;
-        //}
-
-
-        //private string GetAppointedEventText(ApplicationUser user, WorkItem item, ApplicationUser executor)
-        //{
-        //    bool isCurrentUser = GetCurrentUser().Id == user.Id;
-        //    var text = isCurrentUser ? NotificationResources.You : (NotificationResources.User + " " + user.GetUserIdentityText());
-        //    text += isCurrentUser ? $" {NotificationResources.HaveAppointed} " : $" {NotificationResources.Appointed} ";
-        //    text += $" пользователю {executor.GetUserIdentityText()} {GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()}.";
-        //    return text;
-        //}
-
-        //private string GetDisappointedEventText(ApplicationUser user, WorkItem item, ApplicationUser executor)
-        //{
-        //    bool isCurrentUser = GetCurrentUser().Id == user.Id;
-        //    var text = isCurrentUser ? NotificationResources.You : (NotificationResources.User + " " + user.GetUserIdentityText());
-        //    text += isCurrentUser ? $" {NotificationResources.HaveDisappointed} " : $" {NotificationResources.Disappointed} ";
-        //    text += $" {GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()} c пользователя {executor.GetUserIdentityText()}.";
-        //    return text;
-        //}
-
-        //private string GetStateChangedText(ApplicationUser user, WorkItem item, WorkItemState oldState, WorkItemState newState)
-        //{
-        //    bool isCurrentUser = GetCurrentUser().Id == user.Id;
-        //    var text = isCurrentUser ? NotificationResources.You : (NotificationResources.User + " " + user.GetUserIdentityText());
-        //    bool needAddition = true;
-        //    switch (newState)
-        //    {
-        //        case WorkItemState.Planned:
-        //            text += isCurrentUser ? $" {NotificationResources.HaveMovedToPlanned} " : $" {NotificationResources.MovedToPlanned} ";
-        //            break;
-        //        case WorkItemState.Done:
-        //            if (oldState == WorkItemState.Reviewing)
-        //            {
-        //                text += isCurrentUser ? $" {NotificationResources.HaveConfirmed} " : $" {NotificationResources.Confirmed} ";
-        //                text += GetWorkItemTypeInCase(item.Type, "g") + " ";
-        //                needAddition = false;
-        //            }
-        //            else
-        //                text += isCurrentUser ? $" {NotificationResources.HaveFinished} " : $" {NotificationResources.Finished} ";
-        //            break;
-        //        case WorkItemState.Deleted:
-        //            text += isCurrentUser ? $" {NotificationResources.HaveDeleted} " : $" {NotificationResources.Deleted} ";
-        //            break;
-        //        case WorkItemState.Archive:
-        //            text += isCurrentUser ? $" {NotificationResources.HaveMovedToArchive} " : $" {NotificationResources.MovedToArchive} ";
-        //            break;
-        //        case WorkItemState.Reviewing:
-        //            text += isCurrentUser ? $" {NotificationResources.HaveMovedToChecking} " : $" {NotificationResources.MovedToChecking} ";
-        //            break;
-        //        case WorkItemState.AtWork:
-        //            if (oldState == WorkItemState.Planned)
-        //                text += isCurrentUser ? $" {NotificationResources.HaveTook} " : $" {NotificationResources.Took} ";
-        //            else
-        //                text += isCurrentUser ? $" {NotificationResources.HaveMovedToRebuild} " : $" {NotificationResources.MovedToRebuild} ";
-        //            break;
-        //        default:
-        //            throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
-        //    }
-        //    if (needAddition)
-        //        text += GetWorkItemTypeInCase(item.Type, "a") + " ";
-        //    text += $"{item.GetWorkItemIdentityText()}.";
-        //    return text;
-        //}
-
-        //private string GetWorkItemTypeInCase(WorkItemType type, string @case)
-        //{
-        //    var lowerCase = @case.ToLower();
-        //    switch (type)
-        //    {
-        //        case WorkItemType.Project:
-        //            if (lowerCase == "n" || lowerCase == "a")
-        //                return NotificationResources.ProjectN.ToLower();
-        //            return NotificationResources.ProjectG.ToLower();
-        //        case WorkItemType.Stage:
-        //            if (lowerCase == "n")
-        //                return NotificationResources.StageN.ToLower();
-        //            if (lowerCase == "a")
-        //                return NotificationResources.StageA.ToLower();
-        //            return NotificationResources.StageG.ToLower();
-        //        case WorkItemType.Partition:
-        //            if (lowerCase == "n" || lowerCase == "a")
-        //                return NotificationResources.PartitionN.ToLower();
-        //            return NotificationResources.PartitionG.ToLower();
-        //        case WorkItemType.Task:
-        //            if (lowerCase == "n")
-        //                return NotificationResources.TaskN.ToLower();
-        //            if (lowerCase == "a")
-        //                return NotificationResources.TaskA.ToLower();
-        //            return NotificationResources.TaskG.ToLower();
-        //        default:
-        //            throw new ArgumentOutOfRangeException(nameof(type), type, null);
-        //    }
-        //}
-
+        
 
         #endregion
     }

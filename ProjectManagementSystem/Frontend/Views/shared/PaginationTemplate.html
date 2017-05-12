@@ -1,0 +1,30 @@
+﻿<div layout="row">
+    <div>
+        {{pagination.CurrentPageLabel}} : {{ pagination.getPage() }} {{pagination.OfLabelString}} {{ pagination.getTotalPages() }}
+        <md-button class="md-icon-button" ng-click="pagination.seek(1)">
+            <md-tooltip md-direction="top">
+                {{pagination.ToFirstPage}}
+            </md-tooltip>
+            <md-icon class="rotate-180" md-svg-icon="av:fast_forward" aria-label="move to page"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="pagination.previousPage()">
+            <md-tooltip md-direction="top">
+                {{pagination.BackString}}
+            </md-tooltip>
+            <md-icon md-svg-icon="hardware:keyboard_arrow_left" aria-label="previous page"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="pagination.nextPage()">
+            <md-tooltip md-direction="top">
+                {{pagination.ForwardString}}
+            </md-tooltip>
+            <md-icon md-svg-icon="hardware:keyboard_arrow_right" aria-label="next page"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="pagination.seek(pagination.getTotalPages())">
+            <md-tooltip md-direction="top">
+                {{pagination.ToLastPage}}
+            </md-tooltip>
+            <md-icon md-svg-icon="av:fast_forward" aria-label="move to page"></md-icon>
+        </md-button>
+        {{pagination.Records}} {{pagination.getRecordCount()}} {{pagination.OfLabelString}} {{pagination.getTotalItems()}}
+    </div>
+</div>

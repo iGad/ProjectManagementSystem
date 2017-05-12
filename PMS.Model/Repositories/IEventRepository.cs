@@ -13,9 +13,11 @@ namespace PMS.Model.Repositories
         WorkEvent Get(int id);
         IEnumerable<Tuple<WorkEvent, WorkEventUserRelation>> GetEventsForUser(string userId);
         IEnumerable<EventUserModel> GetEventsForUser(string userId, EventFilterModel filterModel);
+        IEnumerable<EventUserModel> GetNewEventsForUser(string userId);
         int GetTotalEventsForUserCount(string userId, EventFilterModel filterModel);
         void AddWorkEventRelation(WorkEventUserRelation relation);
         WorkEventUserRelation GetRelation(int eventId, string userId);
+        int GetUnseenEventCountForUser(string userId);
         int SaveChanges();
     }
 }

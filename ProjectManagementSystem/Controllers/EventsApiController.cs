@@ -25,12 +25,24 @@ namespace ProjectManagementSystem.Controllers
             this.notifyService = notifyService;
         }
 
-        [HttpGet]
-        public ActionResult GetEventsForCurrentUser(EventFilterModel filterModel)
+        [HttpPost]
+        public ActionResult GetSeenEventsForCurrentUser(EventFilterModel filterModel)
         {
             var filter = filterModel ?? new EventFilterModel();
             var eventCollection = this.eventService.GetEventsForCurrentUser(filter);
             return Json(eventCollection, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetNewEventsForCurrentUser()
+        {
+            return Json(this.eventService.GetNewEventsForCurrentUser(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetUnseenEventCountForCurrentUser()
+        {
+            return Json(this.eventService.GetUnseenEventCountForCurrentUser(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

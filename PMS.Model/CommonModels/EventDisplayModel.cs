@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Common.Models;
 using PMS.Model.CommonModels.EventModels;
 using PMS.Model.Models;
 
@@ -14,6 +9,7 @@ namespace PMS.Model.CommonModels
         public EventDisplayModel(EventUserModel eventUserModel)
         {
             Id = eventUserModel.EventId;
+            IsFavorite = eventUserModel.IsFavorite;
             ObjectId = eventUserModel.ObjectId;
             ObjectStringId = eventUserModel.ObjectStringId;
             Date = eventUserModel.Date;
@@ -29,5 +25,6 @@ namespace PMS.Model.CommonModels
         public string ObjectStringId { get; set; }
         public DateTime Date { get; set; }
         public EventState State { get; set; }
+        public bool IsFavorite { get; set; }
     }
 }

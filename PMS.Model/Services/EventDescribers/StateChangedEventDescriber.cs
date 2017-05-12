@@ -26,7 +26,7 @@ namespace PMS.Model.Services.EventDescribers
             var stateChangedModel = JsonConvert.DeserializeObject<StateChangedModel>(workEvent.Data);
             if(!workEvent.ObjectId.HasValue)
                 throw new PmsExeption("Error in event model");
-            var item = this.workItemService.Get(workEvent.ObjectId.Value);
+            var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             this.isUserExecutor = workEvent.UserId == item.ExecutorId;
             var user = this.userService.Get(workEvent.UserId);
             var text = GetStartText(user);

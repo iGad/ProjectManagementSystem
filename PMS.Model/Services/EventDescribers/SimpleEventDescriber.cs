@@ -28,7 +28,7 @@ namespace PMS.Model.Services.EventDescribers
         /// <returns></returns>
         protected override string GetDescription(WorkEvent workEvent, ApplicationUser forUser)
         {
-            var item = this.workItemService.Get(workEvent.ObjectId.Value);
+            var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             return $"{GetStartText(forUser)} {GetActionString()} {LexicalHelper.GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()}.";
         }
 

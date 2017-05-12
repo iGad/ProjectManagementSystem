@@ -1,0 +1,20 @@
+﻿<style>
+    md-checkbox {
+        margin-bottom: 0;
+    }
+
+    .favorite {
+        color: yellow;
+    }
+</style>
+<md-content ng-controller="EventsIndexController">
+    <md-nav-bar md-selected-nav-item="selectedTab" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goTo('new')" name="new">
+            Новые
+        </md-nav-item>
+        <md-nav-item md-nav-click="goTo('seen')" name="seen">
+            Просмотренные
+        </md-nav-item>
+    </md-nav-bar>
+    <ui-view></ui-view>
+</md-content>

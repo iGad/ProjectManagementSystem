@@ -54,7 +54,7 @@
 
 
         $scope.$on("WorkItemChanged", function (event, workItem) {
-            getData();
+            //getData();
             /*WorkItemService.getActualWorkItems().then(function (content) {
                 $scope = content.data;
             });*/

@@ -28,7 +28,7 @@ namespace PMS.Model.Services.EventDescribers
             if (!workEvent.ObjectId.HasValue)
                 throw new PmsExeption("Error in event model");
             var user = this.userService.Get(workEvent.UserId);
-            var item = this.workItemService.Get(workEvent.ObjectId.Value);
+            var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             var text = GetStartText(user);
             text += IsCurrentUser ? $" {NotificationResources.HaveAppointed} " : $" {NotificationResources.Appointed} ";
             text += appointedUserText + $"{LexicalHelper.GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()}.";

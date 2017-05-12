@@ -8,7 +8,8 @@ namespace ProjectManagementSystem
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Frontend/Scripts/jquery-3.1.1.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").IncludeDirectory("~/Frontend/Scripts", "*.js", false));
+            
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular/angular.js",
                         "~/Scripts/angular-route.js",
@@ -21,6 +22,7 @@ namespace ProjectManagementSystem
                         "~/Scripts/angular-material/svg-assets-cache.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalR").IncludeDirectory("~/Frontend/Scripts/signalR", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundles/ui-sortable").IncludeDirectory("~/Frontend/Scripts/ui-sortable", "*.js"));
             bundles.Add(new ScriptBundle("~/bundles/uigrid").IncludeDirectory("~/Scripts/ui-grid", "*.js", true));
             bundles.Add(new ScriptBundle("~/bundles/site").IncludeDirectory("~/Frontend/Scripts/angapp/main","*.js", true));
             bundles.Add(new ScriptBundle("~/bundles/global").IncludeDirectory("~/Frontend/Scripts/angapp/global", "*.js", true));
@@ -31,6 +33,7 @@ namespace ProjectManagementSystem
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js"));
             //bundles.Add(new StyleBundle("~/Content/angular-material").Include("~/Content/*.css"));
+            bundles.Add(new StyleBundle("~/Content/jquery-ui").IncludeDirectory("~/Frontend/Content/css/jquery-ui", "*.css", false));
             bundles.Add(new StyleBundle("~/Content/angular-material").IncludeDirectory("~/Frontend/Content/css/angular-material","*.css"));
             bundles.Add(new StyleBundle("~/Content/ui-grid").IncludeDirectory("~/Frontend/Content/css/ui-grid", "*.css"));
             bundles.Add(new StyleBundle("~/Content/reset").Include("~/Content/reset.css"));

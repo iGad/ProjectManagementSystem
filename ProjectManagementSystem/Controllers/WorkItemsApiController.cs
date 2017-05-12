@@ -33,8 +33,14 @@ namespace ProjectManagementSystem.Controllers
             this.workItemService.Update(workItem);
             this.notifyService.SendEvent("WorkItemChanged", workItem, BroadcastType.All);
             return Json("OK");
+        }
 
-            //return TryAction(() => this.workItemService.Update(workItem));
+        [HttpPost]
+        public ActionResult UpdateWorkItemState(int workItemId, WorkItemState newState)
+        {
+            var workItem = this.workItemService.Get(workItemId);
+            workItem.State = newState;
+            return UpdateWorkItem(workItem);
         }
 
         [HttpPost]
@@ -54,7 +60,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetWorkItem(int id)
         {
-            var workItem = this.workItemService.Get(id);
+            var workItem = this.workItemService.GetWithNoTracking(id);
             return CreateJsonResult(workItem);
         }
 

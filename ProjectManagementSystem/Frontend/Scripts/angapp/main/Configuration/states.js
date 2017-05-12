@@ -19,6 +19,7 @@
 
 angapp.config(function ($stateProvider, $routeProvider) {
     $routeProvider.when('/main', { redirectTo: '/main/all' });
+    $routeProvider.when('/events', { redirectTo: '/events/new' });
     $routeProvider.when('/', { redirectTo: '/main/all' });
     // An array of state definitions
     var states = [
@@ -66,8 +67,18 @@ angapp.config(function ($stateProvider, $routeProvider) {
         },
         {
             name: 'base.events',
-            url: '/events?PageNumber&PageSize&SortDirection&SortField&ItemsIds&DateStart&DateEnd',
-            templateUrl: 'Frontend/Views/main/events/events.html'
+            url: '/events',
+            templateUrl: 'Frontend/Views/main/events/eventsIndex.html'
+        },
+        {
+            name: 'base.events.new',
+            url: '/new',
+            templateUrl: 'Frontend/Views/main/events/newEvents.html'
+        },
+        {
+            name: 'base.events.seen',
+            url: '/seen?PageNumber&PageSize&SortDirection&SortField&ItemsIds&DateStart&DateEnd',
+            templateUrl: 'Frontend/Views/main/events/seenEvents.html'
         },
         {
             name: 'base.test',

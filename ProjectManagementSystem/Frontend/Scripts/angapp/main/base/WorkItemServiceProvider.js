@@ -123,6 +123,14 @@
             data: { workItem: workItem }
         });
     };
+    this.updateWorkItemState = function(workItemId, newState) {
+        return $http({
+            url: workItemUrl + 'UpdateWorkItemState',
+            method: 'POST',
+            data: { workItemId: workItemId, newState: newState }
+        });
+    };
+
     this.deleteWorkItem = function (id) {
         return $http({
             url: workItemUrl + 'DeleteWorkItem',

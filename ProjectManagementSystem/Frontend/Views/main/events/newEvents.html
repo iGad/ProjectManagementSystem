@@ -1,0 +1,32 @@
+﻿<md-content class="md-padding" ng-controller="NewEventsController">
+    <div>
+        <md-button class="md-raised" ng-disabled="!isAnySelected" ng-click="makeSeen()">Сделать просмотренными</md-button>
+    </div>
+    <div>
+        <md-list>
+            <md-list-item ng-click="selectAll()">
+                <span style="width: 3%"> <md-checkbox aria-label="select all" ng-model="isAllSelected" ng-change="selectAll(isAllSelected)"></md-checkbox> </span>
+                <span style="width: 15%"> Дата</span>
+                <div style="width: 65%"> Описание </div>
+                <span style="width: 6%"> <input type="hidden" /></span>
+            </md-list-item>
+            <md-divider></md-divider>
+        </md-list>
+        <md-list style="height: 500px; overflow-y: auto;">
+            <div ng-repeat="event in events track by $index">
+                <md-list-item ng-click="selectByRow(event)">
+                    <span style="width: 3%"> <md-checkbox aria-label="select event" ng-model="event.isSelected" ng-click="select(event)"></md-checkbox> </span>                   
+                    <span style="width: 15%"> {{event.Date}} </span>
+                    <span style="width: 65%"> {{event.Description}} </span>
+                    <span style="width: 6%">
+                        <md-button aria-label="Open filter menu" class="md-icon-button" ng-click="toDetails(event)">
+                            <md-tooltip md-direction="bottom">Детали</md-tooltip>
+                            <md-icon md-svg-icon="navigation:more_horiz"></md-icon>
+                        </md-button>
+                    </span>
+                </md-list-item>
+                <md-divider></md-divider>
+            </div>
+        </md-list>
+    </div>
+</md-content>
