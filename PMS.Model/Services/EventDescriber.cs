@@ -25,7 +25,7 @@ namespace PMS.Model.Services
         public string DescribeEvent(WorkEvent workEvent, ApplicationUser forUser, ApplicationUser currentUser)
         {
             if (!CanDescribeEventType(workEvent.Type))
-                throw new PmsExeption($"Can not describe event with type {workEvent.Type}");
+                throw new PmsException($"Can not describe event with type {workEvent.Type}");
             IsCurrentUser = currentUser.Id == forUser.Id;
             IsUserAuthor = forUser.Id == workEvent.UserId;
             CurrentUser = currentUser;

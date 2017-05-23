@@ -1,7 +1,6 @@
 ﻿<div id="body-container">
-
-    <div class="header navbar navbar-default">
-        <div class="container">
+    <div layout="row" layout-align="space-around" class="header navbar navbar-default" style="z-index:inherit">
+        <div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -10,20 +9,38 @@
                 </button>
                 <a ui-sref="base.main.all" class="navbar-brand">Пангея</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{active:activeIndex === 0}">Проекты</a></li>
-                    <li><a ui-sref="base.tasks" ui-sref-active="active" ng-class="{active:activeIndex === 1}">Задачи</a></li>
-                    <li><a ui-sref="base.about" ui-sref-active="active" ng-class="{active:activeIndex === 2}">Контакты</a></li>
-                    <li><a ui-sref="base.users" ui-sref-active="active" ng-class="{active:activeIndex === 3}">Пользователи</a></li>
-                    <li><a ui-sref="base.events" ui-sref-active="active" ng-class="{active:activeIndex === 4}">События {{unseenEventCount?('(' + unseenEventCount + ')') : ''}}</a></li>
-                    <li><a ui-sref="base.test" ui-sref-active="active" ng-class="{active:activeIndex === 5}">Test</a></li>
-                </ul>
+            <div class="navbar-collapse collapse"  style="display: flex !important">
+               
+                    <ul class="nav navbar-nav">
+                        <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{'active':activeIndex === 0}">Проекты</a></li>
+                        <li><a ui-sref="base.tasks" ui-sref-active="active" ng-class="{'active':activeIndex === 1}">Задачи</a></li>
+                        <!--<li><a ui-sref="base.about" ui-sref-active="active" ng-class="{'active':activeIndex === 2}">Контакты</a></li>-->
+                        <li><a ui-sref="base.users" ui-sref-active="active" ng-class="{'active':activeIndex === 3}">Пользователи</a></li>
+                        <li><a ui-sref="base.events" ui-sref-active="active" ng-class="{'active':activeIndex === 4}">События {{unseenEventCount?('(' + unseenEventCount + ')') : ''}}</a></li>
+                        <!--<li><a ui-sref="base.test" ui-sref-active="active" ng-class="{'active':activeIndex === 5}">Test</a></li>-->
+                    </ul>
 
             </div>
         </div>
+        <div ng-controller="UserHeaderController" >
+            <md-menu ng-if="User">
+                <md-button aria-label="Open filter menu" ng-click="openMenu($mdMenu, $event)">
+                    {{User.Name}}&nbsp;{{User.Surname}}
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button ng-click="goToState('base.profile.info')">Профиль</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="goToState('base.profile.settings')">Настройки</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                            <md-button ng-click="logoff()">Выйти</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
     </div>
-
     <div class="body">
         <div flex>
             <ui-view></ui-view>
@@ -31,7 +48,5 @@
 
     </div>
 </div>
-<!--<div flex>
-    <ui-view></ui-view> 
-</div>-->
+
 

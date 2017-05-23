@@ -173,14 +173,14 @@ namespace ProjectManagementSystem.Services
                 var executor = this.userRepository.GetById(workItem.ExecutorId);
                 if (oldExecutor != null)
                 {
-                    var disappointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemDisappointed);
+                    var disappointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemDisappointed, oldExecutor.Id.ToString());
                     disappointEvent = this.eventService.AddEvent(disappointEvent, new[] {oldExecutor.Id});
                     if (user.UserName != oldExecutor.UserName)
                         this.notifyService.SendNotifications(disappointEvent, new[] {oldExecutor});
                 }
                 if (executor != null)
                 {
-                    var appointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemAppointed);
+                    var appointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemAppointed, executor.Id.ToString());
                     this.eventService.AddEvent(appointEvent, new[] { executor.Id });
                     if (user.UserName != executor.UserName)
                         this.notifyService.SendNotifications(appointEvent, new[] {executor});
@@ -202,7 +202,7 @@ namespace ProjectManagementSystem.Services
             }
         }
 
-        private WorkEvent CreateBaseEvent(int workItemId, EventType type, object data = null)
+        private WorkEvent CreateBaseEvent(int workItemId, EventType type, object data)
         {
             return new WorkEvent
             {
@@ -210,6 +210,17 @@ namespace ProjectManagementSystem.Services
                 Type = type,
                 ObjectId = workItemId,
                 Data = data == null ? string.Empty : JsonConvert.SerializeObject(data)
+            };
+        }
+
+        private WorkEvent CreateBaseEvent(int workItemId, EventType type, string data = null)
+        {
+            return new WorkEvent
+            {
+                UserId = GetCurrentUser().Id,
+                Type = type,
+                ObjectId = workItemId,
+                Data = data ?? string.Empty
             };
         }
 

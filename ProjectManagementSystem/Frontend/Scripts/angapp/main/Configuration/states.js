@@ -20,6 +20,7 @@
 angapp.config(function ($stateProvider, $routeProvider) {
     $routeProvider.when('/main', { redirectTo: '/main/all' });
     $routeProvider.when('/events', { redirectTo: '/events/new' });
+    $routeProvider.when('/profile', { redirectTo: '/profile/info' });
     $routeProvider.when('/', { redirectTo: '/main/all' });
     // An array of state definitions
     var states = [
@@ -94,6 +95,22 @@ angapp.config(function ($stateProvider, $routeProvider) {
             name: 'base.users',
             url: '/users',
             templateUrl: 'Frontend/Views/main/users/index.html'
+        },
+        {
+            name: 'base.profile',
+            abstract: true,
+            url: '/profile',
+            templateUrl: 'Frontend/Views/main/profile/index.html'
+        },
+        {
+            name: 'base.profile.info',
+            url: '/info',
+            templateUrl: 'Frontend/Views/main/profile/info.html'
+        },
+        {
+            name: 'base.profile.settings',
+            url: '/settings',
+            templateUrl: 'Frontend/Views/main/profile/settings.html'
         }
     ];
 

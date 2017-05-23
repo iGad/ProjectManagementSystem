@@ -1,0 +1,11 @@
+﻿<md-content ng-controller="ProfileIndexController">
+    <md-nav-bar md-selected-nav-item="selectedTab" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goTo('base.profile.info')" name="info">
+            Профиль
+        </md-nav-item>
+        <md-nav-item md-nav-click="goTo('base.profile.settings')" name="settings">
+            Настройки
+        </md-nav-item>
+    </md-nav-bar>
+    <ui-view></ui-view>
+</md-content>

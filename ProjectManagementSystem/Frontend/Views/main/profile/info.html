@@ -1,0 +1,68 @@
+﻿<div ng-controller="EditProfileInfoController">
+    <ng-form name="userForm" flex>
+        <div layout="column" style="width:50%">
+            <div layout="row" flex>
+                <md-button ng-click="save()" ng-disabled="userForm.$invalid || !isFormChanged">
+                    <md-icon md-svg-icon="content:save"></md-icon>
+                    Сохранить
+                </md-button>
+                <md-button ng-click="delete()" ng-disabled="!isFormChanged">
+                    <md-icon md-svg-icon="action:delete" md-menu-align-target></md-icon>
+                    Отменить изменения
+                </md-button>
+            </div>
+            <md-input-container>
+                <label>Логин (e-mail)</label>
+                <input name="emailInput" disabled="disabled" ng-model="user.Email" />
+            </md-input-container>
+            <md-input-container>
+                <label>Имя</label>
+                <input name="nameInput"
+                       ng-model="user.Name"
+                       ng-change="modelChanged()"
+                       ng-required="true" />
+                <div ng-messages="addUpdateUserForm.nameInput.$error">
+                    <div ng-message="required">Необходимо ввести имя</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Фамилия</label>
+                <input ng-model="user.Surname" ng-change="modelChanged()" />
+            </md-input-container>
+            <md-input-container>
+                <label>Отчество</label>
+                <input ng-model="user.Fathername" ng-change="modelChanged()" />
+            </md-input-container>
+            <div layout="row">
+                <md-input-container class="md-block">
+                    <label>Пароль</label>
+                    <input name="passInput"
+                           type="password"
+                           ng-model="user.NewPassword"
+                           minlength="6" />
+                    <div ng-messages="userForm.passInput.$error">
+                        <div ng-message="required">Необходимо ввести пароль</div>
+                        <div ng-message="minlength">Пароль должен состоять минимум из 6 символов</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <md-button ng-click="changePassword(user.NewPassword)" ng-disabled="userForm.$invalid || !user.NewPassword">Сменить пароль</md-button>
+                </md-input-container>
+            </div>
+
+
+            <md-input-container>
+                <label>Дата рождения</label>
+                <md-datepicker md-open-on-focus placeholder="Выберите дату рождения" md-current-view="year" ng-model="user.Birthday" ng-change="modelChanged()" />
+            </md-input-container>
+            <md-container>
+                <label>Роли</label>
+                
+                <md-chips>
+                    <md-chip ng-repeat="role in user.Roles">{{role.Name}}</md-chip>
+                </md-chips>
+                
+            </md-container>
+        </div>
+    </ng-form>
+</div>

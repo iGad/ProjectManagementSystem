@@ -12,10 +12,6 @@ angapp.controller('UserWorkItemsController', ['$scope', '$state', '$stateParams'
 
         $scope.tileTemplate = '/Frontend/Views/main/base/workItemTileTemplate.html';
 
-        function canNotUserDrop(sortable) {
-            return false;
-        }
-
         function getNewState(sortable) {
             
             if (sortable.droptargetModel === $scope.AtWork)
@@ -30,18 +26,38 @@ angapp.controller('UserWorkItemsController', ['$scope', '$state', '$stateParams'
             
         }
 
+        function canNotUserDrop(sortable, newState) {
+            if (!$scope.Permissions.CanChangeForeignWorkItem && $scope.User.Id !== sortable.model.Executor.Id)
+                return true;
+            
+            if (!$scope.Permissions.CanMoveToDone && newState === WorkItemStatesEnum.Done)
+                return true;
+            if (!$scope.Permissions.CanMoveToReviewing && newState === WorkItemStatesEnum.Reviewing)
+                return true;
+            if (!$scope.Permissions.CanMoveToAtWork && newState === WorkItemStatesEnum.AtWork)
+                return true;
+            if (!$scope.Permissions.CanMoveToPlanned && newState === WorkItemStatesEnum.Planned)
+                return true;
+            return false;
+        }
+
+        
+
         $scope.sortableOptions = {
             placeholder: "workitem-tile",
-            connectWith: "#uid" + ($scope.userInfo ? $scope.userInfo.UserId : '') + " .workitem-container",
+            connectWith: "#uid" + ($scope.userInfo && ($scope.Permissions.CanChangeForeignWorkItem || $scope.User.Id === $scope.userInfo.UserId) ? $scope.userInfo.UserId : '') + " .workitem-container",
             update: function (e, ui) {
-                if (canNotUserDrop(ui.item.sortable)) {
-                    ui.item.sortable.cancel();
+                if (!ui.item.sortable.isCanceled() && !ui.item.sortable.received) {
+                    var newState = getNewState(ui.item.sortable);
+                    if (canNotUserDrop(ui.item.sortable, newState)) {
+                        utils.showMessageBox('У вас нет разрешения для выполнения данного действия');
+                        ui.item.sortable.cancel();
+                    } else {
+                        workItemService.updateWorkItemState(ui.item.sortable.model.Id, newState).then(function () { }, utils.onError);
+                        ui.item.sortable.model.State.Value = newState;
+                    }
                 }
-                var newState = getNewState(ui.item.sortable);
-                if (ui.item.sortable.model.State.Value !== newState) {
-                    workItemService.updateWorkItemState(ui.item.sortable.model.Id, newState).then(function () { }, utils.onError);
-                    ui.item.sortable.model.State.Value = newState;
-                }
+               
             }
         };
 
@@ -100,33 +116,7 @@ angapp.controller('UserWorkItemsController', ['$scope', '$state', '$stateParams'
 
         $scope.$on("WorkItemChanged", function (event, workItem) {
             getData();
-            /*WorkItemService.getActualWorkItems().then(function (content) {
-                $scope = content.data;
-            });*/
-            /* var data = findElement(workItem);
-            //if (data.element.State !== workItem.State) {
-            $scope.$apply(function() {
-                data.array.splice(data.array.indexOf(function (x) { return x.Id === workItem.Id }), 1);
-                switch (workItem.State) {
-                    case 0:
-                        $scope.New.push(workItem);
-                        break;
-                    case 1:
-                        $scope.Planned.push(workItem);
-                        break;
-                    case 2:
-                        $scope.Done.push(workItem);
-                        break;
-                    case 5:
-                        $scope.Reviewing.push(workItem);
-                        break;
-                    case 6:
-                        $scope.AtWork.push(workItem);
-                        break;
-                }
-            });*/
-
-            //}
+            
         });
 
     }]);

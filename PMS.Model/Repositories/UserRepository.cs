@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Models;
 
 namespace PMS.Model.Repositories

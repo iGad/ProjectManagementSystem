@@ -8,7 +8,7 @@ namespace ProjectManagementSystem.ViewModels
         public WorkItemChangesViewModel(WorkItem oldItem, WorkItem item)
         {
            if(oldItem.Id != item.Id)
-                throw new PmsExeption("Id not equals");
+                throw new PmsException("Id not equals");
             Id = oldItem.Id;
             ChangedProperties = oldItem.GetDifferentProperties(item);
         }

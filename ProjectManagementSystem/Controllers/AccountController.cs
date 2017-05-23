@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PMS.Model.Models.Identity;
+using PMS.Model.Services;
 using ProjectManagementSystem.Models;
 using LoginViewModel = ProjectManagementSystem.ViewModels.LoginViewModel;
 
@@ -59,7 +60,7 @@ namespace ProjectManagementSystem.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.returnUrl = returnUrl;
             return View();
         }
 
@@ -72,27 +73,19 @@ namespace ProjectManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                throw new PmsException("не заполнен логин или пароль");
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            if (result == SignInStatus.Success)
             {
-                case SignInStatus.Success:
-                    if (string.IsNullOrWhiteSpace(returnUrl) || returnUrl.Length < 3)
-                        return RedirectToAction("Index", "Home");
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                if (string.IsNullOrWhiteSpace(returnUrl) || returnUrl.Length < 3)
+                    return Json("/", JsonRequestBehavior.AllowGet);
+                return Json(returnUrl, JsonRequestBehavior.AllowGet);
             }
+            throw new PmsException("Неверный логин или пароль");
         }
 
        
@@ -224,11 +217,11 @@ namespace ProjectManagementSystem.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return Json("OK");
         }
         
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PMS.Model.Models;
 using PMS.Model.Models.Identity;
@@ -39,6 +39,36 @@ namespace ProjectManagementSystem.Controllers
         private IUserRepository CreateRepository()
         {
             return new UserRepository(new ApplicationContext());
+        }
+
+        [HttpGet]
+        public ActionResult IsUserExists(string username)
+        {
+            return Json(this.usersService.GetByUsername(username));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(string userId, string password)
+        {
+            var currentUser = this.usersService.GetCurrentUser();
+            if (currentUser.Id != userId)
+                throw new PmsException("Нельзя изменить пароль другого пользователя");
+            var code = await UserManager.GeneratePasswordResetTokenAsync(userId);
+            var result = await UserManager.ResetPasswordAsync(userId, code, password);
+            if (!result.Succeeded)
+                throw new PmsException(result.Errors.Aggregate(string.Empty, (s, s1) => s + "\n" + s1));
+            return Json("OK");
+        }
+
+        [HttpGet]
+        public ActionResult GetCurrentUser()
+        {
+            var currentUser = this.usersService.GetCurrentUser();
+            using (var context = new ApplicationContext())
+            {
+                var api = new UsersApiService(new UserRepository(context), UserManager);
+                return Json(api.GetUserViewModel(currentUser),JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]

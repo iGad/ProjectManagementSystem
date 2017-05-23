@@ -20,7 +20,7 @@ namespace ProjectManagementSystem.Controllers
             {
                 return action();
             }
-            catch (PmsExeption ex)
+            catch (PmsException ex)
             {
                 return CreateJsonResult("Произошла ошибка при выполнении операции. " + ex.Message);
             }
@@ -33,7 +33,7 @@ namespace ProjectManagementSystem.Controllers
                 action();
                 return CreateJsonResult("OK");
             }
-            catch (PmsExeption ex)
+            catch (PmsException ex)
             {
                 return CreateJsonResult("Произошла ошибка при выполнении операции. " + ex.Message);
             }

@@ -1,5 +1,7 @@
 ﻿var angapp = angular.module("authapp", ['ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages'])
-.controller("authController", function ($scope, $http, authProvider, $window, $location) {
+//.config(['$locationProvider', function ($locationProvider) { $locationProvider.html5Mode({ enabled: true, requireBase: false }); }])
+.controller("authController", ['$scope', '$http', 'authProvider', '$window', '$location',
+    function ($scope, $http, authProvider, $window, $location) {
     $scope.email = "";
     $scope.password = "";
     $scope.rememberMe = false;
@@ -13,12 +15,16 @@
             Password: $scope.password,
             RememberMe: $scope.rememberMe
         }
-        var promiseObj = authProvider.logOn(model);
-        promiseObj.then(function (data) {
-            if (data.errorResult)
-                $scope.errorResult = data.errorResult;
-            else
-                $window.location.href = data.url;
+        var returnUrl;
+        var returnUrlUgly = $location.absUrl().split('ReturnUrl=')[1];
+        if (returnUrlUgly)
+            returnUrl = "/" + returnUrlUgly.split('&')[0];
+       
+        authProvider.logOn(model, returnUrl).then(function (content) {
+            var path = $location.path();
+                $window.location.href = content.data;
+        }, function(data) {
+            $scope.errorResult = data.errorResult;
         });
     }
-});
+}]);

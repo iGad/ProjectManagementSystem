@@ -109,6 +109,7 @@
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
     <Compile Include="Models\Notification\WorkItemNotificationModel.cs" />
     <Compile Include="Models\PermissionsEnum.cs" />
+    <Compile Include="Models\PermissionType.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Models\WorkEvent.cs" />
@@ -120,6 +121,8 @@
     </Compile>
     <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Repositories\IUserPermissionsRepository.cs" />
+    <Compile Include="Repositories\UserPermissionsRepository.cs" />
     <Compile Include="Services\ApplicationUserEqualityComparer.cs" />
     <Compile Include="Services\ApplicationUserExtensions.cs" />
     <Compile Include="Services\EventDescribers\ItemAddedEventDescriber.cs" />
@@ -151,7 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\PmsExeption.cs" />
+    <Compile Include="Services\PmsException.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Services\WorkItemService.cs" />
   </ItemGroup>

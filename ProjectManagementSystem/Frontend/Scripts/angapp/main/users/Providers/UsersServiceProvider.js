@@ -1,6 +1,7 @@
 ﻿angapp.provider("UsersService", ["uiGridConstants", function (uiGridConstants) {
     var usersUrl = '/UsersApi/';
-    
+    var accountUrl = '/Account/';
+    var permissionsUrl = '/PermissionsApi/';
 
     function getDefaultGridOptions() {
         return {
@@ -38,6 +39,25 @@
                         url: '/EventsApi/SendNotification',
                         method: 'GET',
                         params: {userId}
+                    });
+                },
+                getCurrentUser: function() {
+                    return $http({
+                        url: usersUrl + 'GetCurrentUser',
+                        method: 'GET'
+                    });
+                },
+                changePassword: function(userId, password) {
+                    return $http({
+                        url: usersUrl + 'ChangePassword',
+                        method: 'POST',
+                        data: { userId, password }
+                    });
+                },
+                logoff: function() {
+                    return $http({
+                        url: accountUrl + 'LogOff',
+                        method: 'POST'
                     });
                 },
                 getDefaultGridOptions: function () {
@@ -88,6 +108,12 @@
                     });
                 },
                 /******User permissions******/
+                getUserPermissions : function() {
+                    return $http({
+                        url: permissionsUrl + 'GetUserPermissions',
+                        method: 'GET'
+                    });
+                },
                 hasPermissions: function(actions) {
                     return $http({
                         url: usersUrl + 'HasPermissions',

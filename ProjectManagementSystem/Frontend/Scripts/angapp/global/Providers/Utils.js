@@ -2,10 +2,31 @@
   
 
     return {
-        $get: ['$state', '$stateParams', function ($state, $stateParams) {
+        $get: ['$state', '$stateParams', '$mdDateLocale', '$mdDialog',
+            function ($state, $stateParams, $mdDateLocaleProvider, $mdDialog) {
             var service = {
                 onError: function(error) {
                     console.error(error);
+                },
+                onErrorWithMessageBox: function(error) {
+                     $mdDialog.show(
+                      $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Ошибка')
+                        .textContent(error.data.Message)
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('ОК')
+                    );
+                },
+                showMessageBox: function (text) {
+                    $mdDialog.show(
+                      $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Ошибка')
+                        .textContent(text)
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('ОК')
+                    );
                 },
                 parseStateParams: function (stateUrl, stateParams) {
                     var properties = stateUrl.split('?')[1].split('&');//получение массива возможных параметров 
@@ -35,8 +56,11 @@
                     stateParams.returnStates = returnStates;
                     $state.go(stateName, stateParams);
                 },
-                convertDateToJs: function(sharpDateTime) {
+                convertDateToJsString: function (sharpDateTime) {
                     return moment(parseInt(sharpDateTime.substr(6, sharpDateTime.length - 8))).format('DD.MM.YYYY HH:mm');
+                },
+                convertDateToJsDate: function (sharpDateTime) {
+                    return $mdDateLocaleProvider.parseDate(sharpDateTime);
                 }
         };
             return service;

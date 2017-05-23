@@ -25,7 +25,7 @@
 
         function replaceDateTime(collection) {
             for (var i = 0; i < collection.length; i++) {
-                collection[i].Date = utils.convertDateToJs(collection[i].Date);
+                collection[i].Date = utils.convertDateToJsString(collection[i].Date);
             }
         }
 

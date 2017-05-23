@@ -21,7 +21,7 @@ namespace PMS.Model.Services
         {
             var workItem = this.repository.GetById(id);
             if(workItem == null)
-                throw new PmsExeption(string.Format(Resources.WorkItemNotFound, id));
+                throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
         }
 
@@ -29,7 +29,7 @@ namespace PMS.Model.Services
         {
             var workItem = this.repository.GetByIdNoTracking(id);
             if (workItem == null)
-                throw new PmsExeption(string.Format(Resources.WorkItemNotFound, id));
+                throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
         }
 
@@ -37,7 +37,7 @@ namespace PMS.Model.Services
         {
             var workItem = this.repository.GetByIdWithParents(id);
             if (workItem == null)
-                throw new PmsExeption(string.Format(Resources.WorkItemNotFound, id));
+                throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
         }
 

@@ -56,7 +56,7 @@ namespace PMS.Model.Services
         {
             var relation = Repository.GetRelation(workEventId, userId);
             if (relation == null)
-                throw new PmsExeption($"Event {workEventId} for user {userId} not found");
+                throw new PmsException($"Event {workEventId} for user {userId} not found");
             return relation;
         }
 
@@ -77,7 +77,7 @@ namespace PMS.Model.Services
         private void Validate(WorkEvent workEvent)
         {
             if(string.IsNullOrEmpty(workEvent.UserId))
-                throw new PmsExeption("UserId can not be empty");
+                throw new PmsException("UserId can not be empty");
         }
             
         protected ApplicationUser GetCurrentUser()

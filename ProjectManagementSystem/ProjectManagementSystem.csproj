@@ -190,6 +190,7 @@
     <Compile Include="Controllers\EventsApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PermissionsApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Controllers\WorkItemsApiController.cs" />
     <Compile Include="Export\DependencyResolver.cs" />
@@ -402,6 +403,7 @@
     <Content Include="Frontend\Scripts\angapp\main\base\WorkItemTileController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\main\Configuration\dateLocale.config.js" />
     <Content Include="Frontend\Scripts\angapp\main\events\SeenEventsControler.js" />
     <Content Include="Frontend\Scripts\angapp\main\events\EventsIndexController.js" />
     <Content Include="Frontend\Scripts\angapp\main\events\EventsService.js" />
@@ -410,6 +412,10 @@
     <Content Include="Frontend\Scripts\angapp\main\index\PanelController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\main\index\UserHeaderController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\profile\EditProfileInfoController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\profile\EditProfileSettingController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\profile\ProfileIndexController.js" />
     <Content Include="Frontend\Scripts\angapp\main\projects\ProjectsController.js" />
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\AddUpdateUserController.js" />
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\UsersMainController.js">
@@ -441,6 +447,9 @@
     <Content Include="Frontend\Views\main\events\seenEvents.html" />
     <Content Include="Frontend\Views\main\events\eventsIndex.html" />
     <Content Include="Frontend\Views\main\events\newEvents.html" />
+    <Content Include="Frontend\Views\main\profile\index.html" />
+    <Content Include="Frontend\Views\main\profile\info.html" />
+    <Content Include="Frontend\Views\main\profile\settings.html" />
     <Content Include="Frontend\Views\main\test.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -3,7 +3,7 @@
         <md-list>
             <md-list-item>
                 <span style="width: 8%">
-                    <md-select style="max-width: 56px; margin: auto;" aria-label="favorite filter" ng-model="filterOptions.IsFavorite">
+                    <md-select style="max-width: 56px; margin: auto;" aria-label="favorite filter" ng-model="filterOptions.IsFavorite" ng-change="applyFilter()">
                         <md-option></md-option>
                         <md-option ng-value="false"><md-icon md-svg-icon="action:grade"></md-icon></md-option>
                         <md-option ng-value="true"><md-icon md-svg-icon="action:grade" class="favorite"></md-icon></md-option>
@@ -26,7 +26,7 @@
                             <md-menu-item>
                                 <div layout="row" layout-align="space-around">
                                     <md-button ng-click="applyFilter()">Применить</md-button>
-                                    <md-button ng-click="clearFilter()">Сбросить</md-button>
+                                    <md-button ng-click="clearFilter('Description')">Сбросить</md-button>
                                 </div>
                             </md-menu-item>
                         </md-menu-content>

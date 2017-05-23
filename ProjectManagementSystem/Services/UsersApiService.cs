@@ -28,7 +28,7 @@ namespace ProjectManagementSystem.Services
             var result = this.userManager.Create(user, password);
             if (!result.Succeeded)
             {
-                throw new PmsExeption("Не удалось создать пользователя. Ошибки:" + result.Errors.Aggregate(string.Empty, (s, s1) => s + ", " + s1));
+                throw new PmsException("Не удалось создать пользователя. Ошибки:" + result.Errors.Aggregate(string.Empty, (s, s1) => s + ", " + s1));
             }
             
             this.userManager.AddToRoles(user.Id, userViewModel.Roles.Select(x => x.Name).ToArray());
@@ -41,6 +41,11 @@ namespace ProjectManagementSystem.Services
         public List<UserViewModel> GetActualUsers()
         {
             return this.userRepository.GetUsers(x => !x.IsDeleted).ToArray().Select(CreateUserViewModel).ToList();
+        }
+
+        public UserViewModel GetUserViewModel(ApplicationUser user)
+        {
+            return CreateUserViewModel(user);
         }
 
         private UserViewModel CreateUserViewModel(ApplicationUser user)
@@ -60,7 +65,7 @@ namespace ProjectManagementSystem.Services
         {
             var user = GetUser(userViewModel.Id);
             if (IsEmailInvalid(userViewModel.Email, userViewModel.Id))
-                throw new PmsExeption($"Логин {userViewModel.Email} уже занят");
+                throw new PmsException($"Логин {userViewModel.Email} уже занят");
             user.Name = userViewModel.Name;
             user.UserName = userViewModel.Email;
             user.Email = userViewModel.Email;
@@ -90,7 +95,7 @@ namespace ProjectManagementSystem.Services
         {
             var user = this.userRepository.GetById(id);
             if (user == null)
-                throw new PmsExeption($"Пользователь с id {id} не найден");
+                throw new PmsException($"Пользователь с id {id} не найден");
             return user;
         }
 

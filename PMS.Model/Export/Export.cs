@@ -16,6 +16,7 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<WorkItemRepository, ITreeRepository>();
             compositionContainer.RegisterExport<UserRepository, IUserRepository>();
             compositionContainer.RegisterExport<EventRepository, IEventRepository>();
+            compositionContainer.RegisterExport<UserPermissionsRepository, IUserPermissionsRepository>();
 
             compositionContainer.RegisterExport<UsersService>();
             compositionContainer.RegisterExport<WorkItemService>();

@@ -21,12 +21,12 @@ namespace PMS.Model.Services.EventDescribers
         {
             var appointedUser = this.userService.Get(workEvent.Data);
             if(appointedUser == null)
-                throw new PmsExeption("Invalid event data. Must be Id.");
+                throw new PmsException("Invalid event data. Must be Id.");
             var appointedUserText = appointedUser.Id == forUser.Id
                 ? (IsCurrentUser ? " себе " : " вам ")
                 : " пользователю " + appointedUser.GetUserIdentityText();
             if (!workEvent.ObjectId.HasValue)
-                throw new PmsExeption("Error in event model");
+                throw new PmsException("Error in event model");
             var user = this.userService.Get(workEvent.UserId);
             var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             var text = GetStartText(user);
