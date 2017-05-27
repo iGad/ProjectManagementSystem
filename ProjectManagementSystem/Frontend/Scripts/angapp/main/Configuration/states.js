@@ -111,6 +111,11 @@ angapp.config(function ($stateProvider, $routeProvider) {
             name: 'base.profile.settings',
             url: '/settings',
             templateUrl: 'Frontend/Views/main/profile/settings.html'
+        },
+        {
+            name: 'base.settings',
+            url: '/settings',
+            templateUrl: 'Frontend/Views/main/settings/index.html'
         }
     ];
 

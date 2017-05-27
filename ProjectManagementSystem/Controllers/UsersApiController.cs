@@ -19,10 +19,12 @@ namespace ProjectManagementSystem.Controllers
     {
         private ApplicationUserManager userManager;
         private readonly UsersService usersService;
+        private readonly IUserPermissionsRepository permissionsRepository;
 
-        public UsersApiController(UsersService usersService)
+        public UsersApiController(UsersService usersService, IUserPermissionsRepository permissionsRepository)
         {
             this.usersService = usersService;
+            this.permissionsRepository = permissionsRepository;
         }
 
         public ApplicationUserManager UserManager
@@ -185,13 +187,14 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult HasPermissionsForWorkItem(IEnumerable<int> actions, int workItemId)
+        public ActionResult HasPermissionsForWorkItem(IEnumerable<int> actions, int? workItemId)
         {
-            IEnumerable<bool> result = new bool[0];
-            if (actions != null)
-            {
-                result = Enumerable.Repeat(true, actions.Count());
-            }
+            //var queriedPermissions = actions.Select(x => (PermissionType) x).ToArray();
+            //var user = this.usersService.GetCurrentUser();
+            //var roles = this.usersService.GetRolesByIds(user.Roles.Select(x => x.RoleId));
+            //var allowedPermissions = this.permissionsRepository.GetPermissionsForRoles(roles.Select(r=>r.RoleCode));
+            IEnumerable<bool> result = new bool[actions.Count()];
+            //result = queriedPermissions.Select(x=> allowedPermissions.Contains(x) && (x == ))
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

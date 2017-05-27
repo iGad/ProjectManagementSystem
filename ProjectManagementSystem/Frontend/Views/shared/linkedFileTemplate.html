@@ -1,0 +1,20 @@
+﻿<div class="linked-file" layout="row" layout-align="space-between">
+    <div class="file-info" layout="column">
+        <div>{{file.Name}} ({{file.Size}})</div>
+        <div>{{file.Date}}</div>
+    </div>
+    <div layout="row" layout-align="end">
+        <md-button class="md-icon-button" ng-click="openFile(file)" aria-label="open file">
+            <md-icon md-svg-icon="action:visibility"></md-icon>
+            <md-tooltip>Открыть</md-tooltip>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="downloadFile(file)" aria-label="download file">
+            <md-icon md-svg-icon="file:file_download"></md-icon>
+            <md-tooltip>Скачать</md-tooltip>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="deleteFile(file)" aria-label="delete file">
+            <md-icon md-svg-icon="action:delete"></md-icon>
+            <md-tooltip>Удалить</md-tooltip>
+        </md-button>
+    </div>
+</div>

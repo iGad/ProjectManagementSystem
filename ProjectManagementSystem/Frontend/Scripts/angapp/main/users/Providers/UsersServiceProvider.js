@@ -34,6 +34,15 @@
     return {
         $get: ["$q", "$http", function ($q, $http) {
             var service = {
+                getUserDisplayText : function (user) {
+                    var text = '';
+                    if (user.Surname)
+                        text = user.Surname + ' ';
+                    if (user.Name)
+                        text += user.Name;
+                    return text;
+                },
+
                 sendNotification: function(userId) {
                     return $http({
                         url: '/EventsApi/SendNotification',

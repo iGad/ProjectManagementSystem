@@ -9,7 +9,7 @@ namespace PMS.Model.Repositories
 {
     public interface IUserPermissionsRepository : IRepository
     {
-        IEnumerable<PermissionType> GetPermissionsForRoles(ICollection<RoleType> roleCodes);
+        IEnumerable<PermissionType> GetPermissionsForRoles(IEnumerable<RoleType> roleCodes);
          
     }
 }

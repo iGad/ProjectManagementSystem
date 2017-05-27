@@ -24,12 +24,12 @@
     // In addition to date display, date components also need localized messages
     // for aria-labels for screen-reader users.
 
-    $mdDateLocaleProvider.weekNumberFormatter = function(weekNumber) {
-        return 'Semaine ' + weekNumber;
-    };
+    //$mdDateLocaleProvider.weekNumberFormatter = function(weekNumber) {
+    //    return 'Semaine ' + weekNumber;
+    //};
 
-    $mdDateLocaleProvider.msgCalendar = 'Calendrier';
-    $mdDateLocaleProvider.msgOpenCalendar = 'Ouvrir le calendrier';
+    //$mdDateLocaleProvider.msgCalendar = 'Calendrier';
+    //$mdDateLocaleProvider.msgOpenCalendar = 'Ouvrir le calendrier';
 
     // You can also set when your calendar begins and ends.
     $mdDateLocaleProvider.firstRenderableDate = new Date(1930, 1, 1);

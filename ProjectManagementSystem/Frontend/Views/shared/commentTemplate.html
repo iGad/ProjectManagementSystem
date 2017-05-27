@@ -1,0 +1,15 @@
+﻿<md-content class="comment" flex>
+    <div layout="row" layout-align="space-around center">
+        <div flex style="text-align:left">{{comment.User}}</div>
+        <div flex style="text-align:center">{{comment.Date}}</div>
+        <div flex layout-align="end" layout="row">
+            <md-button ng-if="comment.UserId === User.Id" class="md-icon-button md-warn md-no-ink" aria-label="delete comment" ng-click="deleteComment(comment)">
+                <md-tooltip>Удалить</md-tooltip>
+                <md-icon md-svg-icon="action:delete"></md-icon>
+            </md-button>
+        </div>
+    </div>
+    <md-content class="md-padding">
+        {{comment.Text}}
+    </md-content>
+</md-content>

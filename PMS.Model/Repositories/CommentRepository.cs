@@ -1,30 +1,42 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using PMS.Model.Models;
 
 namespace PMS.Model.Repositories
 {
-    public class CommentRepository
+    public class CommentRepository : ICommentRepository
     {
         private readonly ApplicationContext context;
         public CommentRepository(ApplicationContext context)
         {
             this.context = context;
         }
-
-        public Comment GetById(int id)
+        
+        public async Task<List<Comment>> GetCommentsForObject(int objectId)
         {
-            return this.context.Comments.SingleOrDefault(x => x.Id == id);
+            return await this.context.Comments.Where(x => x.ObjectId == objectId).OrderByDescending(x => x.CreatedDate).ToListAsync();
         }
 
-        public IEnumerable<Comment> GetByWorkItemId(int workItemId)
+        public void DeleteComment(Comment comment)
         {
-            return this.context.Comments.Where(x => x.WorkItemId == workItemId);
+            this.context.Comments.Remove(comment);
+        }
+
+        public async Task<Comment> Get(int id)
+        {
+            return await this.context.Comments.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public Comment AddComment(Comment comment)
         {
             return this.context.Comments.Add(comment);
+        }
+
+        public async Task<int> SaveChanges()
+        {
+            return await this.context.SaveChangesAsync();
         }
     }
 }

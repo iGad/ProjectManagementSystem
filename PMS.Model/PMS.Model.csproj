@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201703141435562_Initial.Designer.cs">
       <DependentUpon>201703141435562_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705271722235_1.cs" />
+    <Compile Include="Migrations\201705271722235_1.Designer.cs">
+      <DependentUpon>201705271722235_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -111,7 +115,9 @@
     <Compile Include="Models\PermissionsEnum.cs" />
     <Compile Include="Models\PermissionType.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\UserSetting.cs" />
     <Compile Include="Models\WorkEvent.cs" />
     <Compile Include="Models\WorkEventUserRelation.cs" />
     <Compile Include="NotificationResources.Designer.cs">
@@ -120,11 +126,15 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\ICommentRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
+    <Compile Include="Repositories\ISettingRepository.cs" />
     <Compile Include="Repositories\IUserPermissionsRepository.cs" />
+    <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\UserPermissionsRepository.cs" />
     <Compile Include="Services\ApplicationUserEqualityComparer.cs" />
     <Compile Include="Services\ApplicationUserExtensions.cs" />
+    <Compile Include="Services\CommentsService.cs" />
     <Compile Include="Services\EventDescribers\ItemAddedEventDescriber.cs" />
     <Compile Include="Services\EventDescribers\ItemAppointedEventDescriber.cs" />
     <Compile Include="Services\EventDescribers\ItemChangedEventDecriber.cs" />
@@ -137,6 +147,7 @@
     <Compile Include="Services\IEventService.cs" />
     <Compile Include="Services\INotifyService.cs" />
     <Compile Include="Services\LexicalHelper.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\WorkItemExtensions.cs" />
     <Compile Include="Models\WorkItemType.cs" />
     <Compile Include="Models\WorkItem.cs" />
@@ -165,6 +176,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703141435562_Initial.resx">
       <DependentUpon>201703141435562_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705271722235_1.resx">
+      <DependentUpon>201705271722235_1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NotificationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

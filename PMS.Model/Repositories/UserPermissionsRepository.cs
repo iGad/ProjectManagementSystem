@@ -16,8 +16,8 @@ namespace PMS.Model.Repositories
             { PermissionType.CanMoveToReviewing, new []{RoleType.Director, RoleType.Executor, RoleType.MainProjectEngeneer, RoleType.Manager }},
             { PermissionType.CanMoveToDone, new []{RoleType.Director, RoleType.MainProjectEngeneer, RoleType.Manager }},
             { PermissionType.CanMoveToArchive, new []{RoleType.Director, RoleType.MainProjectEngeneer }},
-            { PermissionType.CanDeleteWorkItem, new []{RoleType.Director, RoleType.MainProjectEngeneer }},
             { PermissionType.CanCreatePartition, new []{RoleType.Director, RoleType.MainProjectEngeneer, RoleType.Manager }},
+            { PermissionType.CanCreateTask, new []{RoleType.Director, RoleType.MainProjectEngeneer, RoleType.Manager, RoleType.Executor }},
             { PermissionType.CanCreateStage, new []{RoleType.Director, RoleType.MainProjectEngeneer }},
             { PermissionType.CanCreateProject, new []{RoleType.Director, RoleType.MainProjectEngeneer }},
             { PermissionType.CanChangeForeignWorkItem, new []{RoleType.Director, RoleType.MainProjectEngeneer, RoleType.Manager }},
@@ -26,10 +26,10 @@ namespace PMS.Model.Repositories
         }; 
         public int SaveChanges()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
-        public IEnumerable<PermissionType> GetPermissionsForRoles(ICollection<RoleType> roleCodes)
+        public IEnumerable<PermissionType> GetPermissionsForRoles(IEnumerable<RoleType> roleCodes)
         {
             return this.permissions.Where(pair => pair.Value.Any(roleCodes.Contains)).Select(x => x.Key);
         }

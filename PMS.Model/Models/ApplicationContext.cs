@@ -30,12 +30,16 @@ namespace PMS.Model.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<WorkItem>().HasMany(x => x.Children).WithOptional().HasForeignKey(x => x.ParentId);
             modelBuilder.Entity<WorkEventUserRelation>().HasKey(x => new {x.EventId, x.UserId});
+            modelBuilder.Entity<UserSettingValue>().HasKey(x => new {x.UserSettingId, x.UserId});
         }
 
         public DbSet<WorkItem> WorkItems { get; set; } 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<WorkEvent> Events { get; set; }
         public DbSet<WorkEventUserRelation> EventsUsers { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<UserSetting> UserSettings { get; set; }
+        public DbSet<UserSettingValue> UserSettingValues { get; set; }
 
         public static ApplicationContext Create()
         {

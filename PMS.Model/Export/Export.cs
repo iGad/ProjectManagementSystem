@@ -17,10 +17,14 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<UserRepository, IUserRepository>();
             compositionContainer.RegisterExport<EventRepository, IEventRepository>();
             compositionContainer.RegisterExport<UserPermissionsRepository, IUserPermissionsRepository>();
+            compositionContainer.RegisterExport<SettingRepository, ISettingRepository>();
+            compositionContainer.RegisterExport<CommentRepository, ICommentRepository>();
 
             compositionContainer.RegisterExport<UsersService>();
             compositionContainer.RegisterExport<WorkItemService>();
             compositionContainer.RegisterExport<EventService, IEventService>();
+            compositionContainer.RegisterExport<SettingsService>();
+            compositionContainer.RegisterExport<CommentsService>();
 
             #region Event describers
 

@@ -187,10 +187,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\EventsApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PermissionsApiController.cs" />
+    <Compile Include="Controllers\SettingsApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Controllers\WorkItemsApiController.cs" />
     <Compile Include="Export\DependencyResolver.cs" />
@@ -384,6 +386,8 @@
     <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\AllWorkItemsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\CommentsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\base\CommentsService.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\LinkedWorkItemsController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -417,6 +421,9 @@
     <Content Include="Frontend\Scripts\angapp\main\profile\EditProfileSettingController.js" />
     <Content Include="Frontend\Scripts\angapp\main\profile\ProfileIndexController.js" />
     <Content Include="Frontend\Scripts\angapp\main\projects\ProjectsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\settings\EditSettingController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\settings\SettingsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\settings\SettingsService.js" />
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\AddUpdateUserController.js" />
     <Content Include="Frontend\Scripts\angapp\main\users\Controllers\UsersMainController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -474,6 +481,9 @@
     <Content Include="Frontend\Views\main\users\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Views\shared\commentTemplate.html" />
+    <Content Include="Frontend\Views\shared\linkedFileTemplate.html" />
+    <Content Include="Frontend\Views\shared\newCommentTemplate.html" />
     <Content Include="Frontend\Views\shared\Pagination.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

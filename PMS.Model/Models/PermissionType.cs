@@ -13,11 +13,12 @@ namespace PMS.Model.Models
         CanMoveToReviewing,
         CanMoveToDone,
         CanMoveToArchive,
-        CanDeleteWorkItem,
+        
         CanChangeForeignWorkItem,
         CanCreateProject,
         CanCreateStage,
         CanCreatePartition,
+        CanCreateTask,
         HaveAccessToUsers,
         HaveAccessToSettings,
     }

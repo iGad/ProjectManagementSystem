@@ -1,6 +1,7 @@
 ﻿angapp.service("WorkItemService", ["$http", function ($http) {
     var usersUrl = '/UsersApi/';
     var workItemUrl = '/WorkItemsApi/';
+    var permissionsUrl = '/PermissionsApi';
 
     var getWorkItemTypeName = function (type) {
         switch (type) {
@@ -144,12 +145,13 @@
             method: 'GET'
         });
     };
-    this.getLinkedItemsForItem = function (workItemId) {
+    this.getLinkedItemsForItem = function(workItemId) {
         return $http({
             url: workItemUrl + 'GetLinkedItemsForItem',
             method: 'GET',
             params: { workItemId: workItemId }
         });
-    }
+    };
+    
 
 }]);

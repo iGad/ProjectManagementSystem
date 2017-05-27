@@ -1,35 +1,43 @@
 ﻿angapp.controller('WorkItemController', ['$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
      function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
-         function onError(err) {
-             console.error(err);
-         };
+         
          function goToReturnState() {
              Utils.goToReturnState($stateParams);
          }
          function getStates() {
              WorkItemService.getStates().then(function (content) {
                  $scope.states = content.data;
-             });
+             }, Utils.onError);
          };
 
          function getUsers(typeId) {
              UsersService.getAllowedUsersForWorkItemType(typeId).then(function (content) {
                  $scope.users = angular.fromJson(content.data);
-             });
+             }, Utils.onError);
          };
 
          function getTypes() {
              WorkItemService.getTypes().then(function (content) {
                  $scope.types = angular.fromJson(content.data);
                  if (!$scope.workItem.Type) {
-                     $scope.workItem.Type = $scope.types[1].Id;
+                     $scope.workItem.Type = $scope.types[1].Id;//TODO: сделать понятнее
                  }
                  $scope.typeChanged($scope.workItem.Type);
-             });
+             }, Utils.onError);
          };
 
          $scope.$on("WorkItemChanged", function (event, workItem) {
-             $state.reload();
+             if (workItem.Id === $scope.workItem.Id) {
+                 $mdDialog.show(
+                     $mdDialog.alert()
+                       .clickOutsideToClose(true)
+                       .title('Внимание')
+                       .textContent('Данный рабочий элемент был кем-то изменен.\nЕсли вы сохраните изменения, то изменения, внесенные другим пользователем могут быть отменены.\
+                  \nРекомендуется сохранить текстовые изменения в текстовый редактор и обновить страницу.')
+                       .ariaLabel('Alert Dialog Demo')
+                       .ok('ОК')
+                   );
+             }
          });
 
 
@@ -37,22 +45,54 @@
 
          $scope.isFormChanged = false;
          $scope.canEdit = false;
-         $scope.canAdd = false;
+         $scope.canAddChildItem = false;
+         $scope.canDelete = false;
+
+
+         function updatePermissionFlags() {
+             $scope.isCurrentUserExecutor = $scope.workItem.ExecutorId === $scope.User.Id;
+             //$scope.canEdit = !$scope.isNew && ($scope.isCurrentUserExecutor || $scope.Permissions.CanChangeForeignWorkItem);
+             //$scope.canChangeProject = $scope.isNew && $scope.isProject && $scope.Permissions.CanCreateProject || $scope.canEdit;
+             //$scope.canChangeStage = $scope.isNew && $scope.isStage && $scope.Permissions.CanCreateStage || $scope.canEdit;
+             //$scope.canChangePartition = $scope.isNew && $scope.isPartition && $scope.Permissions.CanCreatePartition || $scope.canEdit;
+             //$scope.canChangeTask = $scope.isNew && $scope.isTask && $scope.Permissions.CanCreateTask || $scope.canEdit;
+             $scope.canEdit = $scope.isCurrentUserExecutor || ($scope.isNew || $scope.Permissions.CanChangeForeignWorkItem) && ($scope.isProject && $scope.Permissions.CanCreateProject ||
+                 $scope.isStage && $scope.Permissions.CanCreateStage ||
+                 $scope.isPartition && $scope.Permissions.CanCreatePartition ||
+                 $scope.isTask && $scope.Permissions.CanCreateTask);
+             $scope.canAddChildItem = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanCreateStage ||
+                 $scope.isStage && $scope.Permissions.CanCreatePartition ||
+                 $scope.isPartition && $scope.Permissions.CanCreateTask);
+             //$scope.canDelete = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanDeleteProject ||
+             //    $scope.isStage && $scope.Permissions.CanDeleteStage ||
+             //    $scope.isPartition && $scope.Permissions.CanDeletePartition ||
+             //    $scope.isTask && $scope.Permissions.CanDeleteTask);
+         };
+
+
+         $scope.isDisabledEdit = function() {
+             return $scope.IsNew && !$scope.CanAdd || !$scope.isNew && !$scope.canEdit;
+         };
+
+         //function getUserPermissions() {
+         //    UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function (content) {
+         //        var permissions = content.data;
+         //        $scope.canAdd = permissions[0];
+         //        $scope.canEdit = permissions[1];
+         //        $scope.canDelete = permissions[2];
+         //    }, Utils.onError);
+         //};
 
          if ($stateParams.workItemId) {
              $scope.isNew = false;
              WorkItemService.getWorkItem($stateParams.workItemId).then(function (content) {
                  $scope.workItem = angular.fromJson(content.data);
-                 $scope.workItem.DeadLine = moment($scope.workItem.DeadLine).toDate();
+                 $scope.workItem.DeadLine = Utils.convertDateToJsDate($scope.workItem.DeadLine);
                  $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
                  $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
                  getTypes();
-             }, onError);
-             UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function (content) {
-                 var permissions = content.data;
-                 $scope.canAdd = permissions[0];
-                 $scope.canEdit = permissions[0] && permissions[1];
-             }, onError);
+             }, Utils.onError);
+             //getUserPermissions();
          } else {
              $scope.isNew = true;
              $scope.workItem = {
@@ -64,11 +104,7 @@
              $scope.parentPartitionId = $stateParams.partitionId;
              $scope.parentStageId = $stateParams.stageId;
              $scope.parentProjectId = $stateParams.projectId;
-             UsersService.hasPermissions([1, 2]).then(function (content) {
-                 var permissions = content.data;
-                 $scope.canAdd = permissions[0];
-                 $scope.canEdit = permissions[0] && permissions[1];
-             }, onError);
+             //getUserPermissions();
              getTypes();
          }
 
@@ -78,7 +114,13 @@
                  return $scope.isNew;
              }
          });
-
+         
+         Object.defineProperty($scope, 'CanEdit', {
+             get: function () {
+                 return $scope.canEdit;
+             }
+         });
+         
          Object.defineProperty($scope, 'WorkItem', {
              get: function () {
                  return $scope.workItem;
@@ -106,6 +148,7 @@
                      $scope.isTask = true;
                      break;
              }
+             updatePermissionFlags();
          }
 
          $scope.formChanged = function () {
@@ -113,12 +156,7 @@
          };
 
          $scope.getUserDisplayText = function (user) {
-             var text = '';
-             if (user.Surname)
-                 text = user.Surname + ' ';
-             if (user.Name)
-                 text += user.Name;
-             return text;
+             return UsersService.getUserDisplayText(user);
          };
 
          function getPartitions(stageId) {
@@ -131,7 +169,7 @@
                          $scope.parentPartitionId = $scope.partitions[0].Id;
                      }
                  }
-             });
+             }, Utils.onError);
          }
 
          function getStages(projectId) {
@@ -145,7 +183,7 @@
                      }
                      $scope.stageChanged($scope.parentStageId);
                  }
-             });
+             }, Utils.onError);
          }
 
          function getProjects() {
@@ -159,7 +197,7 @@
                      }
                      $scope.projectChanged($scope.parentProjectId);
                  }
-             });
+             }, Utils.onError);
          }
 
 
@@ -211,11 +249,11 @@
              if (!$scope.isNew) {
                  WorkItemService.updateWorkItem($scope.workItem).then(function () {
                      goToReturnState();
-                 }, onError);
+                 }, Utils.onErrorWithMessageBox);
              } else {
                  WorkItemService.addWorkItem($scope.workItem).then(function () {
                      goToReturnState();
-                 }, onError);
+                 }, Utils.onErrorWithMessageBox);
              }
          };
 
@@ -231,7 +269,7 @@
              $mdDialog.show(confirm).then(function () {
                  callback();
              }, cancel());
-         }
+         };
 
          $scope.cancel = function (ev) {
              if (!$scope.isFormChanged) {
@@ -245,7 +283,7 @@
 
          $scope.delete = function (ev) {
              showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные о работе будут удалены', function () {
-                 WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, onError);
+                 WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, Utils.onErrorWithMessageBox);
              }, function () { });
          };
      }]);

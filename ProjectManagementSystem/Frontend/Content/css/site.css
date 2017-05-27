@@ -144,7 +144,28 @@ md-input-container {
 .green-btn {
     color: #0c0;
 }
+.comment{
+  background: white;
+  border: 1px solid #e1e1e1; 
+  margin: 5px 0;
+}
+    .comment p{
+      margin: 0;
+    }
+    .comment md-content{
+      background: white;
+      border: 1px solid #e1e1e1; 
+      max-height: 150px;
+    }
 
+.linked-file{
+  margin: 2px 0;
+  padding: 3px;
+  cursor: pointer;
+}
+.linked-file:hover{
+  background: #e1e1e1;
+}
 #body-container {
     display: flex;
     flex-direction: column;
