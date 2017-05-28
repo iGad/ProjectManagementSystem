@@ -57,6 +57,5 @@ namespace PMS.Model.Models
         public DateTime DeadLine { get; set; }
         public DateTime? FinishDate { get; set; }
         public ICollection<WorkItem> Children { get; set; } 
-        public ICollection<Comment> Comments { get; set; }
     }
 }

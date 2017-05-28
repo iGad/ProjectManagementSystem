@@ -6,7 +6,7 @@
                 <textarea ng-model="newComment.Text" rows="3" md-select-on-focus></textarea>
             </md-input-container>
             <div>
-                <md-button class="md-raised">Add</md-button>
+                <md-button aria-label="add comment" ng-click="addComment(newComment)" ng-disabled="!newComment.Text" class="md-raised">Добавить</md-button>
             </div>
         </div>
     </md-content>

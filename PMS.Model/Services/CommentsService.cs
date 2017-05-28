@@ -17,12 +17,13 @@ namespace PMS.Model.Services
             this.usersService = usersService;
         }
 
-        public Comment Add(Comment comment)
+        public async Task<Comment> Add(Comment comment)
         {
             var user = this.usersService.GetCurrentUser();
             comment.UserId = user.Id;
             comment = this.repository.AddComment(comment);
-            this.repository.SaveChanges();
+            await this.repository.SaveChanges();
+            comment.User = user;
             return comment;
         }
 
@@ -34,7 +35,7 @@ namespace PMS.Model.Services
         public async Task DeleteComment(int id)
         {
             var comment = await this.repository.Get(id);
-            if(comment == null)
+            if (comment == null)
                 throw new PmsException($"Комментарий с идентификатором {id} не найден");
             var user = this.usersService.GetCurrentUser();
             var roles = this.usersService.GetRolesByIds(user.Roles.Select(x => x.RoleId));

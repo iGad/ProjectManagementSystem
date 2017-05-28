@@ -9,7 +9,6 @@ namespace PMS.Model.Migrations
         {
             DropForeignKey("dbo.Comments", "WorkItemId", "dbo.WorkItems");
             DropIndex("dbo.Comments", new[] { "WorkItemId" });
-            DropColumn("dbo.Comments", "WorkItemId");
             CreateTable(
                 "dbo.Settings",
                 c => new
@@ -57,21 +56,20 @@ namespace PMS.Model.Migrations
                 .Index(t => t.UserId);
             
             AddColumn("dbo.Comments", "ObjectId", c => c.Int(nullable: false));
+            DropColumn("dbo.Comments", "WorkItemId");
         }
         
         public override void Down()
         {
+            AddColumn("dbo.Comments", "WorkItemId", c => c.Int(nullable: false));
             DropForeignKey("dbo.UserSettingValues", "UserSettingId", "dbo.UserSettings");
             DropForeignKey("dbo.UserSettingValues", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.UserSettingValues", new[] { "UserId" });
             DropIndex("dbo.UserSettingValues", new[] { "UserSettingId" });
-            DropIndex("dbo.Comments", new[] { "WorkItem_Id" });
-            AlterColumn("dbo.Comments", "WorkItem_Id", c => c.Int(nullable: false));
             DropColumn("dbo.Comments", "ObjectId");
             DropTable("dbo.UserSettingValues");
             DropTable("dbo.UserSettings");
             DropTable("dbo.Settings");
-            AddColumn("dbo.Comments","WorkItemId", c=>c.Int(nullable:false));
             CreateIndex("dbo.Comments", "WorkItemId");
             AddForeignKey("dbo.Comments", "WorkItemId", "dbo.WorkItems", "Id", cascadeDelete: true);
         }

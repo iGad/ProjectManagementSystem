@@ -1,0 +1,57 @@
+﻿<md-dialog aria-label="edit setting" ng-cloak style="width: 400px">
+    <ng-form name="editSettingForm" flex>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{setting.Name}}</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+
+            <div class="md-dialog-content" layout="column" id="container">
+                <md-input-container ng-if="setting.ValueType === 0">
+                    <label>Значение</label>
+                    <input name="stringInput"
+                           required
+                           ng-pattern="/setting.ValueRegex/"
+                           ng-model="setting.Value"
+                           ng-change="valueChanged()"/>
+                    <div ng-messages="editSettingForm.stringInput.$error">
+                        <div ng-message-exp="['pattern']">
+                            Введено некорректное значение
+                        </div>
+                        <div ng-message="required">Необходимо ввести значение</div>
+                    </div>
+                </md-input-container>
+                <md-input-container ng-if="setting.ValueType === 1">
+                    <label>Значение</label>
+                    <input name="numberInput"
+                           required
+                           type="number"
+                           min="setting.MinValue"
+						   max="setting.MaxValue"
+                           ng-model="setting.Value"
+                           ng-change="valueChanged()" />
+                    <div ng-messages="editSettingForm.numberInput.$error">
+                        <div ng-message-exp="['min', 'max']">
+                            Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
+                        </div>
+                        <div ng-message="required">Необходимо ввести значение</div>
+                    </div>
+                </md-input-container>
+                <md-input-container ng-if="setting.ValueType === 2">
+                    <md-checkbox aria-label="bool value" ng-model="setting.Value" ng-changed="valueChanged()">Значение</md-checkbox>
+                </md-input-container>
+               
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="ok()" ng-disabled="editSettingForm.$invalid">
+                Сохранить
+            </md-button>
+            <md-button ng-click="cancel()">
+                Отменить
+            </md-button>
+        </md-dialog-actions>
+    </ng-form>
+</md-dialog>

@@ -99,9 +99,13 @@
     <Compile Include="Migrations\201703141435562_Initial.Designer.cs">
       <DependentUpon>201703141435562_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705271722235_1.cs" />
-    <Compile Include="Migrations\201705271722235_1.Designer.cs">
-      <DependentUpon>201705271722235_1.cs</DependentUpon>
+    <Compile Include="Migrations\201705281811455_1.cs" />
+    <Compile Include="Migrations\201705281811455_1.Designer.cs">
+      <DependentUpon>201705281811455_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705281831023_2.cs" />
+    <Compile Include="Migrations\201705281831023_2.Designer.cs">
+      <DependentUpon>201705281831023_2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -177,8 +181,11 @@
     <EmbeddedResource Include="Migrations\201703141435562_Initial.resx">
       <DependentUpon>201703141435562_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705271722235_1.resx">
-      <DependentUpon>201705271722235_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705281811455_1.resx">
+      <DependentUpon>201705281811455_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705281831023_2.resx">
+      <DependentUpon>201705281831023_2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NotificationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

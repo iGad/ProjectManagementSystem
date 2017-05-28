@@ -13,7 +13,7 @@ namespace PMS.Model.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201705271722235_1"; }
+            get { return "201705281811455_1"; }
         }
         
         string IMigrationMetadata.Source

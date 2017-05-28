@@ -17,12 +17,12 @@ namespace PMS.Model.Repositories
 
         public IEnumerable<Setting> GetSettings(Expression<Func<Setting, bool>> whereExpression)
         {
-            return this.context.Settings.Where(whereExpression);
+            throw new Exception();//return this.context.Settings.Where(whereExpression);
         }
 
         public Setting Get(int id)
         {
-            return this.context.Settings.SingleOrDefault(x => x.Id == id);
+            throw new Exception(); //return this.context.Settings.SingleOrDefault(x => x.Id == id);
         }
 
         public void UpdateSetting(Setting oldSetting, Setting setting)
@@ -39,7 +39,7 @@ namespace PMS.Model.Repositories
 
         public Setting AddSetting(Setting setting)
         {
-            return this.context.Settings.Add(setting);
+            throw new Exception(); //return this.context.Settings.Add(setting);
         }
 
         public int SaveChanges()

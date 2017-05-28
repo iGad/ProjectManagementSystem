@@ -33,7 +33,7 @@ namespace PMS.Model.Models
             modelBuilder.Entity<UserSettingValue>().HasKey(x => new {x.UserSettingId, x.UserId});
         }
 
-        public DbSet<WorkItem> WorkItems { get; set; } 
+        public DbSet<WorkItem> WorkItems { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<WorkEvent> Events { get; set; }
         public DbSet<WorkEventUserRelation> EventsUsers { get; set; }

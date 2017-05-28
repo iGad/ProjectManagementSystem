@@ -30,7 +30,7 @@
             </div>
 
             <div layout="row">
-                <div layout="column" style="width: 100%; height: 100%">
+                <div layout="column" flex>
 
                     <md-content class="md-padding content-back">
                         <div layout-gt-sm="row">
@@ -111,9 +111,9 @@
                     </md-content>
 
                 </div>
-                <div layout="column" style="width: 100%;">
+                <div layout="column" flex>
                     <md-content class="content-back">
-                        <md-tabs>
+                        <md-tabs md-stretch-tabs="always" md-dynamic-height>
                             <md-tab label="Связи">
                                 <div ng-controller="LinkedWorkItemsController">
                                     <div layout="row">
@@ -178,14 +178,14 @@
 
                 </div>
             </div>
-            <div layout="row">
-                <md-content class="md-padding content-back" style="width: 100%; heigth: 100%">
-                    <md-tabs>
+            <div layout="column">
+                <md-content class="md-padding content-back">
+                    <md-tabs md-dynamic-height>
                         <md-tab label="Комментарии">
-                            <md-content class="md-padding">
-                                <h1 class="md-display-2">Бла-бла-бла</h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
-                            </md-content>
+                            <div ng-if="!IsNew" ng-controller="CommentsController">
+                                <ng-include src="'/Frontend/Views/shared/newCommentTemplate.html'"></ng-include>
+                                <ng-include src="'/Frontend/Views/shared/commentTemplate.html'" ng-repeat="comment in comments"></ng-include>
+                            </div>
                         </md-tab>
                     </md-tabs>
                 </md-content>

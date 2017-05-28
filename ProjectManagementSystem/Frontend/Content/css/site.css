@@ -147,16 +147,20 @@ md-input-container {
 .comment{
   background: white;
   border: 1px solid #e1e1e1; 
-  margin: 5px 0;
+  margin: 5px;
+  padding: 5px;
 }
-    .comment p{
-      margin: 0;
-    }
-    .comment md-content{
-      background: white;
-      border: 1px solid #e1e1e1; 
-      max-height: 150px;
-    }
+.comment p{
+  margin: 0;
+}
+.comment md-content{
+  background: white;
+  border: 1px solid #e1e1e1; 
+  max-height: 150px;
+}
+.comment-text{
+  max-height: 150px;
+}
 
 .linked-file{
   margin: 2px 0;

@@ -187,7 +187,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\CommentsApiController.cs" />
     <Compile Include="Controllers\EventsApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -457,6 +457,7 @@
     <Content Include="Frontend\Views\main\profile\index.html" />
     <Content Include="Frontend\Views\main\profile\info.html" />
     <Content Include="Frontend\Views\main\profile\settings.html" />
+    <Content Include="Frontend\Views\main\settings\settings.html" />
     <Content Include="Frontend\Views\main\test.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -602,6 +603,7 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Frontend\Views\main\settings\editSetting.html" />
     <None Include="Scripts\ui-grid\ui-grid.min._js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

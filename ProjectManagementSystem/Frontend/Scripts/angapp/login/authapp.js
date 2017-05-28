@@ -21,10 +21,10 @@
             returnUrl = "/" + returnUrlUgly.split('&')[0];
        
         authProvider.logOn(model, returnUrl).then(function (content) {
-            var path = $location.path();
+            
                 $window.location.href = content.data;
         }, function(data) {
-            $scope.errorResult = data.errorResult;
+            $scope.errorResult = data.data.Message;
         });
     }
 }]);

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PMS.Model.Models;
@@ -10,27 +7,27 @@ using PMS.Model.Services;
 namespace ProjectManagementSystem.Controllers
 {
     [Authorize]
-    public class CommentsController : Controller
+    public class CommentsApiController : Controller
     {
         private readonly CommentsService service;
         private readonly UsersService usersService;
 
-        public CommentsController(CommentsService service, UsersService usersService)
+        public CommentsApiController(CommentsService service, UsersService usersService)
         {
             this.service = service;
             this.usersService = usersService;
         }
 
         [HttpGet]
-        public ActionResult GetCommentsForObject(int objectId)
+        public async Task<ActionResult> GetCommentsForObject(int objectId)
         {
-            return Json(this.service.GetCommentsForObject(objectId), JsonRequestBehavior.AllowGet);
+            return Json(await this.service.GetCommentsForObject(objectId), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult AddComment(Comment comment)
+        public async Task<ActionResult> AddComment(Comment comment)
         {
-            return Json(this.service.Add(comment), JsonRequestBehavior.AllowGet);
+            return Json(await this.service.Add(comment), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

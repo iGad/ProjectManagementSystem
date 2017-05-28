@@ -1,131 +1,140 @@
-﻿angapp.controller('WorkItemController', ['$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
-     function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
-         
-         function goToReturnState() {
-             Utils.goToReturnState($stateParams);
-         }
-         function getStates() {
-             WorkItemService.getStates().then(function (content) {
-                 $scope.states = content.data;
-             }, Utils.onError);
-         };
+﻿angapp.controller('WorkItemController', [
+    '$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
+    function($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
 
-         function getUsers(typeId) {
-             UsersService.getAllowedUsersForWorkItemType(typeId).then(function (content) {
-                 $scope.users = angular.fromJson(content.data);
-             }, Utils.onError);
-         };
+        function goToReturnState() {
+            Utils.goToReturnState($stateParams);
+        }
 
-         function getTypes() {
-             WorkItemService.getTypes().then(function (content) {
-                 $scope.types = angular.fromJson(content.data);
-                 if (!$scope.workItem.Type) {
-                     $scope.workItem.Type = $scope.types[1].Id;//TODO: сделать понятнее
-                 }
-                 $scope.typeChanged($scope.workItem.Type);
-             }, Utils.onError);
-         };
+        function getStates() {
+            WorkItemService.getStates().then(function(content) {
+                $scope.states = content.data;
+            }, Utils.onError);
+        };
 
-         $scope.$on("WorkItemChanged", function (event, workItem) {
-             if (workItem.Id === $scope.workItem.Id) {
-                 $mdDialog.show(
-                     $mdDialog.alert()
-                       .clickOutsideToClose(true)
-                       .title('Внимание')
-                       .textContent('Данный рабочий элемент был кем-то изменен.\nЕсли вы сохраните изменения, то изменения, внесенные другим пользователем могут быть отменены.\
+        function getUsers(typeId) {
+            UsersService.getAllowedUsersForWorkItemType(typeId).then(function(content) {
+                $scope.users = angular.fromJson(content.data);
+            }, Utils.onError);
+        };
+
+        function getTypes() {
+            WorkItemService.getTypes().then(function(content) {
+                $scope.types = angular.fromJson(content.data);
+                if (!$scope.workItem.Type) {
+                    $scope.workItem.Type = $scope.types[1].Id; //TODO: сделать понятнее
+                }
+                $scope.typeChanged($scope.workItem.Type);
+            }, Utils.onError);
+        };
+
+
+        $scope.$on("WorkItemChanged", function(event, workItem) {
+            if (workItem.Id === $scope.workItem.Id) {
+                $mdDialog.show(
+                    $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title('Внимание')
+                    .textContent('Данный рабочий элемент был кем-то изменен.\nЕсли вы сохраните изменения, то изменения, внесенные другим пользователем могут быть отменены.\
                   \nРекомендуется сохранить текстовые изменения в текстовый редактор и обновить страницу.')
-                       .ariaLabel('Alert Dialog Demo')
-                       .ok('ОК')
-                   );
-             }
-         });
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('ОК')
+                );
+            }
+        });
 
 
-         getStates();
+        getStates();
 
-         $scope.isFormChanged = false;
-         $scope.canEdit = false;
-         $scope.canAddChildItem = false;
-         $scope.canDelete = false;
-
-
-         function updatePermissionFlags() {
-             $scope.isCurrentUserExecutor = $scope.workItem.ExecutorId === $scope.User.Id;
-             //$scope.canEdit = !$scope.isNew && ($scope.isCurrentUserExecutor || $scope.Permissions.CanChangeForeignWorkItem);
-             //$scope.canChangeProject = $scope.isNew && $scope.isProject && $scope.Permissions.CanCreateProject || $scope.canEdit;
-             //$scope.canChangeStage = $scope.isNew && $scope.isStage && $scope.Permissions.CanCreateStage || $scope.canEdit;
-             //$scope.canChangePartition = $scope.isNew && $scope.isPartition && $scope.Permissions.CanCreatePartition || $scope.canEdit;
-             //$scope.canChangeTask = $scope.isNew && $scope.isTask && $scope.Permissions.CanCreateTask || $scope.canEdit;
-             $scope.canEdit = $scope.isCurrentUserExecutor || ($scope.isNew || $scope.Permissions.CanChangeForeignWorkItem) && ($scope.isProject && $scope.Permissions.CanCreateProject ||
-                 $scope.isStage && $scope.Permissions.CanCreateStage ||
-                 $scope.isPartition && $scope.Permissions.CanCreatePartition ||
-                 $scope.isTask && $scope.Permissions.CanCreateTask);
-             $scope.canAddChildItem = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanCreateStage ||
-                 $scope.isStage && $scope.Permissions.CanCreatePartition ||
-                 $scope.isPartition && $scope.Permissions.CanCreateTask);
-             //$scope.canDelete = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanDeleteProject ||
-             //    $scope.isStage && $scope.Permissions.CanDeleteStage ||
-             //    $scope.isPartition && $scope.Permissions.CanDeletePartition ||
-             //    $scope.isTask && $scope.Permissions.CanDeleteTask);
-         };
+        $scope.isFormChanged = false;
+        $scope.canEdit = false;
+        $scope.canAddChildItem = false;
+        $scope.canDelete = false;
 
 
-         $scope.isDisabledEdit = function() {
-             return $scope.IsNew && !$scope.CanAdd || !$scope.isNew && !$scope.canEdit;
-         };
-
-         //function getUserPermissions() {
-         //    UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function (content) {
-         //        var permissions = content.data;
-         //        $scope.canAdd = permissions[0];
-         //        $scope.canEdit = permissions[1];
-         //        $scope.canDelete = permissions[2];
-         //    }, Utils.onError);
-         //};
-
-         if ($stateParams.workItemId) {
-             $scope.isNew = false;
-             WorkItemService.getWorkItem($stateParams.workItemId).then(function (content) {
-                 $scope.workItem = angular.fromJson(content.data);
-                 $scope.workItem.DeadLine = Utils.convertDateToJsDate($scope.workItem.DeadLine);
-                 $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
-                 $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
-                 getTypes();
-             }, Utils.onError);
-             //getUserPermissions();
-         } else {
-             $scope.isNew = true;
-             $scope.workItem = {
-                 DeadLineHours: 17,
-                 DeadLineMinutes: 0,
-                 DeadLine: moment().add(1, 'days').toDate(),
-                 Type: $stateParams.type
-             };
-             $scope.parentPartitionId = $stateParams.partitionId;
-             $scope.parentStageId = $stateParams.stageId;
-             $scope.parentProjectId = $stateParams.projectId;
-             //getUserPermissions();
-             getTypes();
-         }
+        function updatePermissionFlags() {
+            $scope.isCurrentUserExecutor = $scope.workItem.ExecutorId === $scope.User.Id;
+            //$scope.canEdit = !$scope.isNew && ($scope.isCurrentUserExecutor || $scope.Permissions.CanChangeForeignWorkItem);
+            //$scope.canChangeProject = $scope.isNew && $scope.isProject && $scope.Permissions.CanCreateProject || $scope.canEdit;
+            //$scope.canChangeStage = $scope.isNew && $scope.isStage && $scope.Permissions.CanCreateStage || $scope.canEdit;
+            //$scope.canChangePartition = $scope.isNew && $scope.isPartition && $scope.Permissions.CanCreatePartition || $scope.canEdit;
+            //$scope.canChangeTask = $scope.isNew && $scope.isTask && $scope.Permissions.CanCreateTask || $scope.canEdit;
+            $scope.canEdit = $scope.isCurrentUserExecutor || ($scope.isNew || $scope.Permissions.CanChangeForeignWorkItem) && ($scope.isProject && $scope.Permissions.CanCreateProject ||
+                $scope.isStage && $scope.Permissions.CanCreateStage ||
+                $scope.isPartition && $scope.Permissions.CanCreatePartition ||
+                $scope.isTask && $scope.Permissions.CanCreateTask);
+            $scope.canAddChildItem = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanCreateStage ||
+                $scope.isStage && $scope.Permissions.CanCreatePartition ||
+                $scope.isPartition && $scope.Permissions.CanCreateTask);
+            //$scope.canDelete = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanDeleteProject ||
+            //    $scope.isStage && $scope.Permissions.CanDeleteStage ||
+            //    $scope.isPartition && $scope.Permissions.CanDeletePartition ||
+            //    $scope.isTask && $scope.Permissions.CanDeleteTask);
+        };
 
 
-         Object.defineProperty($scope, 'IsNew', {
-             get: function () {
-                 return $scope.isNew;
-             }
-         });
-         
-         Object.defineProperty($scope, 'CanEdit', {
-             get: function () {
-                 return $scope.canEdit;
-             }
-         });
-         
-         Object.defineProperty($scope, 'WorkItem', {
-             get: function () {
-                 return $scope.workItem;
-             }
-         });
+        $scope.isDisabledEdit = function() {
+            return $scope.IsNew && !$scope.CanAdd || !$scope.isNew && !$scope.canEdit;
+        };
+
+        //function getUserPermissions() {
+        //    UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function (content) {
+        //        var permissions = content.data;
+        //        $scope.canAdd = permissions[0];
+        //        $scope.canEdit = permissions[1];
+        //        $scope.canDelete = permissions[2];
+        //    }, Utils.onError);
+        //};
+
+        if ($stateParams.workItemId) {
+            $scope.isNew = false;
+            WorkItemService.getWorkItem($stateParams.workItemId).then(function(content) {
+                $scope.workItem = angular.fromJson(content.data);
+                $scope.workItem.DeadLine = Utils.convertDateToJsDate($scope.workItem.DeadLine);
+                $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
+                $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
+                getTypes();
+            }, Utils.onError);
+            //getUserPermissions();
+        } else {
+            $scope.isNew = true;
+            $scope.workItem = {
+                DeadLineHours: 17,
+                DeadLineMinutes: 0,
+                DeadLine: moment().add(1, 'days').toDate(),
+                Type: $stateParams.type
+            };
+            $scope.parentPartitionId = $stateParams.partitionId;
+            $scope.parentStageId = $stateParams.stageId;
+            $scope.parentProjectId = $stateParams.projectId;
+            //getUserPermissions();
+            getTypes();
+        }
+
+
+        Object.defineProperty($scope, 'IsNew', {
+            get: function() {
+                return $scope.isNew;
+            }
+        });
+
+        Object.defineProperty($scope, 'CanEdit', {
+            get: function() {
+                return $scope.canEdit;
+            }
+        });
+
+        Object.defineProperty($scope, 'WorkItem', {
+            get: function() {
+                return $scope.workItem;
+            }
+        });
+
+        Object.defineProperty($scope, 'ObjectId', {
+            get: function() {
+                return $stateParams.workItemId;
+            }
+        });
 
          function setFlags(workItemType) {
              $scope.isProject = false;
