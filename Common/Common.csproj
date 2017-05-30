@@ -60,13 +60,17 @@
     <Compile Include="LocalizedAttribute.cs" />
     <Compile Include="Models\BroadcastType.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\FileInformation.cs" />
     <Compile Include="Models\IHierarchicalEntity.cs" />
     <Compile Include="Models\NamedEntity.cs" />
     <Compile Include="Models\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ITreeRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Services\FileSaverProvider.cs" />
     <Compile Include="Services\ICurrentUsernameProvider.cs" />
+    <Compile Include="Services\IFileSystemManager.cs" />
+    <Compile Include="Services\LocalFileSystemManager.cs" />
     <Compile Include="Services\TreeService.cs" />
   </ItemGroup>
   <ItemGroup>
