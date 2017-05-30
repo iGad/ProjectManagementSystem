@@ -28,14 +28,20 @@
                     <input name="numberInput"
                            required
                            type="number"
-                           min="setting.MinValue"
-						   max="setting.MaxValue"
+                           min="{{setting.MinValue}}"
+						   max="{{setting.MaxValue}}"
                            ng-model="setting.Value"
                            ng-change="valueChanged()" />
                     <div ng-messages="editSettingForm.numberInput.$error">
                         <div ng-message-exp="['min', 'max']">
                             Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
                         </div>
+                        <!--<div ng-message="'min'">
+                            Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
+                        </div>
+                        <div ng-message="'max'">
+                            Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
+                        </div>-->
                         <div ng-message="required">Необходимо ввести значение</div>
                     </div>
                 </md-input-container>
@@ -46,7 +52,7 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="ok()" ng-disabled="editSettingForm.$invalid">
+            <md-button ng-click="save()" ng-disabled="editSettingForm.$invalid || !isValueChanged">
                 Сохранить
             </md-button>
             <md-button ng-click="cancel()">

@@ -152,6 +152,7 @@
     <Compile Include="Services\INotifyService.cs" />
     <Compile Include="Services\LexicalHelper.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\DataUpdater.cs" />
     <Compile Include="Services\WorkItemExtensions.cs" />
     <Compile Include="Models\WorkItemType.cs" />
     <Compile Include="Models\WorkItem.cs" />

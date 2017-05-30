@@ -28,6 +28,7 @@ namespace ProjectManagementSystem
             bundles.Add(new ScriptBundle("~/bundles/global").IncludeDirectory("~/Frontend/Scripts/angapp/global", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/bundles/login").IncludeDirectory("~/Frontend/Scripts/angapp/login", "*.js", true));
+            bundles.Add(new ScriptBundle("~/bundles/dataUpdater").IncludeDirectory("~/Frontend/Scripts/angapp/updater", "*.js", true));
             bundles.Add(new ScriptBundle("~/bundles/moment").IncludeDirectory("~/Frontend/Scripts/moment", "*.js", true));
             //bundles.Add(new ScriptBundle("~/Scripts/users").IncludeDirectory("~/Frontend/Scripts/angapp/users"));
 

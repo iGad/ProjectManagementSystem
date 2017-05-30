@@ -61,7 +61,7 @@ namespace PMS.Model.Services
         {
             return
                 this.repository.Get(
-                    x => x.ParentId == parentId && x.State != WorkItemState.Archive && x.State != WorkItemState.Deleted && x.State != WorkItemState.Done).ToList();
+                    x => x.ParentId == parentId && x.State != WorkItemState.Archive && x.State != WorkItemState.Deleted).ToList();
         }
 
         public virtual void Update(WorkItem oldWorkItem, WorkItem workItem)

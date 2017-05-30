@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data updater.</title>
+    @Styles.Render("~/Content/reset")
+    @Styles.Render("~/Content/angular-material")
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/dataUpdater")
+    @Scripts.Render("~/bundles/global")
+</head>
+<body>
+    <div ng-app="updaterapp" ng-controller="UpdaterController" id="form-logon">
+        <md-content layout="column" layout-align="center center" ng-cloak>
+            <h2><span>Что нужно сделать?</span></h2>
+            <md-button aria-label="update btn" ng-click="update()" class="md-raised">Обновить</md-button>
+        </md-content>
+    </div>
+
+</body>
+</html>
+
+
+
+
