@@ -224,6 +224,7 @@
     <Compile Include="Services\UsersApiService.cs" />
     <Compile Include="Services\WorkItemApiService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AttachedFileViewModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\LinkedItemsCollection.cs" />
     <Compile Include="ViewModels\EnumViewModel.cs" />
@@ -447,6 +448,10 @@
     <Content Include="Frontend\Scripts\moment\moment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.js" />
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.min.js" />
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.js" />
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.min.js" />
     <Content Include="Frontend\Scripts\ui-sortable\sortable.js" />
     <Content Include="Frontend\Scripts\ui-sortable\sortable.min.js" />
     <Content Include="Frontend\Views\main\base\allItems.html" />

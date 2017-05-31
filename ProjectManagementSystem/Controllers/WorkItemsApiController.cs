@@ -7,6 +7,8 @@ using PMS.Model.Models;
 using ProjectManagementSystem.Services;
 using ProjectManagementSystem.ViewModels;
 using Extensions = PMS.Model.Extensions;
+using System.IO;
+using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
@@ -123,6 +125,27 @@ namespace ProjectManagementSystem.Controllers
         {
             var projects = this.workItemService.GetProjectsTree();
             return Json(projects, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AttachFileToWorkItem(int workItemId)
+        {
+            Stream inputStream = GetStreamFromRequest();
+            return Json("OK");
+        }
+
+        private Stream GetStreamFromRequest()
+        {
+            Stream inputStream = null;
+            if (Request.Files.Count > 0)
+            {
+                var fContent = Request.Files[0];
+                if (fContent == null || fContent.ContentLength == 0)
+                    throw new PmsException("Не удалось загрузить файл");
+                inputStream = fContent.InputStream;
+            }
+            else
+                throw new PmsException("Не выбран файл");
+            return inputStream;
         }
     }
 }

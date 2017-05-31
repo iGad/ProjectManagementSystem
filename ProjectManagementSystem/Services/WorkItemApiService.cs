@@ -241,9 +241,12 @@ namespace ProjectManagementSystem.Services
             if (workItem.ParentId.HasValue)
             {
                 var parentItemUserId = Repository.GetByIdNoTracking(workItem.ParentId.Value).ExecutorId;
-                var parentItemExecutor = this.userRepository.GetById(parentItemUserId);
-                if (exceptUsers == null || !exceptUsers.Contains(parentItemExecutor.Id))
-                    users.Add(parentItemExecutor);
+                if (parentItemUserId != null)
+                {
+                    var parentItemExecutor = this.userRepository.GetById(parentItemUserId);
+                    if (exceptUsers == null || !exceptUsers.Contains(parentItemExecutor.Id))
+                        users.Add(parentItemExecutor);
+                }
             }
             var directorNames = this.userRepository.GetUsersByRole(RoleType.Director).ToArray();
             users.AddRange(directorNames.Where(x => users.All(u => u.Id != x.Id)));

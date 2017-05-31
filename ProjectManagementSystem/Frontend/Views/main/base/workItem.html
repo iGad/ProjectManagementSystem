@@ -56,7 +56,7 @@
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>Проект</label>
                                 <md-select ng-model="parentProjectId" required ng-change="projectChanged(parentProjectId);formChanged()" ng-disabled="!isStage || !canEdit">
-                                    <md-option ng-repeat="project in projects" ng-value="project.Id">
+                                    <md-option ng-repeat="project in projects" ng-value="project.Id" ng-disabled="project.State == 2 || project.State == 4">
                                         {{project.Name}}
                                     </md-option>
                                 </md-select>
@@ -65,7 +65,7 @@
                             <md-input-container class="md-block" flex-gt-sm ng-if="!isStage" >
                                 <label>Стадия</label>
                                 <md-select ng-model="parentStageId" required ng-change="stageChanged(parentStageId); formChanged()" ng-disabled="!isPartition || !canEdit">
-                                    <md-option ng-repeat="stage in stages" ng-value="stage.Id">
+                                    <md-option ng-repeat="stage in stages" ng-value="stage.Id" ng-disabled="stage.State == 2 || stage.State == 4">
                                         {{stage.Name}}
                                     </md-option>
                                 </md-select>
@@ -74,7 +74,7 @@
                             <md-input-container class="md-block" flex-gt-sm ng-if="!isPartition && !isStage">
                                 <label>Раздел</label>
                                 <md-select ng-model="parentPartitionId" required ng-change="formChanged()"  ng-disabled="!isTask || !canEdit">
-                                    <md-option ng-repeat="partition in partitions" ng-value="partition.Id">
+                                    <md-option ng-repeat="partition in partitions" ng-value="partition.Id" ng-disabled="stage.State == 2 || stage.State == 4">
                                         {{partition.Name}}
                                     </md-option>
                                 </md-select>
