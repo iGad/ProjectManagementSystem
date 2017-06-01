@@ -113,7 +113,7 @@
                 </div>
                 <div layout="column" flex>
                     <md-content class="content-back">
-                        <md-tabs md-stretch-tabs="always" md-dynamic-height>
+                        <md-tabs md-stretch-tabs="always" md-dynamic-height ng-disabled="IsNew">
                             <md-tab label="Связи">
                                 <div ng-controller="LinkedWorkItemsController">
                                     <div layout="row">
@@ -160,11 +160,176 @@
                                 </div>
                             </md-tab>
                             <md-tab label="Файлы">
-                                <md-content class="md-padding">
-                                    <h1 class="md-display-2">Tab Two</h1>
-                                    <p>Lorem ipsum dolor sit amet,.</p>
-                                    <p>Morbi viverra, ante vel aliquet tincidunt,.</p>
-                                    <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet i</p>
+                                <div layout="row">
+                                    <md-button class="md-icon-button" ng-click="addFile()" aria-label="add file">
+                                        <md-icon md-svg-icon="av:playlist_add" md-menu-align-target></md-icon>
+                                        <md-tooltip>Добавить файл</md-tooltip>
+                                    </md-button>
+                                </div>
+                                <md-content>
+                                    <div layout="column">
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </md-content>
                             </md-tab>
                             <md-tab label="Дополнительно">

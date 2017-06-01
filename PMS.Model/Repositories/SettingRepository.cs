@@ -6,13 +6,24 @@ using PMS.Model.Models;
 
 namespace PMS.Model.Repositories
 {
-    public class SettingRepository : ISettingRepository
+    public interface ISettingsValueProvider
+    {
+        string GetSettingValue(SettingType type);
+    }
+
+    public class SettingRepository : ISettingRepository, ISettingsValueProvider
     {
         private readonly ApplicationContext context;
 
         public SettingRepository(ApplicationContext context)
         {
             this.context = context;
+        }
+
+        public string GetSettingValue(SettingType type)
+        {
+            var setting = this.context.Settings.SingleOrDefault(x => x.Type == type);
+            return setting?.Value ?? setting?.DefaultValue;
         }
 
         public IEnumerable<Setting> GetSettings(Expression<Func<Setting, bool>> whereExpression)

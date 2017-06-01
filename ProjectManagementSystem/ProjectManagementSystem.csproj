@@ -379,6 +379,7 @@
     <Content Include="Frontend\Content\images\material-icons\ic_menu_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\global\Controllers\AddFilesController.js" />
     <Content Include="Frontend\Scripts\angapp\global\Directives\EnterPress.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\HttpService.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\NotificationServiceProvider.js" />
@@ -489,6 +490,7 @@
     <Content Include="Frontend\Views\main\users\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Views\shared\addFilesDialog.html" />
     <Content Include="Frontend\Views\shared\commentTemplate.html" />
     <Content Include="Frontend\Views\shared\linkedFileTemplate.html" />
     <Content Include="Frontend\Views\shared\newCommentTemplate.html" />
@@ -659,7 +661,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Site\" />
-    <Folder Include="Frontend\Scripts\angapp\global\Controllers\" />
     <Folder Include="Frontend\Scripts\angapp\main\users\Directives\" />
     <Folder Include="Scripts\Site\" />
   </ItemGroup>

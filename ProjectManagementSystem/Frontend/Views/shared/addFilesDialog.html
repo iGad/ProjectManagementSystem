@@ -1,0 +1,37 @@
+﻿<style>
+    .small-input {
+        width: 100px;
+    }
+</style>
+<md-dialog aria-label="add new command dialog" style="width:450px">
+    <form name="fileUploadForm" ng-submit="$event.preventDefault()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Добавление файлов</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-icon="content:clear" aria-label="close add command dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-input-container class="hide-error-msg md-block">
+                <section layout="row" layout-align="left">
+                    <md-button name="fileUpload" class="md-raised md-primary" ng-model="files" ngf-select ngf-multiple="false" ngf-min-size="1" ngf-max-size="100MB">Выбрать файлы</md-button>
+                </section>
+            </md-input-container>
+            <div>
+                <div ng-messages="fileUploadForm.fileUpload.$error" style="color:red">
+                    <div ng-message="maxSize">Выбранный файл не дожен быть больше 100МБ</div>
+                    <div ng-message="minSize">Выбранный файл не дожен быть пустым</div>
+                </div>
+            </div>
+            <div>
+                <p ng-repeat="file in files">{{file.name}}</p>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="add()" ng-disabled="!files">Применить</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

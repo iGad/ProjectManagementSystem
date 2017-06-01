@@ -16,10 +16,12 @@ namespace ProjectManagementSystem.Controllers
     public class WorkItemsApiController : BaseController
     {
         private readonly WorkItemApiService workItemService;
+        private readonly AttachingFileService fileService;
         private readonly NotificationService notifyService;
-        public WorkItemsApiController(WorkItemApiService workItemService, NotificationService notifyService)
+        public WorkItemsApiController(WorkItemApiService workItemService, AttachingFileService fileService, NotificationService notifyService)
         {
             this.workItemService = workItemService;
+            this.fileService = fileService;
             this.notifyService = notifyService;
         }
         [HttpPost]
@@ -147,5 +149,15 @@ namespace ProjectManagementSystem.Controllers
                 throw new PmsException("Не выбран файл");
             return inputStream;
         }
+
+        [HttpGet]
+        public ActionResult DownloadFile(int fileId)
+        {
+            //var filePath = _service.GetFilePathForParameter(commandId, parameterId);
+            var fileName = this.fileService.GetFileName(fileId);
+            byte[] fileBytes = this.fileService.GetFileBytes(fileId);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Common.DI;
 using Common.Repositories;
+using Common.Services;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
@@ -18,13 +19,18 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<EventRepository, IEventRepository>();
             compositionContainer.RegisterExport<UserPermissionsRepository, IUserPermissionsRepository>();
             compositionContainer.RegisterExport<SettingRepository, ISettingRepository>();
+            compositionContainer.RegisterExport<SettingRepository, ISettingsValueProvider>();
             compositionContainer.RegisterExport<CommentRepository, ICommentRepository>();
+
+            compositionContainer.RegisterExport<LocalFileSystemManager, IFileSystemManager>();
+            compositionContainer.RegisterExport<FileSystemManagerProvider>();
 
             compositionContainer.RegisterExport<UsersService>();
             compositionContainer.RegisterExport<WorkItemService>();
             compositionContainer.RegisterExport<EventService, IEventService>();
             compositionContainer.RegisterExport<SettingsService>();
             compositionContainer.RegisterExport<CommentsService>();
+            compositionContainer.RegisterExport<AttachingFileService>();
 
             #region Event describers
 

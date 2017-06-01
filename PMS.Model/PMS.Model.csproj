@@ -89,6 +89,7 @@
     <Compile Include="CommonModels\EventModels\EventUserModel.cs" />
     <Compile Include="CommonModels\EventModels\StateChangedModel.cs" />
     <Compile Include="CommonModels\EventModels\WorkItemUpdatedModel.cs" />
+    <Compile Include="CommonModels\FileInfoDisplayModel.cs" />
     <Compile Include="CommonModels\FilterModels\EventFilterModel.cs" />
     <Compile Include="CommonModels\TableCollectionModel.cs" />
     <Compile Include="CommonModels\UserItemsAggregateInfo.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Repositories\UserPermissionsRepository.cs" />
     <Compile Include="Services\ApplicationUserEqualityComparer.cs" />
     <Compile Include="Services\ApplicationUserExtensions.cs" />
+    <Compile Include="Services\AttachingFileService.cs" />
     <Compile Include="Services\CommentsService.cs" />
     <Compile Include="Services\EventDescribers\ItemAddedEventDescriber.cs" />
     <Compile Include="Services\EventDescribers\ItemAppointedEventDescriber.cs" />

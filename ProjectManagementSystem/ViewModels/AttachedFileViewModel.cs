@@ -13,7 +13,7 @@ namespace ProjectManagementSystem.ViewModels
         public AttachedFileViewModel(AttachedFile file)
         {
             Id = file.Id;
-            FullName = file.FullName;
+            FullName = file.RelativePath;
             Name = Path.GetFileName(FullName);
             //Size = 
         }

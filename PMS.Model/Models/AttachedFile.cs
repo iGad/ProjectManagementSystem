@@ -4,6 +4,8 @@ namespace PMS.Model.Models
 {
     public class AttachedFile : Entity
     {
-        public string FullName { get; set; }
+        public string RelativePath { get; set; }
+        public int WorkItemId { get; set; }
+        public WorkItem WorkItem { get; set; }
     }
 }
