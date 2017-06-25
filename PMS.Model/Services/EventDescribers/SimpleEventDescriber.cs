@@ -7,8 +7,8 @@ namespace PMS.Model.Services.EventDescribers
     /// </summary>
     public abstract class SimpleEventDescriber : EventDescriber
     {
-        private readonly string actionString, currentUserActionString;
-        private readonly WorkItemService workItemService;
+        private readonly string _actionString, _currentUserActionString;
+        private readonly WorkItemService _workItemService;
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -17,7 +17,7 @@ namespace PMS.Model.Services.EventDescribers
         /// <param name="currentUserActionString">Строка действия для текущего пользователя</param>
         protected SimpleEventDescriber(WorkItemService workItemService)
         {
-            this.workItemService = workItemService;
+            this._workItemService = workItemService;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace PMS.Model.Services.EventDescribers
         /// <returns></returns>
         protected override string GetDescription(WorkEvent workEvent, ApplicationUser forUser)
         {
-            var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
+            var item = this._workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             return $"{GetStartText(forUser)} {GetActionString()} {LexicalHelper.GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()}.";
         }
 

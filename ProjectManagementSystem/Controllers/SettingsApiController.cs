@@ -9,18 +9,18 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class SettingsApiController : Controller
     {
-        private readonly SettingsService settingsService;
-        private readonly UsersService usersService;
+        private readonly SettingsService _settingsService;
+        private readonly UsersService _usersService;
 
         public SettingsApiController(SettingsService settingsService, UsersService usersService)
         {
-            this.settingsService = settingsService;
-            this.usersService = usersService;
+            _settingsService = settingsService;
+            _usersService = usersService;
         }
 
         private List<Role> GetCurrentUserRoles()
         {
-            return this.usersService.GetRolesByIds(this.usersService.GetCurrentUser().Roles.Select(x => x.RoleId));
+            return _usersService.GetRolesByIds(_usersService.GetCurrentUser().Roles.Select(x => x.RoleId));
         }
 
         private void CheckPermissions()
@@ -34,14 +34,14 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult GetSettings()
         {
             CheckPermissions();
-            return Json(this.settingsService.GetSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_settingsService.GetSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult UpdateSetting(Setting setting)
         {
             CheckPermissions();
-            this.settingsService.UpdateSetting(setting);
+            _settingsService.UpdateSetting(setting);
             return Json("OK");
         }
     }

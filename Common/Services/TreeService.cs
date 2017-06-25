@@ -8,16 +8,16 @@ namespace Common.Services
 {
     public class TreeService
     {
-        private readonly ITreeRepository repository;
+        private readonly ITreeRepository _repository;
 
         public TreeService(ITreeRepository repository)
         {
-            this.repository = repository;
+            this._repository = repository;
         }
 
         public ICollection<TreeNode> GetTree()
         {
-            var rootItems = this.repository.GetNodes(x => !x.ParentId.HasValue).ToArray();
+            var rootItems = this._repository.GetNodes(x => !x.ParentId.HasValue).ToArray();
             foreach (var rootItem in rootItems)
             {
                 FillNodes(rootItem);
@@ -27,7 +27,7 @@ namespace Common.Services
 
         private void FillNodes(TreeNode parentNode)
         {
-            parentNode.Children.AddRange(this.repository.GetNodes(x => x.ParentId == parentNode.Id));
+            parentNode.Children.AddRange(this._repository.GetNodes(x => x.ParentId == parentNode.Id));
             foreach (var node in parentNode.Children)
             {
                 FillNodes(node);

@@ -6,11 +6,11 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class DataUpdaterController : Controller
     {
-        private readonly DataUpdater updater;
+        private readonly DataUpdater _updater;
 
         public DataUpdaterController(DataUpdater updater)
         {
-            this.updater = updater;
+            _updater = updater;
         }
 
         [HttpGet]
@@ -21,7 +21,7 @@ namespace ProjectManagementSystem.Controllers
 
         public ActionResult Update()
         {
-            this.updater.Update();
+            _updater.Update();
             return Json("OK");
         }
     }

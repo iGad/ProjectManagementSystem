@@ -20,8 +20,9 @@ namespace ProjectManagementSystem
                         "~/Scripts/i18n/*.js", 
                         "~/Scripts/angular-material/angular-material.js",
                         "~/Scripts/angular-material/svg-assets-cache.js",
-                        "~/Frontend/ngFileUpload/ng-file-upload.js",
-                        "~/Frontend/ngFileUpload/ng-file-upload-shim.js"));
+                        "~/Frontend/Scripts/ngFileUpload/ng-file-upload.js",
+                        "~/Frontend/Scripts/ngFileUpload/ng-file-upload-shim.js"));
+            
 
             bundles.Add(new ScriptBundle("~/bundles/signalR").IncludeDirectory("~/Frontend/Scripts/signalR", "*.js"));
             bundles.Add(new ScriptBundle("~/bundles/ui-sortable").IncludeDirectory("~/Frontend/Scripts/ui-sortable", "*.js"));

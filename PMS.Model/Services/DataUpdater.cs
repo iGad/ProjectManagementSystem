@@ -8,11 +8,11 @@ namespace PMS.Model.Services
 {
     public class DataUpdater
     {
-        private readonly ISettingRepository settingsRepository;
+        private readonly ISettingRepository _settingsRepository;
 
         public DataUpdater(ISettingRepository settingsRepository)
         {
-            this.settingsRepository = settingsRepository;
+            this._settingsRepository = settingsRepository;
         }
 
         public void Update()
@@ -42,16 +42,16 @@ namespace PMS.Model.Services
                     MaxValue = 100
                 },
             };
-            var existingSettings = this.settingsRepository.GetSettings(x => true).ToList();
+            var existingSettings = this._settingsRepository.GetSettings(x => true).ToList();
             foreach (var setting in settings)
             {
                 var existingSetting = existingSettings.SingleOrDefault(x => x.Type == setting.Type);
                 if (existingSetting != null && HaveDifferentProperties(setting, existingSetting))
-                    this.settingsRepository.UpdateSetting(existingSetting, setting);
+                    this._settingsRepository.UpdateSetting(existingSetting, setting);
                 else
-                    this.settingsRepository.AddSetting(setting);
+                    this._settingsRepository.AddSetting(setting);
             }
-            this.settingsRepository.SaveChanges();
+            this._settingsRepository.SaveChanges();
         }
         
 

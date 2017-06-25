@@ -25,6 +25,7 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<LocalFileSystemManager, IFileSystemManager>();
             compositionContainer.RegisterExport<FileSystemManagerProvider>();
 
+            compositionContainer.RegisterExport<UsersService, IUsersService>();
             compositionContainer.RegisterExport<UsersService>();
             compositionContainer.RegisterExport<WorkItemService>();
             compositionContainer.RegisterExport<EventService, IEventService>();

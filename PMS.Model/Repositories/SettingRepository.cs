@@ -13,27 +13,27 @@ namespace PMS.Model.Repositories
 
     public class SettingRepository : ISettingRepository, ISettingsValueProvider
     {
-        private readonly ApplicationContext context;
+        private readonly ApplicationContext _context;
 
         public SettingRepository(ApplicationContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         public string GetSettingValue(SettingType type)
         {
-            var setting = this.context.Settings.SingleOrDefault(x => x.Type == type);
+            var setting = this._context.Settings.SingleOrDefault(x => x.Type == type);
             return setting?.Value ?? setting?.DefaultValue;
         }
 
         public IEnumerable<Setting> GetSettings(Expression<Func<Setting, bool>> whereExpression)
         {
-            return this.context.Settings.Where(whereExpression);
+            return this._context.Settings.Where(whereExpression);
         }
 
         public Setting Get(int id)
         {
-            return this.context.Settings.SingleOrDefault(x => x.Id == id);
+            return this._context.Settings.SingleOrDefault(x => x.Id == id);
         }
 
         public void UpdateSetting(Setting oldSetting, Setting setting)
@@ -50,12 +50,12 @@ namespace PMS.Model.Repositories
 
         public Setting AddSetting(Setting setting)
         {
-            return this.context.Settings.Add(setting);
+            return this._context.Settings.Add(setting);
         }
 
         public int SaveChanges()
         {
-            return this.context.SaveChanges();
+            return this._context.SaveChanges();
         }
     }
 }

@@ -7,14 +7,14 @@ namespace Common.Services
     /// </summary>
     public class FileSystemManagerProvider
     {
-        private readonly IFileSystemManager[] savers;
+        private readonly IFileSystemManager[] _savers;
         /// <summary>
         /// Конструктор, которому DI-контейнер подставит все зарегистрированные IFileSaver
         /// </summary>
         /// <param name="savers">Объекты-сохранятели</param>
         public FileSystemManagerProvider(IFileSystemManager[] savers)
         {
-            this.savers = savers;
+            this._savers = savers;
         }
         /// <summary>
         /// Получить объект, который может сохранить файл по указанному пути
@@ -23,7 +23,7 @@ namespace Common.Services
         /// <returns></returns>
         public IFileSystemManager GetManagerForPath(string path)
         {
-            return this.savers.SingleOrDefault(x => x.IsForPath(path));
+            return this._savers.SingleOrDefault(x => x.IsForPath(path));
         }
     }
 }

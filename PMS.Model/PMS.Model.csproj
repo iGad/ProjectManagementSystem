@@ -91,6 +91,7 @@
     <Compile Include="CommonModels\EventModels\WorkItemUpdatedModel.cs" />
     <Compile Include="CommonModels\FileInfoDisplayModel.cs" />
     <Compile Include="CommonModels\FilterModels\EventFilterModel.cs" />
+    <Compile Include="CommonModels\FilterModels\SearchModel.cs" />
     <Compile Include="CommonModels\TableCollectionModel.cs" />
     <Compile Include="CommonModels\UserItemsAggregateInfo.cs" />
     <Compile Include="Constants.cs" />
@@ -153,7 +154,12 @@
     <Compile Include="Services\EventDescriber.cs" />
     <Compile Include="Services\IEventService.cs" />
     <Compile Include="Services\INotifyService.cs" />
+    <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\LexicalHelper.cs" />
+    <Compile Include="Services\Notifications\EventNotificator.cs" />
+    <Compile Include="Services\Notifications\NotificationService.cs" />
+    <Compile Include="Services\Notifications\UsersForEventProvider.cs" />
+    <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\DataUpdater.cs" />
     <Compile Include="Services\WorkItemExtensions.cs" />

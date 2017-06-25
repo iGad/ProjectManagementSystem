@@ -13,25 +13,25 @@ namespace ProjectManagementSystem.Services
 {
     public class UsersApiService
     {
-        private readonly UserManager<ApplicationUser, string> userManager;
-        private readonly IUserRepository userRepository;
+        private readonly UserManager<ApplicationUser, string> _userManager;
+        private readonly IUserRepository _userRepository;
 
         public UsersApiService(IUserRepository repository, UserManager<ApplicationUser, string> manager)
         {
-            this.userManager = manager;
-            this.userRepository = repository;
+            _userManager = manager;
+            _userRepository = repository;
         }
 
         public UserViewModel AddUser(UserViewModel userViewModel, string password)
         {
             var user = userViewModel.ToApplicationUser();
-            var result = this.userManager.Create(user, password);
+            var result = _userManager.Create(user, password);
             if (!result.Succeeded)
             {
                 throw new PmsException("Не удалось создать пользователя. Ошибки:" + result.Errors.Aggregate(string.Empty, (s, s1) => s + ", " + s1));
             }
             
-            this.userManager.AddToRoles(user.Id, userViewModel.Roles.Select(x => x.Name).ToArray());
+            _userManager.AddToRoles(user.Id, userViewModel.Roles.Select(x => x.Name).ToArray());
             
             
             userViewModel.Id = user.Id;
@@ -40,7 +40,7 @@ namespace ProjectManagementSystem.Services
 
         public List<UserViewModel> GetActualUsers()
         {
-            return this.userRepository.GetUsers(x => !x.IsDeleted).ToArray().Select(CreateUserViewModel).ToList();
+            return _userRepository.GetUsers(x => !x.IsDeleted).ToArray().Select(CreateUserViewModel).ToList();
         }
 
         public UserViewModel GetUserViewModel(ApplicationUser user)
@@ -73,13 +73,13 @@ namespace ProjectManagementSystem.Services
             user.Surname = userViewModel.Surname;
             user.Fathername = userViewModel.Fathername;
             user.Birthday = userViewModel.Birthday;
-            this.userRepository.SaveChanges();
+            _userRepository.SaveChanges();
             UpdateUserRoles(userViewModel.Roles, user);
         }
 
         private Role[] GetRolesByIds(IEnumerable<string> ids)
         {
-            var allRoles = this.userRepository.GetRoles().ToArray();
+            var allRoles = _userRepository.GetRoles().ToArray();
             return allRoles.Where(x => ids.Contains(x.Id)).ToArray();
         }
 
@@ -87,13 +87,13 @@ namespace ProjectManagementSystem.Services
         {
             var oldRolesIds = user.Roles.Select(x => x.RoleId);
             var oldRoles = GetRolesByIds(oldRolesIds);
-            this.userManager.RemoveFromRoles(user.Id, oldRoles.Select(x => x.Name).ToArray());
-            this.userManager.AddToRoles(user.Id, newRoles.Select(x => x.Name).ToArray());
+            _userManager.RemoveFromRoles(user.Id, oldRoles.Select(x => x.Name).ToArray());
+            _userManager.AddToRoles(user.Id, newRoles.Select(x => x.Name).ToArray());
         }
 
         private ApplicationUser GetUser(string id)
         {
-            var user = this.userRepository.GetById(id);
+            var user = _userRepository.GetById(id);
             if (user == null)
                 throw new PmsException($"Пользователь с id {id} не найден");
             return user;
@@ -102,7 +102,7 @@ namespace ProjectManagementSystem.Services
         private bool IsEmailInvalid(string email, string id)
         {
             return string.IsNullOrWhiteSpace(email) ||
-                   this.userRepository.GetUsers(x => !x.IsDeleted && x.Id != id && x.UserName.Equals(email, StringComparison.InvariantCultureIgnoreCase)).Any();
+                   _userRepository.GetUsers(x => !x.IsDeleted && x.Id != id && x.UserName.Equals(email, StringComparison.InvariantCultureIgnoreCase)).Any();
 
         }
 
@@ -111,12 +111,12 @@ namespace ProjectManagementSystem.Services
             var user = GetUser(id);
             user.IsDeleted = true;
             user.UserName += Guid.NewGuid();
-            this.userRepository.SaveChanges();
+            _userRepository.SaveChanges();
         }
 
         public RoleViewModel[] GetRoles()
         {
-            return this.userRepository.GetRoles().Select(x => new RoleViewModel
+            return _userRepository.GetRoles().Select(x => new RoleViewModel
             {
                 Name = x.Name,
                 Id = x.Id

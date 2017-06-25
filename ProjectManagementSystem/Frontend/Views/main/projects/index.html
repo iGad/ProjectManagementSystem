@@ -7,10 +7,10 @@
             </md-button>
         </div>
         <div>
-            <md-checkbox aria-label="show archive" ng-change="showArchiveChanged()" ng-model="filterOptions.showArchive">Показывать архивные проекты</md-checkbox>
+            <md-checkbox aria-label="show archive" ng-change="showArchiveChanged()" ng-model="filterOptions.showArchive">Показывать элементы в архиве</md-checkbox>
         </div>
         <div>
-            <md-checkbox aria-label="show done" ng-change="showDoneChanged()" ng-model="filterOptions.showDone">Показывать завершенные проекты</md-checkbox>
+            <md-checkbox aria-label="show done" ng-change="showDoneChanged()" ng-model="filterOptions.showDone">Показывать завершенные элементы</md-checkbox>
         </div>
     </div>
     <ng-include ng-repeat="workItem in projects" src="'Frontend/Views/main/projects/workItemRowTemplate.html'"></ng-include>

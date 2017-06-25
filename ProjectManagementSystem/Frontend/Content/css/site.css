@@ -129,6 +129,10 @@ md-input-container {
 .workitem-row {
     margin: 5px;
 }
+.workitem-row :hover {
+    background-color: #e1e1e1;
+}
+
 .project-row {
     
 }
@@ -144,6 +148,10 @@ md-input-container {
 .green-btn {
     color: #0c0;
 }
+
+
+
+
 .comment{
   background: white;
   border: 1px solid #e1e1e1; 

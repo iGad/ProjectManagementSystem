@@ -6,22 +6,22 @@ namespace Common
 {
     public class LocalizedDescriptionAttribute : DescriptionAttribute
     {
-        private readonly string resourceKey;
-        private readonly ResourceManager resource;
+        private readonly string _resourceKey;
+        private readonly ResourceManager _resource;
         public LocalizedDescriptionAttribute(string resourceKey, Type resourceType)
         {
-            this.resource = new ResourceManager(resourceType);
-            this.resourceKey = resourceKey;
+            this._resource = new ResourceManager(resourceType);
+            this._resourceKey = resourceKey;
         }
 
         public override string Description
         {
             get
             {
-                string displayName = this.resource.GetString(this.resourceKey);
+                string displayName = this._resource.GetString(this._resourceKey);
 
                 return string.IsNullOrEmpty(displayName)
-                    ? string.Format("[[{0}]]", this.resourceKey)
+                    ? string.Format("[[{0}]]", this._resourceKey)
                     : displayName;
             }
         }

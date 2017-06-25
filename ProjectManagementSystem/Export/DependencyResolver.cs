@@ -11,11 +11,11 @@ namespace ProjectManagementSystem.Export
     /// </summary>
     public class PmsDependencyResolver : IDependencyResolver
     {
-        private readonly ICompositionContainer container;
+        private readonly ICompositionContainer _container;
 
         public PmsDependencyResolver()
         {
-            this.container = CompositionContainerProvider.CreateCompositionContainer(new [] {"PMS", "Common", "ProjectManagementSystem"});
+            _container = CompositionContainerProvider.CreateCompositionContainer(new [] {"PMS", "Common", "ProjectManagementSystem"});
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace ProjectManagementSystem.Export
         /// <param name="serviceType">The type of the requested service or object.</param>
         public object GetService(Type serviceType)
         {
-            return this.container.TryResolveInstance(serviceType);
+            return _container.TryResolveInstance(serviceType);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ProjectManagementSystem.Export
         /// <param name="serviceType">The type of the requested services.</param>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return this.container.ResolveInstances(serviceType).ToList();
+            return _container.ResolveInstances(serviceType).ToList();
         }
     }
 }

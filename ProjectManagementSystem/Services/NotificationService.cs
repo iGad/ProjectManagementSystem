@@ -12,17 +12,17 @@ namespace ProjectManagementSystem.Services
     
     public class NotificationService : INotifyService
     {
-        private readonly IEventService eventService;
-        private readonly SignalrClientsProvider clientsProvider;
+        private readonly IEventService _eventService;
+        private readonly SignalrClientsProvider _clientsProvider;
         //private ConcurrentDictionary<string, List<Guid>> userConnectionsDictionary = new ConcurrentDictionary<string, List<Guid>>();
 
         public NotificationService(SignalrClientsProvider clientsProvider, IEventService eventService)
         {
-            this.clientsProvider = clientsProvider;
-            this.eventService = eventService;
+            _clientsProvider = clientsProvider;
+            _eventService = eventService;
         }
 
-        public IHubConnectionContext<dynamic> Clients => this.clientsProvider.GetClients();
+        public IHubConnectionContext<dynamic> Clients => _clientsProvider.GetClients();
 
         public void SendEvent(string eventName, object sendedObject, BroadcastType broadcastType, params string[] userNames)
         {
@@ -101,7 +101,7 @@ namespace ProjectManagementSystem.Services
             foreach (var user in users)
             {
                 var clients = Clients.Users(new[] {user.UserName});
-                var description = this.eventService.GetEventDescription(workEvent, user);
+                var description = _eventService.GetEventDescription(workEvent, user);
                 var model = new NotificationViewModel
                 {
                     Text = description,

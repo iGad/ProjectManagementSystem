@@ -28,14 +28,17 @@
                         .ok('ОК')
                     );
                 },
-                parseStateParams: function (stateUrl, stateParams) {
-                    var properties = stateUrl.split('?')[1].split('&');//получение массива возможных параметров 
+                parseStateParams: function (stateUrl, stateParams, arrayPropertyNames) {
+                    var propertyNames = stateUrl.split('?')[1].split('&');//получение массива имен возможных параметров 
                     var filterOptions = {};
-                    for (var i = 0; i < properties.length; i++) {
-                        filterOptions[properties[i]] = stateParams[properties[i]];
+                    for (var i = 0; i < propertyNames.length; i++) {
+                        filterOptions[propertyNames[i]] = stateParams[propertyNames[i]];
+                        if (arrayPropertyNames && arrayPropertyNames.filter(x => x === propertyNames[i]).length && !Array.isArray(filterOptions[propertyNames[i]])) {
+                            filterOptions[propertyNames[i]] = [filterOptions[propertyNames[i]]];
+                        }
                     }
                     filterOptions.PageNumber = filterOptions.PageNumber || 1;
-                    filterOptions.PageSize = filterOptions.PageSize || 30;
+                    //filterOptions.PageSize = filterOptions.PageSize || 30;
                     return filterOptions;
                 },
                 goToReturnState: function(stateParams) {
@@ -61,6 +64,28 @@
                 },
                 convertDateToJsDate: function (sharpDateTime) {
                     return $mdDateLocaleProvider.parseDate(sharpDateTime);
+                },
+                getPagination: function() {
+                    return {
+                        CurrentPageLabel: 'Текущая страница',
+                        OfLabelString: 'из',
+                        Records: 'Записей',
+                        BackString: 'Назад',
+                        ForwardString: 'Вперед',
+                        ToLastPage: 'К последней странице',
+                        ToFirstPage: 'К первой странице'
+                    };
+                },
+                getUserInfo: function (user) {
+                    if (!user)
+                        return 'Отсутствует';
+                    var info = '';
+                    if (user.Surname)
+                        info = user.Surname + ' ';
+                    info += user.Name;
+                    if (info.length === user.Name.length)
+                        info += ' (' + user.Email + ')';
+                    return info;
                 }
         };
             return service;

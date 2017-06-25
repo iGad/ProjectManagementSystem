@@ -11,64 +11,64 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class EventsApiController : Controller
     {
-        private readonly EventsApiService eventService;
-        private readonly ICurrentUsernameProvider usernameProvider;
-        private readonly IUserRepository userRepository;
-        private readonly INotifyService notifyService;
+        private readonly EventsApiService _eventService;
+        private readonly ICurrentUsernameProvider _usernameProvider;
+        private readonly IUserRepository _userRepository;
+        private readonly INotifyService _notifyService;
 
         public EventsApiController(EventsApiService eventService, ICurrentUsernameProvider usernameProvider, IUserRepository userRepository,
             INotifyService notifyService)
         {
-            this.eventService = eventService;
-            this.usernameProvider = usernameProvider;
-            this.userRepository = userRepository;
-            this.notifyService = notifyService;
+            _eventService = eventService;
+            _usernameProvider = usernameProvider;
+            _userRepository = userRepository;
+            _notifyService = notifyService;
         }
 
         [HttpPost]
         public ActionResult GetSeenEventsForCurrentUser(EventFilterModel filterModel)
         {
             var filter = filterModel ?? new EventFilterModel();
-            var eventCollection = this.eventService.GetEventsForCurrentUser(filter);
+            var eventCollection = _eventService.GetEventsForCurrentUser(filter);
             return Json(eventCollection, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetNewEventsForCurrentUser()
         {
-            return Json(this.eventService.GetNewEventsForCurrentUser(), JsonRequestBehavior.AllowGet);
+            return Json(_eventService.GetNewEventsForCurrentUser(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult GetUnseenEventCountForCurrentUser()
         {
-            return Json(this.eventService.GetUnseenEventCountForCurrentUser(), JsonRequestBehavior.AllowGet);
+            return Json(_eventService.GetUnseenEventCountForCurrentUser(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult ChangeIsFavorite(int eventId, bool isFavorite)
         {
-            this.eventService.ChangeEventIsFavorite(eventId, isFavorite);
+            _eventService.ChangeEventIsFavorite(eventId, isFavorite);
             return Json("OK");
         }
 
         [HttpPost]
         public ActionResult ChangeEventState(int eventId, EventState state)
         {
-            this.eventService.ChangeEventState(eventId, state);
+            _eventService.ChangeEventState(eventId, state);
             return Json("OK");
         }
 
         [HttpGet]
         public ActionResult SendNotification(string userId)
         {
-            var user = this.userRepository.GetById(userId);
+            var user = _userRepository.GetById(userId);
 
-            this.notifyService.SendNotifications(new WorkEvent
+            _notifyService.SendNotifications(new WorkEvent
             {
                 ObjectId = 12,
                 Type = EventType.WorkItemAdded,
-                UserId = this.userRepository.GetByUserName(this.usernameProvider.GetCurrentUsername()).Id
+                UserId = _userRepository.GetByUserName(_usernameProvider.GetCurrentUsername()).Id
             }, new[] {user});
             return Json("OK", JsonRequestBehavior.AllowGet);
         }

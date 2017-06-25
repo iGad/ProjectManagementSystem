@@ -13,24 +13,24 @@ namespace PMS.Model.Services
 {
     public class AttachingFileService
     {
-        private readonly IWorkItemRepository repository;
-        private readonly ISettingsValueProvider settingsProvider;
-        private readonly FileSystemManagerProvider fileSystemManagerProvider;
+        private readonly IWorkItemRepository _repository;
+        private readonly ISettingsValueProvider _settingsProvider;
+        private readonly FileSystemManagerProvider _fileSystemManagerProvider;
 
         public AttachingFileService(IWorkItemRepository repository, ISettingsValueProvider settingsProvider, FileSystemManagerProvider fileSystemManagerProvider)
         {
-            this.repository = repository;
-            this.settingsProvider = settingsProvider;
-            this.fileSystemManagerProvider = fileSystemManagerProvider;
+            this._repository = repository;
+            this._settingsProvider = settingsProvider;
+            this._fileSystemManagerProvider = fileSystemManagerProvider;
         }
 
 
         public FileInfoDisplayModel AttachFileToWorkItem(int workItemId, string fullPath, Stream inputStream)
         {
-            var fileManager = this.fileSystemManagerProvider.GetManagerForPath(fullPath);
+            var fileManager = this._fileSystemManagerProvider.GetManagerForPath(fullPath);
             if (fileManager == null)
                 throw new PmsException("Указанный путь не поддерживается");
-            var storageFolder = this.settingsProvider.GetSettingValue(SettingType.FileStoragePath);
+            var storageFolder = this._settingsProvider.GetSettingValue(SettingType.FileStoragePath);
             if (storageFolder == null)
                 throw new PmsException("Не указан путь для сохранения. Поправьте настройки");
             string relativePath;

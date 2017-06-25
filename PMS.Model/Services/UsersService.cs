@@ -6,15 +6,16 @@ using PMS.Model.Repositories;
 
 namespace PMS.Model.Services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
-        private readonly IUserRepository userRepository;
-        private readonly ICurrentUsernameProvider currentUsernameProvider;
+        private ApplicationUser _currentUser;
+        private readonly IUserRepository _userRepository;
+        private readonly ICurrentUsernameProvider _currentUsernameProvider;
 
         public UsersService(IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider)
         {
-            this.userRepository = userRepository;
-            this.currentUsernameProvider = currentUsernameProvider;
+            this._userRepository = userRepository;
+            this._currentUsernameProvider = currentUsernameProvider;
         }
 
         public List<ApplicationUser> GetAllowedUsersForWorkItemType(int typeId)
@@ -30,20 +31,25 @@ namespace PMS.Model.Services
             {
                 roles.Add(Resources.Manager);
             }
-            return this.userRepository.GetUsersByRoles(roles).Where(x => !x.IsDeleted).ToList();
+            return this._userRepository.GetUsersByRoles(roles).Where(x => !x.IsDeleted).ToList();
         }
 
         public ApplicationUser Get(string id)
         {
-            var user = this.userRepository.GetById(id);
+            var user = SafeGet(id);
             if (user == null)
                 throw new PmsException("User with Id " + id + " not found");
             return user;
         }
 
+        public ApplicationUser SafeGet(string id)
+        {
+            return _userRepository.GetById(id);
+        }
+
         public ApplicationUser GetByUsername(string username)
         {
-            var user = this.userRepository.GetByUserName(username);
+            var user = this._userRepository.GetByUserName(username);
             if(user == null)
                 throw new PmsException($"Пользователь {username} не найден");
             return user;
@@ -51,15 +57,22 @@ namespace PMS.Model.Services
 
         public ApplicationUser GetCurrentUser()
         {
-            var username = this.currentUsernameProvider.GetCurrentUsername();
+            if (this._currentUser != null)
+                return this._currentUser;
+            var username = this._currentUsernameProvider.GetCurrentUsername();
             if (string.IsNullOrWhiteSpace(username))
                 return null;
-            return this.userRepository.GetByUserName(username);
+            return (this._currentUser = this._userRepository.GetByUserName(username));
         }
 
         public List<Role> GetRolesByIds(IEnumerable<string> roleIds)
         {
-            return this.userRepository.GetRoles().Where(x => roleIds.Contains(x.Id)).ToList();
-        } 
+            return this._userRepository.GetRoles().Where(x => roleIds.Contains(x.Id)).ToList();
+        }
+
+        public List<ApplicationUser> GetUsersByRole(RoleType role)
+        {
+            return _userRepository.GetUsersByRole(role).ToList();
+        }
     }
 }

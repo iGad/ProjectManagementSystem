@@ -7,13 +7,13 @@ namespace PMS.Model.Services.EventDescribers
 {
     public class StateChangedEventDescriber : EventDescriber
     {
-        private readonly WorkItemService workItemService;
-        private readonly UsersService userService;
-        private bool isUserExecutor;
+        private readonly WorkItemService _workItemService;
+        private readonly UsersService _userService;
+        private bool _isUserExecutor;
         public StateChangedEventDescriber(WorkItemService workItemService, UsersService userService)
         {
-            this.workItemService = workItemService;
-            this.userService = userService;
+            this._workItemService = workItemService;
+            this._userService = userService;
         }
 
         public override bool CanDescribeEventType(EventType eventType)
@@ -26,9 +26,9 @@ namespace PMS.Model.Services.EventDescribers
             var stateChangedModel = JsonConvert.DeserializeObject<StateChangedModel>(workEvent.Data);
             if(!workEvent.ObjectId.HasValue)
                 throw new PmsException("Error in event model");
-            var item = this.workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
-            this.isUserExecutor = workEvent.UserId == item.ExecutorId;
-            var user = this.userService.Get(workEvent.UserId);
+            var item = this._workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
+            this._isUserExecutor = workEvent.UserId == item.ExecutorId;
+            var user = this._userService.Get(workEvent.UserId);
             var text = GetStartText(user);
             bool needAddition = true;
             text += GetTextForStateChanging(stateChangedModel, item, ref needAddition);
@@ -67,7 +67,7 @@ namespace PMS.Model.Services.EventDescribers
                     text += IsUserAuthor ? $" {NotificationResources.HaveMovedToArchive} " : $" {NotificationResources.MovedToArchive} ";
                     break;
                 case WorkItemState.Reviewing:
-                    if (this.isUserExecutor)
+                    if (this._isUserExecutor)
                         text += IsUserAuthor ? $" {NotificationResources.HaveMovedToChecking} " : $" {NotificationResources.MovedToChecking} ";
                     else
                     {
@@ -78,7 +78,7 @@ namespace PMS.Model.Services.EventDescribers
                 case WorkItemState.AtWork:
                     if (oldState == WorkItemState.Planned)
                     {
-                        if (this.isUserExecutor)
+                        if (this._isUserExecutor)
                             text += IsUserAuthor ? $" {NotificationResources.HaveTook} " : $" {NotificationResources.Took} ";
                         else
                         {
@@ -88,7 +88,7 @@ namespace PMS.Model.Services.EventDescribers
                     }
                     else
                     {
-                        if (this.isUserExecutor)
+                        if (this._isUserExecutor)
                             text += IsUserAuthor ? $" {NotificationResources.HaveMovedToRebuild} " : $" {NotificationResources.MovedToRebuild} ";
                         else
                         {

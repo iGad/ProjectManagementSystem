@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 
 namespace PMS.Model.Repositories
@@ -10,6 +11,8 @@ namespace PMS.Model.Repositories
         WorkItem GetById(int id);
         WorkItem GetByIdNoTracking(int id);
         WorkItem GetByIdWithParents(int id);
+        IEnumerable<WorkItem> Get(SearchModel searchModel);
+        int GetTotalItemCount(SearchModel searchModel);
         IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter);
         WorkItem Add(WorkItem workItem);
         IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter);

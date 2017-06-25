@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 
@@ -10,26 +11,36 @@ namespace PMS.Model.Services
 {
     public class WorkItemService
     {
-        private readonly IWorkItemRepository repository;
+        private readonly IWorkItemRepository _repository;
 
         public WorkItemService(IWorkItemRepository repository)
         {
-            this.repository = repository;
+            this._repository = repository;
         }
 
-        protected IWorkItemRepository Repository => this.repository;
+        protected IWorkItemRepository Repository => this._repository;
 
         public WorkItem Get(int id)
         {
-            var workItem = this.repository.GetById(id);
+            var workItem = this._repository.GetById(id);
             if(workItem == null)
                 throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
         }
 
+        public List<WorkItem> Get(SearchModel searchModel)
+        {
+            return _repository.Get(searchModel).ToList();    
+        }
+
+        public int GetTotalItemCount(SearchModel searchModel)
+        {
+            return _repository.GetTotalItemCount(searchModel);
+        }
+
         public WorkItem GetWithNoTracking(int id)
         {
-            var workItem = this.repository.GetByIdNoTracking(id);
+            var workItem = this._repository.GetByIdNoTracking(id);
             if (workItem == null)
                 throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
@@ -37,7 +48,7 @@ namespace PMS.Model.Services
 
         public WorkItem GetWithParents(int id)
         {
-            var workItem = this.repository.GetByIdWithParents(id);
+            var workItem = this._repository.GetByIdWithParents(id);
             if (workItem == null)
                 throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
@@ -46,8 +57,8 @@ namespace PMS.Model.Services
         public virtual WorkItem Add(WorkItem workItem)
         {
             workItem.State = string.IsNullOrWhiteSpace(workItem.ExecutorId) ? WorkItemState.New : WorkItemState.Planned;
-            var item = this.repository.Add(workItem);
-            this.repository.SaveChanges();
+            var item = this._repository.Add(workItem);
+            this._repository.SaveChanges();
             return item;
         }
         
@@ -55,14 +66,14 @@ namespace PMS.Model.Services
         public List<WorkItem> GetActualProjects()
         {
             return
-                this.repository.Get(
+                this._repository.Get(
                     x => !x.ParentId.HasValue && x.State != WorkItemState.Deleted).ToList();
         }
 
         public List<WorkItem> GetChildWorkItems(int parentId)
         {
             return
-                this.repository.Get(
+                this._repository.Get(
                     x => x.ParentId == parentId && x.State != WorkItemState.Deleted).ToList();
         }
 
@@ -74,7 +85,7 @@ namespace PMS.Model.Services
             oldWorkItem.Description = workItem.Description;
             oldWorkItem.DeadLine = workItem.DeadLine;
             oldWorkItem.ExecutorId = workItem.ExecutorId;
-            this.repository.SaveChanges();
+            this._repository.SaveChanges();
         }
         
         public virtual void Delete(int id, bool cascade)
@@ -88,8 +99,8 @@ namespace PMS.Model.Services
                     Delete(workItem.Id, true);
                 }
             }
-            this.repository.Delete(item);
-            this.repository.SaveChanges();
+            this._repository.Delete(item);
+            this._repository.SaveChanges();
         }
 
         private WorkItemState[] GetActualStates()
@@ -100,14 +111,14 @@ namespace PMS.Model.Services
         public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems()
         {
             var states = GetActualStates();
-            var items = this.repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
+            var items = this._repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
             return states.ToDictionary(state => state, state => items.Where(x => x.State == state).ToList());
         }
 
         public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems(string userId)
         {
             var states = new[] { WorkItemState.New, WorkItemState.Planned, WorkItemState.AtWork, WorkItemState.Reviewing, WorkItemState.Done };
-            var items = this.repository.GetItemsWithExecutor(x => x.ExecutorId == userId && states.Contains(x.State)).ToList();
+            var items = this._repository.GetItemsWithExecutor(x => x.ExecutorId == userId && states.Contains(x.State)).ToList();
             return states.ToDictionary(state => state, state => items.Where(x => x.State == state).ToList());
         }
 
@@ -118,12 +129,12 @@ namespace PMS.Model.Services
 
         public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
         {
-            return this.repository.GetWorkItemWithAllLinkedItems(workItemId);
+            return this._repository.GetWorkItemWithAllLinkedItems(workItemId);
         }
 
         public List<WorkItem> GetWorkItemsWithAllIncludedElements(Func<WorkItem, bool> whereExpression)
         {
-            return this.repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
+            return this._repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
         }
 
         public List<UserItemsAggregateInfo> GetUserItemsAggregateInfos()

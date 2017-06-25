@@ -9,31 +9,31 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class CommentsApiController : Controller
     {
-        private readonly CommentsService service;
-        private readonly UsersService usersService;
+        private readonly CommentsService _service;
+        private readonly UsersService _usersService;
 
         public CommentsApiController(CommentsService service, UsersService usersService)
         {
-            this.service = service;
-            this.usersService = usersService;
+            _service = service;
+            _usersService = usersService;
         }
 
         [HttpGet]
         public async Task<ActionResult> GetCommentsForObject(int objectId)
         {
-            return Json(await this.service.GetCommentsForObject(objectId), JsonRequestBehavior.AllowGet);
+            return Json(await _service.GetCommentsForObject(objectId), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public async Task<ActionResult> AddComment(Comment comment)
         {
-            return Json(await this.service.Add(comment), JsonRequestBehavior.AllowGet);
+            return Json(await _service.Add(comment), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public async Task<ActionResult> DeleteComment(int id)
         {
-            await this.service.DeleteComment(id);
+            await _service.DeleteComment(id);
             return Json("OK");
         }
     }

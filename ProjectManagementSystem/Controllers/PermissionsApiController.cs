@@ -9,21 +9,21 @@ namespace ProjectManagementSystem.Controllers
 {
     public class PermissionsApiController : Controller
     {
-        private readonly IUserPermissionsRepository permissionsRepository;
-        private readonly UsersService usersService;
+        private readonly IUserPermissionsRepository _permissionsRepository;
+        private readonly UsersService _usersService;
 
         public PermissionsApiController(IUserPermissionsRepository permissionsRepository, UsersService usersService)
         {
-            this.permissionsRepository = permissionsRepository;
-            this.usersService = usersService;
+            _permissionsRepository = permissionsRepository;
+            _usersService = usersService;
         }
 
         [HttpGet]
         public ActionResult GetUserPermissions()
         {
-            var user = this.usersService.GetCurrentUser();
-            var allowedPermissions = this.permissionsRepository.GetPermissionsForRoles(
-                this.usersService.GetRolesByIds(user.Roles.Select(r => r.RoleId)).Select(r => r.RoleCode).ToArray());
+            var user = _usersService.GetCurrentUser();
+            var allowedPermissions = _permissionsRepository.GetPermissionsForRoles(
+                _usersService.GetRolesByIds(user.Roles.Select(r => r.RoleId)).Select(r => r.RoleCode).ToArray());
             return Json(Extensions.ToEnumList<PermissionType>().ToDictionary(x => x.ToString(), x => allowedPermissions.Contains(x)), JsonRequestBehavior.AllowGet);
         } 
     }

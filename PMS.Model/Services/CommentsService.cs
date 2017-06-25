@@ -8,41 +8,41 @@ namespace PMS.Model.Services
 {
     public class CommentsService
     {
-        private readonly ICommentRepository repository;
-        private readonly UsersService usersService;
+        private readonly ICommentRepository _repository;
+        private readonly UsersService _usersService;
 
         public CommentsService(ICommentRepository repository, UsersService usersService)
         {
-            this.repository = repository;
-            this.usersService = usersService;
+            this._repository = repository;
+            this._usersService = usersService;
         }
 
         public async Task<Comment> Add(Comment comment)
         {
-            var user = this.usersService.GetCurrentUser();
+            var user = this._usersService.GetCurrentUser();
             comment.UserId = user.Id;
-            comment = this.repository.AddComment(comment);
-            await this.repository.SaveChanges();
+            comment = this._repository.AddComment(comment);
+            await this._repository.SaveChanges();
             comment.User = user;
             return comment;
         }
 
         public async Task<List<Comment>> GetCommentsForObject(int objectId)
         {
-            return await this.repository.GetCommentsForObject(objectId);
+            return await this._repository.GetCommentsForObject(objectId);
         }
 
         public async Task DeleteComment(int id)
         {
-            var comment = await this.repository.Get(id);
+            var comment = await this._repository.Get(id);
             if (comment == null)
                 throw new PmsException($"Комментарий с идентификатором {id} не найден");
-            var user = this.usersService.GetCurrentUser();
-            var roles = this.usersService.GetRolesByIds(user.Roles.Select(x => x.RoleId));
+            var user = this._usersService.GetCurrentUser();
+            var roles = this._usersService.GetRolesByIds(user.Roles.Select(x => x.RoleId));
             if (user.Id != comment.UserId && roles.All(x => x.RoleCode != RoleType.Admin && x.RoleCode != RoleType.Director))
                 throw new PmsException("Нет доступа для этой операции");
-            this.repository.DeleteComment(comment);
-            await this.repository.SaveChanges();
+            this._repository.DeleteComment(comment);
+            await this._repository.SaveChanges();
         }
     }
 }

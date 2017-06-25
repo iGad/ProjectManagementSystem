@@ -16,8 +16,8 @@ namespace Common.DI
         /// <summary>
         /// Регулярные выражения для фильтрации загруженных сборок
         /// </summary>
-        private static string[] possibleAssemblyRegexes;
-        private static List<ICompositionExport> exports;
+        private static string[] _possibleAssemblyRegexes;
+        private static List<ICompositionExport> _exports;
 
         #region Загрузка экспортирующих классов
 
@@ -29,7 +29,7 @@ namespace Common.DI
             {
                 AppendProvidersTypes(assembly, types);
             }
-            exports = types.Select(t => (ICompositionExport)Activator.CreateInstance(t)).ToList();
+            _exports = types.Select(t => (ICompositionExport)Activator.CreateInstance(t)).ToList();
         }
 
         private static void AppendProvidersTypes(Assembly assembly, List<Type> types)
@@ -62,7 +62,7 @@ namespace Common.DI
         /// <returns></returns>
         private static ICollection<Assembly> GetLocalAssemblies()
         {
-            return BuildManager.GetReferencedAssemblies().OfType<Assembly>().Union(AppDomain.CurrentDomain.GetAssemblies()).Distinct().Where(assembly => possibleAssemblyRegexes.Any(prefix => Regex.IsMatch(assembly.FullName, prefix))).ToList();
+            return BuildManager.GetReferencedAssemblies().OfType<Assembly>().Union(AppDomain.CurrentDomain.GetAssemblies()).Distinct().Where(assembly => _possibleAssemblyRegexes.Any(prefix => Regex.IsMatch(assembly.FullName, prefix))).ToList();
         }
 
         #endregion
@@ -73,14 +73,14 @@ namespace Common.DI
         /// <returns>готовый контейнер</returns>
         public static ICompositionContainer CreateCompositionContainer(string[] possibleRegexes)
         {
-            if (exports == null)
+            if (_exports == null)
             {
-                possibleAssemblyRegexes = possibleRegexes;
+                _possibleAssemblyRegexes = possibleRegexes;
                 LoadExports();
             }
             var container = new NinjectCompositionContainer();
             container.RegisterInstance<ICompositionContainer>(container);
-            foreach (var compositionExport in exports)
+            foreach (var compositionExport in _exports)
             {
                 compositionExport.RegisterExport(container);
             }

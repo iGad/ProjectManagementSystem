@@ -11,7 +11,7 @@ namespace PMS.Model.UnitTests.Fakes
 {
     public class TestUserRepository : IUserRepository, ICurrentUsernameProvider
     {
-        private ApplicationUser currentUser;
+        private ApplicationUser _currentUser;
         public readonly List<Role> Roles = new List<Role>();
         public readonly List<ApplicationUser> Users = new List<ApplicationUser>();
         public readonly List<IdentityUserRole> UsersRoles = new List<IdentityUserRole>();
@@ -47,7 +47,7 @@ namespace PMS.Model.UnitTests.Fakes
             this.UsersRoles.Add(new IdentityUserRole { UserId = executor3.Id, RoleId = this.Roles[2].Id });
             this.UsersRoles.Add(new IdentityUserRole { UserId = executor1.Id, RoleId = this.Roles[2].Id });
             this.UsersRoles.Add(new IdentityUserRole { UserId = executor2.Id, RoleId = this.Roles[2].Id });
-            this.currentUser = admin;
+            this._currentUser = admin;
         }
 
         public int SaveChangesCall { get; private set; }
@@ -105,12 +105,12 @@ namespace PMS.Model.UnitTests.Fakes
 
         public void SetCurrentUser(string userId)
         {
-            this.currentUser = this.Users.Single(x => x.Id == userId);
+            this._currentUser = this.Users.Single(x => x.Id == userId);
         }
 
         public string GetCurrentUsername()
         {
-            return this.currentUser.UserName;
+            return this._currentUser.UserName;
         }
     }
 }

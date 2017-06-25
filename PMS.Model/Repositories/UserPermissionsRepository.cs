@@ -9,7 +9,7 @@ namespace PMS.Model.Repositories
 {
     public class UserPermissionsRepository : IUserPermissionsRepository
     {
-        private readonly Dictionary<PermissionType, RoleType[]> permissions = new Dictionary<PermissionType, RoleType[]>
+        private readonly Dictionary<PermissionType, RoleType[]> _permissions = new Dictionary<PermissionType, RoleType[]>
         {
             { PermissionType.CanMoveToPlanned, new []{RoleType.Director, RoleType.Executor, RoleType.MainProjectEngeneer, RoleType.Manager }},
             { PermissionType.CanMoveToAtWork, new []{RoleType.Director, RoleType.Executor, RoleType.MainProjectEngeneer, RoleType.Manager }},
@@ -31,7 +31,7 @@ namespace PMS.Model.Repositories
 
         public IEnumerable<PermissionType> GetPermissionsForRoles(IEnumerable<RoleType> roleCodes)
         {
-            return this.permissions.Where(pair => pair.Value.Any(roleCodes.Contains)).Select(x => x.Key);
+            return this._permissions.Where(pair => pair.Value.Any(roleCodes.Contains)).Select(x => x.Key);
         }
     }
 }

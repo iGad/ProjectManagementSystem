@@ -31,11 +31,11 @@ namespace ProjectManagementSystem.Controllers
         {
             get
             {
-                return this._signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set
             {
-                this._signInManager = value;
+                _signInManager = value;
             }
         }
 
@@ -43,11 +43,11 @@ namespace ProjectManagementSystem.Controllers
         {
             get
             {
-                return this._userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                this._userManager = value;
+                _userManager = value;
             }
         }
 
@@ -225,16 +225,16 @@ namespace ProjectManagementSystem.Controllers
         {
             if (disposing)
             {
-                if (this._userManager != null)
+                if (_userManager != null)
                 {
-                    this._userManager.Dispose();
-                    this._userManager = null;
+                    _userManager.Dispose();
+                    _userManager = null;
                 }
 
-                if (this._signInManager != null)
+                if (_signInManager != null)
                 {
-                    this._signInManager.Dispose();
-                    this._signInManager = null;
+                    _signInManager.Dispose();
+                    _signInManager = null;
                 }
             }
 

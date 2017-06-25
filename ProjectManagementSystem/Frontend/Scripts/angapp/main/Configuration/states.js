@@ -78,7 +78,7 @@ angapp.config(function ($stateProvider, $routeProvider) {
         },
         {
             name: 'base.events.seen',
-            url: '/seen?PageNumber&PageSize&SortDirection&SortField&ItemsIds&DateStart&DateEnd',
+            url: '/seen?PageNumber&SortDirection&SortField&ItemsIds&DateStart&DateEnd$IsFavorite&UserId',
             templateUrl: 'Frontend/Views/main/events/seenEvents.html'
         },
         {
@@ -116,7 +116,12 @@ angapp.config(function ($stateProvider, $routeProvider) {
             name: 'base.settings',
             url: '/settings',
             templateUrl: 'Frontend/Views/main/settings/settings.html'
-        }
+        },
+        {
+            name: 'base.search',
+            url: '/serach?UserIds&SearchText&States&Types',
+            templateUrl: 'Frontend/Views/main/search/search.html'
+        },
     ];
 
     // Loop over the state definitions and register them

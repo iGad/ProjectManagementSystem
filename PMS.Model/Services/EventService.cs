@@ -12,14 +12,14 @@ namespace PMS.Model.Services
 {
     public class EventService : IEventService
     {
-        private ApplicationUser currentUser;
-        private readonly EventDescriber[] describers;
+        private ApplicationUser _currentUser;
+        private readonly EventDescriber[] _describers;
         public EventService(IEventRepository repository, IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider, EventDescriber[] describers)
         {
             Repository = repository;
             UserRepository = userRepository;
             CurrentUsernameProvider = currentUsernameProvider;
-            this.describers = describers;
+            this._describers = describers;
         }
         protected IEventRepository Repository { get; }
         protected IUserRepository UserRepository { get; }
@@ -82,7 +82,7 @@ namespace PMS.Model.Services
             
         protected ApplicationUser GetCurrentUser()
         {
-            return this.currentUser ?? (this.currentUser = UserRepository.GetByUserName(CurrentUsernameProvider.GetCurrentUsername()));
+            return this._currentUser ?? (this._currentUser = UserRepository.GetByUserName(CurrentUsernameProvider.GetCurrentUsername()));
         }
 
         #region Description
@@ -112,7 +112,7 @@ namespace PMS.Model.Services
 
         public string GetEventDescription(WorkEvent workEvent, ApplicationUser forUser)
         {
-            var describer = this.describers.Single(x => x.CanDescribeEventType(workEvent.Type));
+            var describer = this._describers.Single(x => x.CanDescribeEventType(workEvent.Type));
             return describer.DescribeEvent(workEvent, forUser, GetCurrentUser());
         }
 

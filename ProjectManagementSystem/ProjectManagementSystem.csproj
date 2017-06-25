@@ -424,6 +424,15 @@
     <Content Include="Frontend\Scripts\angapp\main\profile\EditProfileSettingController.js" />
     <Content Include="Frontend\Scripts\angapp\main\profile\ProfileIndexController.js" />
     <Content Include="Frontend\Scripts\angapp\main\projects\ProjectsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\search\SearchController.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\angapp\main\search\SearchMiniController.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\angapp\main\search\SearchService.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\angapp\main\settings\EditSettingController.js" />
     <Content Include="Frontend\Scripts\angapp\main\settings\SettingsController.js" />
     <Content Include="Frontend\Scripts\angapp\main\settings\SettingsService.js" />
@@ -437,6 +446,7 @@
     <Content Include="Frontend\Scripts\angapp\main\users\Providers\UsersServiceProvider.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Frontend\Scripts\angapp\main\workItemRowController.js" />
     <Content Include="Frontend\Scripts\angapp\updater\updaterapp.js" />
     <Content Include="Frontend\Scripts\jquery-3.1.1.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -449,23 +459,55 @@
     <Content Include="Frontend\Scripts\moment\moment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.js" />
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.min.js" />
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.js" />
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.min.js" />
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\ui-sortable\sortable.js" />
     <Content Include="Frontend\Scripts\ui-sortable\sortable.min.js" />
-    <Content Include="Frontend\Views\main\base\allItems.html" />
-    <Content Include="Frontend\Views\main\base\itemsPerUsers.html" />
-    <Content Include="Frontend\Views\main\base\userItems.html" />
-    <Content Include="Frontend\Views\main\base\userWorkItemsTemplate.html" />
-    <Content Include="Frontend\Views\main\events\seenEvents.html" />
-    <Content Include="Frontend\Views\main\events\eventsIndex.html" />
-    <Content Include="Frontend\Views\main\events\newEvents.html" />
-    <Content Include="Frontend\Views\main\profile\index.html" />
-    <Content Include="Frontend\Views\main\profile\info.html" />
-    <Content Include="Frontend\Views\main\profile\settings.html" />
-    <Content Include="Frontend\Views\main\settings\settings.html" />
+    <Content Include="Frontend\Views\main\base\allItems.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\base\itemsPerUsers.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\base\userItems.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\base\userWorkItemsTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\events\seenEvents.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\events\eventsIndex.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\events\newEvents.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\profile\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\profile\info.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\profile\settings.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\search\resultItemRowTemplate.html" />
+    <Content Include="Frontend\Views\main\search\search.html" />
+    <Content Include="Frontend\Views\main\settings\settings.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Views\main\test.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -475,12 +517,18 @@
     <Content Include="Frontend\Views\main\base\projects.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\workItem.html" />
+    <Content Include="Frontend\Views\main\base\workItem.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Views\main\base\workItemTileTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\projects\index.html" />
-    <Content Include="Frontend\Views\main\projects\workItemRowTemplate.html" />
+    <Content Include="Frontend\Views\main\projects\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\main\projects\workItemRowTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Views\main\users\AddUpdateUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -490,14 +538,24 @@
     <Content Include="Frontend\Views\main\users\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\addFilesDialog.html" />
-    <Content Include="Frontend\Views\shared\commentTemplate.html" />
-    <Content Include="Frontend\Views\shared\linkedFileTemplate.html" />
-    <Content Include="Frontend\Views\shared\newCommentTemplate.html" />
+    <Content Include="Frontend\Views\shared\addFilesDialog.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\shared\commentTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\shared\linkedFileTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Frontend\Views\shared\newCommentTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Views\shared\Pagination.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\PaginationTemplate.html" />
+    <Content Include="Frontend\Views\shared\PaginationTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\angular-animate.js" />
@@ -612,7 +670,9 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Frontend\Views\main\settings\editSetting.html" />
+    <Content Include="Frontend\Views\main\settings\editSetting.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\ui-grid\ui-grid.min._js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

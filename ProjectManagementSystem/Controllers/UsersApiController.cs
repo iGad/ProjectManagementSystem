@@ -17,25 +17,25 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class UsersApiController : Controller
     {
-        private ApplicationUserManager userManager;
-        private readonly UsersService usersService;
-        private readonly IUserPermissionsRepository permissionsRepository;
+        private ApplicationUserManager _userManager;
+        private readonly UsersService _usersService;
+        private readonly IUserPermissionsRepository _permissionsRepository;
 
         public UsersApiController(UsersService usersService, IUserPermissionsRepository permissionsRepository)
         {
-            this.usersService = usersService;
-            this.permissionsRepository = permissionsRepository;
+            _usersService = usersService;
+            _permissionsRepository = permissionsRepository;
         }
 
         public ApplicationUserManager UserManager
         {
             get
             {
-                return this.userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
-                this.userManager = value;
+                _userManager = value;
             }
         }
         private IUserRepository CreateRepository()
@@ -46,13 +46,13 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult IsUserExists(string username)
         {
-            return Json(this.usersService.GetByUsername(username));
+            return Json(_usersService.GetByUsername(username));
         }
 
         [HttpPost]
         public async Task<ActionResult> ChangePassword(string userId, string password)
         {
-            var currentUser = this.usersService.GetCurrentUser();
+            var currentUser = _usersService.GetCurrentUser();
             if (currentUser.Id != userId)
                 throw new PmsException("Нельзя изменить пароль другого пользователя");
             var code = await UserManager.GeneratePasswordResetTokenAsync(userId);
@@ -65,7 +65,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetCurrentUser()
         {
-            var currentUser = this.usersService.GetCurrentUser();
+            var currentUser = _usersService.GetCurrentUser();
             using (var context = new ApplicationContext())
             {
                 var api = new UsersApiService(new UserRepository(context), UserManager);
@@ -171,7 +171,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetAllowedUsersForWorkItemType(int typeId)
         {
-            var users = this.usersService.GetAllowedUsersForWorkItemType(typeId).Select(x => new UserViewModel(x));
+            var users = _usersService.GetAllowedUsersForWorkItemType(typeId).Select(x => new UserViewModel(x));
             return Json(users, JsonRequestBehavior.AllowGet);
         }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using Common.Models;
 using Common.Repositories;
 using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Services;
 
@@ -12,46 +13,93 @@ namespace PMS.Model.Repositories
 {
     public class WorkItemRepository : IWorkItemRepository, ITreeRepository
     {
-        private readonly ApplicationContext context;
+        private readonly ApplicationContext _context;
         public WorkItemRepository(ApplicationContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         public WorkItem GetById(int id)
         {
-            return this.context.WorkItems.SingleOrDefault(x => x.Id == id);
+            return this._context.WorkItems.SingleOrDefault(x => x.Id == id);
         }
 
         public WorkItem GetByIdNoTracking(int id)
         {
-            return this.context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            return this._context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
         }
 
         public WorkItem GetByIdWithParents(int id)
         {
-            return this.context.WorkItems.AsNoTracking().Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
+            return this._context.WorkItems.AsNoTracking().Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)
         {
-            return this.context.WorkItems.AsNoTracking().Where(filter);
+            return this._context.WorkItems.AsNoTracking().Where(filter);
+        }
+
+        public IEnumerable<WorkItem> Get(SearchModel searchModel)
+        {
+            var query = CreateFilterQuery(searchModel);
+            if (searchModel.Sorting.Direction == SortingDirection.Asc)
+            {
+                query = query.OrderBy(x => searchModel.Sorting.FieldName);
+            }
+            else
+            {
+                query = query.OrderByDescending(x => searchModel.Sorting.FieldName);
+            }
+            return query;
+        }
+
+        private IQueryable<WorkItem> CreateFilterQuery(SearchModel searchModel)
+        {
+            var query = _context.WorkItems.AsQueryable();
+            int id;
+            if (IsSearchTextNumber(searchModel.SearchText, out id))
+            {
+                query = query.Where(x => x.Id == id);
+            }
+            if (searchModel.States != null && searchModel.States.Any())
+            {
+                query = query.Where(x => searchModel.States.Contains(x.State));
+            }
+            if (searchModel.Types != null && searchModel.Types.Any())
+            {
+                query = query.Where(x => searchModel.Types.Contains(x.Type));
+            }
+            if (searchModel.UserIds != null && searchModel.UserIds.Any())
+            {
+                query = query.Where(x => searchModel.UserIds.Contains(x.ExecutorId));
+            }
+            return query;
+        }
+
+        private bool IsSearchTextNumber(string text, out int id)
+        {
+            return int.TryParse(text, out id);
+        }
+
+        public int GetTotalItemCount(SearchModel searchModel)
+        {
+            return CreateFilterQuery(searchModel).Count();
         }
 
         public IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter)
         {
-            return this.context.WorkItems.AsNoTracking().Include(x => x.Creator).Include(x => x.Executor).Where(filter);
+            return this._context.WorkItems.AsNoTracking().Include(x => x.Creator).Include(x => x.Executor).Where(filter);
         }
 
         public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
         {
-            return this.context.WorkItems.Include(x=>x.Parent.Parent.Parent).Include(x=>x.Children).Single(x => x.Id == workItemId);
+            return this._context.WorkItems.Include(x=>x.Parent.Parent.Parent).Include(x=>x.Children).Single(x => x.Id == workItemId);
         }
 
         public IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Func<WorkItem, bool> filter)
         {
             return
-                this.context.WorkItems.Include(x => x.Parent.Parent.Parent)
+                this._context.WorkItems.Include(x => x.Parent.Parent.Parent)
                     .Include(x => x.Children.Select(y => y.Children.Select(z => z.Children)))
                     .Include(x => x.Creator)
                     .Include(x => x.Executor)
@@ -60,13 +108,13 @@ namespace PMS.Model.Repositories
 
         public WorkItem Add(WorkItem workItem)
         {
-            return this.context.WorkItems.Add(workItem);
+            return this._context.WorkItems.Add(workItem);
         }
 
         public IEnumerable<UserItemsAggregateInfo> GetItemsAggregateInfoPerUser()
         {
-            var itemsUsers = this.context.Users.Where(x => !x.IsDeleted)
-                .GroupJoin(this.context.WorkItems, user => user.Id, item => item.ExecutorId, (user, item) => new {User = user, Item = item})
+            var itemsUsers = this._context.Users.Where(x => !x.IsDeleted)
+                .GroupJoin(this._context.WorkItems, user => user.Id, item => item.ExecutorId, (user, item) => new {User = user, Item = item})
                 .SelectMany(xy => xy.Item.DefaultIfEmpty(), (x, item) => new {x.User, Item = item})
                 .GroupBy(x => x.User, y => y.Item, (user, items) => new {User = user, Items = items}).ToDictionary(x => x.User, x => x.Items.Where(i=>i!=null).ToArray());
             return itemsUsers.Select(x => new UserItemsAggregateInfo
@@ -81,12 +129,12 @@ namespace PMS.Model.Repositories
 
         public int SaveChanges()
         {
-            return this.context.SaveChanges();
+            return this._context.SaveChanges();
         }
 
         public void Delete(WorkItem item)
         {
-            this.context.WorkItems.Remove(item);
+            this._context.WorkItems.Remove(item);
         }
 
         public ICollection<TreeNode> GetNodes(Func<IHierarchicalEntity, bool> whereExpression)
