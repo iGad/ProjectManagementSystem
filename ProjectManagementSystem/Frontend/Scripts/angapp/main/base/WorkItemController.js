@@ -20,9 +20,9 @@
 
         function getTypes() {
             WorkItemService.getTypes().then(function(content) {
-                $scope.types = angular.fromJson(content.data);
+                $scope.types = content.data;
                 if (!$scope.workItem.Type) {
-                    $scope.workItem.Type = $scope.types[1].Id; //TODO: сделать понятнее
+                    $scope.workItem.Type = $scope.types[1].Value; //TODO: сделать понятнее
                 }
                 $scope.typeChanged($scope.workItem.Type);
             }, Utils.onError);

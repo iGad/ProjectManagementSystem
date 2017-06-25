@@ -15,12 +15,14 @@ namespace ProjectManagementSystem.ViewModels
             State = new EnumViewModel<WorkItemState>(workItem.State);
             FinishDate = workItem.FinishDate?.ToString(Constants.DateTimeFormat);
             DeadLine = workItem.DeadLine.ToString(Constants.DateTimeFormat);
+            Description = workItem.Description;
             Executor = workItem.Executor != null ? new UserInfoViewModel(workItem.Executor) : null;
             IsDeadLineSoon = workItem.IsAtWork() && FinishDate == null && workItem.DeadLine > DateTime.Now && (workItem.DeadLine - DateTime.Now).TotalHours < 48;
             IsOverdue = workItem.IsAtWork() && FinishDate == null && workItem.DeadLine < DateTime.Now;
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public WorkItemType Type { get; set; }
         public UserInfoViewModel Executor { get; set; }
         public EnumViewModel<WorkItemState>  State { get; set; }

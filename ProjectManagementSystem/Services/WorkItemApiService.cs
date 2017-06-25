@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Common.Models;
 using Common.Services;
 using Newtonsoft.Json;
 using PMS.Model;
+using PMS.Model.CommonModels;
 using PMS.Model.CommonModels.EventModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
@@ -31,7 +34,13 @@ namespace ProjectManagementSystem.Services
             return new WorkItemViewModel(GetWithParents(id));
         }
 
-        
+        public TableCollectionModel<WorkItemTileViewModel> Find(SearchModel searchModel)
+        {
+            var collection = Get(searchModel).Select(x => new WorkItemTileViewModel(x)).ToList();
+            var totalCount = GetTotalItemCount(searchModel);
+
+            return new TableCollectionModel<WorkItemTileViewModel>{Collection = collection, TotalCount=totalCount};
+        }
 
         public Dictionary<string, List<WorkItemTileViewModel>> GetActualWorkItemModels()
         {
@@ -64,6 +73,12 @@ namespace ProjectManagementSystem.Services
                 }
             }
             return states.Select(x => new EnumViewModel<WorkItemState>(x)).ToList();
+        }
+
+        public List<EnumViewModel<WorkItemState>> GetAllStates()
+        {
+            var states = PMS.Model.Extensions.ToEnumList<WorkItemState>().Where(x=>x != WorkItemState.Deleted).Select(x => new EnumViewModel<WorkItemState>(x)).ToList();
+            return states;
         }
 
         public List<LinkedItemsCollection> GetLinkedWorkItemsForItem(int itemId)

@@ -193,6 +193,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PermissionsApiController.cs" />
+    <Compile Include="Controllers\SearchApiController.cs" />
     <Compile Include="Controllers\SettingsApiController.cs" />
     <Compile Include="Controllers\UsersApiController.cs" />
     <Compile Include="Controllers\WorkItemsApiController.cs" />

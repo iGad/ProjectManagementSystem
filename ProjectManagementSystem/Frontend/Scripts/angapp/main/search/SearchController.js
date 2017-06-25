@@ -98,11 +98,15 @@
             }
             if (isNeedResponse) {
                 $scope.isWaitingResult = true;
-                searchService.find(filterOptions).then(function(content) {
+                searchService.find(filterOptions).then(function (content) {
+                    if (content.data.TotalCount === 1) {
+                        utils.goToState('base.edit', { workItemId: content.data.Collection[0].Id }, $stateParams);
+                    } else {
                         $scope.result = content.data.Collection;
-                        replaceDateTime($scope.result);
                         $scope.totalItems = content.data.TotalCount;
                         $scope.isWaitingResult = false;
+                    }
+                        
                     },
                     utils.onError);
             }

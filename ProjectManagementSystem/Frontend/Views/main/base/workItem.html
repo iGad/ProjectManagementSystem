@@ -37,8 +37,8 @@
                             <md-input-container class="md-block">
                                 <label>Тип</label>
                                 <md-select ng-model="workItem.Type" required ng-change="typeChanged(workItem.Type);formChanged()" ng-disabled="!isNew || !canEdit">
-                                    <md-option ng-repeat="type in types" ng-value="type.Id">
-                                        {{type.Name}}
+                                    <md-option ng-repeat="type in types" ng-value="type.Value">
+                                        {{type.Description}}
                                     </md-option>
                                 </md-select>
                             </md-input-container>

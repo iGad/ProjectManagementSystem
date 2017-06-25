@@ -11,16 +11,19 @@
             </div>
             <div class="navbar-collapse collapse"  style="display: flex !important">
                
-                    <ul class="nav navbar-nav">
-                        <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{'active':activeIndex === 0}">Проекты</a></li>
-                        <li><a ui-sref="base.tasks" ui-sref-active="active" ng-class="{'active':activeIndex === 1}">Задачи</a></li>
-                        <li><a ui-sref="base.users" ui-sref-active="active" ng-class="{'active':activeIndex === 3}">Пользователи</a></li>
-                        <li><a ui-sref="base.events" ui-sref-active="active" ng-class="{'active':activeIndex === 4}">События {{unseenEventCount?('(' + unseenEventCount + ')') : ''}}</a></li>
-                        <li><a ui-sref="base.settings" ui-sref-active="active" ng-class="{'active':activeIndex === 2}">Настройки</a></li>
-                        <!--<li><a ui-sref="base.test" ui-sref-active="active" ng-class="{'active':activeIndex === 5}">Test</a></li>-->
-                    </ul>
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{'active':activeIndex === 0}">Проекты</a></li>
+                    <li><a ui-sref="base.search" ui-sref-active="active" ng-class="{'active':activeIndex === 1}">Поиск</a></li>
+                    <li><a ui-sref="base.users" ui-sref-active="active" ng-class="{'active':activeIndex === 3}">Пользователи</a></li>
+                    <li><a ui-sref="base.events" ui-sref-active="active" ng-class="{'active':activeIndex === 4}">События {{unseenEventCount?('(' + unseenEventCount + ')') : ''}}</a></li>
+                    <li><a ui-sref="base.settings" ui-sref-active="active" ng-class="{'active':activeIndex === 2}">Настройки</a></li>
+                    <!--<li><a ui-sref="base.test" ui-sref-active="active" ng-class="{'active':activeIndex === 5}">Test</a></li>-->
+                </ul>
 
             </div>
+        </div>
+        <div ng-controller="SearchMiniController" >
+            <input ng-model="searchText" placeholder="Поиск" enter-press="find()"/>
         </div>
         <div ng-controller="UserHeaderController" >
             <md-menu ng-if="User">

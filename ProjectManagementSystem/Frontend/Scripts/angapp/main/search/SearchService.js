@@ -1,7 +1,7 @@
 ﻿angapp.service("SearchService",
     [
-        "$http", "Utils", "UsersService", "WorkItemsService",
-        function($http, utils, usersService, workItemsService) {
+        "$http", "Utils", "UsersService", "WorkItemService",
+        function($http, utils, usersService, workItemService) {
             var baseUrl = '/SearchApi/';
 
 
@@ -13,13 +13,13 @@
                 });
             };
             this.getUsers = function() {
-                return usersService.getUsers();
+                return usersService.getAllUsers();
             };
             this.getWorkItemStates = function() {
-                return workItemsService.getStates();
+                return workItemService.getAllStates();
             };
             this.getWorkItemTypes = function () {
-                return workItemsService.getTypes();
+                return workItemService.getTypes();
             };
         }
     ]);

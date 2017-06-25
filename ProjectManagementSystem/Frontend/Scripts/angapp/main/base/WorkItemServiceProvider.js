@@ -84,6 +84,12 @@
             method: 'GET'
         });
     };
+    this.getAllStates = function() {
+        return $http({
+            url: workItemUrl + 'GetAllStates',
+            method: 'GET'
+        });
+    };
     this.getWorkItem = function (id) {
         return $http({
             url: workItemUrl + 'GetWorkItem',

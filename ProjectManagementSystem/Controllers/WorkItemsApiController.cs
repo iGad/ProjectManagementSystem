@@ -56,7 +56,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetWorkItemTypes()
         {
-            var types = Extensions.ToEnumList<WorkItemType>().Select(x=>new NamedEntity {Id = (int)x, Name = x.GetDescription()});
+            var types = Extensions.ToEnumList<WorkItemType>().Select(x => new EnumViewModel<WorkItemType>(x));
             return CreateJsonResult(types);
         }
 
@@ -108,6 +108,12 @@ namespace ProjectManagementSystem.Controllers
                 _workItemService.GetStatesViewModels(User.IsInRole(Resources.Director) || User.IsInRole(Resources.MainProjectEngineer) || User.IsInRole(Resources.Admin),
                     User.IsInRole(Resources.Manager));
             return CreateJsonResult(states);
+        }
+
+        [HttpGet]
+        public ActionResult GetAllStates()
+        {
+            return Json(_workItemService.GetAllStates(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

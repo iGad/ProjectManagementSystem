@@ -44,8 +44,8 @@
     <div layout="row" layout-sm="column" layout-align="space-around" ng-if="isWaitingResult">
         <md-progress-circular md-mode="determinate"></md-progress-circular>
     </div>
-    <div ng-repeat="item in result" ng-if="!isWaitingResult && result.length">
-        <ng-include ng-repeat="workItem in projects" src="'Frontend/Views/main/search/resultItemRowTemplate.html'"></ng-include>
+    <div  ng-if="!isWaitingResult && result.length">
+        <ng-include ng-repeat="workItem in result" src="'Frontend/Views/main/search/resultItemRowTemplate.html'"></ng-include>
     </div>
     <div ng-if="!isWaitingResult && !result.length">
         Результатов нет
