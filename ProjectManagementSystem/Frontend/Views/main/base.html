@@ -1,5 +1,5 @@
 ﻿<div id="body-container">
-    <div layout="row" layout-align="space-around" class="header navbar navbar-default" style="z-index:inherit">
+    <div layout="row" layout-align="space-around" class="header navbar navbar-default" style="z-index: inherit; align-items:center" >
         <div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div ng-controller="SearchMiniController" >
-            <input ng-model="searchText" placeholder="Поиск" enter-press="find()"/>
+            <input id="searchMiniInput" class="form-control" ng-model="searchText" placeholder="Поиск" enter-press="find()"/>
         </div>
         <div ng-controller="UserHeaderController" >
             <md-menu ng-if="User">

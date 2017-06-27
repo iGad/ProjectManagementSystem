@@ -18,9 +18,9 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Find(SearchModel serchModel)
+        public ActionResult Find(SearchModel searchModel)
         {
-            return Json(_workItemApiService.Find(serchModel), JsonRequestBehavior.AllowGet);
+            return Json(_workItemApiService.Find(searchModel), JsonRequestBehavior.AllowGet);
         }
     }
 }

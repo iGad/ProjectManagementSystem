@@ -18,7 +18,7 @@ md-input-container {
 }
 
 .without-errors .md-errors-spacer {
-    min-height: 1px !important;
+    display: none;
 }
 
 .workitem-container {

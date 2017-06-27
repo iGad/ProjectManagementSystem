@@ -93,8 +93,8 @@
             var filterOptions = angular.copy($scope.filterOptions);
             filterOptions.Sorting = { FieldName: filterOptions.FieldName, Direction: filterOptions.Direction === 'asc' ? 0 : 1 };
             var isNeedResponse = false;
-            for (var i = 0; i < propertyList.length; i++) {
-                isNeedResponse = isNeedResponse || filterOptions[propertyList[i]];
+            for (var i = 0; i < propertyList.length && !isNeedResponse; i++) {
+                isNeedResponse = filterOptions[propertyList[i]];
             }
             if (isNeedResponse) {
                 $scope.isWaitingResult = true;

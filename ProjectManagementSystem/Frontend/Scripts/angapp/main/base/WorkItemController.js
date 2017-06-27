@@ -143,17 +143,17 @@
              $scope.isTask = false;
              $scope.workItemName = 'Название';
              switch (workItemType) {
-                 case $scope.types[0].Id:
+                 case $scope.types[0].Value:
                      $scope.isProject = true;
                      $scope.workItemName = 'Номер';
                      break;
-                 case $scope.types[1].Id:
+                 case $scope.types[1].Value:
                      $scope.isStage = true;
                      break;
-                 case $scope.types[2].Id:
+                 case $scope.types[2].Value:
                      $scope.isPartition = true;
                      break;
-                 case $scope.types[3].Id:
+                 case $scope.types[3].Value:
                      $scope.isTask = true;
                      break;
              }
@@ -217,7 +217,7 @@
              if (typeId) {
                  setFlags(typeId);
                  getUsers(typeId);
-                 if (typeId !== $scope.types[0].Id && !$scope.projects)
+                 if (typeId !== $scope.types[0].Value && !$scope.projects)
                      getProjects();
              }
          };
@@ -241,13 +241,13 @@
          $scope.save = function () {
              var parentId;
              switch ($scope.workItem.Type) {
-                 case $scope.types[1].Id:
+                 case $scope.types[1].Value:
                      parentId = $scope.parentProjectId;
                      break;
-                 case $scope.types[2].Id:
+                 case $scope.types[2].Value:
                      parentId = $scope.parentStageId;
                      break;
-                 case $scope.types[3].Id:
+                 case $scope.types[3].Value:
                      parentId = $scope.parentPartitionId;
                      break;
              }
