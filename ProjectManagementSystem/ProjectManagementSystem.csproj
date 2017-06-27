@@ -204,6 +204,7 @@
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataGeneratorParameters.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="NotificationResources.Designer.cs">
@@ -217,6 +218,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\DataGenerator.cs" />
     <Compile Include="Services\EventsApiService.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\NotificationService.cs" />

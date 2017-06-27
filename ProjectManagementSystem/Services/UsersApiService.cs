@@ -119,7 +119,8 @@ namespace ProjectManagementSystem.Services
             return _userRepository.GetRoles().Select(x => new RoleViewModel
             {
                 Name = x.Name,
-                Id = x.Id
+                Id = x.Id,
+                RoleCode = x.RoleCode
             }).ToArray();
         }
     }
