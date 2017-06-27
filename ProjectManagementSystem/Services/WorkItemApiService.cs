@@ -144,6 +144,7 @@ namespace ProjectManagementSystem.Services
 
         public override WorkItem Add(WorkItem workItem)
         {
+            workItem.CreatorId = _userService.GetCurrentUser().Id;
             var item = base.Add(workItem);
             NotifyOnAdded(item);
             return item;
