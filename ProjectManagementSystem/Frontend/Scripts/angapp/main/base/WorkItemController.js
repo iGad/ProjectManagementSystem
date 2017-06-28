@@ -23,13 +23,17 @@
                 $scope.types = content.data;
                 if (!$scope.workItem.Type) {
                     $scope.workItem.Type = $scope.types[1].Value; //TODO: сделать понятнее
-                }
+                } else 
+                    if (!$scope.types.filter(x => x.Value === $scope.workItem.Type).length) {
+                        $scope.types.splice(0, 0, $scope.workItem.Type);
+                    }
+                
                 $scope.typeChanged($scope.workItem.Type);
             }, Utils.onError);
         };
 
 
-        $scope.$on("WorkItemChanged", function(event, workItem) {
+        var workItemChangedHandler = $scope.$on("WorkItemChanged", function(event, workItem) {
             if (workItem.Id === $scope.workItem.Id) {
                 $mdDialog.show(
                     $mdDialog.alert()
@@ -41,6 +45,10 @@
                     .ok('ОК')
                 );
             }
+        });
+
+        $scope.$on("$destroy", function () {
+            workItemChangedHandler();
         });
 
 
@@ -256,6 +264,8 @@
              $scope.workItem.DeadLine.setMinutes($scope.workItem.DeadLineMinutes);
              $scope.workItem.DeadLine.setSeconds(0);
              if (!$scope.isNew) {
+                 workItemChangedHandler();
+                 workItemChangedHandler = undefined;
                  WorkItemService.updateWorkItem($scope.workItem).then(function () {
                      goToReturnState();
                  }, Utils.onErrorWithMessageBox);

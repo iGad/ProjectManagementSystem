@@ -1,6 +1,6 @@
 ﻿angapp.controller('SeenEventsController', [
-    '$scope', '$state', '$stateParams', '$location', "uiGridConstants", 'EventsService', 'Utils',
-    function ($scope, $state, $stateParams, $location, uiGridConstants, eventsService, utils) {
+    '$scope', '$state', '$stateParams', '$location', "uiGridConstants", 'EventsService', 'UsersService', 'Utils',
+    function ($scope, $state, $stateParams, $location, uiGridConstants, eventsService, usersService, utils) {
         var onError = function (err) {
             console.error(err);
         };
@@ -21,8 +21,24 @@
             return result;
         };
 
-        $scope.filterOptions = getFilterOptions($stateParams, ['ItemsIds']);
+        function getUsers() {
+            usersService.getAllUsers().then(function(content) {
+                $scope.users = content.data;
+                    if ($scope.filterOptions.UsersIds) {
+                        for (var i = 0; i < $scope.filterOptions.UsersIds.length; i++) {
+                            var user = $scope.users.filter(x => x.Id === $scope.filterOptions.UsersIds[i])[0];
+                            if (user)
+                                user.isSelected = true;
+                        }
+                    }
+                },
+                utils.onError);
+        }
+
+        $scope.filterOptions = utils.parseStateParams($state.$current.url.pattern, $stateParams, ['ItemsIds', 'UsersIds']);
         $scope.filter = $scope.filterOptions;
+
+        getUsers();
 
         $scope.getUserInfo = function(user) {
             return utils.getUserInfo(user);
@@ -35,8 +51,8 @@
 
         $scope.clearFilter = function(propertyName) {
             if (propertyName) {
-                $scope.filter[propertyName] = undefined;
-                $scope.filterOptions[propertyName] = undefined;
+                $scope.filter[propertyName] = null;
+                $scope.filterOptions[propertyName] = null;
             } else {
                 $scope.filter = {};
                 $scope.filterOptions = {};

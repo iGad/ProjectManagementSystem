@@ -55,11 +55,15 @@ namespace PMS.Model.Repositories
 
         private IQueryable<WorkItem> CreateFilterQuery(SearchModel searchModel)
         {
-            var query = _context.WorkItems.AsQueryable();
+            var query = _context.WorkItems.Include(x => x.Executor);
             int id;
             if (IsSearchTextNumber(searchModel.SearchText, out id))
             {
                 query = query.Where(x => x.Id == id);
+            }
+            else
+            {
+                query = query.Where(x => x.Name.Contains(searchModel.SearchText) || x.Description.Contains(searchModel.SearchText));
             }
             if (searchModel.States != null && searchModel.States.Any())
             {
@@ -71,7 +75,9 @@ namespace PMS.Model.Repositories
             }
             if (searchModel.UserIds != null && searchModel.UserIds.Any())
             {
-                query = query.Where(x => searchModel.UserIds.Contains(x.ExecutorId));
+                query =
+                    query.Where(x => searchModel.UserIds.Any(i => i.Equals(x.ExecutorId,
+                        StringComparison.InvariantCultureIgnoreCase)));
             }
             return query;
         }

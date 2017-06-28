@@ -17,6 +17,35 @@
         <md-content layout="column" layout-align="center center" ng-cloak>
             <h2><span>Что нужно сделать?</span></h2>
             <md-button aria-label="update btn" ng-click="update()" class="md-raised">Обновить</md-button>
+            <md-button aria-label="update btn" ng-click="generateUsers()" class="md-raised">Создать пользователей</md-button>
+            <div layout="row">
+                <md-input-container class="md-block">
+                    <label>Количество проектов</label>
+                    <input min="1" type="number" ng-model="parameters.ProjectCount"/>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Количество стадий</label>
+                    <input min="1" type="number" ng-model="parameters.StagesPerProjectCount" />
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Количество разделов от</label>
+                    <input min="1" type="number" ng-model="parameters.PartitionsPerStageFrom" />
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Количество разделов до</label>
+                    <input max="10" type="number" ng-model="parameters.PartitionsPerStageTo" />
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Количество задач от</label>
+                    <input min="1" type="number" ng-model="parameters.TasksPerPartitionFrom" />
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Количество задач до</label>
+                    <input max="10" type="number" ng-model="parameters.TasksPerPartitionTo" />
+                </md-input-container>
+            </div>
+            
+            <md-button aria-label="update btn" ng-click="generateItems()" class="md-raised">Создать рабочие элементы</md-button>
         </md-content>
     </div>
 

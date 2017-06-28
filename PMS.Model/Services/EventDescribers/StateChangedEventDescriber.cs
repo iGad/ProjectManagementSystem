@@ -45,6 +45,7 @@ namespace PMS.Model.Services.EventDescribers
             var text = "";
             switch (newState)
             {
+                case WorkItemState.New:
                 case WorkItemState.Planned:
                     text += IsUserAuthor ? $" {NotificationResources.HaveMovedToPlanned} " : $" {NotificationResources.MovedToPlanned} ";
                     break;

@@ -17,6 +17,7 @@ namespace ProjectManagementSystem.Export
             //compositionContainer.RegisterInstance<IHubConnectionContext<dynamic>>();
             compositionContainer.RegisterExport<SignalrClientsProvider>();
             compositionContainer.RegisterExport<NotificationService, INotifyService>();
+            compositionContainer.RegisterExport<DataGenerator>();
             //var notificationService = new NotificationService(GlobalHost.ConnectionManager.GetHubContext<NotificationHub>().Clients);
             //compositionContainer.RegisterInstance(notificationService);
         }

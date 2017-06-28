@@ -4,8 +4,12 @@
 
         $scope.searchText = '';
 
-        $scope.find = function() {
-            utils.goToState('base.search', { SearchText: $scope.searchText }, $stateParams);
+        $scope.find = function () {
+            var text = $scope.searchText;
+            $scope.searchText = null;
+            $('#searchMiniInput').blur();
+            utils.goToState('base.search', { SearchText: text }, $stateParams);
+            
         };
         
     }]);

@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 
 namespace ProjectManagementSystem.Services
 {
@@ -17,7 +16,7 @@ namespace ProjectManagementSystem.Services
         private readonly IUsersService _usersService;
         private readonly UsersApiService _usersApiService;
         private readonly WorkItemApiService _workItemsService;
-        private Random _random = new Random();
+        private readonly Random _random = new Random();
         private List<UserViewModel>_users;
         private RoleViewModel[] _roles;
 
@@ -45,7 +44,7 @@ namespace ProjectManagementSystem.Services
                 var user = new UserViewModel
                 {
                     Email = $"user{index}@pangea.ru",
-                    Name = $"Имя{index}",
+                    Name = $"Иван{index}",
                     Surname = $"Иванов{index}",
                     Roles = roles.Where(x => userRole.Contains(x.RoleCode)).ToList()
                 };
@@ -59,67 +58,90 @@ namespace ProjectManagementSystem.Services
             _roles = _usersApiService.GetRoles();
             var projects = GenerateProjects(parameters.ProjectCount);
             var stages = GenerateStages(projects, parameters.StagesPerProjectCount);
-            var partitions = GeneratePartitions(stages, parameters.PartitionsPerStateFrom, parameters.PartitionsPerStateTo);
+            var partitions = GeneratePartitions(stages, parameters.PartitionsPerStageFrom, parameters.PartitionsPerStageTo);
             GenerateTasks(partitions, parameters.TasksPerPartitionFrom, parameters.TasksPerPartitionTo);
         }
 
         private void GenerateTasks(WorkItem[] partitions, int tasksPerPartitionFrom, int tasksPerPartitionTo)
         {            
             foreach (var partition in partitions) {
-                var taskCount = _random.Next(tasksPerPartitionTo, tasksPerPartitionFrom + 1);
-                for (int i = 1; i <= taskCount; i++)
-                {
-                    WorkItem task = CreateItem(WorkItemType.Partition, i);
-                    task.ParentId = partition.Id;
-                    _workItemsService.Add(task);
-                }
+               var taskCount = _random.Next(tasksPerPartitionFrom, tasksPerPartitionTo + 1);
+                CreateItems(WorkItemType.Task, taskCount, partition);
             }
+        }
+
+        private IEnumerable<WorkItem> CreateItems(WorkItemType type, int count, WorkItem parent)
+        {
+            var items = new List<WorkItem>();
+            for (int i = 1; i <= count; i++)
+            {
+                WorkItem item = CreateItem(type, i, parent);
+                _workItemsService.Add(item);
+                var state = GenerateState(item);
+                _workItemsService.UpdateWorkItemState(item.Id, state);
+                items.Add(item);
+            }
+            return items;
+        }
+
+        private WorkItemState GenerateState(WorkItem item)
+        {
+            if(item.ExecutorId == null)
+                return WorkItemState.New;
+            var r = _random.Next(0, 4);
+            switch (r)
+            {
+                case 0: return WorkItemState.Planned;
+                case 1:
+                    return WorkItemState.AtWork;
+                case 2:
+                    return WorkItemState.Reviewing;
+                case 3:
+                    return WorkItemState.Done;
+            }
+            return WorkItemState.Archive;
         }
 
         private WorkItem[] GeneratePartitions(WorkItem[] stages, int partitionsPerStateFrom, int partitionsPerStateTo)
         {
-            var partitionCount = _random.Next(partitionsPerStateFrom, partitionsPerStateTo + 1);
-            var partitions = new WorkItem[partitionCount];
-            for (int i = 1; i <= partitionCount; i++)
+            var partitions = new List<WorkItem>();
+            foreach (var stage in stages)
             {
-                WorkItem partition = CreateItem(WorkItemType.Partition, i);
-                partitions[i - 1] = _workItemsService.Add(partition);
+                var partitionCount = _random.Next(partitionsPerStateFrom, partitionsPerStateTo + 1);
+                partitions.AddRange(CreateItems(WorkItemType.Partition, partitionCount, stage));
+               
             }
-            return partitions;
+            return partitions.ToArray();
         }
 
         private WorkItem[] GenerateStages(WorkItem[] projects, int stagesPerProjectCount)
         {
-            var stages = new WorkItem[stagesPerProjectCount];
-            for (int i = 1; i <= stagesPerProjectCount; i++)
+            var stages = new List<WorkItem>(projects.Length * stagesPerProjectCount);
+            foreach (var project in projects)
             {
-                WorkItem stage = CreateItem(WorkItemType.Stage, i);
-                stages[i - 1] = _workItemsService.Add(stage);
+                stages.AddRange(CreateItems(WorkItemType.Stage, stagesPerProjectCount, project));
             }
-            return stages;
+            
+            return stages.ToArray();
         }
 
         private WorkItem[] GenerateProjects(int projectCount)
         {
-            var projects = new WorkItem[projectCount];
-            for(int i = 1; i <= projectCount; i++)
-            {
-                WorkItem project = CreateItem(WorkItemType.Project, i);
-                projects[i - 1] = _workItemsService.Add(project);
-            }
-            return projects;
+            return CreateItems(WorkItemType.Project, projectCount, null).ToArray();
         }
 
-        private WorkItem CreateItem(WorkItemType type, int i)
+        private WorkItem CreateItem(WorkItemType type, int i, WorkItem parent = null)
         {
             var item = new WorkItem
             {
                 Type = type,
-                Name = GetItemName(type, i),
+                Name = GetItemName(type, i, parent),
                 Description = GenerateDescription(),
                 ExecutorId = GetExecutor(type),
                 DeadLine = GetDeadline()
             };
+            if (parent != null)
+                item.ParentId = parent.Id;
             return item;
         }
 
@@ -132,6 +154,7 @@ namespace ProjectManagementSystem.Services
         {
             var users = _users;
             IEnumerable<string> roleIds;
+            bool mayBeEmpty = false;
             switch (type)
             {
                 case WorkItemType.Project:
@@ -141,11 +164,13 @@ namespace ProjectManagementSystem.Services
                     break;
                 case WorkItemType.Partition:
                 case WorkItemType.Task:
+                    mayBeEmpty = true;
                     roleIds = _roles.Where(x => x.RoleCode == RoleType.Manager || x.RoleCode == RoleType.Executor).Select(x => x.Id);
                     users = users.Where(x => x.Roles.Any(r => roleIds.Contains(r.Id))).ToList();
                     break;
             }
-            return users[_random.Next(0, users.Count)].Id;
+            var isEmpty = mayBeEmpty && _random.Next(0, 4) == 0;
+            return isEmpty ? null : users[_random.Next(0, users.Count)].Id;
         }
 
         private string GenerateDescription()
@@ -162,13 +187,24 @@ namespace ProjectManagementSystem.Services
             return stringBuilder.ToString();
         }
 
-        private string GetItemName(WorkItemType type, int i)
+        private string GetItemName(WorkItemType type, int i, WorkItem parent)
         {            
             var name = LexicalHelper.GetWorkItemTypeInCase(type, "a") + i;
-            //switch (type)
-            //{
-            //    case WorkItemType.Stage: name = LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Project) + 
-            //}
+            switch (type)
+            {
+                case WorkItemType.Stage:
+                    name = parent.Name + " " + name;
+                    break;
+                case WorkItemType.Partition:
+                    name = LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Project, "a")+parent.ParentId + " " +
+                           parent.Name + " " + name;
+                    break;
+                case WorkItemType.Task:
+                    name = LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Project, "a") + " " +
+                           LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Stage, "a") + parent.ParentId+ " " +
+                           parent.Name + " " + name;
+                    break;
+            }
             return name;
         
         }

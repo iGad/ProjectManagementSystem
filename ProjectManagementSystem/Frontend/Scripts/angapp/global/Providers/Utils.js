@@ -33,7 +33,7 @@
                     var filterOptions = {};
                     for (var i = 0; i < propertyNames.length; i++) {
                         filterOptions[propertyNames[i]] = stateParams[propertyNames[i]];
-                        if (arrayPropertyNames && arrayPropertyNames.filter(x => x === propertyNames[i]).length && !Array.isArray(filterOptions[propertyNames[i]])) {
+                        if (stateParams[propertyNames[i]] && arrayPropertyNames && arrayPropertyNames.filter(x => x === propertyNames[i]).length && !Array.isArray(filterOptions[propertyNames[i]])) {
                             filterOptions[propertyNames[i]] = [filterOptions[propertyNames[i]]];
                         }
                     }

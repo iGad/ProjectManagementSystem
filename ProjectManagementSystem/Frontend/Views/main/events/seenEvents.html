@@ -1,17 +1,17 @@
 ﻿<md-content class="md-padding" ng-controller="SeenEventsController">
     <div>
         <md-list>
-            <md-list-item>
+            <md-list-item ng-click="null">
                 <span style="width: 8%">
                     <md-select style="max-width: 56px; margin: auto;" aria-label="favorite filter" ng-model="filter.IsFavorite" ng-change="applyFilter()">
                         <md-option></md-option>
                         <md-option ng-value="false"><md-icon md-svg-icon="action:grade"></md-icon></md-option>
                         <md-option ng-value="true"><md-icon md-svg-icon="action:grade" class="favorite"></md-icon></md-option>
-                    </md-select> 
+                    </md-select>
                 </span>
                 <span style="width: 15%">
                     Дата
-                   
+
                 </span>
                 <div style="width: 65%">
                     Описание
@@ -19,29 +19,47 @@
                         <md-button aria-label="Open filter menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
                             <md-icon md-menu-origin="" md-svg-icon="content:filter_list" ng-class="{'filter-applyed': isFilterApplyed}"></md-icon>
                         </md-button>
-                        <md-menu-content width="8">
+                        <md-menu-content width="6">
                             <md-menu-item>
-                                <md-datepicker ng-model="filter.DateStart" md-placeholder="Дата от"></md-datepicker>
+                                <md-input-container class="md-block without-errors">
+                                    <label>Дата от</label>
+                                    <md-datepicker ng-model="filter.DateStart" md-prevent-menu-close></md-datepicker>
+                                </md-input-container>
                             </md-menu-item>
                             <md-menu-item>
-                                <md-datepicker ng-model="filter.DateEnd" md-placeholder="Дата до"></md-datepicker>
+                                <md-input-container class="md-block without-errors">
+                                    <label>Дата до</label>
+                                    <md-datepicker ng-model="filter.DateEnd" md-prevent-menu-close></md-datepicker>
+                                </md-input-container>
                             </md-menu-item>
                             <md-menu-item>
-                                <div layout="row">
-                                    <input ng-model="filter.ItemsIds" enter-press="applyFilter()" placeholder="Номера элементов (123,...,521)"/>
-                                    <md-button ng-click="clearFilter('ItemsIds')">X</md-button>
+                                <div layout="column">
+                                    
+                                    <md-input-container class="md-block">
+                                        <label>Номера элементов (123,...,521)</label>
+                                        <input ng-model="filter.ItemsIds" enter-press="applyFilter()"/>
+                                    </md-input-container>
+                                    <!--<md-button aria-label="Open filter menu" class="md-icon-button" ng-click="clearFilter('ItemsIds')">
+                                        <md-icon md-menu-origin="" md-svg-icon="content:clear"></md-icon>
+                                    </md-button>-->
+                                    <!--<md-button ng-click="clearFilter('ItemsIds')" md-prevent-menu-close style="width:26px">X</md-button>-->
+                                    
                                 </div>
                             </md-menu-item>
                             <md-menu-item>
-                                <md-select aria-label="user filter" ng-model="filter.UserId" ng-change="applyFilter()">
+                                <!--<md-input-container>
+                                    <label>Дата до</label>-->
+                                <md-select placeholder="Пользователи" multiple aria-label="user filter" ng-model="filter.UserIds" ng-change="applyFilter()" md-prevent-menu-close>
                                     <md-option>Любой</md-option>
                                     <md-option ng-value="user.Id" ng-repeat="user in users">{{getUserInfo(user)}}</md-option>
-                                </md-select> 
+                                </md-select>
+                                <!--</md-input-container>-->
+
                             </md-menu-item>
                             <md-menu-item>
                                 <div layout="row" layout-align="space-around">
                                     <md-button ng-click="applyFilter()">Применить</md-button>
-                                    <md-button ng-click="clearFilter()">Сбросить все</md-button>
+                                    <md-button ng-click="clearFilter()" md-prevent-menu-close>Сбросить все</md-button>
                                 </div>
                             </md-menu-item>
                         </md-menu-content>

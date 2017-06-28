@@ -7,11 +7,11 @@ namespace ProjectManagementSystem.Models
 {
     public class DataGeneratorParameters
     {
-        public int ProjectCount { get; set; }
-        public int StagesPerProjectCount { get; set; }
-        public int PartitionsPerStateFrom { get; set; }
-        public int PartitionsPerStateTo { get; set; }
-        public int TasksPerPartitionFrom { get; set; }
-        public int TasksPerPartitionTo { get; set; }
+        public int ProjectCount { get; set; } = 1;
+        public int StagesPerProjectCount { get; set; } = 1;
+        public int PartitionsPerStageFrom { get; set; } = 1;
+        public int PartitionsPerStageTo { get; set; } = 1;
+        public int TasksPerPartitionFrom { get; set; } = 1;
+        public int TasksPerPartitionTo { get; set; } = 1;
     }
 }
