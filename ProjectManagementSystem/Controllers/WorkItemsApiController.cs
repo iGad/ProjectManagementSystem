@@ -63,7 +63,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetWorkItem(int id)
         {
-            var workItem = _workItemService.GetWithNoTracking(id);
+            var workItem = new WorkItemViewModel(_workItemService.GetWithParents(id));
             return CreateJsonResult(workItem);
         }
 

@@ -16,11 +16,11 @@
             method: "GET"
         });
     };
-    this.makeEventSeen = function () {
+    this.makeSeen = function (eventIds) {
         return $http({
-            url: baseUrl + 'ChangeEventState',
+            url: baseUrl + 'ChangeEventsState',
             method: "POST",
-            data: 1
+            data: { eventIds: eventIds, state: 1 }
         });
     };
     this.getUnseenEventCount = function () {

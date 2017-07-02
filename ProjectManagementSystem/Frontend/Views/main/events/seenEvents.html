@@ -23,13 +23,13 @@
                             <md-menu-item>
                                 <md-input-container class="md-block without-errors">
                                     <label>Дата от</label>
-                                    <md-datepicker ng-model="filter.DateStart" md-prevent-menu-close></md-datepicker>
+                                    <md-datepicker id="dateFrom" ng-model="filter.DateStartDate" ng-change="dateStartChange(filter.DateStartDate)"></md-datepicker>
                                 </md-input-container>
                             </md-menu-item>
                             <md-menu-item>
                                 <md-input-container class="md-block without-errors">
                                     <label>Дата до</label>
-                                    <md-datepicker ng-model="filter.DateEnd" md-prevent-menu-close></md-datepicker>
+                                    <md-datepicker id="dateTo" ng-model="filter.DateEndDate" ng-change="dateStartChange(filter.DateStartDate)"></md-datepicker>
                                 </md-input-container>
                             </md-menu-item>
                             <md-menu-item>
@@ -49,7 +49,7 @@
                             <md-menu-item>
                                 <!--<md-input-container>
                                     <label>Дата до</label>-->
-                                <md-select placeholder="Пользователи" multiple aria-label="user filter" ng-model="filter.UserIds" ng-change="applyFilter()" md-prevent-menu-close>
+                                <md-select style="margin: auto 0" placeholder="Пользователи" multiple aria-label="user filter" ng-model="filter.UserIds" md-prevent-menu-close="md-prevent-menu-close">
                                     <md-option>Любой</md-option>
                                     <md-option ng-value="user.Id" ng-repeat="user in users">{{getUserInfo(user)}}</md-option>
                                 </md-select>

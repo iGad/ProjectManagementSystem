@@ -31,7 +31,7 @@ namespace PMS.Model.Repositories
 
         public WorkItem GetByIdWithParents(int id)
         {
-            return this._context.WorkItems.AsNoTracking().Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
+            return this._context.WorkItems.AsNoTracking().Include(x => x.Executor).Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
         }
 
         public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)

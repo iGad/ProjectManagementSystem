@@ -36,13 +36,13 @@
             $scope.permissions = content.data;
         }, utils.onError);
 
-        function updateUnseenEventCount() {
+        $scope.updateUnseenEventCount = function() {
             eventsService.getUnseenEventCount().then(function (content) {
                 $scope.unseenEventCount = content.data;
             }, utils.onError);
         };
 
-        updateUnseenEventCount();
+        $scope.updateUnseenEventCount();
 
         $scope.activeIndex = getActiveStateIndex();
         $rootScope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
@@ -58,7 +58,7 @@
         // Create a function that the hub can call to broadcast messages.
         notificationHub.client.raiseEvent = function (eventName, params) {
             $scope.$broadcast(eventName, params);
-            updateUnseenEventCount();
+            $scope.updateUnseenEventCount();
         };
 
         notificationHub.client.recieveNotification = function (eventName, args) {

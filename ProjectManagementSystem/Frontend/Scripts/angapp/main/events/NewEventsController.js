@@ -17,15 +17,16 @@
                 for (var i = 0; i < $scope.events.length; i++) {
                     $scope.events[i].isSelected = value;
                 }
+                $scope.isAnySelected = value;
             }
         };
 
         function getIsAllSelected() {
             var isAllSelected = true;
             $scope.isAllSelected = false;
-            for (var i = 0; i < $scope.events.length && isAllSelected; i++) {
-                isAllSelected = $scope.events[i].isSelected;
-                $scope.isAnySelected = $scope.isAnySelected || isAllSelected;
+            for (var i = 0; i < $scope.events.length; i++) {
+                isAllSelected = $scope.events[i].isSelected && isAllSelected;
+                $scope.isAnySelected = $scope.isAnySelected || $scope.events[i].isSelected;
             }
             return isAllSelected;
         };
@@ -76,6 +77,7 @@
                 }
                 eventsService.makeSeen(ids).then(function() {
                     getData();
+                    $scope.updateUnseenEventCount();//IndexController
                 }, utils.onError);
             }
         };

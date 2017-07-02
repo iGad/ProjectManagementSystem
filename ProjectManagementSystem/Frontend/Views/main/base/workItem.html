@@ -82,7 +82,7 @@
                         </div>
                         <div layout-gt-xs="row">
                             <md-input-container class="md-block" flex="50">
-                                <label>Исполнитель</label>
+                                <label>{{workItemExecutorName}}</label>
                                 <md-select ng-model="workItem.ExecutorId"  ng-change="formChanged()" ng-disabled="!canEdit">
                                     <md-option value="">Отсутствует</md-option>
                                     <md-option ng-repeat="user in users" value="{{user.Id}}">

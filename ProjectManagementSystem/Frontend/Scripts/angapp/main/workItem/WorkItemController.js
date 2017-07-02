@@ -9,12 +9,18 @@
         function getStates() {
             WorkItemService.getStates().then(function(content) {
                 $scope.states = content.data;
+                if (!$scope.isNew && !$scope.states.filter(x => x.Value === $scope.workItem.State).length) {
+                    $scope.states.splice(0, 0, $scope.workItem.StateViewModel);
+                }
             }, Utils.onError);
         };
 
         function getUsers(typeId) {
             UsersService.getAllowedUsersForWorkItemType(typeId).then(function(content) {
                 $scope.users = angular.fromJson(content.data);
+                if (!$scope.isNew && $scope.workItem.ExecutorId && !$scope.users.filter(x => x.Id === $scope.workItem.ExecutorId).length) {
+                    $scope.users.splice(0, 0, $scope.workItem.Executor);
+                }
             }, Utils.onError);
         };
 
@@ -25,7 +31,7 @@
                     $scope.workItem.Type = $scope.types[1].Value; //TODO: сделать понятнее
                 } else 
                     if (!$scope.types.filter(x => x.Value === $scope.workItem.Type).length) {
-                        $scope.types.splice(0, 0, $scope.workItem.Type);
+                        $scope.types.splice(0, 0, $scope.workItem.TypeViewModel);
                     }
                 
                 $scope.typeChanged($scope.workItem.Type);
@@ -41,7 +47,7 @@
                     .title('Внимание')
                     .textContent('Данный рабочий элемент был кем-то изменен.\nЕсли вы сохраните изменения, то изменения, внесенные другим пользователем могут быть отменены.\
                   \nРекомендуется сохранить текстовые изменения в текстовый редактор и обновить страницу.')
-                    .ariaLabel('Alert Dialog Demo')
+                    .ariaLabel('Alert Dialog')
                     .ok('ОК')
                 );
             }
@@ -51,8 +57,34 @@
             workItemChangedHandler();
         });
 
+        if ($stateParams.workItemId) {
+            $scope.isNew = false;
+            WorkItemService.getWorkItem($stateParams.workItemId).then(function (content) {
+                $scope.workItem = angular.fromJson(content.data);
+                $scope.workItem.DeadLine = Utils.convertDateToJsDate($scope.workItem.DeadLine);
+                $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
+                $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
+                getStates();
+                getTypes();
+            }, Utils.onError);
+            //getUserPermissions();
+        } else {
+            $scope.isNew = true;
+            $scope.workItem = {
+                DeadLineHours: 17,
+                DeadLineMinutes: 0,
+                DeadLine: moment().add(1, 'days').toDate(),
+                Type: $stateParams.type
+            };
+            $scope.parentPartitionId = $stateParams.partitionId;
+            $scope.parentStageId = $stateParams.stageId;
+            $scope.parentProjectId = $stateParams.projectId;
+            //getUserPermissions();
+            getTypes();
+            getStates();
+        }
 
-        getStates();
+        
 
         $scope.isFormChanged = false;
         $scope.canEdit = false;
@@ -94,30 +126,7 @@
         //    }, Utils.onError);
         //};
 
-        if ($stateParams.workItemId) {
-            $scope.isNew = false;
-            WorkItemService.getWorkItem($stateParams.workItemId).then(function(content) {
-                $scope.workItem = angular.fromJson(content.data);
-                $scope.workItem.DeadLine = Utils.convertDateToJsDate($scope.workItem.DeadLine);
-                $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
-                $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
-                getTypes();
-            }, Utils.onError);
-            //getUserPermissions();
-        } else {
-            $scope.isNew = true;
-            $scope.workItem = {
-                DeadLineHours: 17,
-                DeadLineMinutes: 0,
-                DeadLine: moment().add(1, 'days').toDate(),
-                Type: $stateParams.type
-            };
-            $scope.parentPartitionId = $stateParams.partitionId;
-            $scope.parentStageId = $stateParams.stageId;
-            $scope.parentProjectId = $stateParams.projectId;
-            //getUserPermissions();
-            getTypes();
-        }
+        
 
 
         Object.defineProperty($scope, 'IsNew', {
@@ -150,10 +159,12 @@
              $scope.isPartition = false;
              $scope.isTask = false;
              $scope.workItemName = 'Название';
+             $scope.workItemExecutorName = 'Менеджер';
              switch (workItemType) {
                  case $scope.types[0].Value:
                      $scope.isProject = true;
                      $scope.workItemName = 'Номер';
+                     $scope.workItemExecutorName = 'ГИП';
                      break;
                  case $scope.types[1].Value:
                      $scope.isStage = true;
@@ -163,6 +174,7 @@
                      break;
                  case $scope.types[3].Value:
                      $scope.isTask = true;
+                     $scope.workItemExecutorName = 'Исполнитель';
                      break;
              }
              updatePermissionFlags();
@@ -173,14 +185,14 @@
          };
 
          $scope.getUserDisplayText = function (user) {
-             return UsersService.getUserDisplayText(user);
+             return Utils.getUserInfo(user);
          };
 
          function getPartitions(stageId) {
              WorkItemService.getChildItems(stageId).then(function (content) {
                  $scope.partitions = angular.fromJson(content.data);
                  if ($scope.partitions.length) {
-                     if ($scope.workItem.PartitionId && $scope.partitions.indexOf($scope.workItem.PartitionId) >= 0) {
+                     if ($scope.workItem.PartitionId && $scope.partitions.filter(x=>x.Id === $scope.workItem.PartitionId).length) {
                          $scope.parentPartitionId = $scope.workItem.PartitionId;
                      } else if (!$scope.parentPartitionId) {
                          $scope.parentPartitionId = $scope.partitions[0].Id;
@@ -193,7 +205,7 @@
              WorkItemService.getChildItems(projectId).then(function (content) {
                  $scope.stages = angular.fromJson(content.data);
                  if ($scope.stages.length) {
-                     if ($scope.workItem.StageId && $scope.stages.indexOf($scope.workItem.StageId) >= 0) {
+                     if ($scope.workItem.StageId && $scope.stages.filter(x=> x.Id === $scope.workItem.StageId).length) {
                          $scope.parentStageId = $scope.workItem.StageId;
                      } else if (!$scope.parentStageId) {
                          $scope.parentStageId = $scope.stages[0].Id;
@@ -207,7 +219,7 @@
              WorkItemService.getProjects().then(function (content) {
                  $scope.projects = angular.fromJson(content.data);
                  if ($scope.projects.length) {
-                     if ($scope.workItem.ProjectsId && $scope.projects.indexOf($scope.workItem.ProjectId) >= 0) {
+                     if ($scope.workItem.ProjectId && $scope.projects.filter(x=>x.Id === $scope.workItem.ProjectId).length) {
                          $scope.parentProjectId = $scope.workItem.ProjectId;
                      } else if (!$scope.parentProjectId) {
                          $scope.parentProjectId = $scope.projects[0].Id;
@@ -301,7 +313,7 @@
          };
 
          $scope.delete = function (ev) {
-             showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные о работе будут удалены', function () {
+             showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные об этом элементе будут удалены', function () {
                  WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, Utils.onErrorWithMessageBox);
              }, function () { });
          };

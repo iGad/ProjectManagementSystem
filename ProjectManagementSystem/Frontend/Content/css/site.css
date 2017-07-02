@@ -13,6 +13,15 @@ label {
     height: 100%;
 }
 
+/*Для того, чтобы select корректно работал в меню*/
+.md-select-menu-container.md-active {
+    z-index: 1000;
+}
+
+.md-select-backdrop.md-click-catcher {
+    z-index: 999;
+}
+
 md-input-container {
     margin-bottom: 0 !important;
 }

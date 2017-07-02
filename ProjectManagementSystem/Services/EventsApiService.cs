@@ -24,9 +24,12 @@ namespace ProjectManagementSystem.Services
             ChangeUserEventIsFavorite(eventId, user.Id, isFavorite);
         }
 
-        public void ChangeEventState(int eventId, EventState state)
+        public void ChangeEventsState(int[] eventIds, EventState state)
         {
-            ChangeUserEventState(eventId, GetCurrentUser().Id, state);
+            foreach (var eventId in eventIds)
+            {
+                ChangeUserEventState(eventId, GetCurrentUser().Id, state);
+            }
         }
     }
 }

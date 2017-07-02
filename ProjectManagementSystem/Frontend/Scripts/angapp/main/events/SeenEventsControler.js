@@ -1,9 +1,7 @@
 ﻿angapp.controller('SeenEventsController', [
     '$scope', '$state', '$stateParams', '$location', "uiGridConstants", 'EventsService', 'UsersService', 'Utils',
     function ($scope, $state, $stateParams, $location, uiGridConstants, eventsService, usersService, utils) {
-        var onError = function (err) {
-            console.error(err);
-        };
+        
         function getFilterOptions(stateParams, arrayPropertyNames) {
             var result = {};
             var propertyNames = $state.$current.url.pattern.split('?')[1].split('&');
@@ -69,7 +67,7 @@
         function reload() {
             var currentPath = $location.path().split('?')[0];
             $location.path(currentPath);
-            var params = angular.copy($scope.filterOptions);
+            var params = angular.copy($scope.filter);
             $location.search(params); //После этого действия проризойдет переход в новое состояние и данный контроллер заново создастся.
         };
 
@@ -105,8 +103,11 @@
                 $scope.totalItems = content.data.TotalCount;
                 $scope.totalPageCount = $scope.totalItems === 0 ? 1 : parseInt($scope.totalItems / $scope.filterOptions.PageSize) + ($scope.totalItems % $scope.filterOptions.PageSize !== 0 ? 1 : 0);
                 $scope.pagination = getPagination();
-            }, onError);
+                
+            }, utils.onError);
         };
 
+        utils.makeDatePickerPreventMenuClose("dateFrom");
+        utils.makeDatePickerPreventMenuClose("dateTo");
         getData();
     }]);

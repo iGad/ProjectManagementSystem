@@ -189,22 +189,8 @@ namespace ProjectManagementSystem.Services
 
         private string GetItemName(WorkItemType type, int i, WorkItem parent)
         {            
-            var name = LexicalHelper.GetWorkItemTypeInCase(type, "a") + i;
-            switch (type)
-            {
-                case WorkItemType.Stage:
-                    name = parent.Name + " " + name;
-                    break;
-                case WorkItemType.Partition:
-                    name = LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Project, "a")+parent.ParentId + " " +
-                           parent.Name + " " + name;
-                    break;
-                case WorkItemType.Task:
-                    name = LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Project, "a") + " " +
-                           LexicalHelper.GetWorkItemTypeInCase(WorkItemType.Stage, "a") + parent.ParentId+ " " +
-                           parent.Name + " " + name;
-                    break;
-            }
+            var name = parent?.Name??"" + " " + LexicalHelper.GetWorkItemTypeInCase(type, "n") + i;
+           
             return name;
         
         }

@@ -55,7 +55,14 @@ namespace ProjectManagementSystem.Controllers
         [HttpPost]
         public ActionResult ChangeEventState(int eventId, EventState state)
         {
-            _eventService.ChangeEventState(eventId, state);
+            _eventService.ChangeEventsState(new[] {eventId}, state);
+            return Json("OK");
+        }
+
+        [HttpPost]
+        public ActionResult ChangeEventsState(int[] eventIds, EventState state)
+        {
+            _eventService.ChangeEventsState(eventIds, state);
             return Json("OK");
         }
 
