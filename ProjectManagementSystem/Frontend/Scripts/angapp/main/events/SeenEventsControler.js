@@ -33,7 +33,7 @@
                 utils.onError);
         }
 
-        $scope.filterOptions = utils.parseStateParams($state.$current.url.pattern, $stateParams, ['ItemsIds', 'UsersIds']);
+        $scope.filterOptions = utils.parseStateParams($state.$current.url.pattern, $stateParams, ['UserIds']);
         $scope.filter = $scope.filterOptions;
 
         getUsers();

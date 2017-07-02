@@ -41,7 +41,7 @@ namespace PMS.Model.CommonModels.FilterModels
 
         public DateTimeRange DateRange { get; set; }
         public bool? IsFavorite { get; set; }
-        public string UserId { get; set; }
+        public string[] UserIds { get; set; }
         public string ItemsIds { get; set; }
     }
 }
