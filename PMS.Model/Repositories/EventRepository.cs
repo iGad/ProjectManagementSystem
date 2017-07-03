@@ -73,8 +73,8 @@ namespace PMS.Model.Repositories
         private IQueryable<EventUserModel> CreateUserEventsQueryWithFiltration(string userId, EventFilterModel filterModel)
         {
             var query = CreateUserEventsQuery(userId).Where(x=>x.State == EventState.Seen);
-            if (!string.IsNullOrWhiteSpace(filterModel.UserId))
-                query = query.Where(x => x.EventCreaterId == filterModel.UserId);
+            if (filterModel.UserIds != null && filterModel.UserIds.Any())
+                query = query.Where(x => filterModel.UserIds.Contains(x.EventCreaterId));
             if (filterModel.IsFavorite.HasValue)
                 query = query.Where(x => x.IsFavorite == filterModel.IsFavorite.Value);
             if (filterModel.ItemsIds != null)

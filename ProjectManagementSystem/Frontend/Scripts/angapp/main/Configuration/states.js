@@ -78,7 +78,7 @@ angapp.config(function ($stateProvider, $routeProvider) {
         },
         {
             name: 'base.events.seen',
-            url: '/seen?PageNumber&SortDirection&SortField&ItemsIds&DateStart&DateEnd$IsFavorite&UserId',
+            url: '/seen?PageNumber&SortDirection&SortField&ItemsIds&DateStart&DateEnd$IsFavorite&UserIds',
             templateUrl: 'Frontend/Views/main/events/seenEvents.html'
         },
         {
