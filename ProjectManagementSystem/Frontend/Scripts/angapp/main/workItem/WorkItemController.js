@@ -106,6 +106,7 @@
             $scope.canAddChildItem = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanCreateStage ||
                 $scope.isStage && $scope.Permissions.CanCreatePartition ||
                 $scope.isPartition && $scope.Permissions.CanCreateTask);
+            $scope.canEditExecutor = $scope.isTask || $scope.canEdit;
             //$scope.canDelete = !$scope.isNew && ($scope.isProject && $scope.Permissions.CanDeleteProject ||
             //    $scope.isStage && $scope.Permissions.CanDeleteStage ||
             //    $scope.isPartition && $scope.Permissions.CanDeletePartition ||

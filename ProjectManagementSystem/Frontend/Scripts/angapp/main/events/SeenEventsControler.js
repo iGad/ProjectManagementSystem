@@ -20,20 +20,29 @@
         };
 
         function getUsers() {
-            usersService.getAllUsers().then(function(content) {
+            usersService.getAllUsers().then(function (content) {
                 $scope.users = content.data;
-                    if ($scope.filterOptions.UsersIds) {
-                        for (var i = 0; i < $scope.filterOptions.UsersIds.length; i++) {
-                            var user = $scope.users.filter(x => x.Id === $scope.filterOptions.UsersIds[i])[0];
-                            if (user)
-                                user.isSelected = true;
-                        }
+                if ($scope.filterOptions.UserIds) {
+                    for (var i = 0; i < $scope.filterOptions.UserIds.length; i++) {
+                        var user = $scope.users.filter(x => x.Id === $scope.filterOptions.UserIds[i])[0];
+                        if (user)
+                            user.isSelected = true;
                     }
-                },
+                }
+            },
                 utils.onError);
-        }
+        };
+
+        function assignDate() {
+            if ($scope.filterOptions.DateStart)
+                $scope.DateStartDate = moment($scope.filterOptions.DateStart, "DD.MM.YYYY").toDate();
+            if ($scope.filterOptions.DateEnd)
+                $scope.DateEndDate = moment($scope.filterOptions.DateEnd, "DD.MM.YYYY").toDate();
+        };
 
         $scope.filterOptions = utils.parseStateParams($state.$current.url.pattern, $stateParams, ['UserIds']);
+        $scope.isFilterApplyed = $scope.filterOptions.UserIds && $scope.filterOptions.UserIds.length || $scope.filterOptions.DateStart || $scope.filterOptions.DateEnd || $scope.filterOptions.ItemsIds;
+        assignDate();
         $scope.filter = $scope.filterOptions;
 
         getUsers();
@@ -52,10 +61,18 @@
                 $scope.filter[propertyName] = null;
                 $scope.filterOptions[propertyName] = null;
             } else {
-                $scope.filter = {};
-                $scope.filterOptions = {};
+                $scope.filter = { IsFavorite: $scope.filter.IsFavorite };
+                $scope.filterOptions = { IsFavorite: $scope.filter.IsFavorite };
             }
             reload();
+        };
+
+        $scope.dateStartChange = function (date) {
+            $scope.filter.DateStart = moment(date).format('DD.MM.YYYY');
+        };
+
+        $scope.dateEndChange = function (date) {
+            $scope.filter.DateEnd = moment(date).format('DD.MM.YYYY');
         };
 
         function replaceDateTime(collection) {
@@ -101,7 +118,8 @@
                 $scope.events = content.data.Collection;
                 replaceDateTime($scope.events);
                 $scope.totalItems = content.data.TotalCount;
-                $scope.totalPageCount = $scope.totalItems === 0 ? 1 : parseInt($scope.totalItems / $scope.filterOptions.PageSize) + ($scope.totalItems % $scope.filterOptions.PageSize !== 0 ? 1 : 0);
+                var pageSize = $scope.filterOptions.PageSize && $scope.filterOptions.PageSize > 0 ? $scope.filterOptions.PageSize : 30;
+                $scope.totalPageCount = $scope.totalItems === 0 ? 1 : parseInt($scope.totalItems / pageSize) + ($scope.totalItems % pageSize !== 0 ? 1 : 0);
                 $scope.pagination = getPagination();
                 
             }, utils.onError);

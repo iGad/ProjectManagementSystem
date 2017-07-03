@@ -38,8 +38,17 @@
                             }
                         }
                         filterOptions.PageNumber = filterOptions.PageNumber || 1;
-                        //filterOptions.PageSize = filterOptions.PageSize || 30;
+                        filterOptions.PageSize = filterOptions.PageSize || 30;
                         return filterOptions;
+                    },
+                    isFilterApplyed: function(stateUrl, filterOptions, arrayPropertyNames){
+                        var propertyNames = stateUrl.split('?')[1].split('&');//получение массива имен возможных параметров
+                        for (var i = 0; i < propertyNames.length; i++) {                            
+                            if (filterOptions[propertyNames[i]] && (!arrayPropertyNames || arrayPropertyNames.filter(x => x === propertyNames[i]).length && filterOptions[propertyNames[i]].length)) {
+                                return true;
+                            }
+                        }
+                        return false;
                     },
                     goToReturnState: function (stateParams) {
                         if (!stateParams || !stateParams.returnStates || !stateParams.returnStates.length) {

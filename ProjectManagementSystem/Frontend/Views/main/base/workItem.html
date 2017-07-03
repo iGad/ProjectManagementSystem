@@ -18,7 +18,7 @@
                     </md-input-container>
                 </div>
                 <div layout="row" flex layout-align="end start">
-                    <md-button ng-click="save()" ng-disabled="addUpdateWorkItemForm.$invalid || !canEdit || !isFormChanged">
+                    <md-button ng-click="save()" ng-disabled="addUpdateWorkItemForm.$invalid || !canEdit && !canEditExecutor || !isFormChanged">
                         <md-icon md-svg-icon="content:save"></md-icon>
                         Сохранить
                     </md-button>
@@ -83,7 +83,7 @@
                         <div layout-gt-xs="row">
                             <md-input-container class="md-block" flex="50">
                                 <label>{{workItemExecutorName}}</label>
-                                <md-select ng-model="workItem.ExecutorId"  ng-change="formChanged()" ng-disabled="!canEdit">
+                                <md-select ng-model="workItem.ExecutorId"  ng-change="formChanged()" ng-disabled="!canEditExecutor">
                                     <md-option value="">Отсутствует</md-option>
                                     <md-option ng-repeat="user in users" value="{{user.Id}}">
                                         {{getUserDisplayText(user)}}

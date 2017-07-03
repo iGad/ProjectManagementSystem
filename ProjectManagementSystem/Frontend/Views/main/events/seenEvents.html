@@ -5,8 +5,8 @@
                 <span style="width: 8%">
                     <md-select style="max-width: 56px; margin: auto;" aria-label="favorite filter" ng-model="filter.IsFavorite" ng-change="applyFilter()">
                         <md-option></md-option>
-                        <md-option ng-value="false"><md-icon md-svg-icon="action:grade"></md-icon></md-option>
-                        <md-option ng-value="true"><md-icon md-svg-icon="action:grade" class="favorite"></md-icon></md-option>
+                        <md-option ng-value="'false'"><md-icon md-svg-icon="action:grade"></md-icon></md-option>
+                        <md-option ng-value="'true'"><md-icon md-svg-icon="action:grade" class="favorite"></md-icon></md-option>
                     </md-select>
                 </span>
                 <span style="width: 15%">
@@ -23,13 +23,13 @@
                             <md-menu-item>
                                 <md-input-container class="md-block without-errors">
                                     <label>Дата от</label>
-                                    <md-datepicker id="dateFrom" ng-model="filter.DateStartDate" ng-change="dateStartChange(filter.DateStartDate)"></md-datepicker>
+                                    <md-datepicker id="dateFrom" ng-model="DateStartDate" ng-change="dateStartChange(DateStartDate)"></md-datepicker>
                                 </md-input-container>
                             </md-menu-item>
                             <md-menu-item>
                                 <md-input-container class="md-block without-errors">
                                     <label>Дата до</label>
-                                    <md-datepicker id="dateTo" ng-model="filter.DateEndDate" ng-change="dateStartChange(filter.DateStartDate)"></md-datepicker>
+                                    <md-datepicker id="dateTo" ng-model="DateEndDate" ng-change="dateEndChange(DateEndDate)"></md-datepicker>
                                 </md-input-container>
                             </md-menu-item>
                             <md-menu-item>

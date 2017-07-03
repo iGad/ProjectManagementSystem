@@ -188,8 +188,8 @@ namespace ProjectManagementSystem.Services
         }
 
         private string GetItemName(WorkItemType type, int i, WorkItem parent)
-        {            
-            var name = parent?.Name??"" + " " + LexicalHelper.GetWorkItemTypeInCase(type, "n") + i;
+        {
+            var name = (parent?.Name ?? "") + " " + LexicalHelper.GetWorkItemTypeInCase(type, "n") + i;
            
             return name;
         
