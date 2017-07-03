@@ -7,7 +7,9 @@ namespace PMS.Model.Services
     /// </summary>
     public abstract class EventDescriber
     {
-        protected bool IsCurrentUser { get; private set; }
+        /// <summary>
+        /// Флаг, указывающий, что пользователь, для которого готовится описание, является автором события
+        /// </summary>
         protected bool IsUserAuthor { get; private set; }
         /// <summary>
         /// Проверка на то, может ли конкретный класс описать событие определенного типа
@@ -20,15 +22,15 @@ namespace PMS.Model.Services
         /// Получить описание события
         /// </summary>
         /// <param name="workEvent">Событие</param>
-        /// <param name="currentUser">Текущий пользователь</param>
+        /// <param name="forUser">Пользователь, для которого необходимо описание события</param>
         /// <returns></returns>
-        public string DescribeEvent(WorkEvent workEvent, ApplicationUser forUser, ApplicationUser currentUser)
+        public string DescribeEvent(WorkEvent workEvent, ApplicationUser forUser)
         {
             if (!CanDescribeEventType(workEvent.Type))
                 throw new PmsException($"Can not describe event with type {workEvent.Type}");
-            IsCurrentUser = currentUser.Id == forUser.Id;
+            //IsCurrentUser = currentUser.Id == forUser.Id;
             IsUserAuthor = forUser.Id == workEvent.UserId;
-            CurrentUser = currentUser;
+            CurrentUser = forUser;
             return GetDescription(workEvent, forUser);
         }
 

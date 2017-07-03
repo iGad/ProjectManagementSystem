@@ -46,7 +46,7 @@ namespace PMS.Model.Repositories
 
         public IEnumerable<EventUserModel> GetNewEventsForUser(string userId)
         {
-            var query = CreateUserEventsQuery(userId).Where(x => x.State == EventState.New);
+            var query = CreateUserEventsQuery(userId).Where(x => x.State == EventState.New).OrderByDescending(x => x.Date);
             return query;
         }
 

@@ -24,7 +24,7 @@ namespace PMS.Model.Services.EventDescribers
                 throw new PmsException("Error in event model");
             var item = this._workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             var text = GetStartText(forUser);
-            text += IsCurrentUser ? $" {NotificationResources.HaveDisappointed} " : $" {NotificationResources.Disappointed} ";
+            text += IsUserAuthor ? $" {NotificationResources.HaveDisappointed} " : $" {NotificationResources.Disappointed} ";
             text += $"{LexicalHelper.GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()} c пользователя {user.GetUserIdentityText()}.";
             return text;
         }

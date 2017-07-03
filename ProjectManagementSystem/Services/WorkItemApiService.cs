@@ -21,8 +21,9 @@ namespace ProjectManagementSystem.Services
         private readonly IUsersService _userService;
         private readonly INotifyService _notifyService;
         private readonly IEventService _eventService;
-        public WorkItemApiService(IWorkItemRepository repository, IUsersService userService, INotifyService notifyService, IEventService eventService) 
-            :base(repository)
+        public WorkItemApiService(IWorkItemRepository repository, IUsersService userService, INotifyService notifyService, 
+            IEventService eventService, ISettingsValueProvider settingsProvider) 
+            :base(repository, settingsProvider)
         {
             _userService = userService;
             _notifyService = notifyService;

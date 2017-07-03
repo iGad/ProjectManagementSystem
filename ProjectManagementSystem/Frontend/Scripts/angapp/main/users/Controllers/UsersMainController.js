@@ -1,8 +1,6 @@
 ﻿angapp.controller('UsersMainController', [
-    '$scope', '$mdDialog', "uiGridConstants", 'UsersService', function ($scope, $mdDialog, uiGridConstants, UsersService) {
-    var onError = function(err) {
-        console.error(err);
-    };
+    '$scope', '$mdDialog', "uiGridConstants", 'UsersService', 'Utils',
+    function ($scope, $mdDialog, uiGridConstants, UsersService, utils) {
     $scope.users = [];
     $scope.moveToPage = 1;
     $scope.gridOptions = {
@@ -21,7 +19,7 @@
         multiSelect: false,
         modifierKeysToMultiSelect: false,
         noUnselect: true,
-        paginationPageSize: 20,
+        paginationPageSize: 30,
     };  //UsersService.getDefaultGridOptions();
 
     $scope.gridOptions.onRegisterApi = function (gridApi) {
@@ -99,6 +97,19 @@
         });
     }
 
+
+    function getPagination() {
+        var pagination = utils.getPagination();
+        pagination.getRecordCount = function () { return $scope.users.length; };
+        pagination.getTotalItems = function () { return $scope.users.length; };
+        pagination.getPage = function () { return 1 };
+        pagination.getTotalPages = function () { return 1 };
+        pagination.seek = function (page) {  };
+        pagination.previousPage = function () {  };
+        pagination.nextPage = function () { };
+        return pagination;
+    };
+
     $scope.add = function (ev) {
         var user = {Roles:[]};
        
@@ -106,7 +117,7 @@
             UsersService.addUser(edittedUser, edittedUser.Password).then(function (result) {
                 var newUser = angular.fromJson(result.data);
                 $scope.gridOptions.data.push(newUser);
-            }, onError);
+            }, utils.onError);
         });
     }
 
@@ -120,7 +131,7 @@
                 dialog(ev, user, function (edittedUser) {
                     UsersService.updateUser(edittedUser).then(function () {
                         $scope.gridOptions.data[index] = edittedUser;
-                    }, onError);
+                    }, utils.onError);
                 });
             }
         }
@@ -143,18 +154,19 @@
                      .then(function () {
                          $scope.gridOptions.data.splice(index, 1);
                      });
-                },onError);
+                }, utils.onError);
             }
         }
     };
 
 
-    function getUsers() {
+    function reload() {
         UsersService.getAllUsers().then(function(content) {
             $scope.users = angular.fromJson(content.data);
             $scope.gridOptions.data = $scope.users;
-        }, onError);
+            $scope.pagination = getPagination();
+        }, utils.onError);
     }
 
-    getUsers();
+    reload();
 }]);

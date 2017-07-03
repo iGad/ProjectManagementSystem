@@ -113,7 +113,7 @@ namespace PMS.Model.Services
         public string GetEventDescription(WorkEvent workEvent, ApplicationUser forUser)
         {
             var describer = this._describers.Single(x => x.CanDescribeEventType(workEvent.Type));
-            return describer.DescribeEvent(workEvent, forUser, GetCurrentUser());
+            return describer.DescribeEvent(workEvent, forUser);
         }
 
         public TableCollectionModel<EventDisplayModel> GetEventsForCurrentUser(EventFilterModel filter)

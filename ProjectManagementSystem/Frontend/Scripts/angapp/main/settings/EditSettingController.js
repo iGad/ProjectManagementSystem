@@ -4,6 +4,9 @@
 
         
         $scope.setting = angular.copy(setting);
+        if ($scope.setting.Type === 1 && $scope.setting.Value !== undefined) {
+            $scope.setting.Value = parseInt($scope.setting.Value);
+        }
 
         $scope.save = function () {
             $mdDialog.hide($scope.setting);
@@ -14,7 +17,6 @@
         }
 
         $scope.cancel = function () {
-            $scope.A = 0;
             $mdDialog.cancel();
         };
     }]);

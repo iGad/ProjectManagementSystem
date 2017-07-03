@@ -15,7 +15,7 @@ namespace PMS.Model.Services.EventDescribers
 
         protected override string GetActionString()
         {
-            return IsCurrentUser ? NotificationResources.HaveDeleted : NotificationResources.Deleted;
+            return IsUserAuthor ? NotificationResources.HaveDeleted : NotificationResources.Deleted;
         }
     }
 }

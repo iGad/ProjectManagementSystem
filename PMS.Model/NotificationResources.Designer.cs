@@ -340,7 +340,7 @@ namespace PMS.Model {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Стадии.
+        ///   Looks up a localized string similar to Стадию.
         /// </summary>
         public static string StageA {
             get {
@@ -349,7 +349,7 @@ namespace PMS.Model {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Стадию.
+        ///   Looks up a localized string similar to Стадии.
         /// </summary>
         public static string StageG {
             get {

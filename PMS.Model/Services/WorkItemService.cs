@@ -12,10 +12,12 @@ namespace PMS.Model.Services
     public class WorkItemService
     {
         private readonly IWorkItemRepository _repository;
+        private readonly ISettingsValueProvider _settingsProvider;
 
-        public WorkItemService(IWorkItemRepository repository)
+        public WorkItemService(IWorkItemRepository repository, ISettingsValueProvider settingsProvider)
         {
-            this._repository = repository;
+            _repository = repository;
+            _settingsProvider = settingsProvider;
         }
 
         protected IWorkItemRepository Repository => this._repository;
@@ -111,15 +113,17 @@ namespace PMS.Model.Services
         public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems()
         {
             var states = GetActualStates();
+            var itemsPerStateCount = int.Parse(_settingsProvider.GetSettingValue(SettingType.MaxDisplayWorkItemCount));
             var items = this._repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
-            return states.ToDictionary(state => state, state => items.Where(x => x.State == state).ToList());
+            return states.ToDictionary(state => state, state => items.Where(x => x.State == state).OrderBy(x => x.DeadLine).Take(itemsPerStateCount).ToList());
         }
 
         public Dictionary<WorkItemState, List<WorkItem>> GetActualWorkItems(string userId)
         {
-            var states = new[] { WorkItemState.New, WorkItemState.Planned, WorkItemState.AtWork, WorkItemState.Reviewing, WorkItemState.Done };
+            var states = GetActualStates(); ;
+            var itemsPerStateCount = int.Parse(_settingsProvider.GetSettingValue(SettingType.MaxDisplayWorkItemCount));
             var items = this._repository.GetItemsWithExecutor(x => x.ExecutorId == userId && states.Contains(x.State)).ToList();
-            return states.ToDictionary(state => state, state => items.Where(x => x.State == state).ToList());
+            return states.ToDictionary(state => state, state => items.Where(x => x.State == state).OrderBy(x => x.DeadLine).Take(itemsPerStateCount).ToList());
         }
 
         public List<WorkItemState> GetStates()

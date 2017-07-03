@@ -56,7 +56,8 @@ namespace ProjectManagementSystem.Services
             viewModel.Roles.AddRange(roles.Select(x => new RoleViewModel
             {
                 Id = x.Id,
-                Name = x.Name
+                Name = x.Name,
+                RoleCode = x.RoleCode
             }));
             return viewModel;
         }

@@ -18,6 +18,15 @@
             }
         };
 
+        $scope.menuVisibility = {
+            main: true,
+            search: true,
+            projects: true,
+            events: true,
+            settings: false,
+            users: false
+        };
+
         Object.defineProperty($scope, 'User', {
             get: function () { return $scope.user; },
             set: function (value) { $scope.user = value; }
@@ -30,6 +39,10 @@
 
         usersService.getCurrentUser().then(function (content) {
             $scope.user = content.data;
+            if ($scope.user.Roles.filter(x=>x.RoleCode === 3 || x.RoleCode === 4).length) {
+                $scope.menuVisibility.settings = true;
+                $scope.menuVisibility.users = true;
+            }
         }, utils.onError);
 
         usersService.getUserPermissions().then(function(content) {
