@@ -1,7 +1,7 @@
-﻿var angapp = angular.module("authapp", ['ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages'])
+﻿//var angapp = angular.module("authapp", ['ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages'])
 //.config(['$locationProvider', function ($locationProvider) { $locationProvider.html5Mode({ enabled: true, requireBase: false }); }])
-.controller("authController", ['$scope', '$http', 'authProvider', '$window', '$location',
-    function ($scope, $http, authProvider, $window, $location) {
+angapp.controller("LoginController", ['$scope', '$state', '$stateParams', '$http', 'authProvider', '$window', '$location',
+    function ($scope, $state, $stateParams, $http, authProvider, $window, $location) {
     $scope.email = "";
     $scope.password = "";
     $scope.rememberMe = false;
@@ -14,8 +14,8 @@
             Email: $scope.email,
             Password: $scope.password,
             RememberMe: $scope.rememberMe
-        }
-        var returnUrl;
+        };
+        var returnUrl = $stateParams.returnUrl;
         var returnUrlUgly = $location.absUrl().split('ReturnUrl=')[1];
         if (returnUrlUgly)
             returnUrl = "/" + returnUrlUgly.split('&')[0];
