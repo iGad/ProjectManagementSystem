@@ -9,12 +9,12 @@ namespace PMS.Model.Services.Notifications
     /// <summary>
     /// Поставщик пользователей, которым нужно сообщить о возникновении события
     /// </summary>
-    public class UsersForEventNotificationsProvider : IUsersForEventNotificationsProvider
+    public class EventNotificatorsUsersProvider : IEventNotificatorsUsersProvider
     {
         private readonly IUsersService _usersService;
         private readonly IWorkItemRepository _workItemRepository;
 
-        public UsersForEventNotificationsProvider(IUsersService usersService, IWorkItemRepository workItemRepository)
+        public EventNotificatorsUsersProvider(IUsersService usersService, IWorkItemRepository workItemRepository)
         {
             _usersService = usersService;
             _workItemRepository = workItemRepository;
@@ -30,17 +30,12 @@ namespace PMS.Model.Services.Notifications
                 case EventType.WorkItemAdded:
                 case EventType.WorkItemDeleted:
                 case EventType.WorkItemCommentAdded:
-                    if(!@event.ObjectId.HasValue)
-                        throw new PmsException("Не указан идентификатор рабочего элемента");
+                    // ReSharper disable once PossibleInvalidOperationException
+                    // Проверяется перед вызовом метода
                     var workItem = _workItemRepository.GetByIdNoTracking(@event.ObjectId.Value);
                     return GetResponsibleUsers(workItem).Distinct(new ApplicationUserEqualityComparer()).ToList();
                 case EventType.WorkItemAppointed:
-                    if (string.IsNullOrWhiteSpace(@event.Data))
-                        throw new PmsException("В поле Data не содержится идентификатор пользователя");
-                    return new List<ApplicationUser> { _usersService.Get(@event.Data) };
                 case EventType.WorkItemDisappointed:
-                    if (string.IsNullOrWhiteSpace(@event.Data))
-                        throw new PmsException("В поле Data не содержится идентификатор пользователя");
                     return new List<ApplicationUser> { _usersService.Get(@event.Data) };
                 case EventType.User:
                     break;

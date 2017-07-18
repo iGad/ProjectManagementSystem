@@ -7,12 +7,13 @@ using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
+    [System.Web.Http.Authorize]
     public class PermissionsApiController : Controller
     {
         private readonly IUserPermissionsRepository _permissionsRepository;
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
 
-        public PermissionsApiController(IUserPermissionsRepository permissionsRepository, UsersService usersService)
+        public PermissionsApiController(IUserPermissionsRepository permissionsRepository, IUsersService usersService)
         {
             _permissionsRepository = permissionsRepository;
             _usersService = usersService;

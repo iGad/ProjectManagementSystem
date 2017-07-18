@@ -22,11 +22,12 @@
     @Scripts.Render("~/bundles/uigrid")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/site")
+    @Scripts.Render("~/bundles/login")
     @Scripts.Render("~/bundles/global")
     <script src="/signalr/hubs"></script>
     @*<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>*@ @*для кэширования автокомплита*@
 </head>
-<body style="display: flex">
+<body style="display: flex" ng-app="angapp">
     @RenderBody()
 
    

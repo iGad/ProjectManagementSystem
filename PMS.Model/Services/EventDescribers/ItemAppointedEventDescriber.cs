@@ -5,11 +5,11 @@ namespace PMS.Model.Services.EventDescribers
     public class ItemAppointedEventDescriber : EventDescriber
     {
         private readonly WorkItemService _workItemService;
-        private readonly UsersService _userService;
-        public ItemAppointedEventDescriber(WorkItemService workItemService, UsersService userService)
+        private readonly IUsersService _userService;
+        public ItemAppointedEventDescriber(WorkItemService workItemService, IUsersService userService)
         {
-            this._workItemService = workItemService;
-            this._userService = userService;
+            _workItemService = workItemService;
+            _userService = userService;
         }
 
         public override bool CanDescribeEventType(EventType eventType)
@@ -19,7 +19,7 @@ namespace PMS.Model.Services.EventDescribers
 
         protected override string GetDescription(WorkEvent workEvent, ApplicationUser forUser)
         {
-            var appointedUser = this._userService.Get(workEvent.Data);
+            var appointedUser = _userService.Get(workEvent.Data);
             if(appointedUser == null)
                 throw new PmsException("Invalid event data. Must be Id.");
             var appointedUserText = appointedUser.Id == forUser.Id
@@ -27,8 +27,8 @@ namespace PMS.Model.Services.EventDescribers
                 : " пользователю " + appointedUser.GetUserIdentityText();
             if (!workEvent.ObjectId.HasValue)
                 throw new PmsException("Error in event model");
-            var user = this._userService.Get(workEvent.UserId);
-            var item = this._workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
+            var user = _userService.Get(workEvent.UserId);
+            var item = _workItemService.GetWithNoTracking(workEvent.ObjectId.Value);
             var text = GetStartText(user);
             text += IsUserAuthor ? $" {NotificationResources.HaveAppointed} " : $" {NotificationResources.Appointed} ";
             text += appointedUserText + $"{LexicalHelper.GetWorkItemTypeInCase(item.Type, "a")} {item.GetWorkItemIdentityText()}.";

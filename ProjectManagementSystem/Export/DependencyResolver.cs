@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using Common.DI;
@@ -27,7 +28,15 @@ namespace ProjectManagementSystem.Export
         /// <param name="serviceType">The type of the requested service or object.</param>
         public object GetService(Type serviceType)
         {
-            return _container.TryResolveInstance(serviceType);
+            try
+            {
+                return _container.ResolveInstance(serviceType);
+            }
+            catch (DependencyInjectionException e)
+            {
+                Debugger.Log(1000, "DI", e.ToString());
+                return null;
+            }
         }
 
         /// <summary>
@@ -39,7 +48,15 @@ namespace ProjectManagementSystem.Export
         /// <param name="serviceType">The type of the requested services.</param>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return _container.ResolveInstances(serviceType).ToList();
+            try
+            {
+                return _container.ResolveInstances(serviceType);
+            }
+            catch (DependencyInjectionException e)
+            {
+                Debugger.Log(1000, "DI", e.ToString());
+                return null;
+            }
         }
     }
 }

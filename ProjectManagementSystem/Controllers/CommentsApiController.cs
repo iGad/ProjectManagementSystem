@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PMS.Model.Models;
@@ -6,16 +7,14 @@ using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     public class CommentsApiController : Controller
     {
         private readonly CommentsService _service;
-        private readonly UsersService _usersService;
 
-        public CommentsApiController(CommentsService service, UsersService usersService)
+        public CommentsApiController(CommentsService service)
         {
             _service = service;
-            _usersService = usersService;
         }
 
         [HttpGet]

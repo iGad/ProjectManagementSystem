@@ -1,0 +1,1514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="66c13ff6-7d93-46df-8083-6abe102912e8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectManagementSystem/.idea/contentModel.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectManagementSystem/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectManagementSystem/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.idea.ProjectManagementSystem/riderModule.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/LoginHttpInterceptor.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Views/login/login.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PMS.Model/Services/Notifications/IUsersForEventNotificationsProvider.cs" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PMS.Model/Services/Notifications/UsersForEventProvider.cs" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/login/authapp.js" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/login/LoginController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model.UnitTests/PMS.Model.UnitTests.csproj" afterPath="$PROJECT_DIR$/PMS.Model.UnitTests/PMS.Model.UnitTests.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Export/Export.cs" afterPath="$PROJECT_DIR$/PMS.Model/Export/Export.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Extensions.cs" afterPath="$PROJECT_DIR$/PMS.Model/Extensions.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/PMS.Model.csproj" afterPath="$PROJECT_DIR$/PMS.Model/PMS.Model.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Services/CommentsService.cs" afterPath="$PROJECT_DIR$/PMS.Model/Services/CommentsService.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Services/EventDescribers/ItemAppointedEventDescriber.cs" afterPath="$PROJECT_DIR$/PMS.Model/Services/EventDescribers/ItemAppointedEventDescriber.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Services/Notifications/DatabaseEventNotificator.cs" afterPath="$PROJECT_DIR$/PMS.Model/Services/Notifications/DatabaseEventNotificator.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Services/Notifications/EventNotificator.cs" afterPath="$PROJECT_DIR$/PMS.Model/Services/Notifications/EventNotificator.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMS.Model/Services/Notifications/NotificationService.cs" afterPath="$PROJECT_DIR$/PMS.Model/Services/Notifications/NotificationService.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/ProjectManagementSystem.UnitTests.csproj" afterPath="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/ProjectManagementSystem.UnitTests.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/Services/WorkItemApiServiceTests.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/Services/WorkItemApiServiceTests.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/UnitTest1.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/UnitTest1.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/CommentsApiController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/CommentsApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/HomeController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/HomeController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/PermissionsApiController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/PermissionsApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/SearchApiController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/SearchApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/SettingsApiController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/SettingsApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/UsersApiController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/UsersApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/WorkItemsApiController.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Controllers/WorkItemsApiController.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/states.js" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/states.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/index/UserHeaderController.js" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/index/UserHeaderController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/ProjectManagementSystem.csproj" afterPath="$PROJECT_DIR$/ProjectManagementSystem/ProjectManagementSystem.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Views/Home/Index.cshtml" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Views/Home/Index.cshtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProjectManagementSystem/Views/Shared/_Layout.cshtml" afterPath="$PROJECT_DIR$/ProjectManagementSystem/Views/Shared/_Layout.cshtml" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="states.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/states.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PermissionsApiController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/PermissionsApiController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+              <folding>
+                <marker date="1500404646212" expanded="false" signature="6:137" ph="..." />
+                <marker date="1500404646212" expanded="true" signature="184:1165" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="273:1163" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="528:650" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="718:1156" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthorizeAttribute.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F99F496C-B0D2-49C1-A945-C1FCABCE1695/0e/5f30edce/AuthorizeAttribute.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeController.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/HomeController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+              <folding>
+                <marker date="1500404793368" expanded="true" signature="68:616" ph="{...}" />
+                <marker date="1500404793368" expanded="true" signature="131:614" ph="{...}" />
+                <marker date="1500404793368" expanded="true" signature="200:316" ph="{...}" />
+                <marker date="1500404793368" expanded="true" signature="353:469" ph="{...}" />
+                <marker date="1500404793368" expanded="true" signature="508:608" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchApiController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/SearchApiController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+              <folding>
+                <marker date="1500404201385" expanded="false" signature="6:189" ph="..." />
+                <marker date="1500404201385" expanded="true" signature="236:724" ph="{...}" />
+                <marker date="1500404201385" expanded="true" signature="304:722" ph="{...}" />
+                <marker date="1500404201385" expanded="true" signature="450:524" ph="{...}" />
+                <marker date="1500404201385" expanded="true" signature="602:716" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkItemsApiController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/WorkItemsApiController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+              <folding>
+                <marker date="1500404645089" expanded="false" signature="6:301" ph="..." />
+                <marker date="1500404645089" expanded="true" signature="348:5639" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="439:5637" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="769:921" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="999:1165" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="1247:1431" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="1539:1662" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="1733:1831" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="1897:2072" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="2139:2293" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="2354:2524" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="2603:2743" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="2811:2963" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="3042:3146" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="3231:3389" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="3448:3763" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="3825:3933" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="4018:4308" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="4203:4298" ph="/* Parent ... */" />
+                <marker date="1500404645089" expanded="true" signature="4373:4521" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="4587:4695" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="4742:5220" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="4832:5103" ph="{...}" />
+                <marker date="1500404645089" expanded="true" signature="5292:5622" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UsersApiController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/UsersApiController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="21" column="48" lean-forward="false" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+              <folding>
+                <marker date="1500392456740" expanded="false" signature="6:369" ph="..." />
+                <marker date="1500392456740" expanded="true" signature="416:7254" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="483:7252" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="785:907" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="958:1241" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="984:1141" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="1165:1231" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="1292:1377" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="1454:1538" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="1645:2196" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="2260:2611" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="2391:2601" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="2669:3109" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="2738:3099" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="2896:3084" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="3167:3637" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="3236:3627" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="3438:3612" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="3730:4217" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="3799:4207" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="4016:4192" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="4296:4759" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="4365:4749" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="4561:4734" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="4833:5298" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="4902:5288" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="5100:5273" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="5373:5887" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="5442:5877" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="5685:5862" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="5977:6171" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="6259:6522" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="6354:6449" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="6638:7246" ph="{...}" />
+                <marker date="1500392456740" expanded="true" signature="6661:7011" ph="/* var queriedPermissions = actions.Select(x =&gt; (PermissionType) x).ToArray(); ... */" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventsApiController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/EventsApiController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <marker date="1500304561685" expanded="false" signature="6:207" ph="..." />
+                <marker date="1500304561685" expanded="true" signature="254:2879" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="322:2877" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="780:982" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="1088:1325" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="1401:1520" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="1603:1729" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="1824:1945" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="2041:2161" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="2261:2374" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="2453:2871" ph="{...}" />
+                <marker date="1500304561685" expanded="true" signature="2592:2784" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/BaseController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding>
+                <marker date="1499263699526" expanded="false" signature="6:61" ph="..." />
+                <marker date="1499263699526" expanded="true" signature="108:999" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="155:997" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="222:303" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="372:633" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="398:459" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="495:623" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="690:991" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="716:817" ph="{...}" />
+                <marker date="1499263699526" expanded="true" signature="853:981" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CommentsApiController.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/CommentsApiController.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="64">
+              <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="31" />
+              <folding>
+                <marker date="1500404646212" expanded="true" signature="6:137" ph="..." />
+                <marker date="1500404646212" expanded="true" signature="184:1037" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="270:1035" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="390:442" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="536:658" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="746:850" ph="{...}" />
+                <marker date="1500404646212" expanded="true" signature="932:1029" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/SettingsApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/UsersApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/HomeController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/BaseController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/DataUpdaterController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/PMS.Model/Services/DataUpdater.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/PMS.Model.UnitTests/Services/Notifications/DatabaseEventNotificatorTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/PMS.Model/Services/CommentsService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Views/Home/Index.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F99F496C-B0D2-49C1-A945-C1FCABCE1695/0e/5f30edce/AuthorizeAttribute.cs" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/PMS.Model/Services/UsersService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem.UnitTests/UnitTest1.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Services/WorkItemApiService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Common/DI/ICompositionContainer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Views/Shared/_Layout.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Common/DI/NinjectCompositionContainer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/PMS.Model/Services/EventDescribers/ItemAppointedEventDescriber.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Views/Account/Login.cshtml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Export/Export.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/PMS.Model/Export/Export.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/CommentsApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/PermissionsApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/WorkItemsApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/SearchApiController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/EventsApiController.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs" />
+        <option value="$PROJECT_DIR$/PMS.Model/Services/CommentsService.cs" />
+        <option value="$PROJECT_DIR$/PMS.Model/Services/EventDescribers/ItemAppointedEventDescriber.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/SettingsApiController.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/UsersApiController.cs" />
+        <option value="$PROJECT_DIR$/PMS.Model/Export/Export.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem.UnitTests/UnitTest1.cs" />
+        <option value="$PROJECT_DIR$/PMS.Model.UnitTests/Services/Notifications/DatabaseEventNotificatorTests.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/LoginHttpInterceptor.js" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Views/login/login.html" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/index/UserHeaderController.js" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/login/authapp.js" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/login/LoginController.js" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Views/Home/Index.cshtml" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Views/Shared/_Layout.cshtml" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/states.js" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/SearchApiController.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/CommentsApiController.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/PermissionsApiController.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/WorkItemsApiController.cs" />
+        <option value="$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F99F496C-B0D2-49C1-A945-C1FCABCE1695/0e/5f30edce/AuthorizeAttribute.cs" />
+        <option value="$PROJECT_DIR$/ProjectManagementSystem/Controllers/HomeController.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Shared" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Home" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Account" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Views" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angapp" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angapp" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angapp" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Configuration" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scripts" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="angapp" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="login" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Frontend" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controllers" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProjectManagementSystem (6 projects)" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Common" />
+              <option name="myItemType" value="com.jetbrains.rider.projectView.solutionExplorer.SolutionExplorerNodeRider" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected=".NET Project.ProjectManagementSystem">
+    <configuration default="false" name="ProjectManagementSystem" type="DotNetProject" factoryName=".NET Project" temporary="true">
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/ProjectManagementSystem/ProjectManagementSystem.csproj" />
+      <option name="PROJECT_KIND" value="Web" />
+      <option name="PROJECT_TFM" value=".NETFramework,Version=v4.5.2" />
+      <option name="EXE_PATH" value="C:/Program Files/IIS Express/iisexpress.exe" />
+      <option name="PROGRAM_PARAMETERS" value="/config:$PROJECT_DIR$/.idea/config/applicationhost.config /site:ProjectManagementSystem /apppool:Clr4IntegratedAppPool" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ProjectManagementSystem" />
+      <option name="USE_MONO" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="DotNetProject" factoryName=".NET Project">
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="USE_MONO" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="false" name="Default" type="DotNetProject" factoryName=".NET Project">
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROJECT_KIND" value="None" />
+      <option name="PROJECT_TFM" value="" />
+      <option name="EXE_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="USE_MONO" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue=".NET Project.Default" />
+      <item index="1" class="java.lang.String" itemvalue=".NET Project.ProjectManagementSystem" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue=".NET Project.ProjectManagementSystem" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="66c13ff6-7d93-46df-8083-6abe102912e8" name="Default" comment="" />
+      <created>1500391514337</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1500391514337</updated>
+      <workItem from="1500391516211" duration="5343000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5343000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Errors In Solution" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.50208336" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Unit Tests" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.49791667" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="NuGet" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294979" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs</url>
+          <line>36</line>
+          <properties startOffset="1214" endOffset="1253" documentPath="$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs</url>
+          <line>56</line>
+          <properties startOffset="1832" endOffset="1871" documentPath="$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="6" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Export/DependencyResolver.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="58" column="13" lean-forward="false" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+          <folding>
+            <marker date="1500391941892" expanded="false" signature="6:131" ph="..." />
+            <marker date="1500391941892" expanded="true" signature="173:1932" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="180:327" ph="/// Свой DependencyResolver вместо стандартного. Позволяет использовать зависимости в конструкторе контроллера ... " />
+            <marker date="1500391941892" expanded="true" signature="388:1930" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="493:648" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="658:963" ph="/// Resolves singly registered services that support arbitrary object creation. ... " />
+            <marker date="1500391941892" expanded="true" signature="1014:1306" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="1040:1132" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="1183:1296" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="1316:1566" ph="/// Resolves multiply registered services. ... " />
+            <marker date="1500391941892" expanded="true" signature="1631:1924" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="1657:1750" ph="{...}" />
+            <marker date="1500391941892" expanded="true" signature="1801:1914" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/DI/NinjectCompositionContainer.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1979">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1499263699467" expanded="false" signature="6:107" ph="..." />
+            <marker date="1499263699467" expanded="true" signature="128:5938" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="135:217" ph="/// Обертка для DI-контейнера на базе Ninject ... " />
+            <marker date="1499263699467" expanded="true" signature="299:5936" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="314:384" ph="/// Сам Ninject контейнер ... " />
+            <marker date="1499263699467" expanded="true" signature="449:532" ph="/// Создает и инициализирует контейнер ... " />
+            <marker date="1499263699467" expanded="true" signature="577:643" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="653:807" ph="/// Регистрирует public тип TExport как сервис  ... " />
+            <marker date="1499263699467" expanded="true" signature="895:963" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="982:1218" ph="/// Регистрирует public тип TRegister как сервис TExport ... " />
+            <marker date="1499263699467" expanded="true" signature="1355:1430" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="1440:1676" ph="/// Регистрирует экземляр типа public TInstance как сервис  ... " />
+            <marker date="1499263699467" expanded="true" signature="1788:1870" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="1880:2186" ph="/// Регистрирует экземляр типа public TExport как сервис TExport ... " />
+            <marker date="1499263699467" expanded="true" signature="2343:2423" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="2433:2628" ph="/// Возвращает зарегистрированный как TExport.  ... " />
+            <marker date="1499263699467" expanded="true" signature="2712:2988" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="2738:2815" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="2857:2978" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="2998:3200" ph="/// Возвращает объект по заданому типу  ... " />
+            <marker date="1499263699467" expanded="true" signature="3255:3532" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="3281:3359" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="3401:3522" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="3542:3761" ph="/// Возвращает список зарегистрированных как TExport объектов.  ... " />
+            <marker date="1499263699467" expanded="true" signature="3853:4143" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="3879:3969" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4011:4133" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4153:4371" ph="/// Возвращает набор объектов по заданому типу  ... " />
+            <marker date="1499263699467" expanded="true" signature="4434:4725" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4460:4551" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4593:4715" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4735:4805" ph="/// Освобождение ресурсов ... " />
+            <marker date="1499263699467" expanded="true" signature="4835:4989" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4880:4979" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="4999:5312" ph="/// Возвращает экземепляр зарегистрированного сервиса. Если разрешить невозможно - возвращает null. ... " />
+            <marker date="1499263699467" expanded="true" signature="5370:5439" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="5449:5695" ph="/// Регистрирует тип TRegister как сервис TExport в скоупе запроса ... " />
+            <marker date="1499263699467" expanded="true" signature="5838:5930" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/DI/ICompositionContainer.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="1" column="33" lean-forward="false" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
+          <folding>
+            <marker date="1499263699467" expanded="false" signature="6:47" ph="..." />
+            <marker date="1499263699467" expanded="true" signature="68:3785" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="75:139" ph="/// Интерфейс DI-контейнера ... " />
+            <marker date="1499263699467" expanded="true" signature="182:3783" ph="{...}" />
+            <marker date="1499263699467" expanded="true" signature="197:344" ph="/// Регистрирует тип TExport как сервис  ... " />
+            <marker date="1499263699467" expanded="true" signature="428:657" ph="/// Регистрирует тип TRegister как сервис TExport ... " />
+            <marker date="1499263699467" expanded="true" signature="790:1036" ph="/// Регистрирует тип TRegister как сервис TExport в скоупе запроса ... " />
+            <marker date="1499263699467" expanded="true" signature="1183:1412" ph="/// Регистрирует экземляр типа TInstance как сервис  ... " />
+            <marker date="1499263699467" expanded="true" signature="1520:1819" ph="/// Регистрирует экземляр типа TExport как сервис TExport ... " />
+            <marker date="1499263699467" expanded="true" signature="1972:2334" ph="/// Возвращает зарегистрированный сервис (синглтон) типа TExport.  ... " />
+            <marker date="1499263699467" expanded="true" signature="2422:2753" ph="/// Возвращает объект по заданому типу  ... " />
+            <marker date="1499263699467" expanded="true" signature="2812:3125" ph="/// Возвращает экземепляр зарегистрированного сервиса. Если разрешить невозможно - возвращает null. ... " />
+            <marker date="1499263699467" expanded="true" signature="3187:3406" ph="/// Возвращает список зарегистрированных как TExport объектов.  ... " />
+            <marker date="1499263699467" expanded="true" signature="3502:3720" ph="/// Возвращает набор объектов по заданому типу  ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PMS.Model/Services/DataUpdater.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding>
+            <marker date="1499263699491" expanded="false" signature="6:132" ph="..." />
+            <marker date="1499263699491" expanded="true" signature="162:2527" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="193:2525" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="331:410" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="440:490" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="529:1945" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="586:1343" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="632:940" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="986:1328" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="1483:1883" ph="{...}" />
+            <marker date="1499263699491" expanded="true" signature="2042:2519" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/DataUpdaterController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="18" column="64" lean-forward="false" selection-start-line="18" selection-start-column="64" selection-end-line="18" selection-end-column="64" />
+          <folding>
+            <marker date="1499263699527" expanded="false" signature="6:244" ph="..." />
+            <marker date="1499263699527" expanded="true" signature="291:1859" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="361:1857" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="673:850" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="901:1184" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="927:1084" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="1108:1174" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="1239:1286" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="1343:1425" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="1489:1614" ph="{...}" />
+            <marker date="1499263699527" expanded="true" signature="1712:1851" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Services/WorkItemApiService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="24" column="143" lean-forward="false" selection-start-line="24" selection-start-column="143" selection-end-line="24" selection-end-column="143" />
+          <folding>
+            <marker date="1500304677628" expanded="false" signature="6:446" ph="..." />
+            <marker date="1500304677628" expanded="true" signature="490:13472" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="546:13470" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="1025:1185" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="1239:1321" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="1411:1707" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="1797:1884" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="2027:2191" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="2294:2386" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="2494:3076" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="2717:2981" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="2767:2967" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="3142:3359" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="3441:4152" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="3682:3840" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="4214:4486" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="4536:4606" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="4624:4932" ph="/// Получение всех пользователей, кому необходимо сообщить о событии. ... " />
+            <marker date="1500304677628" expanded="true" signature="5009:5904" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="5311:5681" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="5985:6118" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="6128:13453" ph="Overrides" />
+            <marker date="1500304677628" expanded="true" signature="6202:6390" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="6441:7547" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="6735:7390" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="7052:7376" ph="/* SendNotificationToResponsibleUsers(addedEvent, item, user.Id, executor.Id); ... */" />
+            <marker date="1500304677628" expanded="true" signature="7594:7926" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="8036:10394" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="8377:9709" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="8506:9012" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="8747:8994" ph="/* disappointEvent = _eventService.AddEvent(disappointEvent, new[] {oldExecutor.Id}); ... */" />
+            <marker date="1500304677628" expanded="true" signature="9050:9513" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="9279:9495" ph="/* _eventService.AddEvent(appointEvent, new[] { executor.Id }); ... */" />
+            <marker date="1500304677628" expanded="true" signature="9547:9695" ph="/* SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id, oldExecutor?.Id, executor?.Id); ... */" />
+            <marker date="1500304677628" expanded="true" signature="9782:10201" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="10482:10765" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="10538:10754" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="10860:11100" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="10916:11089" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="11110:11624" ph="/* private void SendNotificationToResponsibleUsers(WorkEvent @event, WorkItem workItem, params string[] exceptUse ... */" />
+            <marker date="1500304677628" expanded="true" signature="11739:12718" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="12064:12508" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="12229:12494" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="12806:13054" ph="{...}" />
+            <marker date="1500304677628" expanded="true" signature="13113:13433" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Export/Export.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="15" column="63" lean-forward="false" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+          <folding>
+            <marker date="1500304561696" expanded="false" signature="6:250" ph="..." />
+            <marker date="1500304561696" expanded="true" signature="292:1243" ph="{...}" />
+            <marker date="1500304561696" expanded="true" signature="339:1241" ph="{...}" />
+            <marker date="1500304561696" expanded="true" signature="424:1235" ph="{...}" />
+            <marker date="1500304561696" expanded="true" signature="1029:1225" ph="/* var notificationService = new SignalrNotificator(GlobalHost.ConnectionManager.GetHubContext&lt;NotificationHub&gt;() ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PMS.Model/Services/UsersService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <folding>
+            <marker date="1499263699497" expanded="false" signature="6:129" ph="..." />
+            <marker date="1499263699497" expanded="true" signature="159:2656" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="207:2654" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="504:644" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="725:1268" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="917:1038" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="1086:1160" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="1315:1503" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="1554:1622" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="1685:1906" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="1955:2308" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="2378:2494" ph="{...}" />
+            <marker date="1499263699497" expanded="true" signature="2562:2648" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PMS.Model/Services/CommentsService.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="31" column="25" lean-forward="false" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+          <folding>
+            <marker date="1500392391050" expanded="false" signature="6:136" ph="..." />
+            <marker date="1500392391050" expanded="true" signature="166:1692" ph="{...}" />
+            <marker date="1500392391050" expanded="true" signature="201:1690" ph="{...}" />
+            <marker date="1500392391050" expanded="true" signature="409:509" ph="{...}" />
+            <marker date="1500392391050" expanded="true" signature="566:840" ph="{...}" />
+            <marker date="1500392391050" expanded="true" signature="917:1006" ph="{...}" />
+            <marker date="1500392391050" expanded="true" signature="1055:1684" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PMS.Model/Services/EventDescribers/ItemAppointedEventDescriber.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="28" column="63" lean-forward="false" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
+          <folding>
+            <marker date="1500392391042" expanded="true" signature="69:1687" ph="{...}" />
+            <marker date="1500392391042" expanded="true" signature="133:1685" ph="{...}" />
+            <marker date="1500392391042" expanded="true" signature="354:462" ph="{...}" />
+            <marker date="1500392391042" expanded="true" signature="534:615" ph="{...}" />
+            <marker date="1500392391042" expanded="true" signature="711:1679" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/SettingsApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="14" column="71" lean-forward="false" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+          <folding>
+            <marker date="1500392465478" expanded="false" signature="6:124" ph="..." />
+            <marker date="1500392465478" expanded="true" signature="171:1449" ph="{...}" />
+            <marker date="1500392465478" expanded="true" signature="241:1447" ph="{...}" />
+            <marker date="1500392465478" expanded="true" signature="459:569" ph="{...}" />
+            <marker date="1500392465478" expanded="true" signature="619:747" ph="{...}" />
+            <marker date="1500392465478" expanded="true" signature="788:1026" ph="{...}" />
+            <marker date="1500392465478" expanded="true" signature="1087:1226" ph="{...}" />
+            <marker date="1500392465478" expanded="true" signature="1305:1441" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PMS.Model/Export/Export.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="26" column="77" lean-forward="false" selection-start-line="26" selection-start-column="77" selection-end-line="26" selection-end-column="77" />
+          <folding>
+            <marker date="1500392474784" expanded="false" signature="6:228" ph="..." />
+            <marker date="1500392474784" expanded="true" signature="256:2960" ph="{...}" />
+            <marker date="1500392474784" expanded="true" signature="303:2958" ph="{...}" />
+            <marker date="1500392474784" expanded="true" signature="388:2952" ph="{...}" />
+            <marker date="1500392474784" expanded="false" signature="1951:2569" ph="Event describers" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem.UnitTests/UnitTest1.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PMS.Model.UnitTests/Services/Notifications/DatabaseEventNotificatorTests.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="60" column="92" lean-forward="false" selection-start-line="60" selection-start-column="92" selection-end-line="60" selection-end-column="92" />
+          <folding>
+            <marker date="1500392821505" expanded="false" signature="6:216" ph="..." />
+            <marker date="1500392821505" expanded="true" signature="270:2264" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="337:2262" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="403:469" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="552:627" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="681:907" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="737:896" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="1182:1726" ph="{...}" />
+            <marker date="1500392821505" expanded="true" signature="1819:2256" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/login/authProvider.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Views/Account/Login.cshtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="38" />
+          <folding>
+            <marker date="1499263699711" expanded="true" signature="16:2979" ph="&lt;html.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="23:386" ph="&lt;head.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="387:2971" ph="&lt;body.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="398:2769" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="476:2758" ph="&lt;md-content.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="571:2736" ph="&lt;md-card.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="641:829" ph="&lt;md-toolbar.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="674:799" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="846:2713" ph="&lt;md-card-content.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="884:2678" ph="&lt;form.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="982:1386" ph="&lt;md-input-container.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="1156:1340" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="1469:1892" ph="&lt;md-input-container.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="1656:1846" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="1917:2263" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="2288:2385" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="2410:2650" ph="@..." />
+            <marker date="1499263699711" expanded="true" signature="2450:2650" ph="{...}" />
+            <marker date="1499263699711" expanded="true" signature="2505:2624" ph="&lt;div.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="2775:2863" ph="&lt;footer.../&gt;" />
+            <marker date="1499263699711" expanded="true" signature="2868:2963" ph="@*...*@" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Views/login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="28" column="86" lean-forward="false" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#form#0;n#md-card-content#0;n#md-card#0;n#md-content#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/angapp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/LoginHttpInterceptor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/index/UserHeaderController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="19" column="39" lean-forward="false" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/login/LoginController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="55" lean-forward="false" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Views/Home/Index.cshtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="4" column="5" lean-forward="false" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+          <folding>
+            <marker date="1500403825966" expanded="true" signature="0:50" ph="@..." />
+            <marker date="1500403825966" expanded="true" signature="52:156" ph="&lt;div.../&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Views/Shared/_Layout.cshtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="29" column="43" lean-forward="false" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+          <folding>
+            <marker date="1500403824169" expanded="true" signature="0:23" ph="@..." />
+            <marker date="1500403824169" expanded="true" signature="40:1163" ph="&lt;html.../&gt;" />
+            <marker date="1500403824169" expanded="true" signature="47:1032" ph="&lt;head.../&gt;" />
+            <marker date="1500403824169" expanded="true" signature="1033:1155" ph="&lt;body.../&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Views/main/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-48">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Frontend/Scripts/angapp/main/Configuration/states.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="29" column="19" lean-forward="false" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/SearchApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+          <folding>
+            <marker date="1500404201385" expanded="false" signature="6:189" ph="..." />
+            <marker date="1500404201385" expanded="true" signature="236:724" ph="{...}" />
+            <marker date="1500404201385" expanded="true" signature="304:722" ph="{...}" />
+            <marker date="1500404201385" expanded="true" signature="450:524" ph="{...}" />
+            <marker date="1500404201385" expanded="true" signature="602:716" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/UsersApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="21" column="48" lean-forward="false" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+          <folding>
+            <marker date="1500392456740" expanded="false" signature="6:369" ph="..." />
+            <marker date="1500392456740" expanded="true" signature="416:7254" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="483:7252" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="785:907" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="958:1241" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="984:1141" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="1165:1231" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="1292:1377" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="1454:1538" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="1645:2196" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="2260:2611" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="2391:2601" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="2669:3109" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="2738:3099" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="2896:3084" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="3167:3637" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="3236:3627" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="3438:3612" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="3730:4217" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="3799:4207" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="4016:4192" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="4296:4759" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="4365:4749" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="4561:4734" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="4833:5298" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="4902:5288" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="5100:5273" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="5373:5887" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="5442:5877" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="5685:5862" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="5977:6171" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="6259:6522" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="6354:6449" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="6638:7246" ph="{...}" />
+            <marker date="1500392456740" expanded="true" signature="6661:7011" ph="/* var queriedPermissions = actions.Select(x =&gt; (PermissionType) x).ToArray(); ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/EventsApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1500304561685" expanded="false" signature="6:207" ph="..." />
+            <marker date="1500304561685" expanded="true" signature="254:2879" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="322:2877" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="780:982" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="1088:1325" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="1401:1520" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="1603:1729" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="1824:1945" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="2041:2161" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="2261:2374" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="2453:2871" ph="{...}" />
+            <marker date="1500304561685" expanded="true" signature="2592:2784" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/BaseController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <marker date="1499263699526" expanded="false" signature="6:61" ph="..." />
+            <marker date="1499263699526" expanded="true" signature="108:999" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="155:997" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="222:303" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="372:633" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="398:459" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="495:623" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="690:991" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="716:817" ph="{...}" />
+            <marker date="1499263699526" expanded="true" signature="853:981" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/CommentsApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="31" />
+          <folding>
+            <marker date="1500404646212" expanded="true" signature="6:137" ph="..." />
+            <marker date="1500404646212" expanded="true" signature="184:1037" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="270:1035" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="390:442" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="536:658" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="746:850" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="932:1029" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/WorkItemsApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+          <folding>
+            <marker date="1500404645089" expanded="false" signature="6:301" ph="..." />
+            <marker date="1500404645089" expanded="true" signature="348:5639" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="439:5637" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="769:921" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="999:1165" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="1247:1431" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="1539:1662" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="1733:1831" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="1897:2072" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="2139:2293" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="2354:2524" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="2603:2743" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="2811:2963" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="3042:3146" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="3231:3389" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="3448:3763" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="3825:3933" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="4018:4308" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="4203:4298" ph="/* Parent ... */" />
+            <marker date="1500404645089" expanded="true" signature="4373:4521" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="4587:4695" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="4742:5220" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="4832:5103" ph="{...}" />
+            <marker date="1500404645089" expanded="true" signature="5292:5622" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/PermissionsApiController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="9" column="25" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+          <folding>
+            <marker date="1500404646212" expanded="false" signature="6:137" ph="..." />
+            <marker date="1500404646212" expanded="true" signature="184:1165" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="273:1163" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="528:650" ph="{...}" />
+            <marker date="1500404646212" expanded="true" signature="718:1156" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F99F496C-B0D2-49C1-A945-C1FCABCE1695/0e/5f30edce/AuthorizeAttribute.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProjectManagementSystem/Controllers/HomeController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+          <folding>
+            <marker date="1500404793368" expanded="true" signature="68:616" ph="{...}" />
+            <marker date="1500404793368" expanded="true" signature="131:614" ph="{...}" />
+            <marker date="1500404793368" expanded="true" signature="200:316" ph="{...}" />
+            <marker date="1500404793368" expanded="true" signature="353:469" ph="{...}" />
+            <marker date="1500404793368" expanded="true" signature="508:608" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

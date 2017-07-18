@@ -5,6 +5,7 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        //[AllowAnonymous]
         public ActionResult Index()
         {
             ViewBag.Title = "Система управления проектами - Пангея";

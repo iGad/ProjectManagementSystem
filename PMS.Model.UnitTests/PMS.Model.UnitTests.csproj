@@ -91,11 +91,16 @@
   <ItemGroup>
     <Compile Include="Common\TGuid.cs" />
     <Compile Include="Fakes\TestEventDescriber.cs" />
+    <Compile Include="Fakes\TestEventNotificator.cs" />
+    <Compile Include="Fakes\TestEventNotificatorsUsersProvider.cs" />
     <Compile Include="Fakes\TestEventRepository.cs" />
     <Compile Include="Fakes\TestEventService.cs" />
     <Compile Include="Fakes\TestSettingsValueProvider.cs" />
     <Compile Include="Fakes\TestUserRepository.cs" />
     <Compile Include="Fakes\TestWorkItemRepository.cs" />
+    <Compile Include="Services\Notifications\DatabaseEventNotificatorTests.cs" />
+    <Compile Include="Services\Notifications\EventNotificatorTests.cs" />
+    <Compile Include="Services\Notifications\EventNotificatorsUsersProviderTests.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Services\WorkItemServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

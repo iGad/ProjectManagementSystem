@@ -16,13 +16,13 @@ namespace PMS.Model.Services.Notifications
     /// </summary>
     public class NotificationService : INotificationService
     {
-        private readonly IUsersForEventNotificationsProvider _usersForEventProvider;
+        private readonly IEventNotificatorsUsersProvider _eventNotificatorsUsersForEventProvider;
         private readonly EventNotificator[] _notificators;
 
-        public NotificationService(IUsersForEventNotificationsProvider usersForEventProvider,
+        public NotificationService(IEventNotificatorsUsersProvider eventNotificatorsUsersForEventProvider,
             EventNotificator[] notificators)
         {
-            _usersForEventProvider = usersForEventProvider;
+            _eventNotificatorsUsersForEventProvider = eventNotificatorsUsersForEventProvider;
             _notificators = notificators;
         }
 
@@ -32,7 +32,7 @@ namespace PMS.Model.Services.Notifications
         /// <param name="event">Произошедшее событие</param>
         public void SendEventNotifications(WorkEvent @event)
         {
-            var users = _usersForEventProvider.GetUsersForEventNotification(@event);
+            var users = _eventNotificatorsUsersForEventProvider.GetUsersForEventNotification(@event);
             foreach (var eventNotificator in _notificators)
             {
                 eventNotificator.Notify(@event, users);

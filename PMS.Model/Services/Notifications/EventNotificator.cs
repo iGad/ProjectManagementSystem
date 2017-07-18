@@ -10,6 +10,7 @@ namespace PMS.Model.Services.Notifications
     {
         public void Notify(WorkEvent @event, ICollection<ApplicationUser> users)
         {
+            @event.Validate();
             var responsableUsers = GetOnlyResponsableUsers(@event, users);
             NotifyInner(@event, responsableUsers);
         }

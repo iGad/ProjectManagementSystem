@@ -25,6 +25,12 @@ angapp.config(function ($stateProvider, $routeProvider) {
     // An array of state definitions
     var states = [
         {
+            name: 'login',
+            url:'/login?returnUrl',
+            templateUrl: 'Frontend/Views/login/login.html',
+            controller: 'LoginController'
+        },
+        {
             name: 'base',
             abstract: true,
             templateUrl: 'Frontend/Views/main/base.html'

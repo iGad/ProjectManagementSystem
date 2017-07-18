@@ -17,7 +17,8 @@
         $scope.logoff = function() {
             if ($scope.user) {
                 usersService.logoff($scope.user.Id).then(function() {
-                    $window.location.href ='/Account/Login';
+                    $state.go('login');
+                   // $window.location.href ='/Account/Login';
                 }, utils.onError);
             }
         };

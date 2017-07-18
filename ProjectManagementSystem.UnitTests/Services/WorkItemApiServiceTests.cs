@@ -28,11 +28,6 @@ namespace ProjectManagementSystem.UnitTests.Services
         }
         
 
-        private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository)
-        {
-            return CreateService(workItemRepository, userRepository, CreateTestNotifyService());
-        }
-
         private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository, TestNotificationService notifyService)
         {
             var settingsProvider = new TestSettingsValueProvider();

@@ -3,7 +3,7 @@ using PMS.Model.Models;
 
 namespace PMS.Model.Services.Notifications
 {
-    public interface IUsersForEventNotificationsProvider
+    public interface IEventNotificatorsUsersProvider
     {
         List<ApplicationUser> GetUsersForEventNotification(WorkEvent @event);
     }

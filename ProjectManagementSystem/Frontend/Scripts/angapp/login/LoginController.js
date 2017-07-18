@@ -16,7 +16,7 @@ angapp.controller("LoginController", ['$scope', '$state', '$stateParams', '$http
             RememberMe: $scope.rememberMe
         };
         var returnUrl = $stateParams.returnUrl;
-        var returnUrlUgly = $location.absUrl().split('ReturnUrl=')[1];
+        var returnUrlUgly = $location.absUrl().split('returnUrl=')[1];
         if (returnUrlUgly)
             returnUrl = "/" + returnUrlUgly.split('&')[0];
        

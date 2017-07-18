@@ -158,9 +158,9 @@
     <Compile Include="Services\LexicalHelper.cs" />
     <Compile Include="Services\Notifications\DatabaseEventNotificator.cs" />
     <Compile Include="Services\Notifications\EventNotificator.cs" />
-    <Compile Include="Services\Notifications\IUsersForEventNotificationsProvider.cs" />
+    <Compile Include="Services\Notifications\IEventNotificatorsUsersProvider.cs" />
     <Compile Include="Services\Notifications\NotificationService.cs" />
-    <Compile Include="Services\Notifications\UsersForEventProvider.cs" />
+    <Compile Include="Services\Notifications\EventNotificatorsUsersProvider.cs" />
     <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\DataUpdater.cs" />

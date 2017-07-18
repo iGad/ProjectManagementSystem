@@ -18,10 +18,10 @@ namespace ProjectManagementSystem.Controllers
     public class UsersApiController : Controller
     {
         private ApplicationUserManager _userManager;
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
         private readonly IUserPermissionsRepository _permissionsRepository;
 
-        public UsersApiController(UsersService usersService, IUserPermissionsRepository permissionsRepository)
+        public UsersApiController(IUsersService usersService, IUserPermissionsRepository permissionsRepository)
         {
             _usersService = usersService;
             _permissionsRepository = permissionsRepository;

@@ -389,9 +389,12 @@
     <Content Include="Frontend\Scripts\angapp\global\Providers\Utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\login\authapp.js" />
+    <Content Include="Frontend\Scripts\angapp\login\LoginController.js" />
     <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\AllWorkItemsController.js" />
+    <Content Include="Frontend\Scripts\angapp\main\Configuration\LoginHttpInterceptor.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Scripts\angapp\main\workItem\CommentsController.js" />
     <Content Include="Frontend\Scripts\angapp\main\workItem\CommentsService.js" />
     <Content Include="Frontend\Scripts\angapp\main\base\LinkedWorkItemsController.js">
@@ -476,6 +479,9 @@
     </Content>
     <Content Include="Frontend\Scripts\ui-sortable\sortable.js" />
     <Content Include="Frontend\Scripts\ui-sortable\sortable.min.js" />
+    <Content Include="Frontend\Views\login\login.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Frontend\Views\main\base\allItems.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

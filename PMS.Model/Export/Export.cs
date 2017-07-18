@@ -20,14 +20,14 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<EventRepository, IEventRepository>();
             compositionContainer.RegisterExport<UserPermissionsRepository, IUserPermissionsRepository>();
             compositionContainer.RegisterExport<SettingRepository, ISettingRepository>();
-            compositionContainer.RegisterExport<SettingRepository, ISettingsValueProvider>();
+            compositionContainer.RegisterExport<SettingRepository, ISettingsValueProvider>();     
             compositionContainer.RegisterExport<CommentRepository, ICommentRepository>();
 
             compositionContainer.RegisterExport<LocalFileSystemManager, IFileSystemManager>();
             compositionContainer.RegisterExport<FileSystemManagerProvider>();
 
             compositionContainer.RegisterExport<UsersService, IUsersService>();
-            compositionContainer.RegisterExport<UsersService>();
+            compositionContainer.RegisterExport<UsersService, ICurrentUserProvider>();
             compositionContainer.RegisterExport<WorkItemService>();
             compositionContainer.RegisterExport<EventService, IEventService>();
             compositionContainer.RegisterExport<SettingsService>();
@@ -45,9 +45,13 @@ namespace PMS.Model.Export
 
             #endregion
 
-            compositionContainer.RegisterExport<UsersForEventNotificationsProvider, IUsersForEventNotificationsProvider>();
-            compositionContainer.RegisterExport<NotificationService>();
+            compositionContainer.RegisterExport<EventNotificatorsUsersProvider, IEventNotificatorsUsersProvider>();
+            compositionContainer.RegisterExport<NotificationService, INotificationService>();
             compositionContainer.RegisterExport<DatabaseEventNotificator, EventNotificator>();
+            compositionContainer.RegisterExport<DataUpdater>();
+
+
+
         }
     }
 }

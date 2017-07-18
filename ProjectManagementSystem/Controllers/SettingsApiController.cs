@@ -10,9 +10,9 @@ namespace ProjectManagementSystem.Controllers
     public class SettingsApiController : Controller
     {
         private readonly SettingsService _settingsService;
-        private readonly UsersService _usersService;
+        private readonly IUsersService _usersService;
 
-        public SettingsApiController(SettingsService settingsService, UsersService usersService)
+        public SettingsApiController(SettingsService settingsService, IUsersService usersService)
         {
             _settingsService = settingsService;
             _usersService = usersService;
