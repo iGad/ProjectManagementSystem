@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.EventModels;
 using PMS.Model.Models;
 using PMS.Model.Services;
 
@@ -47,9 +48,9 @@ namespace PMS.Model.UnitTests.Fakes
             relation.IsFavorite = isFavorite;
         }
 
-        public EventDisplayModel GetEventDisplayModel(WorkEvent workEvent, ApplicationUser user)
+        public EventDisplayModel GetEventDisplayModel(EventUserModel eventUserModel, ApplicationUser user)
         {
-            return new EventDisplayModel(workEvent);
+            return new EventDisplayModel(eventUserModel);
         }
 
         public string GetEventDescription(WorkEvent workEvent, ApplicationUser forUser)

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using PMS.Model.CommonModels.EventModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
@@ -53,7 +54,7 @@ namespace PMS.Model.UnitTests.Services
         private EventService CreateService(IEventRepository eventRepository, TestUserRepository userRepo)
         {
             var describers = new EventDescriber[] {new TestEventDescriber()};
-            return new EventService(eventRepository, userRepo, userRepo, describers);
+            return new EventService(eventRepository, userRepo, describers);
         }
 
         [Test]
@@ -153,8 +154,8 @@ namespace PMS.Model.UnitTests.Services
             var service = CreateService(eventRepo, userRepo);
             var workEvent = eventRepo.Events.First();
             var eventUserRelation = eventRepo.EventsUsers.Single(x => x.EventId == workEvent.Id && x.UserId == currentUser.Id);
-
-            var model = service.GetEventDisplayModel(workEvent, currentUser);
+            
+            var model = service.GetEventDisplayModel(new EventUserModel(workEvent, eventUserRelation), currentUser);
 
             Assert.AreEqual(eventUserRelation.State, model.State);
             Assert.AreEqual("test", model.Description);

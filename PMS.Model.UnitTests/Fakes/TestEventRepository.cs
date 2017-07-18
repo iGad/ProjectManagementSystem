@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PMS.Model.CommonModels.EventModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 
@@ -39,6 +41,25 @@ namespace PMS.Model.UnitTests.Fakes
                     (relation, @event) => new Tuple<WorkEvent, WorkEventUserRelation>(@event, relation));
         }
 
+        public IEnumerable<EventUserModel> GetEventsForUser(string userId, EventFilterModel filterModel)
+        {
+            var eventsUser = EventsUsers.Where(x => x.UserId == userId && x.State == EventState.Seen).ToArray();
+            return Events.Where(x => eventsUser.Any(eu => eu.EventId == x.Id))
+                .Select(x => new EventUserModel(x, eventsUser.Single(eu => eu.EventId == x.Id)));
+        }
+
+        public IEnumerable<EventUserModel> GetNewEventsForUser(string userId)
+        {
+            var eventsUser = EventsUsers.Where(x => x.UserId == userId && x.State == EventState.New).ToArray();
+            return Events.Where(x => eventsUser.Any(eu => eu.EventId == x.Id))
+                .Select(x => new EventUserModel(x, eventsUser.Single(eu => eu.EventId == x.Id)));
+        }
+
+        public int GetTotalEventsForUserCount(string userId, EventFilterModel filterModel)
+        {
+            return EventsUsers.Count(x => x.UserId == userId && x.State == EventState.Seen);
+        }
+
         public void AddWorkEventRelation(WorkEventUserRelation relation)
         {
             EventsUsers.Add(relation);
@@ -47,6 +68,11 @@ namespace PMS.Model.UnitTests.Fakes
         public WorkEventUserRelation GetRelation(int eventId, string userId)
         {
             return EventsUsers.SingleOrDefault(x => x.EventId == eventId && x.UserId == userId);
+        }
+
+        public int GetUnseenEventCountForUser(string userId)
+        {
+            return EventsUsers.Count(x => x.UserId == userId && x.State == EventState.New);
         }
 
         public int SaveChanges()

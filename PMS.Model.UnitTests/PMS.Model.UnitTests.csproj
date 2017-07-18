@@ -93,6 +93,7 @@
     <Compile Include="Fakes\TestEventDescriber.cs" />
     <Compile Include="Fakes\TestEventRepository.cs" />
     <Compile Include="Fakes\TestEventService.cs" />
+    <Compile Include="Fakes\TestSettingsValueProvider.cs" />
     <Compile Include="Fakes\TestUserRepository.cs" />
     <Compile Include="Fakes\TestWorkItemRepository.cs" />
     <Compile Include="TestHelper.cs" />

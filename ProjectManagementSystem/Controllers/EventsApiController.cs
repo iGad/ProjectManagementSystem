@@ -14,10 +14,10 @@ namespace ProjectManagementSystem.Controllers
         private readonly EventsApiService _eventService;
         private readonly ICurrentUsernameProvider _usernameProvider;
         private readonly IUserRepository _userRepository;
-        private readonly INotifyService _notifyService;
+        private readonly IRealtimeNotificationService _notifyService;
 
         public EventsApiController(EventsApiService eventService, ICurrentUsernameProvider usernameProvider, IUserRepository userRepository,
-            INotifyService notifyService)
+            IRealtimeNotificationService notifyService)
         {
             _eventService = eventService;
             _usernameProvider = usernameProvider;

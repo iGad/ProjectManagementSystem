@@ -1,25 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Models;
-using Common.Services;
 using Microsoft.AspNet.SignalR.Hubs;
 using PMS.Model.Models;
 using PMS.Model.Services;
+using PMS.Model.Services.Notifications;
 using ProjectManagementSystem.ViewModels;
 
 namespace ProjectManagementSystem.Services
 {
     
-    public class NotificationService : INotifyService
+    public class SignalrNotificator : EventNotificator, IRealtimeNotificationService
     {
-        private readonly IEventService _eventService;
+        private readonly List<WorkEvent> _previousEvents = new List<WorkEvent>(5);
         private readonly SignalrClientsProvider _clientsProvider;
+        private readonly IEventService _eventService;
+
+        private readonly ICurrentUserProvider _currentUserProvider;
         //private ConcurrentDictionary<string, List<Guid>> userConnectionsDictionary = new ConcurrentDictionary<string, List<Guid>>();
 
-        public NotificationService(SignalrClientsProvider clientsProvider, IEventService eventService)
+        public SignalrNotificator(SignalrClientsProvider clientsProvider, IEventService eventService, ICurrentUserProvider currentUserProvider)
         {
             _clientsProvider = clientsProvider;
             _eventService = eventService;
+            _currentUserProvider = currentUserProvider;
         }
 
         public IHubConnectionContext<dynamic> Clients => _clientsProvider.GetClients();
@@ -96,7 +101,7 @@ namespace ProjectManagementSystem.Services
             clients.recieveNotification(workEvent.Type.ToString().ToLower(), workEvent);
         }
 
-        public void SendNotifications(WorkEvent workEvent, ApplicationUser[] users)
+        public void SendNotifications(WorkEvent workEvent, ICollection<ApplicationUser> users)
         {
             foreach (var user in users)
             {
@@ -115,6 +120,37 @@ namespace ProjectManagementSystem.Services
         public void SendNotifications(WorkEvent workEvent, ApplicationUser user)
         {
             SendNotifications(workEvent, new[] {user});
+        }
+
+        protected override void NotifyInner(WorkEvent @event, ICollection<ApplicationUser> users)
+        {
+            SendNotifications(@event, users);
+        }
+
+        protected override ICollection<ApplicationUser> GetOnlyResponsableUsers(WorkEvent workEvent,
+            ICollection<ApplicationUser> users)
+        {
+            var currentUser = _currentUserProvider.GetCurrentUser();
+            var responsibleUsers = users.Where(x => x.Id != currentUser.Id);
+            if (_previousEvents.Count == 5)
+                _previousEvents.Clear();
+            if (IsSpecialEvent(workEvent))
+                _previousEvents.Add(workEvent);
+            if (workEvent.Type == EventType.WorkItemChanged)
+            {
+                var events = _previousEvents.Where(IsSpecialEvent).ToArray();
+                if (events.Any())
+                {
+                    responsibleUsers = responsibleUsers.Where(x => events.All(ev => ev.Data != x.Id));
+                    _previousEvents.Clear();
+                }
+            }
+            return responsibleUsers.ToArray();
+        }
+
+        private static bool IsSpecialEvent(WorkEvent workEvent)
+        {
+            return workEvent.Type == EventType.WorkItemAppointed || workEvent.Type == EventType.WorkItemDisappointed;
         }
     }
 }

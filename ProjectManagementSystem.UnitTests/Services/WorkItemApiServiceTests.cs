@@ -22,30 +22,21 @@ namespace ProjectManagementSystem.UnitTests.Services
             return new TestUserRepository();
         }
 
-        private TestNotifyService CreateTestNotifyService()
+        private TestNotificationService CreateTestNotifyService()
         {
-            return new TestNotifyService();
-        }
-
-        private TestEventService CreateEventService()
-        {
-            return new TestEventService();
+            return new TestNotificationService();
         }
         
 
-        private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository, INotifyService notifyService)
+        private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository)
         {
-            return CreateService(workItemRepository, userRepository, notifyService, CreateEventService());
+            return CreateService(workItemRepository, userRepository, CreateTestNotifyService());
         }
 
-        private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository, TestEventService eventService)
+        private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository, TestNotificationService notifyService)
         {
-            return CreateService(workItemRepository, userRepository, CreateTestNotifyService(), eventService);
-        }
-
-        private WorkItemApiService CreateService(IWorkItemRepository workItemRepository, TestUserRepository userRepository, INotifyService notifyService, TestEventService eventService)
-        {
-            return new WorkItemApiService(workItemRepository, userRepository, userRepository, notifyService, eventService);
+            var settingsProvider = new TestSettingsValueProvider();
+            return new WorkItemApiService(workItemRepository, userRepository, notifyService, notifyService, settingsProvider);
         }
 
         private WorkItem CreateWorkItem(TestWorkItemRepository repository, string userId, string parentItemExecutor)
@@ -159,16 +150,16 @@ namespace ProjectManagementSystem.UnitTests.Services
             var userRepository = CreateUserRepository();
             userRepository.SetCurrentUser(new TGuid(currentUserId).ToGuid().ToString());
             var workItemRepository = TestHelper.CreateFilledWorkItemRepository(userRepository);
-            var eventService = CreateEventService();
-            var service = CreateService(workItemRepository, userRepository, eventService);
+            var notificationService = CreateTestNotifyService();
+            var service = CreateService(workItemRepository, userRepository, notificationService);
             var workItem = new WorkItem(workItemRepository.GetById(workItemNumber));
             workItem.ExecutorId = newExecutorId >= 0 ? new TGuid(newExecutorId).ToGuid().ToString() : null;
 
             service.Update(workItem);
 
-            Assert.AreEqual(eventCount, eventService.Events.Count);
-            var changedEvent = eventService.Events.Single(x => x.Type == EventType.WorkItemChanged);
-            Assert.AreEqual(expectedNotifyedUserCount, eventService.EventsUsers.Count(x => x.EventId == changedEvent.Id));
+            Assert.AreEqual(eventCount, notificationService.SendedEvents.Count);
+            var changedEvent = notificationService.SendedEvents.Single(x => ((WorkEvent)x.SendedObject).Type == EventType.WorkItemChanged);
+            //Assert.AreEqual(expectedNotifyedUserCount, eventService.EventsUsers.Count(x => x.EventId == changedEvent.Id));
         }
 
         [Test]
@@ -219,13 +210,12 @@ namespace ProjectManagementSystem.UnitTests.Services
             var userRepository = CreateUserRepository();
             userRepository.SetCurrentUser(new TGuid(currentUserId).ToGuid().ToString());
             var workItemRepository = TestHelper.CreateFilledWorkItemRepository(userRepository);
-            var eventService = CreateEventService();
-            var service = CreateService(workItemRepository, userRepository, eventService);
+            var notificationService = CreateTestNotifyService();
+            var service = CreateService(workItemRepository, userRepository, notificationService);
 
             service.Delete(workItemNumber, true);
 
-            Assert.AreEqual(1, eventService.Events.Count);
-            Assert.AreEqual(userCount, eventService.EventsUsers.Count);
+            Assert.AreEqual(1, notificationService.SendedEvents.Count);
         }
 
         [Test]
@@ -268,19 +258,19 @@ namespace ProjectManagementSystem.UnitTests.Services
             var curentUserId = new TGuid(currentUserNumber).ToGuid().ToString();
             userRepository.SetCurrentUser(curentUserId);
             var workItemRepository = TestHelper.CreateFilledWorkItemRepository(userRepository);
-            var eventService = CreateEventService();
-            var service = CreateService(workItemRepository, userRepository, eventService);
+            var notifyService = CreateTestNotifyService();
+            var service = CreateService(workItemRepository, userRepository, notifyService);
             var workItem = CreateWorkItem(workItemRepository, curentUserId, new TGuid(parentItemExecutor).ToGuid().ToString());
             //if (executorNumber.HasValue)
                 workItem.ExecutorId = new TGuid(executorNumber).ToGuid().ToString();
 
             service.Add(workItem);
 
-            Assert.AreEqual(2, eventService.Events.Count);
-            var addedEvent = eventService.Events.First();
+            Assert.AreEqual(2, notifyService.SendedEvents.Count);
+            var addedEvent = notifyService.SendedEvents.First().SendedObject as WorkEvent;
             Assert.AreEqual(EventType.WorkItemAdded, addedEvent.Type);
-            Assert.AreEqual(EventType.WorkItemAppointed, eventService.Events.Last().Type);
-            Assert.AreEqual(userCount, eventService.EventsUsers.Count(x => x.EventId == addedEvent.Id));
+            Assert.AreEqual(EventType.WorkItemAppointed, ((WorkEvent)notifyService.SendedEvents.Last().SendedObject).Type);
+           // Assert.AreEqual(userCount, eventService.EventsUsers.Count(x => x.EventId == addedEvent.Id));
         }
 
         [Test]
@@ -293,16 +283,16 @@ namespace ProjectManagementSystem.UnitTests.Services
             var curentUserId = new TGuid(currentUserNumber).ToGuid().ToString();
             userRepository.SetCurrentUser(curentUserId);
             var workItemRepository = TestHelper.CreateFilledWorkItemRepository(userRepository);
-            var eventService = CreateEventService();
-            var service = CreateService(workItemRepository, userRepository, eventService);
+            var notifyService = CreateTestNotifyService();
+            var service = CreateService(workItemRepository, userRepository, notifyService);
             var workItem = CreateWorkItem(workItemRepository, curentUserId, new TGuid(parentItemExecutor).ToGuid().ToString());
 
             service.Add(workItem);
 
-            Assert.AreEqual(1, eventService.Events.Count);
-            var addedEvent = eventService.Events.First();
+            Assert.AreEqual(1, notifyService.SendedEvents.Count);
+            var addedEvent = notifyService.SendedEvents.First().SendedObject as WorkEvent;
             Assert.AreEqual(EventType.WorkItemAdded, addedEvent.Type);
-            Assert.AreEqual(userCount, eventService.EventsUsers.Count);
+            //Assert.AreEqual(userCount, eventService.EventsUsers.Count);
         }
         /*  var items =
                 workItemRepository.WorkItems.Where(

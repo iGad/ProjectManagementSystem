@@ -221,7 +221,7 @@
     <Compile Include="Services\DataGenerator.cs" />
     <Compile Include="Services\EventsApiService.cs" />
     <Compile Include="Services\Extensions.cs" />
-    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SignalrNotificator.cs" />
     <Compile Include="Services\SignalrClientsProvider.cs" />
     <Compile Include="Services\UserIdProvider.cs" />
     <Compile Include="Services\UsersApiService.cs" />

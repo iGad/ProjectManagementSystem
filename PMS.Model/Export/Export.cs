@@ -5,6 +5,7 @@ using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
 using PMS.Model.Services.EventDescribers;
+using PMS.Model.Services.Notifications;
 
 namespace PMS.Model.Export
 {
@@ -43,6 +44,10 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<StateChangedEventDescriber, EventDescriber>();
 
             #endregion
+
+            compositionContainer.RegisterExport<UsersForEventNotificationsProvider, IUsersForEventNotificationsProvider>();
+            compositionContainer.RegisterExport<NotificationService>();
+            compositionContainer.RegisterExport<DatabaseEventNotificator, EventNotificator>();
         }
     }
 }

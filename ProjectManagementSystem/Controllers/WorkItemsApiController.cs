@@ -17,8 +17,8 @@ namespace ProjectManagementSystem.Controllers
     {
         private readonly WorkItemApiService _workItemService;
         private readonly AttachingFileService _fileService;
-        private readonly NotificationService _notifyService;
-        public WorkItemsApiController(WorkItemApiService workItemService, AttachingFileService fileService, NotificationService notifyService)
+        private readonly SignalrNotificator _notifyService;
+        public WorkItemsApiController(WorkItemApiService workItemService, AttachingFileService fileService, SignalrNotificator notifyService)
         {
             _workItemService = workItemService;
             _fileService = fileService;

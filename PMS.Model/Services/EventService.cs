@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Common.Services;
 using PMS.Model.CommonModels;
 using PMS.Model.CommonModels.EventModels;
 using PMS.Model.CommonModels.FilterModels;
@@ -14,16 +12,14 @@ namespace PMS.Model.Services
     {
         private ApplicationUser _currentUser;
         private readonly EventDescriber[] _describers;
-        public EventService(IEventRepository repository, IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider, EventDescriber[] describers)
+        public EventService(IEventRepository repository, ICurrentUserProvider currentUserProvider, EventDescriber[] describers)
         {
             Repository = repository;
-            UserRepository = userRepository;
-            CurrentUsernameProvider = currentUsernameProvider;
-            this._describers = describers;
+            CurrentUserProvider = currentUserProvider;
+            _describers = describers;
         }
         protected IEventRepository Repository { get; }
-        protected IUserRepository UserRepository { get; }
-        protected ICurrentUsernameProvider CurrentUsernameProvider { get; }
+        protected ICurrentUserProvider CurrentUserProvider { get; }
 
         public WorkEvent AddEvent(WorkEvent workEvent, IEnumerable<string> usersIds)
         {
@@ -82,7 +78,7 @@ namespace PMS.Model.Services
             
         protected ApplicationUser GetCurrentUser()
         {
-            return this._currentUser ?? (this._currentUser = UserRepository.GetByUserName(CurrentUsernameProvider.GetCurrentUsername()));
+            return _currentUser ?? (_currentUser = CurrentUserProvider.GetCurrentUser());
         }
 
         #region Description

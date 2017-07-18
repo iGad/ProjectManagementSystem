@@ -12,6 +12,7 @@ using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using PMS.Model.Services;
+using PMS.Model.Services.Notifications;
 using ProjectManagementSystem.ViewModels;
 
 namespace ProjectManagementSystem.Services
@@ -19,15 +20,15 @@ namespace ProjectManagementSystem.Services
     public class WorkItemApiService : WorkItemService
     {
         private readonly IUsersService _userService;
-        private readonly INotifyService _notifyService;
-        private readonly IEventService _eventService;
-        public WorkItemApiService(IWorkItemRepository repository, IUsersService userService, INotifyService notifyService, 
-            IEventService eventService, ISettingsValueProvider settingsProvider) 
+        private readonly INotificationService _notificationService;
+        private readonly IRealtimeNotificationService _notifyService;
+        public WorkItemApiService(IWorkItemRepository repository, IUsersService userService, INotificationService notificationService, IRealtimeNotificationService notifyService, 
+            ISettingsValueProvider settingsProvider) 
             :base(repository, settingsProvider)
         {
             _userService = userService;
+            _notificationService = notificationService;
             _notifyService = notifyService;
-            _eventService = eventService;
         }
 
         public WorkItemViewModel GetWorkItem(int id)
@@ -154,24 +155,24 @@ namespace ProjectManagementSystem.Services
         private void NotifyOnAdded(WorkItem item)
         {
             _notifyService.SendEvent(Constants.WorkItemAddedEventName, item.Id, BroadcastType.All);
-            var user = GetCurrentUser();
+            //var user = GetCurrentUser();
             var addedEvent = CreateBaseEvent(item.Id, EventType.WorkItemAdded);
             if (!string.IsNullOrWhiteSpace(item.ExecutorId))
             {
-                var executor = _userService.Get(item.ExecutorId);
+                //var executor = _userService.Get(item.ExecutorId);
                 var appointEvent = CreateBaseEvent(item.Id, EventType.WorkItemAppointed);
                 appointEvent.Data = item.ExecutorId;
-                SendNotificationToResponsibleUsers(addedEvent, item, user.Id, executor.Id);
-                _eventService.AddEvent(appointEvent, new[] {item.ExecutorId});
-                if (executor.Id != user.Id)
-                {
-                    _notifyService.SendNotifications(appointEvent, executor);
-                }
+                _notificationService.SendEventNotifications(appointEvent);
+                //SendNotificationToResponsibleUsers(addedEvent, item, user.Id, executor.Id);
+                //_eventService.AddEvent(appointEvent, new[] {item.ExecutorId});
+                //if (executor.Id != user.Id)
+                //{
+                //    _notifyService.SendNotifications(appointEvent, executor);
+                //}
             }
-            else
-            {
-                SendNotificationToResponsibleUsers(addedEvent, item, user.Id);
-            }
+            _notificationService.SendEventNotifications(addedEvent);
+            //SendNotificationToResponsibleUsers(addedEvent, item, user.Id);
+
         }
 
         public void Update(WorkItem workItem)
@@ -185,9 +186,9 @@ namespace ProjectManagementSystem.Services
 
         private void NotifyOnUpdating(WorkItem oldWorkItem, WorkItem workItem, string[] differentProperties)
         {
-            var user = GetCurrentUser();
+            //var user = GetCurrentUser();
             var oldExecutor = _userService.SafeGet(oldWorkItem.ExecutorId);
-            bool needNotification = true;
+            //bool needNotification = true;
             var changedEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemChanged);
             if (differentProperties.Any(x => x == nameof(WorkItem.ExecutorId)))
             {
@@ -195,32 +196,35 @@ namespace ProjectManagementSystem.Services
                 if (oldExecutor != null)
                 {
                     var disappointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemDisappointed, oldExecutor.Id);
-                    disappointEvent = _eventService.AddEvent(disappointEvent, new[] {oldExecutor.Id});
-                    if (user.UserName != oldExecutor.UserName)
-                        _notifyService.SendNotifications(disappointEvent, new[] {oldExecutor});
+                    _notificationService.SendEventNotifications(disappointEvent);
+                    //disappointEvent = _eventService.AddEvent(disappointEvent, new[] {oldExecutor.Id});
+                    //if (user.UserName != oldExecutor.UserName)
+                    //    _notifyService.SendNotifications(disappointEvent, new[] {oldExecutor});
                 }
                 if (executor != null)
                 {
                     var appointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemAppointed, executor.Id);
-                    _eventService.AddEvent(appointEvent, new[] { executor.Id });
-                    if (user.UserName != executor.UserName)
-                        _notifyService.SendNotifications(appointEvent, new[] {executor});
+                    _notificationService.SendEventNotifications(appointEvent);
+                    //_eventService.AddEvent(appointEvent, new[] { executor.Id });
+                    //if (user.UserName != executor.UserName)
+                    //    _notifyService.SendNotifications(appointEvent, new[] {executor});
                 }
                 
-                SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id, oldExecutor?.Id, executor?.Id);
-                needNotification = false;
+                //SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id, oldExecutor?.Id, executor?.Id);
+                //needNotification = false;
             }
-            if (needNotification && differentProperties.All(x=>x == nameof(WorkItem.State)))
+            if (differentProperties.All(x=>x == nameof(WorkItem.State)))
             {
                 var stateChangedEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemStateChanged,
                     new StateChangedModel{Old = oldWorkItem.State, New = workItem.State});
-                SendNotificationToResponsibleUsers(stateChangedEvent, oldWorkItem, user.Id);
-                needNotification = false;
+                _notificationService.SendEventNotifications(stateChangedEvent);
+                //SendNotificationToResponsibleUsers(stateChangedEvent, oldWorkItem, user.Id);
+                return;
             }
-            if (needNotification)
-            {
-                SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id);
-            }
+            
+            _notificationService.SendEventNotifications(changedEvent);
+            //SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id);
+            
         }
 
         private WorkEvent CreateBaseEvent(int workItemId, EventType type, object data)
@@ -245,13 +249,13 @@ namespace ProjectManagementSystem.Services
             };
         }
 
-        private void SendNotificationToResponsibleUsers(WorkEvent @event, WorkItem workItem, params string[] exceptUsers)
-        {
-            var users = GetResponsibleUsers(workItem).Distinct(new ApplicationUserEqualityComparer()).ToArray();
-            var notifyingUsers = users.Where(x => (exceptUsers == null || !exceptUsers.Contains(x.Id)));
-            _eventService.AddEvent(@event, users.Select(x => x.Id));
-            _notifyService.SendNotifications(@event, notifyingUsers.ToArray());
-        }
+        //private void SendNotificationToResponsibleUsers(WorkEvent @event, WorkItem workItem, params string[] exceptUsers)
+        //{
+        //    var users = GetResponsibleUsers(workItem).Distinct(new ApplicationUserEqualityComparer()).ToArray();
+        //    var notifyingUsers = users.Where(x => (exceptUsers == null || !exceptUsers.Contains(x.Id)));
+        //    _eventService.AddEvent(@event, users.Select(x => x.Id));
+        //    _notifyService.SendNotifications(@event, notifyingUsers.ToArray());
+        //}
         
         private List<ApplicationUser> GetResponsibleUsers(WorkItem workItem, params string[] exceptUsers)
         {
@@ -282,10 +286,11 @@ namespace ProjectManagementSystem.Services
 
         public override void Delete(int id, bool cascade)
         {
-            var item = Get(id);
+            //var item = Get(id);
             base.Delete(id, cascade);
             var @event = CreateBaseEvent(id, EventType.WorkItemDeleted, id);
-            SendNotificationToResponsibleUsers(@event, item, GetCurrentUser().Id);
+            _notificationService.SendEventNotifications(@event);
+            //SendNotificationToResponsibleUsers(@event, item, GetCurrentUser().Id);
 
         }
 

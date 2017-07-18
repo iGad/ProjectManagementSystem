@@ -89,7 +89,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Fakes\TestNotifyService.cs" />
+    <Compile Include="Fakes\TestNotificationService.cs" />
     <Compile Include="Services\WorkItemApiServiceTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

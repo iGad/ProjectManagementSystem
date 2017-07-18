@@ -13,8 +13,8 @@ namespace ProjectManagementSystem.Services
 {
     public class EventsApiService : EventService
     {
-        public EventsApiService(IEventRepository repository, IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider, EventDescriber[] describers) 
-            : base(repository, userRepository, currentUsernameProvider, describers)
+        public EventsApiService(IEventRepository repository, IUsersService userRepository, EventDescriber[] describers) 
+            : base(repository, userRepository, describers)
         {
         }
         

@@ -8,6 +8,7 @@ using Common.Models;
 using Common.Services;
 using PMS.Model.Models;
 using PMS.Model.Services;
+using PMS.Model.Services.Notifications;
 
 namespace ProjectManagementSystem.UnitTests.Fakes
 {
@@ -18,7 +19,7 @@ namespace ProjectManagementSystem.UnitTests.Fakes
         public BroadcastType Type { get; set; }
         public string[] Users { get; set; }
     }
-    class TestNotifyService : INotifyService
+    class TestNotificationService : IRealtimeNotificationService, INotificationService
     {
         public List<NotificationInfo> SendedNotifications { get; } = new List<NotificationInfo>();
         public List<NotificationInfo> SendedEvents { get; } = new List<NotificationInfo>();
@@ -45,7 +46,7 @@ namespace ProjectManagementSystem.UnitTests.Fakes
             });
         }
 
-        public void SendNotifications(WorkEvent workEvent, ApplicationUser[] users)
+        public void SendNotifications(WorkEvent workEvent, ICollection<ApplicationUser> users)
         {
             SendedNotifications.Add(new NotificationInfo
             {
@@ -55,11 +56,19 @@ namespace ProjectManagementSystem.UnitTests.Fakes
                 Users = users.Select(x => x.Id).ToArray()
             });
         }
-
+        
         public void SendNotifications(WorkEvent workEvent, ApplicationUser user)
         {
             SendNotifications(workEvent, new [] {user});
             
+        }
+
+        public void SendEventNotifications(WorkEvent @event)
+        {
+            SendedEvents.Add(new NotificationInfo
+            {
+                SendedObject = @event
+            });
         }
     }
 }

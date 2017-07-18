@@ -16,6 +16,7 @@ namespace PMS.Model.Models
         WorkItemDisappointed = 3,
         WorkItemAdded = 4,
         WorkItemDeleted = 5,
+        WorkItemCommentAdded = 10,
         User = 100
     }
 

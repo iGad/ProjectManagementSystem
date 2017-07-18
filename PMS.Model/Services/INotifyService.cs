@@ -1,9 +1,10 @@
-﻿using Common.Models;
+﻿using System.Collections.Generic;
+using Common.Models;
 using PMS.Model.Models;
 
 namespace PMS.Model.Services
 {
-    public interface INotifyService
+    public interface IRealtimeNotificationService
     {
         /// <summary>
         /// Отправить оповещение о произошедшем событии
@@ -23,7 +24,7 @@ namespace PMS.Model.Services
         void SendNotification(string eventName, object sendedObject, BroadcastType broadcastType, params string[] userNames);
 
         void SendNotification(WorkEvent workEvent, BroadcastType broadcastType, params string[] userNames);
-        void SendNotifications(WorkEvent workEvent, ApplicationUser[] users);
+        void SendNotifications(WorkEvent workEvent, ICollection<ApplicationUser> users);
         void SendNotifications(WorkEvent workEvent, ApplicationUser user);
     }
 }

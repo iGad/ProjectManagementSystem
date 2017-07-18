@@ -8,11 +8,16 @@ namespace PMS.Model.Services.Notifications
     /// </summary>
     public abstract class EventNotificator
     {
-        public abstract void Notify(WorkEvent @event, List<string> userIds);
-
-        protected virtual bool IsUserNeedNotification(string userId)
+        public void Notify(WorkEvent @event, ICollection<ApplicationUser> users)
         {
-            return true;
+            var responsableUsers = GetOnlyResponsableUsers(@event, users);
+            NotifyInner(@event, responsableUsers);
         }
+
+        protected abstract ICollection<ApplicationUser> GetOnlyResponsableUsers(WorkEvent workEvent,
+            ICollection<ApplicationUser> users);
+
+        protected abstract void NotifyInner(WorkEvent @event, ICollection<ApplicationUser> users);
+        
     }
 }

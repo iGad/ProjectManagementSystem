@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
+using PMS.Model.Services;
 
 namespace PMS.Model.UnitTests.Fakes
 {
@@ -28,6 +31,11 @@ namespace PMS.Model.UnitTests.Fakes
             return this.WorkItems.SingleOrDefault(x=>x.Id == id);
         }
 
+        public WorkItem GetByIdNoTracking(int id)
+        {
+            return WorkItems.SingleOrDefault(x=>x.Id == id);
+        }
+
         public WorkItem GetByIdWithParents(int id)
         {
             var workItem = GetById(id);
@@ -38,6 +46,16 @@ namespace PMS.Model.UnitTests.Fakes
                 item = item.Parent;
             }
             return workItem;
+        }
+
+        public IEnumerable<WorkItem> Get(SearchModel searchModel)
+        {
+            return WorkItems;
+        }
+
+        public int GetTotalItemCount(SearchModel searchModel)
+        {
+            return WorkItems.Count;
         }
 
         public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)
@@ -73,6 +91,25 @@ namespace PMS.Model.UnitTests.Fakes
         {
             var items = this.WorkItems.Where(filter);
             return items;
+        }
+
+        public IEnumerable<UserItemsAggregateInfo> GetItemsAggregateInfoPerUser()
+        {
+            var itemsUsers = UserRepository.GetUsers(x => true)
+                .Where(x => !x.IsDeleted)
+                .GroupJoin(WorkItems, user => user.Id, item => item.ExecutorId,
+                    (user, item) => new {User = user, Item = item})
+                .SelectMany(xy => xy.Item.DefaultIfEmpty(), (x, item) => new {x.User, Item = item})
+                .GroupBy(x => x.User, y => y.Item, (user, items) => new {User = user, Items = items})
+                .ToDictionary(x => x.User, x => x.Items.Where(i => i != null).ToArray());
+            return itemsUsers.Select(x => new UserItemsAggregateInfo
+            {
+                UserInfo = x.Key.GetUserIdentityText(),
+                UserId = x.Key.Id,
+                AtWorkCount = x.Value.Count(i => i.State == WorkItemState.AtWork),
+                ReviewingCount = x.Value.Count(i => i.State == WorkItemState.Reviewing),
+                PlannedCount = x.Value.Count(i => i.State == WorkItemState.Planned)
+            });
         }
 
         public int SaveChanges()

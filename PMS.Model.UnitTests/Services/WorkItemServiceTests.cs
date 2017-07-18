@@ -11,7 +11,9 @@ namespace PMS.Model.UnitTests.Services
         private WorkItemService CreateWorkItemService()
         {
             var repo = TestHelper.CreateFilledWorkItemRepository(new TestUserRepository());
-            return new WorkItemService(repo);
+            var settingsProvider = new TestSettingsValueProvider();
+            settingsProvider.SetValueForType(SettingType.MaxDisplayWorkItemCount, "100000");
+            return new WorkItemService(repo, settingsProvider);
         }
 
         [Test]
