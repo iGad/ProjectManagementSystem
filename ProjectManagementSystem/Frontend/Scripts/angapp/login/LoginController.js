@@ -16,13 +16,13 @@ angapp.controller("LoginController", ['$scope', '$state', '$stateParams', '$http
             RememberMe: $scope.rememberMe
         };
         var returnUrl = $stateParams.returnUrl;
-        var returnUrlUgly = $location.absUrl().split('returnUrl=')[1];
-        if (returnUrlUgly)
-            returnUrl = "/" + returnUrlUgly.split('&')[0];
+        //var returnUrlUgly = $location.absUrl().split('returnUrl=')[1];
+        //if (returnUrlUgly)
+        //    returnUrl = "/" + returnUrlUgly.split('&')[0];
        
         authProvider.logOn(model, returnUrl).then(function (content) {
-            
-                $window.location.href = content.data;
+            //сделать через $location
+                $window.location.href = '/#'+content.data;
         }, function(data) {
             $scope.errorResult = data.data.Message;
         });

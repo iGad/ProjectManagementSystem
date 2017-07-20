@@ -2,7 +2,7 @@
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         //[AllowAnonymous]

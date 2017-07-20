@@ -12,7 +12,7 @@ using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [System.Web.Http.Authorize]
+    [Authorize]
     public class WorkItemsApiController : BaseController
     {
         private readonly WorkItemApiService _workItemService;
