@@ -42,14 +42,7 @@
                         text += user.Name;
                     return text;
                 },
-
-                sendNotification: function(userId) {
-                    return $http({
-                        url: '/EventsApi/SendNotification',
-                        method: 'GET',
-                        params: {userId}
-                    });
-                },
+                
                 getCurrentUser: function() {
                     return $http({
                         url: usersUrl + 'GetCurrentUser',

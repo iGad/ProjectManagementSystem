@@ -65,19 +65,6 @@ namespace ProjectManagementSystem.Controllers
             _eventService.ChangeEventsState(eventIds, state);
             return Json("OK");
         }
-
-        [HttpGet]
-        public ActionResult SendNotification(string userId)
-        {
-            var user = _userRepository.GetById(userId);
-
-            _notifyService.SendNotifications(new WorkEvent
-            {
-                ObjectId = 12,
-                Type = EventType.WorkItemAdded,
-                UserId = _userRepository.GetByUserName(_usernameProvider.GetCurrentUsername()).Id
-            }, new[] {user});
-            return Json("OK", JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }

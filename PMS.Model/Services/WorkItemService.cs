@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using PMS.Model.CommonModels;
 using PMS.Model.CommonModels.FilterModels;
@@ -20,11 +19,11 @@ namespace PMS.Model.Services
             _settingsProvider = settingsProvider;
         }
 
-        protected IWorkItemRepository Repository => this._repository;
+        protected IWorkItemRepository Repository => _repository;
 
         public WorkItem Get(int id)
         {
-            var workItem = this._repository.GetById(id);
+            var workItem = _repository.GetById(id);
             if(workItem == null)
                 throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
@@ -42,7 +41,7 @@ namespace PMS.Model.Services
 
         public WorkItem GetWithNoTracking(int id)
         {
-            var workItem = this._repository.GetByIdNoTracking(id);
+            var workItem = _repository.GetByIdNoTracking(id);
             if (workItem == null)
                 throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
@@ -50,7 +49,7 @@ namespace PMS.Model.Services
 
         public WorkItem GetWithParents(int id)
         {
-            var workItem = this._repository.GetByIdWithParents(id);
+            var workItem = _repository.GetByIdWithParents(id);
             if (workItem == null)
                 throw new PmsException(string.Format(Resources.WorkItemNotFound, id));
             return workItem;
@@ -59,8 +58,8 @@ namespace PMS.Model.Services
         public virtual WorkItem Add(WorkItem workItem)
         {
             workItem.State = string.IsNullOrWhiteSpace(workItem.ExecutorId) ? WorkItemState.New : WorkItemState.Planned;
-            var item = this._repository.Add(workItem);
-            this._repository.SaveChanges();
+            var item = _repository.Add(workItem);
+            _repository.SaveChanges();
             return item;
         }
         
@@ -68,14 +67,14 @@ namespace PMS.Model.Services
         public List<WorkItem> GetActualProjects()
         {
             return
-                this._repository.Get(
+                _repository.Get(
                     x => !x.ParentId.HasValue && x.State != WorkItemState.Deleted).ToList();
         }
 
         public List<WorkItem> GetChildWorkItems(int parentId)
         {
             return
-                this._repository.Get(
+                _repository.Get(
                     x => x.ParentId == parentId && x.State != WorkItemState.Deleted).ToList();
         }
 
@@ -87,22 +86,19 @@ namespace PMS.Model.Services
             oldWorkItem.Description = workItem.Description;
             oldWorkItem.DeadLine = workItem.DeadLine;
             oldWorkItem.ExecutorId = workItem.ExecutorId;
-            this._repository.SaveChanges();
+            _repository.SaveChanges();
         }
         
-        public virtual void Delete(int id, bool cascade)
+        public virtual void Delete(int id)
         {
             var item = Get(id);
-            if (cascade)
+            var children = GetChildWorkItems(id);
+            if (children.Any())
             {
-                var children = GetChildWorkItems(id);
-                foreach (var workItem in children)
-                {
-                    Delete(workItem.Id, true);
-                }
+                throw new PmsException("Невозможно удалить элемент, у которого есть дочерние элементы");
             }
-            this._repository.Delete(item);
-            this._repository.SaveChanges();
+            _repository.Delete(item);
+            _repository.SaveChanges();
         }
 
         private WorkItemState[] GetActualStates()
@@ -114,7 +110,7 @@ namespace PMS.Model.Services
         {
             var states = GetActualStates();
             var itemsPerStateCount = int.Parse(_settingsProvider.GetSettingValue(SettingType.MaxDisplayWorkItemCount));
-            var items = this._repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
+            var items = _repository.GetItemsWithExecutor(x => states.Contains(x.State)).ToList();
             return states.ToDictionary(state => state, state => items.Where(x => x.State == state).OrderBy(x => x.DeadLine).Take(itemsPerStateCount).ToList());
         }
 
@@ -122,7 +118,7 @@ namespace PMS.Model.Services
         {
             var states = GetActualStates(); ;
             var itemsPerStateCount = int.Parse(_settingsProvider.GetSettingValue(SettingType.MaxDisplayWorkItemCount));
-            var items = this._repository.GetItemsWithExecutor(x => x.ExecutorId == userId && states.Contains(x.State)).ToList();
+            var items = _repository.GetItemsWithExecutor(x => x.ExecutorId == userId && states.Contains(x.State)).ToList();
             return states.ToDictionary(state => state, state => items.Where(x => x.State == state).OrderBy(x => x.DeadLine).Take(itemsPerStateCount).ToList());
         }
 
@@ -133,12 +129,12 @@ namespace PMS.Model.Services
 
         public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
         {
-            return this._repository.GetWorkItemWithAllLinkedItems(workItemId);
+            return _repository.GetWorkItemWithAllLinkedItems(workItemId);
         }
 
         public List<WorkItem> GetWorkItemsWithAllIncludedElements(Func<WorkItem, bool> whereExpression)
         {
-            return this._repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
+            return _repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
         }
 
         public List<UserItemsAggregateInfo> GetUserItemsAggregateInfos()

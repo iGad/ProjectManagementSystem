@@ -153,12 +153,13 @@
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\EventDescriber.cs" />
     <Compile Include="Services\IEventService.cs" />
-    <Compile Include="Services\INotifyService.cs" />
+    <Compile Include="Services\IRealtimeNotificationService.cs" />
     <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\LexicalHelper.cs" />
     <Compile Include="Services\Notifications\DatabaseEventNotificator.cs" />
     <Compile Include="Services\Notifications\EventNotificator.cs" />
     <Compile Include="Services\Notifications\IEventNotificatorsUsersProvider.cs" />
+    <Compile Include="Services\Notifications\INotificationService.cs" />
     <Compile Include="Services\Notifications\NotificationService.cs" />
     <Compile Include="Services\Notifications\EventNotificatorsUsersProvider.cs" />
     <Compile Include="Services\PermissionService.cs" />

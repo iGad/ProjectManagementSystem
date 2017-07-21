@@ -21,14 +21,14 @@ namespace ProjectManagementSystem.Services
     {
         private readonly IUsersService _userService;
         private readonly INotificationService _notificationService;
-        private readonly IRealtimeNotificationService _notifyService;
-        public WorkItemApiService(IWorkItemRepository repository, IUsersService userService, INotificationService notificationService, IRealtimeNotificationService notifyService, 
+        private readonly IRealtimeNotificationService _realtimeNotificationService;
+        public WorkItemApiService(IWorkItemRepository repository, IUsersService userService, INotificationService notificationService, IRealtimeNotificationService realtimeNotificationService, 
             ISettingsValueProvider settingsProvider) 
             :base(repository, settingsProvider)
         {
             _userService = userService;
             _notificationService = notificationService;
-            _notifyService = notifyService;
+            _realtimeNotificationService = realtimeNotificationService;
         }
 
         public WorkItemViewModel GetWorkItem(int id)
@@ -154,25 +154,10 @@ namespace ProjectManagementSystem.Services
 
         private void NotifyOnAdded(WorkItem item)
         {
-            _notifyService.SendEvent(Constants.WorkItemAddedEventName, item.Id, BroadcastType.All);
-            //var user = GetCurrentUser();
+            _realtimeNotificationService.SendEvent(Constants.WorkItemAddedEventName, item.Id, BroadcastType.All);
             var addedEvent = CreateBaseEvent(item.Id, EventType.WorkItemAdded);
-            if (!string.IsNullOrWhiteSpace(item.ExecutorId))
-            {
-                //var executor = _userService.Get(item.ExecutorId);
-                var appointEvent = CreateBaseEvent(item.Id, EventType.WorkItemAppointed);
-                appointEvent.Data = item.ExecutorId;
-                _notificationService.SendEventNotifications(appointEvent);
-                //SendNotificationToResponsibleUsers(addedEvent, item, user.Id, executor.Id);
-                //_eventService.AddEvent(appointEvent, new[] {item.ExecutorId});
-                //if (executor.Id != user.Id)
-                //{
-                //    _notifyService.SendNotifications(appointEvent, executor);
-                //}
-            }
+            NotifyAboutAppoint(item);
             _notificationService.SendEventNotifications(addedEvent);
-            //SendNotificationToResponsibleUsers(addedEvent, item, user.Id);
-
         }
 
         public void Update(WorkItem workItem)
@@ -186,48 +171,43 @@ namespace ProjectManagementSystem.Services
 
         private void NotifyOnUpdating(WorkItem oldWorkItem, WorkItem workItem, string[] differentProperties)
         {
-            //var user = GetCurrentUser();
             var oldExecutor = _userService.SafeGet(oldWorkItem.ExecutorId);
-            //bool needNotification = true;
             var changedEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemChanged);
-            if (differentProperties.Any(x => x == nameof(WorkItem.ExecutorId)))
-            {
-                var executor = _userService.SafeGet(workItem.ExecutorId);
-                if (oldExecutor != null)
-                {
-                    var disappointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemDisappointed, oldExecutor.Id);
-                    _notificationService.SendEventNotifications(disappointEvent);
-                    //disappointEvent = _eventService.AddEvent(disappointEvent, new[] {oldExecutor.Id});
-                    //if (user.UserName != oldExecutor.UserName)
-                    //    _notifyService.SendNotifications(disappointEvent, new[] {oldExecutor});
-                }
-                if (executor != null)
-                {
-                    var appointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemAppointed, executor.Id);
-                    _notificationService.SendEventNotifications(appointEvent);
-                    //_eventService.AddEvent(appointEvent, new[] { executor.Id });
-                    //if (user.UserName != executor.UserName)
-                    //    _notifyService.SendNotifications(appointEvent, new[] {executor});
-                }
-                
-                //SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id, oldExecutor?.Id, executor?.Id);
-                //needNotification = false;
-            }
+            NotifyAboutAppointAndDisappoint(workItem, differentProperties, oldExecutor);
             if (differentProperties.All(x=>x == nameof(WorkItem.State)))
             {
                 var stateChangedEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemStateChanged,
                     new StateChangedModel{Old = oldWorkItem.State, New = workItem.State});
                 _notificationService.SendEventNotifications(stateChangedEvent);
-                //SendNotificationToResponsibleUsers(stateChangedEvent, oldWorkItem, user.Id);
                 return;
             }
             
             _notificationService.SendEventNotifications(changedEvent);
-            //SendNotificationToResponsibleUsers(changedEvent, oldWorkItem, user.Id);
-            
         }
 
-        private WorkEvent CreateBaseEvent(int workItemId, EventType type, object data)
+        private void NotifyAboutAppointAndDisappoint(WorkItem workItem, string[] differentProperties, ApplicationUser oldExecutor)
+        {
+            if (differentProperties.Any(x => x == nameof(WorkItem.ExecutorId)))
+            {
+                if (oldExecutor != null)
+                {
+                    var disappointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemDisappointed, oldExecutor.Id);
+                    _notificationService.SendEventNotifications(disappointEvent);
+                }
+                NotifyAboutAppoint(workItem);
+            }
+        }
+
+        private void NotifyAboutAppoint(WorkItem workItem)
+        {
+            if (!string.IsNullOrWhiteSpace(workItem.ExecutorId))
+            {
+                var appointEvent = CreateBaseEvent(workItem.Id, EventType.WorkItemAppointed, workItem.ExecutorId);
+                _notificationService.SendEventNotifications(appointEvent);
+            }
+        }
+
+        private WorkEvent CreateBaseEvent(int workItemId, EventType type, object data = null)
         {
             return new WorkEvent
             {
@@ -237,61 +217,19 @@ namespace ProjectManagementSystem.Services
                 Data = data == null ? string.Empty : JsonConvert.SerializeObject(data)
             };
         }
-
-        private WorkEvent CreateBaseEvent(int workItemId, EventType type, string data = null)
-        {
-            return new WorkEvent
-            {
-                UserId = GetCurrentUser().Id,
-                Type = type,
-                ObjectId = workItemId,
-                Data = data ?? string.Empty
-            };
-        }
-
-        //private void SendNotificationToResponsibleUsers(WorkEvent @event, WorkItem workItem, params string[] exceptUsers)
-        //{
-        //    var users = GetResponsibleUsers(workItem).Distinct(new ApplicationUserEqualityComparer()).ToArray();
-        //    var notifyingUsers = users.Where(x => (exceptUsers == null || !exceptUsers.Contains(x.Id)));
-        //    _eventService.AddEvent(@event, users.Select(x => x.Id));
-        //    _notifyService.SendNotifications(@event, notifyingUsers.ToArray());
-        //}
         
-        private List<ApplicationUser> GetResponsibleUsers(WorkItem workItem, params string[] exceptUsers)
-        {
-            var executor = _userService.SafeGet(workItem.ExecutorId);
-            var users = new List<ApplicationUser> {GetCurrentUser()};
-            if (exceptUsers == null || executor!= null && !exceptUsers.Contains(executor.Id))
-                users.Add(executor);
-            if (workItem.ParentId.HasValue)
-            {
-                var parentItemUserId = Repository.GetByIdNoTracking(workItem.ParentId.Value).ExecutorId;
-                if (parentItemUserId != null)
-                {
-                    var parentItemExecutor = _userService.Get(parentItemUserId);
-                    if (exceptUsers == null || !exceptUsers.Contains(parentItemExecutor.Id))
-                        users.Add(parentItemExecutor);
-                }
-            }
-            var directorNames = _userService.GetUsersByRole(RoleType.Director).ToArray();
-            users.AddRange(directorNames.Where(x => users.All(u => u.Id != x.Id)));
-            return users;
-        } 
-
         private void NotifyOnUpdated(WorkItem workItem, string[] differentProperties)
         {
             var sendModel = new WorkItemUpdatedModel { WorkItemId = workItem.Id, ChangedProperties = differentProperties };
-            _notifyService.SendEvent(Constants.WorkItemChangedEventName, sendModel, BroadcastType.All);
+            _realtimeNotificationService.SendEvent(Constants.WorkItemChangedEventName, sendModel, BroadcastType.All);
         }
 
-        public override void Delete(int id, bool cascade)
+        public override void Delete(int id)
         {
-            //var item = Get(id);
-            base.Delete(id, cascade);
+            base.Delete(id);
             var @event = CreateBaseEvent(id, EventType.WorkItemDeleted, id);
             _notificationService.SendEventNotifications(@event);
-            //SendNotificationToResponsibleUsers(@event, item, GetCurrentUser().Id);
-
+            _realtimeNotificationService.SendEvent(Constants.WorkItemDeletedEventName, @event, BroadcastType.All);
         }
 
         #endregion

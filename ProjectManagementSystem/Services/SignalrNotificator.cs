@@ -49,57 +49,57 @@ namespace ProjectManagementSystem.Services
             clients.raiseEvent(eventName, sendedObject);
         }
 
-        public void SendNotification(string eventName, object sendedObject, BroadcastType broadcastType, params string[] userNames)
-        {
-            if (broadcastType != BroadcastType.All && (userNames == null || userNames.All(string.IsNullOrEmpty)))
-                return;
-            //string[] usersNames;// = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            dynamic clients;
-            switch (broadcastType)
-            {
-                case BroadcastType.All:
-                    clients = Clients.All;
-                    break;
-                case BroadcastType.Others:
-                    clients = Clients.AllExcept(userNames);
-                    break;
-                case BroadcastType.Users:
-                    var users = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-                    if (!users.Any())
-                        return;
-                    clients = Clients.Users(users);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(broadcastType), broadcastType, null);
-            }
-            clients.recieveNotification(eventName, sendedObject);
-        }
+        //public void SendNotification(string eventName, object sendedObject, BroadcastType broadcastType, params string[] userNames)
+        //{
+        //    if (broadcastType != BroadcastType.All && (userNames == null || userNames.All(string.IsNullOrEmpty)))
+        //        return;
+        //    //string[] usersNames;// = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        //    dynamic clients;
+        //    switch (broadcastType)
+        //    {
+        //        case BroadcastType.All:
+        //            clients = Clients.All;
+        //            break;
+        //        case BroadcastType.Others:
+        //            clients = Clients.AllExcept(userNames);
+        //            break;
+        //        case BroadcastType.Users:
+        //            var users = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        //            if (!users.Any())
+        //                return;
+        //            clients = Clients.Users(users);
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(nameof(broadcastType), broadcastType, null);
+        //    }
+        //    clients.recieveNotification(eventName, sendedObject);
+        //}
 
-        public void SendNotification(WorkEvent workEvent, BroadcastType broadcastType, params string[] userNames)
-        {
-            if (broadcastType != BroadcastType.All && (userNames == null || userNames.All(string.IsNullOrEmpty)))
-                return;
-            //string[] usersNames;// = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            dynamic clients;
-            switch (broadcastType)
-            {
-                case BroadcastType.All:
-                    clients = Clients.All;
-                    break;
-                case BroadcastType.Others:
-                    clients = Clients.AllExcept(userNames);
-                    break;
-                case BroadcastType.Users:
-                    var users = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-                    if (!users.Any())
-                        return;
-                    clients = Clients.Users(users);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(broadcastType), broadcastType, null);
-            }
-            clients.recieveNotification(workEvent.Type.ToString().ToLower(), workEvent);
-        }
+        //public void SendNotification(WorkEvent workEvent, BroadcastType broadcastType, params string[] userNames)
+        //{
+        //    if (broadcastType != BroadcastType.All && (userNames == null || userNames.All(string.IsNullOrEmpty)))
+        //        return;
+        //    //string[] usersNames;// = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        //    dynamic clients;
+        //    switch (broadcastType)
+        //    {
+        //        case BroadcastType.All:
+        //            clients = Clients.All;
+        //            break;
+        //        case BroadcastType.Others:
+        //            clients = Clients.AllExcept(userNames);
+        //            break;
+        //        case BroadcastType.Users:
+        //            var users = userNames.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        //            if (!users.Any())
+        //                return;
+        //            clients = Clients.Users(users);
+        //            break;
+        //        default:
+        //            throw new ArgumentOutOfRangeException(nameof(broadcastType), broadcastType, null);
+        //    }
+        //    clients.recieveNotification(workEvent.Type.ToString().ToLower(), workEvent);
+        //}
 
         public void SendNotifications(WorkEvent workEvent, ICollection<ApplicationUser> users)
         {
@@ -116,11 +116,7 @@ namespace ProjectManagementSystem.Services
                 clients.recieveNotification(workEvent.Type.ToString().ToLower(), model);
             }
         }
-
-        public void SendNotifications(WorkEvent workEvent, ApplicationUser user)
-        {
-            SendNotifications(workEvent, new[] {user});
-        }
+        
 
         protected override void NotifyInner(WorkEvent @event, ICollection<ApplicationUser> users)
         {

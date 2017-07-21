@@ -49,7 +49,7 @@ namespace ProjectManagementSystem.Controllers
         [HttpPost]
         public ActionResult DeleteWorkItem(int id)
         {
-            _workItemService.Delete(id, true);
+            _workItemService.Delete(id);
             return Json("OK");
         }
 

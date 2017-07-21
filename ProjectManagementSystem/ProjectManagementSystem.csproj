@@ -422,7 +422,6 @@
     <Content Include="Frontend\Scripts\angapp\main\events\EventsIndexController.js" />
     <Content Include="Frontend\Scripts\angapp\main\events\EventsService.js" />
     <Content Include="Frontend\Scripts\angapp\main\events\NewEventsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\events\NotifyController.js" />
     <Content Include="Frontend\Scripts\angapp\main\index\PanelController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
