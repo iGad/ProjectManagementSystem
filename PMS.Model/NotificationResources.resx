@@ -190,7 +190,7 @@
     <value>переместил в запланированные</value>
   </data>
   <data name="MovedToRebuild" xml:space="preserve">
-    <value>отдал на доработку</value>
+    <value>поместил на доработку</value>
   </data>
   <data name="PartitionA" xml:space="preserve">
     <value>Раздел</value>

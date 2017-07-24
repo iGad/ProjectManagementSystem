@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PMS.Model.Models.Identity;
 using PMS.Model.Services;
+using ProjectManagementSystem.Attributes;
 using ProjectManagementSystem.Models;
 using LoginViewModel = ProjectManagementSystem.ViewModels.LoginViewModel;
 
@@ -51,9 +52,20 @@ namespace ProjectManagementSystem.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        
+        public ActionResult GetToken()
+        {
+            string cookieToken, formToken;
+            System.Web.Helpers.AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            return Json(cookieToken + ":" + formToken, JsonRequestBehavior.AllowGet);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        
         public ActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;
@@ -64,6 +76,7 @@ namespace ProjectManagementSystem.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [AntiForgeryValidate]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
