@@ -277,7 +277,7 @@ namespace PMS.Model {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to отдал на доработку.
+        ///   Looks up a localized string similar to поместил на доработку.
         /// </summary>
         public static string MovedToRebuild {
             get {
