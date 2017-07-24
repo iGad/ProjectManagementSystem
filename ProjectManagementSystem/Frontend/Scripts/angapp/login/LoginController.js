@@ -22,11 +22,7 @@ angapp.controller("LoginController", ['$scope', '$state', '$stateParams', '$http
        
         authProvider.logOn(model, returnUrl).then(function (content) {
             //сделать через $location
-            if(content.data && content.data.length > 2)
-                $window.location.href = '/#' + content.data;
-            else {
-                $state.go('base.main.all');
-            }
+                $window.location.href = '/#'+content.data;
         }, function(data) {
             $scope.errorResult = data.data.Message;
         });

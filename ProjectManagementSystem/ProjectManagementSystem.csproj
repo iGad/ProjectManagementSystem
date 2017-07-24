@@ -185,7 +185,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Attributes\AntiForgeryValidate.cs" />
     <Compile Include="AuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -385,7 +384,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Frontend\Scripts\angapp\global\Controllers\AddFilesController.js" />
-    <Content Include="Frontend\Scripts\angapp\global\Directives\AntiForgeryToken.js" />
     <Content Include="Frontend\Scripts\angapp\global\Directives\EnterPress.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\HttpService.js" />
     <Content Include="Frontend\Scripts\angapp\global\Providers\NotificationServiceProvider.js" />
