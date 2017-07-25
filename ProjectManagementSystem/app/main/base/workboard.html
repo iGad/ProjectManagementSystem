@@ -1,0 +1,12 @@
+﻿<div ng-controller="WorkBoardController">
+    <md-nav-bar md-selected-nav-item="selectedTab" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="goTo('base.main.all')" name="all">
+            Все
+        </md-nav-item>
+        <md-nav-item md-nav-click="goTo('base.main.users')" name="users">
+            По пользователям
+        </md-nav-item>
+    </md-nav-bar>
+    <ui-view></ui-view>
+</div>
+

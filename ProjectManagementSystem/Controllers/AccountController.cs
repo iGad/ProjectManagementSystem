@@ -12,7 +12,7 @@ using LoginViewModel = ProjectManagementSystem.ViewModels.LoginViewModel;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

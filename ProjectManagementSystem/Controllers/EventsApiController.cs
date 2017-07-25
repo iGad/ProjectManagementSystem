@@ -8,7 +8,7 @@ using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class EventsApiController : Controller
     {
         private readonly EventsApiService _eventService;

@@ -186,8 +186,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\AntiForgeryValidate.cs" />
-    <Compile Include="AuthorizeAttribute.cs" />
+    <Compile Include="Attributes\PmsAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AutofillApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentsApiController.cs" />
     <Compile Include="Controllers\DataUpdaterController.cs" />
@@ -205,6 +207,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="Infrastructure\PmsViewEngine.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataGeneratorParameters.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -220,6 +223,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\AutofillService.cs" />
+    <Compile Include="ViewModels\AutofillViewModel.cs" />
     <Compile Include="Services\DataGenerator.cs" />
     <Compile Include="Services\EventsApiService.cs" />
     <Compile Include="Services\Extensions.cs" />
@@ -246,445 +251,397 @@
     <Compile Include="ViewModels\WorkItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\angular-material.css" />
-    <Content Include="Content\angular-material.layout-attributes.css" />
-    <Content Include="Content\angular-material.layout-attributes.min.css" />
-    <Content Include="Content\angular-material.layouts.css" />
-    <Content Include="Content\angular-material.layouts.ie_fixes.css" />
-    <Content Include="Content\angular-material.layouts.min.css" />
-    <Content Include="Content\angular-material.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Frontend\Content\css\angular-material\angular-material.css">
+    <Content Include="assets\css\bootstrap\bootstrap.css" />
+    <Content Include="assets\css\bootstrap\bootstrap.min.css" />
+    <Content Include="assets\css\angular-material\angular-material.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.css">
+    <Content Include="assets\css\angular-material\angular-material.layout-attributes.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layout-attributes.min.css">
+    <Content Include="assets\css\angular-material\angular-material.layout-attributes.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.css">
+    <Content Include="assets\css\angular-material\angular-material.layouts.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.ie_fixes.css">
+    <Content Include="assets\css\angular-material\angular-material.layouts.ie_fixes.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\angular-material\angular-material.layouts.min.css">
+    <Content Include="assets\css\angular-material\angular-material.layouts.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\angular-material\angular-material.min.css">
+    <Content Include="assets\css\angular-material\angular-material.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\bootstrap.css" />
-    <Content Include="Content\reset.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\reset.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Frontend\Content\css\jquery-ui\jquery-ui.css" />
-    <Content Include="Frontend\Content\css\jquery-ui\jquery-ui.min.css" />
-    <Content Include="Frontend\Content\css\jquery-ui\jquery-ui.structure.css" />
-    <Content Include="Frontend\Content\css\jquery-ui\jquery-ui.structure.min.css" />
-    <Content Include="Frontend\Content\css\jquery-ui\jquery-ui.theme.css" />
-    <Content Include="Frontend\Content\css\jquery-ui\jquery-ui.theme.min.css" />
-    <Content Include="Frontend\Content\css\site.css">
+    <Content Include="assets\css\jquery-ui\jquery-ui.css" />
+    <Content Include="assets\css\jquery-ui\jquery-ui.min.css" />
+    <Content Include="assets\css\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="assets\css\jquery-ui\jquery-ui.structure.min.css" />
+    <Content Include="assets\css\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="assets\css\jquery-ui\jquery-ui.theme.min.css" />
+    <Content Include="assets\css\site.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\ui-grid\ui-grid.css">
+    <Content Include="assets\css\ui-grid\ui-grid.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\ui-grid\ui-grid.svg">
+    <Content Include="assets\css\ui-grid\ui-grid.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.svg">
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\ui-grid.svg">
+    <Content Include="assets\fonts\ui-grid.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\delete.svg">
+    <Content Include="assets\images\material-icons\delete.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\action-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\action-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\alert-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\alert-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\av-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\av-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\communication-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\communication-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\content-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\content-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\device-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\device-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\editor-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\editor-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\file-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\file-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\hardware-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\hardware-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\image-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\image-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\maps-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\maps-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\mdi-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\mdi-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\navigation-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\navigation-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\notification-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\notification-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\social-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\social-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\iconsets\toggle-icons.svg">
+    <Content Include="assets\images\material-icons\iconsets\toggle-icons.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_check_box_false_24px.svg">
+    <Content Include="assets\images\material-icons\ic_check_box_false_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_check_box_true_24px.svg">
+    <Content Include="assets\images\material-icons\ic_check_box_true_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_clear_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_clear_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_edit_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_edit_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_exposure_neg_1_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_exposure_neg_1_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_exposure_plus_1_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_exposure_plus_1_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_fast_forward_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_fast_forward_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_keyboard_arrow_left_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_keyboard_arrow_left_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_keyboard_arrow_right_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_keyboard_arrow_right_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\images\material-icons\ic_menu_black_24px.svg">
+    <Content Include="assets\images\material-icons\ic_menu_black_24px.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\global\Controllers\AddFilesController.js" />
-    <Content Include="Frontend\Scripts\angapp\global\Directives\AntiForgeryToken.js" />
-    <Content Include="Frontend\Scripts\angapp\global\Directives\EnterPress.js" />
-    <Content Include="Frontend\Scripts\angapp\global\Providers\HttpService.js" />
-    <Content Include="Frontend\Scripts\angapp\global\Providers\NotificationServiceProvider.js" />
-    <Content Include="Frontend\Scripts\angapp\global\Providers\Utils.js">
+    <Content Include="app\shared\Controllers\AddFilesController.js" />
+    <Content Include="app\shared\Directives\AntiForgeryToken.js" />
+    <Content Include="app\shared\Directives\EnterPress.js" />
+    <Content Include="app\shared\Providers\HttpService.js" />
+    <Content Include="app\shared\Providers\NotificationServiceProvider.js" />
+    <Content Include="app\shared\Providers\Utils.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\login\LoginController.js" />
-    <Content Include="Frontend\Scripts\angapp\login\authProvider.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\AllWorkItemsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\Configuration\LoginHttpInterceptor.js">
+    <Content Include="app\login\LoginController.js" />
+    <Content Include="app\login\authProvider.js" />
+    <Content Include="app\main\base\AllWorkItemsController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\workItem\CommentsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\workItem\CommentsService.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\LinkedWorkItemsController.js">
+    <Content Include="app\main\Configuration\LoginHttpInterceptor.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\base\TestController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\UserWorkItemsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\WorkBoardController.js">
+    <Content Include="app\main\workItem\CommentsController.js" />
+    <Content Include="app\main\workItem\CommentsService.js" />
+    <Content Include="app\main\base\LinkedWorkItemsController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\workItem\WorkItemController.js">
+    <Content Include="app\main\base\TestController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemServiceProvider.js">
+    <Content Include="app\main\base\UserWorkItemsController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemsPerUserController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemsPerUsersController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\base\WorkItemTileController.js">
+    <Content Include="app\main\base\WorkBoardController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\Configuration\dateLocale.config.js" />
-    <Content Include="Frontend\Scripts\angapp\main\events\SeenEventsControler.js" />
-    <Content Include="Frontend\Scripts\angapp\main\events\EventsIndexController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\events\EventsService.js" />
-    <Content Include="Frontend\Scripts\angapp\main\events\NewEventsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\index\PanelController.js">
+    <Content Include="app\main\workItem\WorkItemController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\index\UserHeaderController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\profile\EditProfileInfoController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\profile\EditProfileSettingController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\profile\ProfileIndexController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\projects\ProjectsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\search\SearchController.js">
+    <Content Include="app\main\base\WorkItemServiceProvider.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\search\SearchMiniController.js">
+    <Content Include="app\main\base\WorkItemsPerUserController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\search\SearchService.js">
+    <Content Include="app\main\base\WorkItemsPerUsersController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\settings\EditSettingController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\settings\SettingsController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\settings\SettingsService.js" />
-    <Content Include="Frontend\Scripts\angapp\main\users\Controllers\AddUpdateUserController.js" />
-    <Content Include="Frontend\Scripts\angapp\main\users\Controllers\UsersMainController.js">
+    <Content Include="app\main\base\WorkItemTileController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\global\Directives\PaginationDirective.js">
+    <Content Include="app\main\Configuration\dateLocale.config.js" />
+    <Content Include="app\main\events\SeenEventsControler.js" />
+    <Content Include="app\main\events\EventsIndexController.js" />
+    <Content Include="app\main\events\EventsService.js" />
+    <Content Include="app\main\events\NewEventsController.js" />
+    <Content Include="app\main\index\PanelController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\users\Providers\UsersServiceProvider.js">
+    <Content Include="app\main\index\UserHeaderController.js" />
+    <Content Include="app\main\profile\EditProfileInfoController.js" />
+    <Content Include="app\main\profile\EditProfileSettingController.js" />
+    <Content Include="app\main\profile\ProfileIndexController.js" />
+    <Content Include="app\main\projects\ProjectsController.js" />
+    <Content Include="app\main\search\SearchController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\workItemRowController.js" />
-    <Content Include="Frontend\Scripts\angapp\updater\updaterapp.js" />
-    <Content Include="Frontend\Scripts\jquery-3.1.1.js">
+    <Content Include="app\main\search\SearchMiniController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\jquery-ui.js" />
-    <Content Include="Frontend\Scripts\jquery-ui.min.js" />
-    <Content Include="Frontend\Scripts\moment\locale\ru.js">
+    <Content Include="app\main\search\SearchService.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\moment\moment.js">
+    <Content Include="app\main\settings\EditSettingController.js" />
+    <Content Include="app\main\settings\SettingsController.js" />
+    <Content Include="app\main\settings\SettingsService.js" />
+    <Content Include="app\main\users\Controllers\AddUpdateUserController.js" />
+    <Content Include="app\main\users\Controllers\UsersMainController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.js">
+    <Content Include="app\shared\Directives\PaginationDirective.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload-shim.min.js">
+    <Content Include="app\main\users\Providers\UsersServiceProvider.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.js">
+    <Content Include="app\main\workItemRowController.js" />
+    <Content Include="app\updater\updaterapp.js" />
+    <Content Include="assets\libs\jquery-3.1.1.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\ngFileUpload\ng-file-upload.min.js">
+    <Content Include="assets\libs\jquery-ui.js" />
+    <Content Include="assets\libs\jquery-ui.min.js" />
+    <Content Include="assets\libs\moment\locale\ru.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\ui-sortable\sortable.js" />
-    <Content Include="Frontend\Scripts\ui-sortable\sortable.min.js" />
-    <Content Include="Frontend\Views\login\login.html">
+    <Content Include="assets\libs\moment\moment.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\allItems.html">
+    <Content Include="assets\libs\ngFileUpload\ng-file-upload-shim.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\itemsPerUsers.html">
+    <Content Include="assets\libs\ngFileUpload\ng-file-upload-shim.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\userItems.html">
+    <Content Include="assets\libs\ngFileUpload\ng-file-upload.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\userWorkItemsTemplate.html">
+    <Content Include="assets\libs\ngFileUpload\ng-file-upload.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\events\seenEvents.html">
+    <Content Include="assets\libs\ui-sortable\sortable.js" />
+    <Content Include="assets\libs\ui-sortable\sortable.min.js" />
+    <Content Include="app\login\login.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\events\eventsIndex.html">
+    <Content Include="app\main\base\allItems.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\events\newEvents.html">
+    <Content Include="app\main\base\itemsPerUsers.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\profile\index.html">
+    <Content Include="app\main\base\userItems.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\profile\info.html">
+    <Content Include="app\main\base\userWorkItemsTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\profile\settings.html">
+    <Content Include="app\main\events\seenEvents.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\search\resultItemRowTemplate.html" />
-    <Content Include="Frontend\Views\main\search\search.html" />
-    <Content Include="Frontend\Views\main\settings\settings.html">
+    <Content Include="app\main\events\eventsIndex.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\test.html">
+    <Content Include="app\main\events\newEvents.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\workboard.html">
+    <Content Include="app\main\profile\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\projects.html">
+    <Content Include="app\main\profile\info.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\workItem.html">
+    <Content Include="app\main\profile\settings.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base\workItemTileTemplate.html">
+    <Content Include="app\main\search\resultItemRowTemplate.html" />
+    <Content Include="app\main\search\search.html" />
+    <Content Include="app\main\settings\settings.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\projects\index.html">
+    <Content Include="app\main\base\workboard.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\projects\workItemRowTemplate.html">
+    <Content Include="app\main\base\projects.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\users\AddUpdateUser.html">
+    <Content Include="app\main\base\workItem.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\users\AddUser.html">
+    <Content Include="app\main\base\workItemTileTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\users\index.html">
+    <Content Include="app\main\projects\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\addFilesDialog.html">
+    <Content Include="app\main\projects\workItemRowTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\commentTemplate.html">
+    <Content Include="app\main\users\AddUpdateUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\linkedFileTemplate.html">
+    <Content Include="app\main\users\AddUser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\newCommentTemplate.html">
+    <Content Include="app\main\users\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\Pagination.html">
+    <Content Include="app\shared\addFilesDialog.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\shared\PaginationTemplate.html">
+    <Content Include="app\shared\commentTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\shared\linkedFileTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\shared\newCommentTemplate.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\shared\Pagination.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\shared\PaginationTemplate.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\angular-animate.js" />
-    <Content Include="Scripts\angular-animate.min.js" />
-    <Content Include="Scripts\angular-animate\angular-animate.js">
+    <Content Include="assets\libs\angular-animate\angular-animate.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-animate\angular-animate.min.js">
+    <Content Include="assets\libs\angular-animate\angular-animate.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-aria.js" />
-    <Content Include="Scripts\angular-aria.min.js" />
-    <Content Include="Scripts\angular-aria\angular-aria.js">
+    <Content Include="assets\libs\angular-aria\angular-aria.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-aria\angular-aria.min.js">
+    <Content Include="assets\libs\angular-aria\angular-aria.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-cookies.js" />
-    <Content Include="Scripts\angular-cookies.min.js" />
-    <Content Include="Scripts\angular-csp.css" />
-    <Content Include="Scripts\angular-loader.js" />
-    <Content Include="Scripts\angular-loader.min.js" />
-    <Content Include="Scripts\angular-material\angular-material-mocks.js" />
-    <Content Include="Scripts\angular-material\angular-material.js" />
-    <Content Include="Scripts\angular-material\angular-material.min.js" />
-    <Content Include="Scripts\angular-material\svg-assets-cache.js">
+    <Content Include="assets\libs\angular-material\angular-material-mocks.js" />
+    <Content Include="assets\libs\angular-material\angular-material.js" />
+    <Content Include="assets\libs\angular-material\angular-material.min.js" />
+    <Content Include="assets\libs\angular-material\svg-assets-cache.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-message-format.js" />
-    <Content Include="Scripts\angular-message-format.min.js" />
-    <Content Include="Scripts\angular-messages.js" />
-    <Content Include="Scripts\angular-messages.min.js" />
-    <Content Include="Scripts\angular-messages\angular-messages.js">
+    <Content Include="assets\libs\angular-messages\angular-messages.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-messages\angular-messages.min.js">
+    <Content Include="assets\libs\angular-messages\angular-messages.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-mocks.js" />
-    <Content Include="Scripts\angular-parse-ext.js" />
-    <Content Include="Scripts\angular-parse-ext.min.js" />
-    <Content Include="Scripts\angular-resource.js" />
-    <Content Include="Scripts\angular-resource.min.js" />
-    <Content Include="Scripts\angular-route.js" />
-    <Content Include="Scripts\angular-route.min.js" />
-    <Content Include="Scripts\angular-sanitize.js" />
-    <Content Include="Scripts\angular-sanitize.min.js" />
-    <Content Include="Scripts\angular-scenario.js" />
-    <Content Include="Scripts\angular-touch.js" />
-    <Content Include="Scripts\angular-touch.min.js" />
-    <Content Include="Scripts\angular-ui-router.js" />
-    <Content Include="Scripts\angular-ui-router.min.js" />
-    <Content Include="Scripts\angular-ui-router\angular-ui-router.js">
+    <Content Include="assets\libs\angular-route\angular-route.js" />
+    <Content Include="assets\libs\angular-route\angular-route.min.js" />
+    <Content Include="assets\libs\angular-ui-router\angular-ui-router.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-ui-router\angular-ui-router.min.js">
+    <Content Include="assets\libs\angular-ui-router\angular-ui-router.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular\angular.js">
+    <Content Include="assets\libs\angular\angular.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular\angular.min.js">
+    <Content Include="assets\libs\angular\angular.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Frontend\Scripts\angapp\main\angapp.js">
+    <Content Include="assets\libs\bootstrap.js" />
+    <Content Include="assets\libs\bootstrap.min.js" />
+    <Content Include="app\main\angapp.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\Configuration\states.js">
+    <Content Include="app\main\Configuration\states.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\angapp\main\index\IndexController.js">
+    <Content Include="app\main\index\IndexController.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Views\main\base.html">
+    <Content Include="app\main\index\base.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\signalR\jquery.signalR-2.2.1.js">
+    <Content Include="assets\libs\signalR\jquery.signalR-2.2.1.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Scripts\signalR\jquery.signalR-2.2.1.min.js">
+    <Content Include="assets\libs\signalR\jquery.signalR-2.2.1.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\i18n\angular-locale_ru-ru.js" />
-    <Content Include="Scripts\i18n\angular-locale_ru-ua.js" />
-    <Content Include="Scripts\i18n\angular-locale_ru.js" />
-    <Content Include="Scripts\ui-grid\ui-grid.js">
+    <Content Include="assets\libs\i18n\angular-locale_ru-ru.js" />
+    <Content Include="assets\libs\i18n\angular-locale_ru-ua.js" />
+    <Content Include="assets\libs\i18n\angular-locale_ru.js" />
+    <Content Include="assets\libs\ui-grid\ui-grid.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Scripts\errors.json" />
-    <Content Include="Scripts\angular.min.js.map" />
-    <Content Include="Scripts\angular-touch.min.js.map" />
-    <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <Content Include="Scripts\angular-route.min.js.map" />
-    <Content Include="Scripts\angular-resource.min.js.map" />
-    <Content Include="Scripts\angular-parse-ext.min.js.map" />
-    <Content Include="Scripts\angular-messages.min.js.map" />
-    <Content Include="Scripts\angular-message-format.min.js.map" />
-    <Content Include="Scripts\angular-loader.min.js.map" />
-    <Content Include="Scripts\angular-cookies.min.js.map" />
-    <Content Include="Scripts\angular-aria.min.js.map" />
-    <Content Include="Scripts\angular-animate.min.js.map" />
-    <Content Include="Frontend\Views\main\settings\editSetting.html">
+    <Content Include="assets\css\bootstrap\bootstrap.min.css.map" />
+    <Content Include="assets\css\bootstrap\bootstrap.css.map" />
+    <Content Include="assets\libs\errors.json" />
+    <Content Include="assets\libs\angular-route\angular-route.min.js.map" />
+    <Content Include="app\main\settings\editSetting.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\ui-grid\ui-grid.min._js" />
+    <None Include="assets\libs\ui-grid\ui-grid.min._js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -726,55 +683,53 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\version.json" />
+    <Content Include="assets\libs\version.json" />
     <Content Include="Views\DataUpdater\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Content\Site\" />
-    <Folder Include="Frontend\Scripts\angapp\main\users\Directives\" />
-    <Folder Include="Scripts\Site\" />
+    <Folder Include="app\global\" />
+    <Folder Include="app\main\users\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.eot">
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.ttf">
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.woff">
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\glyphicons-halflings-regular.woff2">
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\ui-grid.eot">
+    <Content Include="assets\fonts\ui-grid.eot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\ui-grid.ttf">
+    <Content Include="assets\fonts\ui-grid.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\fonts\ui-grid.woff">
+    <Content Include="assets\fonts\ui-grid.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\ui-grid\ui-grid.eot">
+    <Content Include="assets\css\ui-grid\ui-grid.eot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\ui-grid\ui-grid.ttf">
+    <Content Include="assets\css\ui-grid\ui-grid.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Frontend\Content\css\ui-grid\ui-grid.woff">
+    <Content Include="assets\css\ui-grid\ui-grid.woff">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\angular-messages\angular-messages.min.js.map">
+    <Content Include="assets\libs\angular-messages\angular-messages.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-aria\angular-aria.min.js.map">
+    <Content Include="assets\libs\angular-aria\angular-aria.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-animate\angular-animate.min.js.map">
+    <Content Include="assets\libs\angular-animate\angular-animate.min.js.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

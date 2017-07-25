@@ -8,6 +8,7 @@ using System.Web.Routing;
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using ProjectManagementSystem.Export;
+using ProjectManagementSystem.Infrastructure;
 using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem
@@ -24,6 +25,8 @@ namespace ProjectManagementSystem
             //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), ()=> new UserIdProvider());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new PmsViewEngine());
             //this.Error+= OnError;
             //this.AuthorizeRequest += OnAuthorizeRequest;
         }

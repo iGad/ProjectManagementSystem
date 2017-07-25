@@ -7,7 +7,7 @@ using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class PermissionsApiController : Controller
     {
         private readonly IUserPermissionsRepository _permissionsRepository;
