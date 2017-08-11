@@ -9,6 +9,7 @@ using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using ProjectManagementSystem.Export;
 using ProjectManagementSystem.Infrastructure;
+using ProjectManagementSystem.Models;
 using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem
@@ -33,7 +34,22 @@ namespace ProjectManagementSystem
 
         private void OnAuthorizeRequest(object sender, EventArgs eventArgs)
         {
-            var i = 0;
+            
+        }
+
+        void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+            var httpContext = ((HttpApplication)sender).Context;
+            var user = httpContext.User;
+
+            if (user?.Identity == null)
+                return;
+
+            if (!user.Identity.IsAuthenticated)
+                return;
+
+            if(!(httpContext.User is UserPrincipal))
+                httpContext.User = new UserPrincipal(user.Identity.Name);
         }
 
         void Application_Error(object sender, EventArgs e)

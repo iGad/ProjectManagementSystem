@@ -1,4 +1,4 @@
-angapp.factory('LoginInterceptor', ['$state', '$location', function($state, $location) {
+angapp.factory('LoginInterceptor', ['$q', '$state', '$location', function($q, $state, $location) {
     var myInterceptor = {
         handled: false,
         request: function(config) {
@@ -13,7 +13,9 @@ angapp.factory('LoginInterceptor', ['$state', '$location', function($state, $loc
                     $state.go('login', { returnUrl: $location.path() });
                     self.handled = true;
                 }
-            }
+            } 
+            return $q.reject(reject);
+            
         },
         response: function (response) {
             self.handled = false;

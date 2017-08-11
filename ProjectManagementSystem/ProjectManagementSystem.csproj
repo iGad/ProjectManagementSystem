@@ -208,10 +208,13 @@
     </Compile>
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Infrastructure\PmsViewEngine.cs" />
+    <Compile Include="Infrastructure\SecureModule.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataGeneratorParameters.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserIdentity.cs" />
+    <Compile Include="Models\UserPrincipal.cs" />
     <Compile Include="NotificationResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

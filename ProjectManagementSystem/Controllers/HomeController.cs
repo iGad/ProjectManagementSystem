@@ -12,6 +12,13 @@ namespace ProjectManagementSystem.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Ping()
+        {
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

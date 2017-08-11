@@ -1,7 +1,11 @@
 ﻿angapp.controller('IndexController',
-    ['$scope', '$mdMenu', '$rootScope', '$location', '$state', 'NotificationService', 'EventsService', 'UsersService', 'Utils',
-    function ($scope, $mdMenu, $rootScope, $location, $state, notificationService, eventsService, usersService, utils) {
-        $scope.title = 'Загрузка...';
+    ['$scope', '$mdMenu', '$rootScope', '$location', '$state', 'NotificationService', 'EventsService', 'UsersService', 'Utils', 'isAuth',
+        function ($scope, $mdMenu, $rootScope, $location, $state, notificationService, eventsService, usersService, utils, isAuth) {
+            $scope.title = 'Загрузка...';
+            var auth = isAuth;
+            if (!isAuth) {
+                $state.go('login', { returnUrl: $location.path() });
+            }
         function getActiveStateIndex() {
             var path = $location.path().split('?')[0];
             var tabName = path.slice(path.lastIndexOf('/') + 1);

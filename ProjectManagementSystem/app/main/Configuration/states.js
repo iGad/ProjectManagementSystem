@@ -33,7 +33,20 @@ angapp.config(function ($stateProvider, $routeProvider) {
         {
             name: 'base',
             abstract: true,
-            templateUrl: 'app/main/index/base.html'
+            templateUrl: 'app/main/index/base.html',
+            controller: 'IndexController',
+            resolve: {
+                isAuth: ['$http', function($http) {
+                    return $http({
+                        url: '/Home/Ping',
+                        method: 'GET'
+                    }).then(function(data) {
+                        return true;
+                    }, function(data) {
+                        return false;
+                    });
+                }]
+            }
         },
         {
             name: 'base.edit',

@@ -8,7 +8,7 @@ namespace ProjectManagementSystem
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").IncludeDirectory("~/Frontend/Scripts", "*.js", false));
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").IncludeDirectory("~/Frontend/Scripts", "*.js", false));
             
             bundles.Add(new ScriptBundle("~/bundles/angular").IncludeDirectory("~/assets/libs", "*.js", true));
 
