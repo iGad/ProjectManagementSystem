@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using PMS.Model.Models;
 
 namespace PMS.Model.Repositories
@@ -78,6 +79,11 @@ namespace PMS.Model.Repositories
         public int SaveChanges()
         {
             return this._context.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
     }
 }

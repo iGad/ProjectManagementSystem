@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using PMS.Model.CommonModels;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
 using ProjectManagementSystem.ViewModels;
@@ -15,35 +18,42 @@ namespace ProjectManagementSystem.Services
             _repository = repository;
         }
 
-        public List<AutofillViewModel> GetAll()
+        public async Task<TableCollectionModel<AutofillViewModel>> GetAutofillList(AutofillFilterModel filterModel)
         {
-            return _repository.Get(x => true).Select(x => new AutofillViewModel(x)).ToList();
+            var model = new TableCollectionModel<AutofillViewModel>
+            {
+                Collection = (await _repository.Get(filterModel)).Select(x => new AutofillViewModel(x)).ToList(),
+                TotalCount = await _repository.GetTotalCount(filterModel)
+            };
+            return model;
         }
 
-        public AutofillViewModel AddAutofill(Autofill autofill)
+        public async Task<AutofillViewModel> AddAutofill(Autofill autofill)
         {
             var result = new AutofillViewModel(_repository.Add(autofill));
-            _repository.SaveChanges();
+            await _repository.SaveChangesAsync();
             return result;
         }
 
-        public void Update(Autofill autofill)
+        public async Task Update(Autofill autofill)
         {
-            var oldAutofill = GetAutofill(autofill.Id);
-            _repository.Update(oldAutofill, autofill);
-            _repository.SaveChanges();
+            var oldAutofill = await GetAutofill(autofill.Id);
+            oldAutofill.WorkItemType = autofill.WorkItemType;
+            oldAutofill.Description = autofill.Description;
+            oldAutofill.Name = autofill.Name;
+            await _repository.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var autofill = GetAutofill(id);
+            var autofill = await GetAutofill(id);
             _repository.Delete(autofill);
             _repository.SaveChanges();
         }
 
-        private Autofill GetAutofill(int id)
+        private async Task<Autofill> GetAutofill(int id)
         {
-            return _repository.Get(x => x.Id == id).Single();
+            return await _repository.Get(id);
         }
     }
 }

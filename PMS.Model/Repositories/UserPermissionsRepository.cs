@@ -29,6 +29,11 @@ namespace PMS.Model.Repositories
             return 0;
         }
 
+        public Task<int> SaveChangesAsync()
+        {
+            return Task.Run(() => 0);
+        }
+
         public IEnumerable<PermissionType> GetPermissionsForRoles(IEnumerable<RoleType> roleCodes)
         {
             return this._permissions.Where(pair => pair.Value.Any(roleCodes.Contains)).Select(x => x.Key);

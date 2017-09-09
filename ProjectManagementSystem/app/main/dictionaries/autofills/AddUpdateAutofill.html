@@ -1,0 +1,41 @@
+﻿<md-dialog aria-label="AddUpdateAutofill" ng-cloak style="width: 400px">
+    <ng-form name="addUpdateForm" flex>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{title}}</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+
+            <div class="md-dialog-content" layout="column" id="container">
+                
+                <md-input-container>
+                    <label>Тип элемента</label>
+                    <md-select ng-model="autofill.Type">
+                        <md-option ng-repeat="type in workItemTypes" ng-value="type.Value">
+                            {{type.Description}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>Наименование</label>
+                    <input name="name" required ng-model="autofill.Name"/>
+                </md-input-container>
+                <md-input-container>
+                    <label>Описание</label>
+                    <input name="description" ng-model="autofill.Description"/>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="ok()" ng-disabled="addUpdateForm.$invalid">
+               ОК
+            </md-button>
+            <md-button ng-click="cancel()">
+                Отменить
+            </md-button>
+        </md-dialog-actions>
+    </ng-form>
+</md-dialog>

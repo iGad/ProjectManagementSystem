@@ -138,8 +138,19 @@ angapp.config(function ($stateProvider, $routeProvider) {
         },
         {
             name: 'base.search',
-            url: '/serach?UserIds&SearchText&States&Types',
+            url: '/search?UserIds&SearchText&States&Types',
             templateUrl: 'app/main/search/search.html'
+        },
+        {
+            name: 'base.dictionaries',
+            url: '/dictionaries',
+            templateUrl: 'app/main/dictionaries/dictionaries.html'
+        },
+        {
+            name: 'base.dictionaries.autofills',
+            url: '/autofills?PageNumber&SortDirection&SortField&ItemsIds&DateStart&DateEnd&IsFavorite&UserIds',
+            controller: 'AutofillsController',
+            templateUrl: 'app/main/dictionaries/autofills/AutofillList.html'
         },
     ];
 

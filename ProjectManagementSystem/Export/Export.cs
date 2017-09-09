@@ -14,6 +14,7 @@ namespace ProjectManagementSystem.Export
         public void RegisterExport(ICompositionContainer compositionContainer)
         {
             compositionContainer.RegisterExport<WorkItemApiService>();
+            compositionContainer.RegisterExport<AutofillService>();
             compositionContainer.RegisterExport<UserIdProvider, ICurrentUsernameProvider>();
             //compositionContainer.RegisterInstance<IHubConnectionContext<dynamic>>();
             compositionContainer.RegisterExport<SignalrClientsProvider>();

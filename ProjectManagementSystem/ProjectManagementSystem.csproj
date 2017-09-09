@@ -254,6 +254,11 @@
     <Compile Include="ViewModels\WorkItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\main\dictionaries\autofills\AddUpdateAutofill.html" />
+    <Content Include="app\main\dictionaries\autofills\AutofillList.html" />
+    <Content Include="app\main\dictionaries\autofills\AutofillsController.js" />
+    <Content Include="app\main\dictionaries\autofills\AutofillsService.js" />
+    <Content Include="app\main\dictionaries\dictionaries.html" />
     <Content Include="assets\css\bootstrap\bootstrap.css" />
     <Content Include="assets\css\bootstrap\bootstrap.min.css" />
     <Content Include="assets\css\angular-material\angular-material.css">

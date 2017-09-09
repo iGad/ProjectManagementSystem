@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using ProjectManagementSystem.Services;
 
@@ -18,28 +20,28 @@ namespace ProjectManagementSystem.Controllers
             _autofillService = autofillService;
         }
 
-        [HttpGet]
-        public ActionResult GetAll()
+        [HttpPost]
+        public async Task<ActionResult> GetAutofillList(AutofillFilterModel filterModel)
         {
-            return Json(_autofillService.GetAll(), JsonRequestBehavior.AllowGet);
+            return Json(await _autofillService.GetAutofillList(filterModel), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Add(Autofill autofill)
+        public async Task<ActionResult> Add(Autofill autofill)
         {
-            return Json(_autofillService.AddAutofill(autofill), JsonRequestBehavior.AllowGet);
+            return Json(await _autofillService.AddAutofill(autofill), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Update(Autofill autofill)
+        public async Task<ActionResult> Update(Autofill autofill)
         {
-            _autofillService.Update(autofill);
+            await _autofillService.Update(autofill);
             return Json("OK");
         }
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _autofillService.Delete(id);
+            await _autofillService.Delete(id);
             return Json("OK");
         }
     }

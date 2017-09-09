@@ -19,7 +19,10 @@ namespace PMS.Model.CommonModels.FilterModels
     }
     public class FilterModelBase
     {
+        public const int DefaultPageSize = 30;
         public int PageNumber { get; set; }
+        public int CorrectPageNumber => PageNumber > 0 ? PageNumber : 1;
+        public int CorrectPageSize => PageSize > 0 ? PageSize : DefaultPageSize;
         public int PageSize { get; set; }
         public Sorting Sorting { get; set; }
     }

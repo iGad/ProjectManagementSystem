@@ -45,6 +45,7 @@
             $scope.user = content.data;
             if ($scope.user.Roles.filter(x=>x.RoleCode === 3 || x.RoleCode === 4).length) {
                 $scope.menuVisibility.settings = true;
+                $scope.menuVisibility.dictionaries = true;
                 $scope.menuVisibility.users = true;
             }
         }, utils.onError);

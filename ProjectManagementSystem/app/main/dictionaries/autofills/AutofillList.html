@@ -1,0 +1,27 @@
+﻿<div layout="column">
+    <md-content>
+        <!--<div layout="row" flex layout-align="end start">
+            
+        </div>-->
+        <div flex>
+            <div id="grid3" ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-edit></div>
+        </div>
+        <div layout="row">
+            <ng-include src="'app/shared/PaginationTemplate.html'"></ng-include>
+            <md-button class="md-icon-button" aria-label="back" ng-click="add()">
+                <md-tooltip md-direction="bottom">Добавить</md-tooltip>
+                <md-icon md-svg-icon="content:add">
+                </md-icon>
+            </md-button>
+
+            <md-button ng-click="edit()" ng-disabled="">
+                <md-icon md-svg-icon="image:edit"></md-icon>
+                <md-tooltip md-direction="bottom">Редактировать</md-tooltip>
+            </md-button>
+            <md-button ng-click="delete()" ng-disabled="!canEdit">
+                <md-icon md-svg-icon="action:delete" md-menu-align-target></md-icon>
+                <md-tooltip md-direction="bottom">Удалить</md-tooltip>
+            </md-button>
+        </div>
+    </md-content>
+</div>

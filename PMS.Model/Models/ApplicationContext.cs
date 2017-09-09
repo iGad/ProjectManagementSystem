@@ -40,6 +40,7 @@ namespace PMS.Model.Models
         public DbSet<Setting> Settings { get; set; }
         public DbSet<UserSetting> UserSettings { get; set; }
         public DbSet<UserSettingValue> UserSettingValues { get; set; }
+        public DbSet<Autofill> Autofills { get; set; }
 
         public static ApplicationContext Create()
         {

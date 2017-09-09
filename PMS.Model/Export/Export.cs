@@ -22,6 +22,7 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<SettingRepository, ISettingRepository>();
             compositionContainer.RegisterExport<SettingRepository, ISettingsValueProvider>();     
             compositionContainer.RegisterExport<CommentRepository, ICommentRepository>();
+            compositionContainer.RegisterExport<AutofillRepository, IAutofillRepository>();
 
             compositionContainer.RegisterExport<LocalFileSystemManager, IFileSystemManager>();
             compositionContainer.RegisterExport<FileSystemManagerProvider>();

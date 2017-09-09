@@ -13,6 +13,7 @@
                
                 <ul class="nav navbar-nav">
                     <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{'active':activeIndex === 0}">Проекты</a></li>
+                    <li><a ui-sref="base.dictionaries" ui-sref-active="active" ng-class="{'active':activeIndex === 5}" ng-if="menuVisibility.dictionaries">Справочники</a></li>
                     <li><a ui-sref="base.search" ui-sref-active="active" ng-class="{'active':activeIndex === 1}">Поиск</a></li>
                     <li><a ui-sref="base.events" ui-sref-active="active" ng-class="{'active':activeIndex === 4}">События {{unseenEventCount?('(' + unseenEventCount + ')') : ''}}</a></li>
                     <li><a ui-sref="base.users" ui-sref-active="active" ng-class="{'active':activeIndex === 3}" ng-if="menuVisibility.users">Пользователи</a></li>
