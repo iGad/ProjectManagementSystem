@@ -1,6 +1,29 @@
-﻿angapp.service("AutofillsService", ["$http", function ($http) {
+﻿angapp.service("AutofillsService", ["$http", "$q", function ($http, $q) {
     var baseUrl = '/AutofillApi/';
+    var workItemTypes;
 
+    function getWorkItemTypesHttp() {
+        return $http({
+            url: baseUrl + 'GetWorkItemTypes',
+            method: "GET",
+            async: true
+        });
+    };
+
+
+    this.getWorkItemTypes = function() {
+        var defer = $q.defer();
+        if (!workItemTypes) {
+            getWorkItemTypesHttp().then(function(content) {
+                    workItemTypes = content;
+                    defer.resolve(content);
+                },
+                function(error) { defer.reject(error); });
+        } else {
+            defer.resolve(workItemTypes);
+        }
+        return defer.promise;
+    };
 
 
     this.getAutofillList = function (filterOptions) {

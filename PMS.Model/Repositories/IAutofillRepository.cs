@@ -13,6 +13,7 @@ namespace PMS.Model.Repositories
         void Delete(Autofill autofill);
         Task<Autofill> Get(int id);
         Task<ICollection<Autofill>> Get(AutofillFilterModel filterModel);
+        Task<ICollection<Autofill>> Get(Expression<Func<Autofill, bool>> whereExpression);
         Task<int> GetTotalCount(AutofillFilterModel filterModel);
     }
 }

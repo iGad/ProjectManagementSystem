@@ -158,6 +158,8 @@
             params: { workItemId: workItemId }
         });
     };
-    
+    this.getAutofills = function() {
+        return $http.get('/AutofillApi/GetAll');
+    };
 
 }]);

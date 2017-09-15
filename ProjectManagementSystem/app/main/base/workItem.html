@@ -12,10 +12,26 @@
                         <label>Идентификатор</label>
                         <input ng-model="workItem.Id" disabled></input>
                     </md-input-container>
-                    <md-input-container class="md-block" flex>
+                    <md-autocomplete flex required
+                                     md-min-length="0"
+                                     md-input-name="workItemName"
+                                     md-selected-item="selectedItem"
+                                     md-search-text="workItem.Name"
+                                     md-selected-item-change="selectedAutofillChange(item)"
+                                     md-items="item in querySearch(searchText)"
+                                     md-item-text="item.Name"
+                                     md-floating-label="{{workItemName}}">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.Name}}{{item.Description?(' - '+item.Description):''}}</span>
+                        </md-item-template>
+                        <!--<div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                            <div ng-message="required">You <b>must</b> have a favorite state.</div>
+                        </div>-->
+                    </md-autocomplete>
+                    <!--<md-input-container class="md-block" flex >
                         <label>{{workItemName}}</label>
                         <input ng-model="workItem.Name" md-select-on-focus required ng-change="formChanged()" ng-disabled="!canEdit"></input>
-                    </md-input-container>
+                    </md-input-container>-->
                 </div>
                 <div layout="row" flex layout-align="end start">
                     <md-button ng-click="save()" ng-disabled="addUpdateWorkItemForm.$invalid || !canEdit && !canEditExecutor || !isFormChanged">

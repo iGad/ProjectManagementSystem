@@ -55,7 +55,7 @@
                 Direction: $scope.filterOptions.Direction
             };
             service.getAutofillList(params).then(function(content) {
-                $scope.gridOptions.data = content.data.Data;
+                $scope.gridOptions.data = content.data.Collection;
                 $scope.gridOptions.totalItems = content.data.TotalCount;
                 var lastPage = $scope.gridApi.pagination.getTotalPages();
                 var queryPage = parseInt($scope.filterOptions.PageNumber);
@@ -69,7 +69,7 @@
             var pagination = utils.getPagination();
             pagination.getPage = function () { return $scope.filterOptions.PageNumber; };
             pagination.getRecordCount= function () { return $scope.gridOptions.data.length; };
-            pagination.getTotalItems= function () { return $scope.gridOptions.totalItems; };
+            pagination.getTotalItems = function () { return $scope.gridOptions.totalItems; };
             pagination.seek= function (page) {
                 if (page > 0) {
                     $scope.filterOptions.PageNumber = page;
@@ -105,12 +105,10 @@
         }
 
         $scope.add = function (ev) {
-            var autofill = { Roles: [] };
-
-            dialog(ev, autofill, function (edittedUser) {
-                service.add(edittedUser, edittedUser.Password).then(function (result) {
-                    var newUser = angular.fromJson(result.data);
-                    $scope.gridOptions.data.push(newUser);
+            var autofill = { };
+            dialog(ev, autofill, function (newAutofill) {
+                service.add(newAutofill).then(function () {
+                    reloadData();
                 }, utils.onError);
             });
         }
@@ -122,9 +120,9 @@
                 var autofill = selectedRows[0];
                 var index = $scope.gridOptions.data.indexOf(autofill);
                 if (index !== -1) {
-                    dialog(ev, autofill, function (edittedUser) {
-                        service.update(edittedUser).then(function () {
-                            $scope.gridOptions.data[index] = edittedUser;
+                    dialog(ev, autofill, function (edittedEntity) {
+                        service.update(edittedEntity).then(function () {
+                            $scope.gridOptions.data[index] = edittedEntity;
                         }, utils.onError);
                     });
                 }
@@ -138,15 +136,15 @@
                 index = $scope.gridOptions.data.indexOf(row);
                 if (index !== -1) {
                     var confirm = $mdDialog.confirm()
-                        .title('Вы действительно хотите удалить пользователя ' + (row.Surname ? row.Surname + ' ' : '') + row.Name + '?')
+                        .title('Вы действительно хотите удалить автозаполнение ' + row.Name + ' - '  + row.Description + '?')
                         .ariaLabel('delete autofill')
                         .targetEvent(ev)
                         .ok('Удалить')
                         .cancel('Отмена');
                     $mdDialog.show(confirm).then(function () {
-                        UsersService.deleteUser(row.Id)
+                        service.delete(row.Id)
                             .then(function () {
-                                $scope.gridOptions.data.splice(index, 1);
+                                reloadData();
                             });
                     }, utils.onError);
                 }

@@ -1,13 +1,14 @@
 ﻿angapp.controller('WorkItemController', [
     '$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
-    function($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
+    function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
+        var autofills, allAutofills;
 
         function goToReturnState() {
             Utils.goToReturnState($stateParams);
         }
 
         function getStates() {
-            WorkItemService.getStates().then(function(content) {
+            WorkItemService.getStates().then(function (content) {
                 $scope.states = content.data;
                 if (!$scope.isNew && !$scope.states.filter(x => x.Value === $scope.workItem.State).length) {
                     $scope.states.splice(0, 0, $scope.workItem.StateViewModel);
@@ -16,7 +17,7 @@
         };
 
         function getUsers(typeId) {
-            UsersService.getAllowedUsersForWorkItemType(typeId).then(function(content) {
+            UsersService.getAllowedUsersForWorkItemType(typeId).then(function (content) {
                 $scope.users = angular.fromJson(content.data);
                 if (!$scope.isNew && $scope.workItem.ExecutorId && !$scope.users.filter(x => x.Id === $scope.workItem.ExecutorId).length) {
                     $scope.users.splice(0, 0, $scope.workItem.Executor);
@@ -24,31 +25,39 @@
             }, Utils.onError);
         };
 
+        function getAutofills() {
+            WorkItemService.getAutofills().then(function(content) {
+                allAutofills = content.data;
+                autofills = allAutofills.filter(x => x.WorkItemType === $scope.workItem.Type);
+            }, Utils.onError);
+        };
+
         function getTypes() {
-            WorkItemService.getTypes().then(function(content) {
+            WorkItemService.getTypes().then(function (content) {
                 $scope.types = content.data;
+                getAutofills();
                 if (!$scope.workItem.Type) {
                     $scope.workItem.Type = $scope.types[1].Value; //TODO: сделать понятнее
-                } else 
+                } else
                     if (!$scope.types.filter(x => x.Value === $scope.workItem.Type).length) {
                         $scope.types.splice(0, 0, $scope.workItem.TypeViewModel);
                     }
-                
+
                 $scope.typeChanged($scope.workItem.Type);
             }, Utils.onError);
         };
 
 
-        var workItemChangedHandler = $scope.$on("WorkItemChanged", function(event, workItem) {
+        var workItemChangedHandler = $scope.$on("WorkItemChanged", function (event, workItem) {
             if (workItem.Id === $scope.workItem.Id) {
                 $mdDialog.show(
                     $mdDialog.alert()
-                    .clickOutsideToClose(true)
-                    .title('Внимание')
-                    .textContent('Данный рабочий элемент был кем-то изменен.\nЕсли вы сохраните изменения, то изменения, внесенные другим пользователем могут быть отменены.\
+                        .clickOutsideToClose(true)
+                        .title('Внимание')
+                        .textContent('Данный рабочий элемент был кем-то изменен.\nЕсли вы сохраните изменения, то изменения, внесенные другим пользователем могут быть отменены.\
                   \nРекомендуется сохранить текстовые изменения в текстовый редактор и обновить страницу.')
-                    .ariaLabel('Alert Dialog')
-                    .ok('ОК')
+                        .ariaLabel('Alert Dialog')
+                        .ok('ОК')
                 );
             }
         });
@@ -84,7 +93,7 @@
             getStates();
         }
 
-        
+
 
         $scope.isFormChanged = false;
         $scope.canEdit = false;
@@ -114,7 +123,7 @@
         };
 
 
-        $scope.isDisabledEdit = function() {
+        $scope.isDisabledEdit = function () {
             return $scope.IsNew && !$scope.CanAdd || !$scope.isNew && !$scope.canEdit;
         };
 
@@ -127,195 +136,215 @@
         //    }, Utils.onError);
         //};
 
-        
+
 
 
         Object.defineProperty($scope, 'IsNew', {
-            get: function() {
+            get: function () {
                 return $scope.isNew;
             }
         });
 
         Object.defineProperty($scope, 'CanEdit', {
-            get: function() {
+            get: function () {
                 return $scope.canEdit;
             }
         });
 
         Object.defineProperty($scope, 'WorkItem', {
-            get: function() {
+            get: function () {
                 return $scope.workItem;
             }
         });
 
         Object.defineProperty($scope, 'ObjectId', {
-            get: function() {
+            get: function () {
                 return $stateParams.workItemId;
             }
         });
 
-         function setFlags(workItemType) {
-             $scope.isProject = false;
-             $scope.isStage = false;
-             $scope.isPartition = false;
-             $scope.isTask = false;
-             $scope.workItemName = 'Название';
-             $scope.workItemExecutorName = 'Менеджер';
-             switch (workItemType) {
-                 case $scope.types[0].Value:
-                     $scope.isProject = true;
-                     $scope.workItemName = 'Номер';
-                     $scope.workItemExecutorName = 'ГИП';
-                     break;
-                 case $scope.types[1].Value:
-                     $scope.isStage = true;
-                     break;
-                 case $scope.types[2].Value:
-                     $scope.isPartition = true;
-                     break;
-                 case $scope.types[3].Value:
-                     $scope.isTask = true;
-                     $scope.workItemExecutorName = 'Исполнитель';
-                     break;
-             }
-             updatePermissionFlags();
-         }
+        function setFlags(workItemType) {
+            $scope.isProject = false;
+            $scope.isStage = false;
+            $scope.isPartition = false;
+            $scope.isTask = false;
+            $scope.workItemName = 'Название';
+            $scope.workItemExecutorName = 'Менеджер';
+            switch (workItemType) {
+                case $scope.types[0].Value:
+                    $scope.isProject = true;
+                    $scope.workItemName = 'Номер';
+                    $scope.workItemExecutorName = 'ГИП';
+                    break;
+                case $scope.types[1].Value:
+                    $scope.isStage = true;
+                    break;
+                case $scope.types[2].Value:
+                    $scope.isPartition = true;
+                    break;
+                case $scope.types[3].Value:
+                    $scope.isTask = true;
+                    $scope.workItemExecutorName = 'Исполнитель';
+                    break;
+            }
+            updatePermissionFlags();
+        }
 
-         $scope.formChanged = function () {
-             $scope.isFormChanged = true;
-         };
+        $scope.formChanged = function () {
+            $scope.isFormChanged = true;
+        };
 
-         $scope.getUserDisplayText = function (user) {
-             return Utils.getUserInfo(user);
-         };
+        $scope.getUserDisplayText = function (user) {
+            return Utils.getUserInfo(user);
+        };
 
-         function getPartitions(stageId) {
-             WorkItemService.getChildItems(stageId).then(function (content) {
-                 $scope.partitions = angular.fromJson(content.data);
-                 if ($scope.partitions.length) {
-                     if ($scope.workItem.PartitionId && $scope.partitions.filter(x=>x.Id === $scope.workItem.PartitionId).length) {
-                         $scope.parentPartitionId = $scope.workItem.PartitionId;
-                     } else if (!$scope.parentPartitionId) {
-                         $scope.parentPartitionId = $scope.partitions[0].Id;
-                     }
-                 }
-             }, Utils.onError);
-         }
+        function getPartitions(stageId) {
+            WorkItemService.getChildItems(stageId).then(function (content) {
+                $scope.partitions = angular.fromJson(content.data);
+                if ($scope.partitions.length) {
+                    if ($scope.workItem.PartitionId && $scope.partitions.filter(x => x.Id === $scope.workItem.PartitionId).length) {
+                        $scope.parentPartitionId = $scope.workItem.PartitionId;
+                    } else if (!$scope.parentPartitionId) {
+                        $scope.parentPartitionId = $scope.partitions[0].Id;
+                    }
+                }
+            }, Utils.onError);
+        }
 
-         function getStages(projectId) {
-             WorkItemService.getChildItems(projectId).then(function (content) {
-                 $scope.stages = angular.fromJson(content.data);
-                 if ($scope.stages.length) {
-                     if ($scope.workItem.StageId && $scope.stages.filter(x=> x.Id === $scope.workItem.StageId).length) {
-                         $scope.parentStageId = $scope.workItem.StageId;
-                     } else if (!$scope.parentStageId) {
-                         $scope.parentStageId = $scope.stages[0].Id;
-                     }
-                     $scope.stageChanged($scope.parentStageId);
-                 }
-             }, Utils.onError);
-         }
+        function getStages(projectId) {
+            WorkItemService.getChildItems(projectId).then(function (content) {
+                $scope.stages = angular.fromJson(content.data);
+                if ($scope.stages.length) {
+                    if ($scope.workItem.StageId && $scope.stages.filter(x => x.Id === $scope.workItem.StageId).length) {
+                        $scope.parentStageId = $scope.workItem.StageId;
+                    } else if (!$scope.parentStageId) {
+                        $scope.parentStageId = $scope.stages[0].Id;
+                    }
+                    $scope.stageChanged($scope.parentStageId);
+                }
+            }, Utils.onError);
+        }
 
-         function getProjects() {
-             WorkItemService.getProjects().then(function (content) {
-                 $scope.projects = angular.fromJson(content.data);
-                 if ($scope.projects.length) {
-                     if ($scope.workItem.ProjectId && $scope.projects.filter(x=>x.Id === $scope.workItem.ProjectId).length) {
-                         $scope.parentProjectId = $scope.workItem.ProjectId;
-                     } else if (!$scope.parentProjectId) {
-                         $scope.parentProjectId = $scope.projects[0].Id;
-                     }
-                     $scope.projectChanged($scope.parentProjectId);
-                 }
-             }, Utils.onError);
-         }
-
-
+        function getProjects() {
+            WorkItemService.getProjects().then(function (content) {
+                $scope.projects = angular.fromJson(content.data);
+                if ($scope.projects.length) {
+                    if ($scope.workItem.ProjectId && $scope.projects.filter(x => x.Id === $scope.workItem.ProjectId).length) {
+                        $scope.parentProjectId = $scope.workItem.ProjectId;
+                    } else if (!$scope.parentProjectId) {
+                        $scope.parentProjectId = $scope.projects[0].Id;
+                    }
+                    $scope.projectChanged($scope.parentProjectId);
+                }
+            }, Utils.onError);
+        }
 
 
 
-         $scope.typeChanged = function (typeId) {
-             if (typeId) {
-                 setFlags(typeId);
-                 getUsers(typeId);
-                 if (typeId !== $scope.types[0].Value && !$scope.projects)
-                     getProjects();
-             }
-         };
 
-         $scope.projectChanged = function (projectId) {
-             if (projectId) {
-                 getStages(projectId);
-             }
-             else
-                 $scope.stages = [];
-         };
+        $scope.typeChanged = function (typeId) {
+            if (typeId) {
+                setFlags(typeId);
+                getUsers(typeId);
+                if (allAutofills)
+                    autofills = allAutofills.filter(x => x.WorkItemType === $scope.workItem.Type);
+                if (typeId !== $scope.types[0].Value && !$scope.projects)
+                    getProjects();
+            }
+        };
 
-         $scope.stageChanged = function (stageId) {
-             if (stageId) {
-                 getPartitions(stageId);
-             }
-             else
-                 $scope.partitions = [];
-         }
+        $scope.projectChanged = function (projectId) {
+            if (projectId) {
+                getStages(projectId);
+            }
+            else
+                $scope.stages = [];
+        };
 
-         $scope.save = function () {
-             var parentId;
-             switch ($scope.workItem.Type) {
-                 case $scope.types[1].Value:
-                     parentId = $scope.parentProjectId;
-                     break;
-                 case $scope.types[2].Value:
-                     parentId = $scope.parentStageId;
-                     break;
-                 case $scope.types[3].Value:
-                     parentId = $scope.parentPartitionId;
-                     break;
-             }
-             $scope.workItem.ParentId = parentId;
-             $scope.workItem.DeadLine.setHours($scope.workItem.DeadLineHours);
-             $scope.workItem.DeadLine.setMinutes($scope.workItem.DeadLineMinutes);
-             $scope.workItem.DeadLine.setSeconds(0);
-             if (!$scope.isNew) {
-                 workItemChangedHandler();
-                 workItemChangedHandler = undefined;
-                 WorkItemService.updateWorkItem($scope.workItem).then(function () {
-                     goToReturnState();
-                 }, Utils.onErrorWithMessageBox);
-             } else {
-                 WorkItemService.addWorkItem($scope.workItem).then(function () {
-                     goToReturnState();
-                 }, Utils.onErrorWithMessageBox);
-             }
-         };
+        $scope.stageChanged = function (stageId) {
+            if (stageId) {
+                getPartitions(stageId);
+            }
+            else
+                $scope.partitions = [];
+        }
 
-         function showDialog(ev, title, text, callback, cancel) {
-             var confirm = $mdDialog.confirm()
-               .title(title)
-               .textContent(text)
-               .ariaLabel('are you sure')
-               .targetEvent(ev)
-               .ok('Да')
-               .cancel('Нет');
+        $scope.save = function () {
+            var parentId;
+            switch ($scope.workItem.Type) {
+                case $scope.types[1].Value:
+                    parentId = $scope.parentProjectId;
+                    break;
+                case $scope.types[2].Value:
+                    parentId = $scope.parentStageId;
+                    break;
+                case $scope.types[3].Value:
+                    parentId = $scope.parentPartitionId;
+                    break;
+            }
+            $scope.workItem.ParentId = parentId;
+            $scope.workItem.DeadLine.setHours($scope.workItem.DeadLineHours);
+            $scope.workItem.DeadLine.setMinutes($scope.workItem.DeadLineMinutes);
+            $scope.workItem.DeadLine.setSeconds(0);
+            if (!$scope.isNew) {
+                workItemChangedHandler();
+                workItemChangedHandler = undefined;
+                WorkItemService.updateWorkItem($scope.workItem).then(function () {
+                    goToReturnState();
+                }, Utils.onErrorWithMessageBox);
+            } else {
+                WorkItemService.addWorkItem($scope.workItem).then(function () {
+                    goToReturnState();
+                }, Utils.onErrorWithMessageBox);
+            }
+        };
 
-             $mdDialog.show(confirm).then(function () {
-                 callback();
-             }, cancel());
-         };
+        function showDialog(ev, title, text, callback, cancel) {
+            var confirm = $mdDialog.confirm()
+                .title(title)
+                .textContent(text)
+                .ariaLabel('are you sure')
+                .targetEvent(ev)
+                .ok('Да')
+                .cancel('Нет');
 
-         $scope.cancel = function (ev) {
-             if (!$scope.isFormChanged) {
-                 goToReturnState();
-                 return;
-             }
-             showDialog(ev, 'Вы уверены, что хотите выйти?', 'Все изменения будут потеряны', function () {
-                 goToReturnState();
-             }, function () { });
-         };
+            $mdDialog.show(confirm).then(function () {
+                callback();
+            }, cancel());
+        };
 
-         $scope.delete = function (ev) {
-             showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные об этом элементе будут удалены', function () {
-                 WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, Utils.onErrorWithMessageBox);
-             }, function () { });
-         };
-     }]);
+        $scope.querySearch = function (searchText) {
+            if (autofills && autofills.length) {
+                return autofills.filter(x => !searchText ||
+                    x.Name.indexOf(searchText) !== -1 ||
+                    x.Description.indexOf(searchText) !== -1);
+            }
+            return [];
+        };
+
+        $scope.selectedAutofillChange = function (autofill) {
+            if (autofill) {
+                $scope.workItem.Name = autofill.Name;
+                $scope.workItem.Description = autofill.Description;
+            } else {
+                $scope.workItem.Name = $scope.searchText;
+                $scope.workItem.Description = '';
+            }
+        };
+
+        $scope.cancel = function (ev) {
+            if (!$scope.isFormChanged) {
+                goToReturnState();
+                return;
+            }
+            showDialog(ev, 'Вы уверены, что хотите выйти?', 'Все изменения будут потеряны', function () {
+                goToReturnState();
+            }, function () { });
+        };
+
+        $scope.delete = function (ev) {
+            showDialog(ev, 'Вы уверены, что хотите удалить элемент?', 'Все данные об этом элементе будут удалены', function () {
+                WorkItemService.deleteWorkItem($scope.workItem.Id).then(goToReturnState, Utils.onErrorWithMessageBox);
+            }, function () { });
+        };
+    }]);

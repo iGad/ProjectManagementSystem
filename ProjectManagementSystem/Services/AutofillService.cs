@@ -18,6 +18,11 @@ namespace ProjectManagementSystem.Services
             _repository = repository;
         }
 
+        public async Task<ICollection<Autofill>> GetAllAutofills()
+        {
+            return await _repository.Get(x => true);
+        }
+
         public async Task<TableCollectionModel<AutofillViewModel>> GetAutofillList(AutofillFilterModel filterModel)
         {
             var model = new TableCollectionModel<AutofillViewModel>

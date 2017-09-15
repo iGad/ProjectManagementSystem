@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PMS.Model;
 using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 using ProjectManagementSystem.Services;
+using ProjectManagementSystem.ViewModels;
 
 namespace ProjectManagementSystem.Controllers
 {
-    
+    [Authorize]
     public class AutofillApiController : Controller
     {
         private readonly AutofillService _autofillService;
@@ -18,6 +20,20 @@ namespace ProjectManagementSystem.Controllers
         public AutofillApiController(AutofillService autofillService)
         {
             _autofillService = autofillService;
+        }
+
+        [HttpGet]
+        public ActionResult GetWorkItemTypes()
+        {
+            var types = Extensions.ToEnumList<WorkItemType>().Where(x => x != WorkItemType.Project).Select(x => new EnumViewModel<WorkItemType>(x));
+            return Json(types, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAll()
+        {
+            var result = await _autofillService.GetAllAutofills();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

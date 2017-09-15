@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
@@ -21,6 +22,11 @@ namespace PMS.Model.Repositories
         public async Task<int> GetTotalCount(AutofillFilterModel filterModel)
         {
             return await CreateQuery(filterModel).CountAsync();
+        }
+        
+        public async Task<ICollection<Autofill>> Get(Expression<Func<Autofill,bool>> whereExpression)
+        {
+            return await _context.Autofills.Where(whereExpression).ToListAsync();
         }
 
         public Task<Autofill> Get(int id)
@@ -73,5 +79,7 @@ namespace PMS.Model.Repositories
         {
             return await _context.SaveChangesAsync();
         }
+
+        
     }
 }
