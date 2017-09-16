@@ -12,7 +12,7 @@ using LoginViewModel = ProjectManagementSystem.ViewModels.LoginViewModel;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -82,7 +82,7 @@ namespace ProjectManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                throw new PmsException("не заполнен логин или пароль");
+                throw new PmsException("Не заполнен логин или пароль");
             }
 
             // This doesn't count login failures towards account lockout

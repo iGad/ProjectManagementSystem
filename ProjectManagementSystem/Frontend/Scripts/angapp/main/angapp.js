@@ -1,1 +1,0 @@
-﻿var angapp = angular.module('angapp', ['ngRoute', 'ui.router', 'ui.sortable', 'ngFileUpload', 'ngMaterial', 'ngMessages', 'ui.grid', 'ui.grid.selection', 'material.svgAssetsCache']);

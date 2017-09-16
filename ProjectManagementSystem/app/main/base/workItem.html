@@ -1,0 +1,377 @@
+﻿<div  ng-cloak class="md-inline-form" ng-controller="WorkItemController">
+    <md-content class="md-padding without-errors" style="width: 100%; height: 100%">
+        <ng-form name="addUpdateWorkItemForm" flex>
+            <div layout="row" layout-align="space-between">
+                <div layout="row" flex>
+                    <md-button class="md-icon-button" aria-label="back" ng-click="cancel()">
+                        <md-tooltip md-direction="bottom">Назад</md-tooltip>
+                        <md-icon md-svg-icon="navigation:arrow_back">
+                        </md-icon>
+                    </md-button>
+                    <md-input-container class="md-block " ng-if="workItem.Id" style="width: 120px">
+                        <label>Идентификатор</label>
+                        <input ng-model="workItem.Id" disabled></input>
+                    </md-input-container>
+                    <md-autocomplete flex required
+                                     md-min-length="0"
+                                     md-input-name="workItemName"
+                                     md-selected-item="selectedItem"
+                                     md-search-text="workItem.Name"
+                                     md-selected-item-change="selectedAutofillChange(item)"
+                                     md-items="item in querySearch(searchText)"
+                                     md-item-text="item.Name"
+                                     md-floating-label="{{workItemName}}">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.Name}}{{item.Description?(' - '+item.Description):''}}</span>
+                        </md-item-template>
+                        <!--<div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+                            <div ng-message="required">You <b>must</b> have a favorite state.</div>
+                        </div>-->
+                    </md-autocomplete>
+                    <!--<md-input-container class="md-block" flex >
+                        <label>{{workItemName}}</label>
+                        <input ng-model="workItem.Name" md-select-on-focus required ng-change="formChanged()" ng-disabled="!canEdit"></input>
+                    </md-input-container>-->
+                </div>
+                <div layout="row" flex layout-align="end start">
+                    <md-button ng-click="save()" ng-disabled="addUpdateWorkItemForm.$invalid || !canEdit && !canEditExecutor || !isFormChanged">
+                        <md-icon md-svg-icon="content:save"></md-icon>
+                        Сохранить
+                    </md-button>
+                    <md-button ng-click="delete()" ng-if="!isNew" ng-disabled="!canEdit">
+                        <md-icon md-svg-icon="action:delete" md-menu-align-target></md-icon>
+                        Удалить
+                    </md-button>
+                </div>
+            </div>
+
+            <div layout="row">
+                <div layout="column" flex>
+
+                    <md-content class="md-padding content-back">
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block">
+                                <label>Тип</label>
+                                <md-select ng-model="workItem.Type" required ng-change="typeChanged(workItem.Type);formChanged()" ng-disabled="!isNew || !canEdit">
+                                    <md-option ng-repeat="type in types" ng-value="type.Value">
+                                        {{type.Description}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex ng-if="!isNew">
+                                <label>Состояние</label>
+                                <md-select ng-model="workItem.State" ng-change="formChanged()" ng-disabled="!canEdit">
+                                    <md-option ng-repeat="state in states" value="{{state.Value}}" >
+                                        {{state.Description}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+
+                        <div layout-gt-sm="row" ng-if="workItem.Type && !isProject">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Проект</label>
+                                <md-select ng-model="parentProjectId" required ng-change="projectChanged(parentProjectId);formChanged()" ng-disabled="!isStage || !canEdit">
+                                    <md-option ng-repeat="project in projects" ng-value="project.Id" ng-disabled="project.State == 2 || project.State == 4">
+                                        {{project.Name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm ng-if="!isStage" >
+                                <label>Стадия</label>
+                                <md-select ng-model="parentStageId" required ng-change="stageChanged(parentStageId); formChanged()" ng-disabled="!isPartition || !canEdit">
+                                    <md-option ng-repeat="stage in stages" ng-value="stage.Id" ng-disabled="stage.State == 2 || stage.State == 4">
+                                        {{stage.Name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+                            <md-input-container class="md-block" flex-gt-sm ng-if="!isPartition && !isStage">
+                                <label>Раздел</label>
+                                <md-select ng-model="parentPartitionId" required ng-change="formChanged()"  ng-disabled="!isTask || !canEdit">
+                                    <md-option ng-repeat="partition in partitions" ng-value="partition.Id" ng-disabled="stage.State == 2 || stage.State == 4">
+                                        {{partition.Name}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-xs="row">
+                            <md-input-container class="md-block" flex="50">
+                                <label>{{workItemExecutorName}}</label>
+                                <md-select ng-model="workItem.ExecutorId"  ng-change="formChanged()" ng-disabled="!canEditExecutor" aria-label="executor">
+                                    <md-option value="">Отсутствует</md-option>
+                                    <md-option ng-repeat="user in users" value="{{user.Id}}">
+                                        {{getUserDisplayText(user)}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>Дедлайн</label>
+                                <md-datepicker ng-model="workItem.DeadLine" required ng-change="formChanged()" ng-disabled="!canEdit"></md-datepicker>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Часы</label>
+                                <input type="number" md-min="0" md-max="23" ng-model="workItem.DeadLineHours" required ng-change="formChanged()" ng-disabled="!canEdit">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>Минуты</label>
+                                <input type="number" md-min="0" md-max="59" ng-model="workItem.DeadLineMinutes" required ng-change="formChanged()" ng-disabled="!canEdit">
+                            </md-input-container>
+                        </div>
+
+                        <md-input-container class="md-block without-errors">
+                            <label>Описание</label>
+                            <textarea ng-model="workItem.Description" rows="3" md-select-on-focus ng-change="formChanged()" ng-disabled="!canEdit"></textarea>
+                        </md-input-container>
+                    </md-content>
+
+                </div>
+                <div layout="column" flex>
+                    <md-content class="content-back">
+                        <md-tabs md-stretch-tabs="always" md-dynamic-height ng-disabled="IsNew">
+                            <md-tab label="Связи">
+                                <div ng-controller="LinkedWorkItemsController">
+                                    <div layout="row">
+                                        <md-menu>
+                                            <md-button class="md-icon-button" aria-label="add" ng-click="$mdOpenMenu()"  ng-disabled="isNew || !canEdit">
+                                                <md-icon md-svg-icon="content:add"></md-icon>
+                                            </md-button>
+                                            <md-menu-content width="4">
+                                                <md-menu-item>
+                                                    <md-button ng-click="addChildren()" ng-disabled="!canAddChildItem">
+                                                        <md-icon md-svg-icon="av:playlist_add" md-menu-align-target></md-icon>
+                                                        Дочерний элемент
+                                                    </md-button>
+                                                </md-menu-item>
+                                                <md-menu-divider></md-menu-divider>
+                                                <md-menu-item>
+                                                    <md-button  ng-click="addInnerDependency()">
+                                                        <md-icon md-svg-icon="communication:call_received"></md-icon>
+                                                        Зависимость от
+                                                    </md-button>
+                                                </md-menu-item>
+                                                <md-menu-divider></md-menu-divider>
+                                                <md-menu-item>
+                                                    <md-button ng-click="addOutterDependency()">
+                                                        <md-icon md-svg-icon="communication:call_made"></md-icon>
+                                                        Зависимость к
+                                                    </md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+                                    </div>
+                                    <div layout="column" ng-repeat="itemsLink in linkedItemsCollection" ng-if="linkedItemsCollection && itemsLink.WorkItems.length !== 0">
+                                        <div layout="column">
+                                            <label>{{itemsLink.LinkName}}</label>
+                                            <div class="linked-item-row" layout="row" ng-repeat="workItem in itemsLink.WorkItems" ng-click="edit(workItem.Id)">
+                                                <div class="tile-type" ng-class="getWorkItemClass(workItem)"></div>
+                                                <div class="id">
+                                                    {{workItem.Id}}
+                                                </div>
+                                                <div class="title">{{workItem.Name}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-tab>
+                            <md-tab label="Файлы">
+                                <div layout="row">
+                                    <md-button class="md-icon-button" ng-click="addFile()" aria-label="add file">
+                                        <md-icon md-svg-icon="av:playlist_add" md-menu-align-target></md-icon>
+                                        <md-tooltip>Добавить файл</md-tooltip>
+                                    </md-button>
+                                </div>
+                                <md-content>
+                                    <div layout="column">
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+
+                                        <div class="linked-file" layout="row" layout-align="space-between">
+                                            <div class="file-info" layout="column">
+                                                <div>fileName.doc</div>
+                                                <div>25.06.2017 15:48</div>
+                                            </div>
+                                            <div layout="row" layout-align="end">
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Открыть</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Скачать</md-tooltip>
+                                                </md-button>
+                                                <md-button class="md-icon-button">
+                                                    <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+                                                    <md-tooltip>Удалить</md-tooltip>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </md-tab>
+                            <md-tab label="Дополнительно">
+                                <md-content class="md-padding">
+                                    <h1 class="md-display-2">Tab Three</h1>
+                                    <p>Integer turpis erat, porttitor vitae mi faucibus, .</p>
+                                </md-content>
+                            </md-tab>
+                        </md-tabs>
+                    </md-content>
+
+                </div>
+            </div>
+            <div layout="column">
+                <md-content class="md-padding content-back">
+                    <md-tabs md-dynamic-height>
+                        <md-tab label="Комментарии">
+                            <div ng-if="!IsNew" ng-controller="CommentsController">
+                                <ng-include src="'app/shared/newCommentTemplate.html'"></ng-include>
+                                <ng-include src="'app/shared/commentTemplate.html'" ng-repeat="comment in comments"></ng-include>
+                            </div>
+                        </md-tab>
+                    </md-tabs>
+                </md-content>
+
+            </div>
+        </ng-form>
+    </md-content>
+</div>

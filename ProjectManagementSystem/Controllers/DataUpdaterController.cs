@@ -9,7 +9,7 @@ using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class DataUpdaterController : Controller
     {
         private ApplicationUserManager _userManager;

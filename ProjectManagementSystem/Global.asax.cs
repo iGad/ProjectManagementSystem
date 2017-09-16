@@ -8,6 +8,8 @@ using System.Web.Routing;
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using ProjectManagementSystem.Export;
+using ProjectManagementSystem.Infrastructure;
+using ProjectManagementSystem.Models;
 using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem
@@ -24,13 +26,30 @@ namespace ProjectManagementSystem
             //GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), ()=> new UserIdProvider());
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new PmsViewEngine());
             //this.Error+= OnError;
             //this.AuthorizeRequest += OnAuthorizeRequest;
         }
 
         private void OnAuthorizeRequest(object sender, EventArgs eventArgs)
         {
-            var i = 0;
+            
+        }
+
+        void Application_AuthenticateRequest(object sender, EventArgs e)
+        {
+            var httpContext = ((HttpApplication)sender).Context;
+            var user = httpContext.User;
+
+            if (user?.Identity == null)
+                return;
+
+            if (!user.Identity.IsAuthenticated)
+                return;
+
+            if(!(httpContext.User is UserPrincipal))
+                httpContext.User = new UserPrincipal(user.Identity.Name);
         }
 
         void Application_Error(object sender, EventArgs e)

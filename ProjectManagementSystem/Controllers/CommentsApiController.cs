@@ -7,7 +7,7 @@ using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class CommentsApiController : Controller
     {
         private readonly CommentsService _service;

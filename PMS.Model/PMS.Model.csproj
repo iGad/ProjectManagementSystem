@@ -77,6 +77,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,6 +93,7 @@
     <Compile Include="CommonModels\EventModels\StateChangedModel.cs" />
     <Compile Include="CommonModels\EventModels\WorkItemUpdatedModel.cs" />
     <Compile Include="CommonModels\FileInfoDisplayModel.cs" />
+    <Compile Include="CommonModels\FilterModels\AutofillFilterModel.cs" />
     <Compile Include="CommonModels\FilterModels\EventFilterModel.cs" />
     <Compile Include="CommonModels\FilterModels\SearchModel.cs" />
     <Compile Include="CommonModels\TableCollectionModel.cs" />
@@ -109,9 +113,14 @@
     <Compile Include="Migrations\201705281831023_2.Designer.cs">
       <DependentUpon>201705281831023_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709091305577_3.cs" />
+    <Compile Include="Migrations\201709091305577_3.Designer.cs">
+      <DependentUpon>201709091305577_3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\AttachedFile.cs" />
+    <Compile Include="Models\Autofill.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\ApplicationDbInitializer.cs" />
@@ -132,7 +141,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Repositories\AutofillRepository.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\IAutofillRepository.cs" />
     <Compile Include="Repositories\ICommentRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\ISettingRepository.cs" />
@@ -199,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705281831023_2.resx">
       <DependentUpon>201705281831023_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709091305577_3.resx">
+      <DependentUpon>201709091305577_3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NotificationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1,0 +1,56 @@
+﻿<div id="body-container">
+    <div layout="row" layout-align="space-around" class="header navbar navbar-default" style="z-index: inherit; align-items:center" >
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a ui-sref="base.main.all" class="navbar-brand">Пангея</a>
+            </div>
+            <div class="navbar-collapse collapse"  style="display: flex !important">
+               
+                <ul class="nav navbar-nav">
+                    <li><a ui-sref="base.projects" ui-sref-active="active" ng-class="{'active':activeIndex === 0}">Проекты</a></li>
+                    <li><a ui-sref="base.dictionaries" ui-sref-active="active" ng-class="{'active':activeIndex === 5}" ng-if="menuVisibility.dictionaries">Справочники</a></li>
+                    <li><a ui-sref="base.search" ui-sref-active="active" ng-class="{'active':activeIndex === 1}">Поиск</a></li>
+                    <li><a ui-sref="base.events" ui-sref-active="active" ng-class="{'active':activeIndex === 4}">События {{unseenEventCount?('(' + unseenEventCount + ')') : ''}}</a></li>
+                    <li><a ui-sref="base.users" ui-sref-active="active" ng-class="{'active':activeIndex === 3}" ng-if="menuVisibility.users">Пользователи</a></li>
+                    <li><a ui-sref="base.settings" ui-sref-active="active" ng-class="{'active':activeIndex === 2}" ng-if="menuVisibility.settings">Настройки</a></li>
+                    <!--<li><a ui-sref="base.test" ui-sref-active="active" ng-class="{'active':activeIndex === 5}">Test</a></li>-->
+                </ul>
+
+            </div>
+        </div>
+        <div ng-controller="SearchMiniController" >
+            <input id="searchMiniInput" class="form-control" ng-model="searchText" placeholder="Поиск" enter-press="find()"/>
+        </div>
+        <div ng-controller="UserHeaderController" >
+            <md-menu ng-if="User">
+                <md-button aria-label="Open filter menu" ng-click="openMenu($mdMenu, $event)">
+                    {{User.Name}}&nbsp;{{User.Surname}}
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button ng-click="goToState('base.profile.info')">Профиль</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="goToState('base.profile.settings')">Настройки</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                            <md-button ng-click="logoff()">Выйти</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </div>
+    <div class="body">
+        <div flex>
+            <ui-view></ui-view>
+        </div>                 
+
+    </div>
+</div>
+
+

@@ -8,7 +8,7 @@ using ProjectManagementSystem.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class SearchApiController : Controller
     {
         private readonly WorkItemApiService _workItemApiService;

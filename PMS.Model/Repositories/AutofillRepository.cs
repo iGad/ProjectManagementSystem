@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
+using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
 
 namespace PMS.Model.Repositories
@@ -16,29 +18,68 @@ namespace PMS.Model.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Autofill> Get(Expression<Func<Autofill, bool>> whereExpression)
+        
+        public async Task<int> GetTotalCount(AutofillFilterModel filterModel)
         {
-            return null;
+            return await CreateQuery(filterModel).CountAsync();
+        }
+        
+        public async Task<ICollection<Autofill>> Get(Expression<Func<Autofill,bool>> whereExpression)
+        {
+            return await _context.Autofills.Where(whereExpression).ToListAsync();
+        }
+
+        public Task<Autofill> Get(int id)
+        {
+            return _context.Autofills.SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<ICollection<Autofill>> Get(AutofillFilterModel filterModel)
+        {
+            var query = CreateQuery(filterModel);
+            query = query.OrderBy(filterModel.Sorting.FieldName + " " + filterModel.Sorting.Direction);
+            query = query.Skip((filterModel.CorrectPageNumber - 1) * filterModel.CorrectPageSize).Take(filterModel.CorrectPageSize);
+            return await query.ToListAsync();
+        }
+
+        private IQueryable<Autofill> CreateQuery(AutofillFilterModel filterModel)
+        {
+            IQueryable<Autofill> query = _context.Autofills;
+            if (!string.IsNullOrWhiteSpace(filterModel.Name))
+            {
+                query = query.Where(x => x.Name.Contains(filterModel.Name));
+            }
+            if (!string.IsNullOrWhiteSpace(filterModel.Description))
+            {
+                query = query.Where(x => x.Description.Contains(filterModel.Description));
+            }
+            if (filterModel.WorkItemTypes.Any())
+            {
+                query = query.Where(x => filterModel.WorkItemTypes.Contains(x.WorkItemType));
+            }
+            return query;
         }
 
         public void Delete(Autofill autofill)
         {
-            
+            _context.Autofills.Remove(autofill);
         }
 
         public Autofill Add(Autofill autofill)
         {
-            return null;
+            return _context.Autofills.Add(autofill);
         }
-
-        public void Update(Autofill old, Autofill newAutofill)
-        {
-            
-        }
-
+        
         public int SaveChanges()
         {
             return _context.SaveChanges();
         }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
+        }
+
+        
     }
 }

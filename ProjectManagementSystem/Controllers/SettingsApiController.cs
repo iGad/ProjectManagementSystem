@@ -6,7 +6,7 @@ using PMS.Model.Services;
 
 namespace ProjectManagementSystem.Controllers
 {
-    [Authorize]
+    [Attributes.Authorize]
     public class SettingsApiController : Controller
     {
         private readonly SettingsService _settingsService;
