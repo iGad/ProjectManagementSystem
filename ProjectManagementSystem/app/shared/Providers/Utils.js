@@ -1,13 +1,41 @@
 ﻿angapp.provider("Utils", function () {
+    var defaultOptions = {
+        autoDismiss: false,
+        position: 'toast-bottom-right',
+        type: 'info',
+        timeout: '5000',
+        extendedTimeout: '1000',
+        html: false,
+        closeButton: false,
+        tapToDismiss: true,
+        progressBar: false,
+        closeHtml: '<button>&times;</button>',
+        newestOnTop: false,
+        maxOpened: 0,
+        preventDuplicates: false,
+        preventOpenDuplicates: false
+    };
 
+
+    function getErrorText(error) {
+        var text = error.responseText ? error.responseText : error.data;
+        return text.match(/(.||\n)*\<title\>(.*)\<\/title\>(.||\n)/)[2];
+    }
 
     return {
-        $get: ['$state', '$stateParams', '$mdDateLocale', '$mdDialog',
-            function ($state, $stateParams, $mdDateLocaleProvider, $mdDialog) {
+        $get: ['$state', '$stateParams', '$mdDateLocale', '$mdDialog', 'toastr', 'toastrConfig',
+            function ($state, $stateParams, $mdDateLocaleProvider, $mdDialog, toastr, toastrConfig) {
                 var service = {
                     onError: function (error) {
                         console.error(error);
+                        var errorText = getErrorText(error);
+                        toastrConfig.position = 'toast-top-right';
+                        toastr.newestOnTop = true;
+                        //var options = angular.copy(defaultOptions);
+                        //options.type = 'error';
+                        toastr.error(errorText, 'Произошла ошибка');
                     },
+                    
                     onErrorWithMessageBox: function (error) {
                         $mdDialog.show(
                             $mdDialog.alert()

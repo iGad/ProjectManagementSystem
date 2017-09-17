@@ -121,34 +121,64 @@
     };
 
     return {
-        $get: ['$stateParams', '$mdToast', 'Utils', function ($stateParams, $mdToast, Utils) {
+        $get: ['$stateParams', '$mdToast', 'toastr', 'toastrConfig', 'Utils',
+            function ($stateParams, $mdToast, toastr, toastrConfig, Utils) {
             var service = {
                 notify: function (eventName, args) {
                     var toastData = getTextAndAction(Utils, $stateParams, eventName, args);
-                    var toast = $mdToast.simple()
-                          .textContent(toastData.text)
-                          .action(toastData.actionName.toUpperCase())
-                          .highlightAction(true)
-                          .position('bottom right');
-                    $mdToast.show(toast).then(function (response) {
-                        if (response === 'ok') {
+                    //var toast = $mdToast.simple()
+                    //      .textContent(toastData.text)
+                    //      .action(toastData.actionName.toUpperCase())
+                    //      .highlightAction(true)
+                    //    .position('bottom right');
+                    //toastrConfig.position = 'toast-top-right';
+                    //toastrConfig.templates.toast = 'toastWithAction';
+                    //toastrConfig.newestOnTop = true;
+                    //toastrConfig.doAction = toastData.action;
+                    //var options = angular.copy(defaultOptions);
+                    //options.type = 'error';
+                    toastr.info(toastData.text + '<br/><small>Подробности по клику</small>', {
+                        allowHtml: true,
+                        position: 'toast-bottom-right',
+                        newestOnTop: false,
+                        onTap: function (toast) {
                             toastData.action();
                         }
                     });
+                    //$mdToast.show(toast).then(function (response) {
+                    //    if (response === 'ok') {
+                    //        toastData.action();
+                    //    }
+                    //});
                
                 },
                 showToast: function (eventName, notificationModel) {
                     var actionInfo = getActionInfo(eventName, notificationModel, Utils, $stateParams);
-                    var toast = $mdToast.simple()
-                         .textContent(notificationModel.Text)
-                         .action(actionInfo.actionName.toUpperCase())
-                         .highlightAction(true)
-                         .position('bottom right');
-                    $mdToast.show(toast).then(function (response) {
-                        if (response === 'ok') {
-                            actionInfo.action();
-                        }
-                    });
+                    //toastrConfig.position = 'toast-top-right';
+                    //toastrConfig.templates.toast = 'toastWithAction';
+                    //toastrConfig.newestOnTop = true;
+                    //toastrConfig.doAction = actionInfo.action;
+                    //var options = angular.copy(defaultOptions);
+                    //options.type = 'error';
+                    toastr.info(notificationModel.Text+'<br/><small>Подробности по клику</small>',
+                        {
+                            allowHtml: true,
+                            position: 'toast-bottom-right',
+                            newestOnTop: false,
+                            onTap: function (toast) {
+                                actionInfo.action();
+                            }
+                        });
+                    //var toast = $mdToast.simple()
+                    //     .textContent(notificationModel.Text)
+                    //     .action(actionInfo.actionName.toUpperCase())
+                    //     .highlightAction(true)
+                    //     .position('bottom right');
+                    //$mdToast.show(toast).then(function (response) {
+                    //    if (response === 'ok') {
+                    //        actionInfo.action();
+                    //    }
+                    //});
                 }
             };
             return service;

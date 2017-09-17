@@ -11,24 +11,7 @@ namespace ProjectManagementSystem
             //bundles.Add(new ScriptBundle("~/bundles/jquery").IncludeDirectory("~/Frontend/Scripts", "*.js", false));
             
             bundles.Add(new ScriptBundle("~/bundles/angular").IncludeDirectory("~/assets/libs", "*.js", true));
-
-            //bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-            //            "~/Scripts/angular/angular.js",
-            //            "~/Scripts/angular-route.js",
-            //            "~/Scripts/angular-animate/angular-animate.js",
-            //            "~/Scripts/angular-aria/angular-aria.js",
-            //            "~/Scripts/angular-messages/angular-messages.js",
-            //            "~/Scripts/angular-ui-router/angular-ui-router.js",
-            //            "~/Scripts/i18n/*.js", 
-            //            "~/Scripts/angular-material/angular-material.js",
-            //            "~/Scripts/angular-material/svg-assets-cache.js",
-            //            "~/Frontend/Scripts/ngFileUpload/ng-file-upload.js",
-            //            "~/Frontend/Scripts/ngFileUpload/ng-file-upload-shim.js"));
             
-
-            //bundles.Add(new ScriptBundle("~/bundles/signalR").IncludeDirectory("~/Frontend/Scripts/signalR", "*.js"));
-            //bundles.Add(new ScriptBundle("~/bundles/ui-sortable").IncludeDirectory("~/Frontend/Scripts/ui-sortable", "*.js"));
-            //bundles.Add(new ScriptBundle("~/bundles/uigrid").IncludeDirectory("~/Scripts/ui-grid", "*.js", true));
             bundles.Add(new ScriptBundle("~/bundles/site").IncludeDirectory("~/app/main","*.js", true));
             bundles.Add(new ScriptBundle("~/bundles/shared").IncludeDirectory("~/app/shared", "*.js", true));
 
@@ -39,6 +22,7 @@ namespace ProjectManagementSystem
 
             //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js"));
             bundles.Add(new StyleBundle("~/Content/angular-material").IncludeDirectory("~/assets/css/angular-material","*.css"));
+            bundles.Add(new StyleBundle("~/styles/angular-toastr").IncludeDirectory("~/assets/css/angular-toastr", "*.css"));
             bundles.Add(new StyleBundle("~/Content/jquery-ui").IncludeDirectory("~/assets/css/jquery-ui", "*.css", false));
             //bundles.Add(new StyleBundle("~/Content/angular-material").IncludeDirectory("~/assets/css/angular-material","*.css"));
             bundles.Add(new StyleBundle("~/Content/ui-grid").IncludeDirectory("~/assets/css/ui-grid", "*.css"));
