@@ -25,6 +25,11 @@ namespace PMS.Model.CommonModels.FilterModels
         public int CorrectPageSize => PageSize > 0 ? PageSize : DefaultPageSize;
         public int PageSize { get; set; }
         public Sorting Sorting { get; set; }
+
+        public string[] ParseText(string text)
+        {
+            return text.Split(',').SelectMany(x => x.Split(';')).Select(x => x.Trim()).ToArray();
+        }
     }
 
     public struct DateTimeRange

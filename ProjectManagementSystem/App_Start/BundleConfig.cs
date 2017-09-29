@@ -30,6 +30,8 @@ namespace ProjectManagementSystem
             bundles.Add(new StyleBundle("~/Content/bootstrap").IncludeDirectory("~/assets/css","*.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include("~/assets/css/site.css"));
             //bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/Site.css"));
+            //TODO: оповещения на email с настройкой подключения через страницу настроек
+            //TODO: пользовательские настройки
         }
     }
 }

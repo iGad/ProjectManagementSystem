@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PMS.Model.Models;
 
 namespace PMS.Model.Services
@@ -6,6 +7,7 @@ namespace PMS.Model.Services
     public interface ICurrentUserProvider
     {
         ApplicationUser GetCurrentUser();
+        Task<ApplicationUser> GetCurrentUserAsync();
     }
     public interface IUsersService : ICurrentUserProvider
     {

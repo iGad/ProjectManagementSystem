@@ -2,10 +2,7 @@
     ['$scope', '$mdMenu', '$rootScope', '$location', '$state', 'NotificationService', 'EventsService', 'UsersService', 'Utils', 'isAuth',
         function ($scope, $mdMenu, $rootScope, $location, $state, notificationService, eventsService, usersService, utils, isAuth) {
             $scope.title = 'Загрузка...';
-            var auth = isAuth;
-            if (!isAuth) {
-                $state.go('login', { returnUrl: $location.path() });
-            }
+            
         function getActiveStateIndex() {
             var path = $location.path().split('?')[0];
             var tabName = path.slice(path.lastIndexOf('/') + 1);
@@ -48,16 +45,16 @@
                 $scope.menuVisibility.dictionaries = true;
                 $scope.menuVisibility.users = true;
             }
-        }, utils.onError);
+        });
 
         usersService.getUserPermissions().then(function(content) {
             $scope.permissions = content.data;
-        }, utils.onError);
+        });
 
         $scope.updateUnseenEventCount = function() {
             eventsService.getUnseenEventCount().then(function (content) {
                 $scope.unseenEventCount = content.data;
-            }, utils.onError);
+            });
         };
 
         $scope.updateUnseenEventCount();

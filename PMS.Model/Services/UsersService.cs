@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Common.Services;
 using PMS.Model.Models;
 using PMS.Model.Repositories;
@@ -14,8 +15,8 @@ namespace PMS.Model.Services
 
         public UsersService(IUserRepository userRepository, ICurrentUsernameProvider currentUsernameProvider)
         {
-            this._userRepository = userRepository;
-            this._currentUsernameProvider = currentUsernameProvider;
+            _userRepository = userRepository;
+            _currentUsernameProvider = currentUsernameProvider;
         }
 
         public List<ApplicationUser> GetAllowedUsersForWorkItemType(int typeId)
@@ -31,7 +32,7 @@ namespace PMS.Model.Services
             {
                 roles.Add(Resources.Manager);
             }
-            return this._userRepository.GetUsersByRoles(roles).Where(x => !x.IsDeleted).ToList();
+            return _userRepository.GetUsersByRoles(roles).Where(x => !x.IsDeleted).ToList();
         }
 
         public ApplicationUser Get(string id)
@@ -49,7 +50,7 @@ namespace PMS.Model.Services
 
         public ApplicationUser GetByUsername(string username)
         {
-            var user = this._userRepository.GetByUserName(username);
+            var user = _userRepository.GetByUserName(username);
             if(user == null)
                 throw new PmsException($"Пользователь {username} не найден");
             return user;
@@ -57,17 +58,27 @@ namespace PMS.Model.Services
 
         public ApplicationUser GetCurrentUser()
         {
-            if (this._currentUser != null)
-                return this._currentUser;
-            var username = this._currentUsernameProvider.GetCurrentUsername();
+            if (_currentUser != null)
+                return _currentUser;
+            var username = _currentUsernameProvider.GetCurrentUsername();
             if (string.IsNullOrWhiteSpace(username))
                 return null;
-            return (this._currentUser = this._userRepository.GetByUserName(username));
+            return (_currentUser = _userRepository.GetByUserName(username));
+        }
+
+        public async Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            if (_currentUser != null)
+                return _currentUser;
+            var username = _currentUsernameProvider.GetCurrentUsername();
+            if (string.IsNullOrWhiteSpace(username))
+                return null;
+            return (_currentUser = await _userRepository.GetByUserNameAsync(username));
         }
 
         public List<Role> GetRolesByIds(IEnumerable<string> roleIds)
         {
-            return this._userRepository.GetRoles().Where(x => roleIds.Contains(x.Id)).ToList();
+            return _userRepository.GetRoles().Where(x => roleIds.Contains(x.Id)).ToList();
         }
 
         public List<ApplicationUser> GetUsersByRole(RoleType role)

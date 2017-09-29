@@ -13,8 +13,7 @@ namespace PMS.Model.CommonModels.FilterModels
                 FieldName = nameof(Autofill.Name)
             };
         }
-        public ICollection<WorkItemType> WorkItemTypes { get; set; } = new List<WorkItemType>();
-        public string Name { get; set; }
-        public string Description { get; set; }
+
+        public string SearchText { get; set; }
     }
 }

@@ -260,6 +260,8 @@
     <Content Include="app\main\dictionaries\autofills\AutofillsController.js" />
     <Content Include="app\main\dictionaries\autofills\AutofillsService.js" />
     <Content Include="app\main\dictionaries\dictionaries.html" />
+    <Content Include="app\main\dictionaries\dictionariesController.js" />
+    <Content Include="app\shared\Directives\SearchDirective.js" />
     <Content Include="assets\css\angular-toastr\angular-toastr.css" />
     <Content Include="assets\css\bootstrap\bootstrap.css" />
     <Content Include="assets\css\bootstrap\bootstrap.min.css" />

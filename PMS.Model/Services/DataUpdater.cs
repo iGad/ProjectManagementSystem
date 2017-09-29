@@ -9,15 +9,48 @@ namespace PMS.Model.Services
     public class DataUpdater
     {
         private readonly ISettingRepository _settingsRepository;
+        private readonly ApplicationContext _context;
 
-        public DataUpdater(ISettingRepository settingsRepository)
+        public DataUpdater(ISettingRepository settingsRepository, ApplicationContext context)
         {
-            this._settingsRepository = settingsRepository;
+            _settingsRepository = settingsRepository;
+            _context = context;
         }
 
         public void Update()
         {
             UpdateSettings();
+            UpdateUserSettings();
+        }
+
+        private void UpdateUserSettings()
+        {
+            var userSettings = new[]
+            {
+                new UserSetting
+                {
+                    Name = "Звуковое оповещение о событиях в браузере",
+                    Type = UserSettingType.NotificationsSound,
+                    DefaultValue = bool.TrueString,
+                    ValueType = ValueType.Bool
+                },
+                new UserSetting
+                {
+                    Name = "Присылать уведомления о новых событиях на почту",
+                    Type = UserSettingType.NotificationsToEmail,
+                    DefaultValue = bool.FalseString,
+                    ValueType = ValueType.Bool
+                },
+            };
+            var existingSettings = _context.UserSettings.ToList();
+            foreach (var userSetting in userSettings)
+            {
+                if (existingSettings.All(x => x.Type != userSetting.Type))
+                {
+                    _context.UserSettings.Add(userSetting);
+                }
+            }
+            _context.SaveChanges();
         }
 
         private void UpdateSettings()
@@ -42,16 +75,16 @@ namespace PMS.Model.Services
                     MaxValue = 100
                 },
             };
-            var existingSettings = this._settingsRepository.GetSettings(x => true).ToList();
+            var existingSettings = _settingsRepository.GetSettings(x => true).ToList();
             foreach (var setting in settings)
             {
                 var existingSetting = existingSettings.SingleOrDefault(x => x.Type == setting.Type);
                 if (existingSetting != null && HaveDifferentProperties(setting, existingSetting))
-                    this._settingsRepository.UpdateSetting(existingSetting, setting);
+                    _settingsRepository.UpdateSetting(existingSetting, setting);
                 else
-                    this._settingsRepository.AddSetting(setting);
+                    _settingsRepository.AddSetting(setting);
             }
-            this._settingsRepository.SaveChanges();
+            _settingsRepository.SaveChanges();
         }
         
 

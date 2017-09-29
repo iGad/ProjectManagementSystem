@@ -13,7 +13,7 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Attributes.Authorize]
         public ActionResult Ping()
         {
             return Json("OK", JsonRequestBehavior.AllowGet);

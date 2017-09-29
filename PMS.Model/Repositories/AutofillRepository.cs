@@ -44,21 +44,21 @@ namespace PMS.Model.Repositories
 
         private IQueryable<Autofill> CreateQuery(AutofillFilterModel filterModel)
         {
-            IQueryable<Autofill> query = _context.Autofills;
-            if (!string.IsNullOrWhiteSpace(filterModel.Name))
+            if (string.IsNullOrWhiteSpace(filterModel.SearchText))
+                return _context.Autofills;
+            
+            var filterParams = filterModel.ParseText(filterModel.SearchText);
+            var goodTypes = Extensions.ToEnumList<WorkItemType>().ToDictionary(x => x, x => x.GetDescription()).Where(x => filterParams.Any(p => x.Value.IndexOf(p, StringComparison.OrdinalIgnoreCase) >= 0)).Select(x => x.Key).ToArray();
+            string firstElement = filterParams[0];
+            IQueryable<Autofill>  query = _context.Autofills.Where(x => x.Name.Contains(firstElement) || x.Description.Contains(firstElement) || goodTypes.Contains(x.WorkItemType));
+            for (var i = 1; i < filterParams.Length; i++)
             {
-                query = query.Where(x => x.Name.Contains(filterModel.Name));
-            }
-            if (!string.IsNullOrWhiteSpace(filterModel.Description))
-            {
-                query = query.Where(x => x.Description.Contains(filterModel.Description));
-            }
-            if (filterModel.WorkItemTypes.Any())
-            {
-                query = query.Where(x => filterModel.WorkItemTypes.Contains(x.WorkItemType));
+                var param = filterParams[i];
+                query = query.Union(_context.Autofills.Where(x => x.Name.Contains(param) || x.Description.Contains(param)));
             }
             return query;
         }
+        
 
         public void Delete(Autofill autofill)
         {

@@ -18,15 +18,12 @@
                                      md-selected-item="selectedItem"
                                      md-search-text="workItem.Name"
                                      md-selected-item-change="selectedAutofillChange(item)"
-                                     md-items="item in querySearch(searchText)"
+                                     md-items="item in querySearch(workItem.Name)"
                                      md-item-text="item.Name"
                                      md-floating-label="{{workItemName}}">
                         <md-item-template>
-                            <span md-highlight-text="searchText">{{item.Name}}{{item.Description?(' - '+item.Description):''}}</span>
+                            {{item.Name}}{{item.Description?(' - '+item.Description):''}}
                         </md-item-template>
-                        <!--<div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
-                            <div ng-message="required">You <b>must</b> have a favorite state.</div>
-                        </div>-->
                     </md-autocomplete>
                     <!--<md-input-container class="md-block" flex >
                         <label>{{workItemName}}</label>
@@ -34,7 +31,7 @@
                     </md-input-container>-->
                 </div>
                 <div layout="row" flex layout-align="end start">
-                    <md-button ng-click="save()" ng-disabled="addUpdateWorkItemForm.$invalid || !canEdit && !canEditExecutor || !isFormChanged">
+                    <md-button ng-click="save()" ng-disabled="!canEdit && !canEditExecutor || !canSave">
                         <md-icon md-svg-icon="content:save"></md-icon>
                         Сохранить
                     </md-button>
@@ -363,9 +360,9 @@
                 <md-content class="md-padding content-back">
                     <md-tabs md-dynamic-height>
                         <md-tab label="Комментарии">
-                            <div ng-if="!IsNew" ng-controller="CommentsController">
-                                <ng-include src="'app/shared/newCommentTemplate.html'"></ng-include>
-                                <ng-include src="'app/shared/commentTemplate.html'" ng-repeat="comment in comments"></ng-include>
+                            <div  ng-controller="CommentsController">
+                                <ng-include ng-if="!IsNew" src="'app/shared/newCommentTemplate.html'"></ng-include>
+                                <ng-include  src="'app/shared/commentTemplate.html'" ng-repeat="comment in comments"></ng-include>
                             </div>
                         </md-tab>
                     </md-tabs>

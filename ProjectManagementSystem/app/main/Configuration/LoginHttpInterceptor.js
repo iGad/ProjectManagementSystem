@@ -18,7 +18,8 @@ angapp.factory('LoginInterceptor', ['$q', '$state', '$location', function($q, $s
             
         },
         response: function (response) {
-            self.handled = false;
+            if (response.config.url.indexOf('Api') > 0)
+                self.handled = false;
             return response;
         }
     };

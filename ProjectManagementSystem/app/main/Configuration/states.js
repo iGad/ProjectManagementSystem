@@ -21,6 +21,7 @@ angapp.config(function ($stateProvider, $routeProvider) {
     $routeProvider.when('/main', { redirectTo: '/main/all' });
     $routeProvider.when('/events', { redirectTo: '/events/new' });
     $routeProvider.when('/profile', { redirectTo: '/profile/info' });
+    $routeProvider.when('/dictionaries', { redirectTo: '/dictionaries/autofills' });
     $routeProvider.when('/', { redirectTo: '/main/all' });
     // An array of state definitions
     var states = [
@@ -40,10 +41,6 @@ angapp.config(function ($stateProvider, $routeProvider) {
                     return $http({
                         url: '/Home/Ping',
                         method: 'GET'
-                    }).then(function(data) {
-                        return true;
-                    }, function(data) {
-                        return false;
                     });
                 }]
             }
@@ -56,8 +53,8 @@ angapp.config(function ($stateProvider, $routeProvider) {
         },
         {
             name: 'base.add',
-            url: '/add',
-            params: { returnStates: null, projectId: null, stageId: null, partitionId: null, type: null },
+            url: '/add?projectId&stageId&partitionId&type',
+            params: { returnStates: null },
             templateUrl: 'app/main/base/workItem.html'
         },
         {
@@ -144,11 +141,12 @@ angapp.config(function ($stateProvider, $routeProvider) {
         {
             name: 'base.dictionaries',
             url: '/dictionaries',
+            controller: 'DictionariesController',
             templateUrl: 'app/main/dictionaries/dictionaries.html'
         },
         {
             name: 'base.dictionaries.autofills',
-            url: '/autofills?PageNumber&SortDirection&SortField&ItemsIds&DateStart&DateEnd&IsFavorite&UserIds',
+            url: '/autofills?PageNumber&SortDirection&SortField&SearchText&PageSize',
             controller: 'AutofillsController',
             templateUrl: 'app/main/dictionaries/autofills/AutofillList.html'
         },

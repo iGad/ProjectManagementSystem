@@ -1,7 +1,7 @@
 ﻿angapp.controller('WorkItemController', [
-    '$scope', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
-    function ($scope, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
-        var autofills, allAutofills;
+    '$scope', '$q', '$state', '$stateParams', '$mdDialog', 'UsersService', 'WorkItemService', 'Utils',
+    function ($scope, $q, $state, $stateParams, $mdDialog, UsersService, WorkItemService, Utils) {
+        var autofills, allAutofills, buffer;
 
         function goToReturnState() {
             Utils.goToReturnState($stateParams);
@@ -66,6 +66,16 @@
             workItemChangedHandler();
         });
 
+        function startWatch() {
+            $scope.$watch(function () {
+                return !$scope.addUpdateWorkItemForm.$invalid && !angular.equals($scope.workItem, buffer);
+            }, function (newVal, oldVal) {
+                if (newVal != oldVal) {
+                    $scope.canSave = newVal;
+                }
+            });
+        }
+
         if ($stateParams.workItemId) {
             $scope.isNew = false;
             WorkItemService.getWorkItem($stateParams.workItemId).then(function (content) {
@@ -73,6 +83,8 @@
                 $scope.workItem.DeadLine = Utils.convertDateToJsDate($scope.workItem.DeadLine);
                 $scope.workItem.DeadLineHours = $scope.workItem.DeadLine.getHours();
                 $scope.workItem.DeadLineMinutes = $scope.workItem.DeadLine.getMinutes();
+                buffer = angular.copy($scope.workItem);
+                startWatch();
                 getStates();
                 getTypes();
             }, Utils.onError);
@@ -83,11 +95,13 @@
                 DeadLineHours: 17,
                 DeadLineMinutes: 0,
                 DeadLine: moment().add(1, 'days').toDate(),
-                Type: $stateParams.type
+                Type: parseInt($stateParams.type)
             };
-            $scope.parentPartitionId = $stateParams.partitionId;
-            $scope.parentStageId = $stateParams.stageId;
-            $scope.parentProjectId = $stateParams.projectId;
+            $scope.parentPartitionId = $stateParams.partitionId ? parseInt($stateParams.partitionId) : null;
+            $scope.parentStageId = $stateParams.stageId ? parseInt($stateParams.stageId) : null;
+            $scope.parentProjectId = $stateParams.projectId ? parseInt($stateParams.projectId) : null;
+            buffer = angular.copy($scope.workItem);
+            startWatch();
             //getUserPermissions();
             getTypes();
             getStates();
@@ -126,18 +140,7 @@
         $scope.isDisabledEdit = function () {
             return $scope.IsNew && !$scope.CanAdd || !$scope.isNew && !$scope.canEdit;
         };
-
-        //function getUserPermissions() {
-        //    UsersService.hasPermissionsForWorkItem([1, 2], $stateParams.workItemId).then(function (content) {
-        //        var permissions = content.data;
-        //        $scope.canAdd = permissions[0];
-        //        $scope.canEdit = permissions[1];
-        //        $scope.canDelete = permissions[2];
-        //    }, Utils.onError);
-        //};
-
-
-
+        
 
         Object.defineProperty($scope, 'IsNew', {
             get: function () {
@@ -314,26 +317,25 @@
         };
 
         $scope.querySearch = function (searchText) {
+            var defer = $q.defer();
             if (autofills && autofills.length) {
-                return autofills.filter(x => !searchText ||
-                    x.Name.indexOf(searchText) !== -1 ||
-                    x.Description.indexOf(searchText) !== -1);
+                defer.resolve(autofills.filter(x => !searchText ||
+                    x.Name.indexOf(searchText) !== -1));
+            } else {
+                defer.resolve([]);
             }
-            return [];
+            return defer.promise;
         };
 
         $scope.selectedAutofillChange = function (autofill) {
             if (autofill) {
                 $scope.workItem.Name = autofill.Name;
                 $scope.workItem.Description = autofill.Description;
-            } else {
-                $scope.workItem.Name = $scope.searchText;
-                $scope.workItem.Description = '';
             }
         };
 
         $scope.cancel = function (ev) {
-            if (!$scope.isFormChanged) {
+            if (!$scope.canSave) {
                 goToReturnState();
                 return;
             }

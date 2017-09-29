@@ -1,6 +1,7 @@
 ﻿angapp.controller('AutofillsController', [
     '$scope', '$state', '$stateParams', '$mdDialog', "uiGridConstants", 'AutofillsService', 'Utils',
     function ($scope, $state, $stateParams, $mdDialog, uiGridConstants, service, utils) {
+        $scope.selectedTab = 'autofills';
         $scope.filterOptions = {};
         $scope.autofills = [];
         $scope.moveToPage = 1;
@@ -14,11 +15,12 @@
             enableRowReordering: false,
 
             enableSorting: true,
+            useExternalSorting: true,
 
             enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
             enableVerticalScrollbar: uiGridConstants.scrollbars.NEVER,
 
-            enableFiltering: true,
+            enableFiltering: false,
             enablePaginationControls: false,
             multiSelect: false,
             modifierKeysToMultiSelect: false,
@@ -151,7 +153,18 @@
             }
         };
 
-        
+        var onSearchHandler = $scope.$on('search',
+            function(event, data) {
+                $scope.filterOptions.SearchText = data;
+                reloadData();
+            });
+
+        var onDestroyHandler = $scope.$on('destroy',
+            function(event, data) {
+                onSearchHandler();
+                onDestroyHandler();
+            });
+
         
         $scope.gridOptions.columnDefs = [
             {

@@ -150,6 +150,7 @@
     <Compile Include="Repositories\IUserPermissionsRepository.cs" />
     <Compile Include="Repositories\SettingRepository.cs" />
     <Compile Include="Repositories\UserPermissionsRepository.cs" />
+    <Compile Include="Repositories\UserSettingsRepository.cs" />
     <Compile Include="Services\ApplicationUserEqualityComparer.cs" />
     <Compile Include="Services\ApplicationUserExtensions.cs" />
     <Compile Include="Services\AttachingFileService.cs" />

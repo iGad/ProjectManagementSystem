@@ -16,7 +16,9 @@
             },
             utils.onError);
 
-        $scope.ok = function() {
+        $scope.ok = function () {
+            $scope.autofill.TypeViewModel =
+                $scope.workItemTypes.filter(x => x.Value === $scope.autofill.WorkItemType)[0];
             $mdDialog.hide($scope.autofill);
         };
 
