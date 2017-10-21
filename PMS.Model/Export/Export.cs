@@ -20,7 +20,8 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<EventRepository, IEventRepository>();
             compositionContainer.RegisterExport<UserPermissionsRepository, IUserPermissionsRepository>();
             compositionContainer.RegisterExport<SettingRepository, ISettingRepository>();
-            compositionContainer.RegisterExport<SettingRepository, ISettingsValueProvider>();     
+            compositionContainer.RegisterExport<SettingRepository, ISettingsValueProvider>();
+            compositionContainer.RegisterExport<UserSettingsRepository, IUserSettingsRepository>();
             compositionContainer.RegisterExport<CommentRepository, ICommentRepository>();
             compositionContainer.RegisterExport<AutofillRepository, IAutofillRepository>();
 
@@ -32,6 +33,7 @@ namespace PMS.Model.Export
             compositionContainer.RegisterExport<WorkItemService>();
             compositionContainer.RegisterExport<EventService, IEventService>();
             compositionContainer.RegisterExport<SettingsService>();
+            compositionContainer.RegisterExport<SettingsService, ISettingsService>();
             compositionContainer.RegisterExport<CommentsService>();
             compositionContainer.RegisterExport<AttachingFileService>();
 

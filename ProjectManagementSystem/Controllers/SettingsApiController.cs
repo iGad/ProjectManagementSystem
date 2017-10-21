@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using PMS.Model.CommonModels;
 using PMS.Model.Models;
 using PMS.Model.Services;
 
@@ -37,11 +39,26 @@ namespace ProjectManagementSystem.Controllers
             return Json(_settingsService.GetSettings(), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetUserSettings()
+        {
+            CheckPermissions();
+            return Json(await _settingsService.GetUserSettings(), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult UpdateSetting(Setting setting)
         {
             CheckPermissions();
             _settingsService.UpdateSetting(setting);
+            return Json("OK");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateUserSetting(UserSettingModel setting)
+        {
+            CheckPermissions();
+            await _settingsService.UpdateUserSetting(setting);
             return Json("OK");
         }
     }

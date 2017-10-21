@@ -1,4 +1,4 @@
-﻿var angapp = angular.module("updaterapp", ['ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages'])
+﻿var angapp = angular.module("updaterapp", ['ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages', 'toastr'])
 //.config(['$locationProvider', function ($locationProvider) { $locationProvider.html5Mode({ enabled: true, requireBase: false }); }])
 .service("UpdaterService", ["$http", function ($http) {
     var baseUrl = '/DataUpdater/';

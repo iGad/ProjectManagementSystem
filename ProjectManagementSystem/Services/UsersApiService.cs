@@ -14,15 +14,17 @@ namespace ProjectManagementSystem.Services
     public class UsersApiService
     {
         private readonly UserManager<ApplicationUser, string> _userManager;
+        private readonly ISettingsService _userSettingsService;
         private readonly IUserRepository _userRepository;
 
-        public UsersApiService(IUserRepository repository, UserManager<ApplicationUser, string> manager)
+        public UsersApiService(IUserRepository repository, UserManager<ApplicationUser, string> manager, ISettingsService userSettingsService)
         {
             _userManager = manager;
+            _userSettingsService = userSettingsService;
             _userRepository = repository;
         }
 
-        public UserViewModel AddUser(UserViewModel userViewModel, string password)
+        public async Task<UserViewModel> AddUser(UserViewModel userViewModel, string password)
         {
             var user = userViewModel.ToApplicationUser();
             var result = _userManager.Create(user, password);
@@ -32,8 +34,9 @@ namespace ProjectManagementSystem.Services
             }
             
             _userManager.AddToRoles(user.Id, userViewModel.Roles.Select(x => x.Name).ToArray());
-            
-            
+            await _userSettingsService.InitSettingForUser(user.Id);
+
+
             userViewModel.Id = user.Id;
             return userViewModel;
         }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ProjectManagementSystem.Services
 {
@@ -27,7 +28,7 @@ namespace ProjectManagementSystem.Services
             _workItemsService = workItemsService;
         }
 
-        public void GenerateUsers()
+        public async Task GenerateUsers()
         {
             var roles = _usersApiService.GetRoles();
             List<RoleType[]> userRoles = new List<RoleType[]>
@@ -48,7 +49,7 @@ namespace ProjectManagementSystem.Services
                     Surname = $"Иванов{index}",
                     Roles = roles.Where(x => userRole.Contains(x.RoleCode)).ToList()
                 };
-                _usersApiService.AddUser(user, Password);
+                await _usersApiService.AddUser(user, Password);
             }
         }
 

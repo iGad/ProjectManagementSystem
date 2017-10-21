@@ -20,11 +20,13 @@ namespace ProjectManagementSystem.Controllers
         private ApplicationUserManager _userManager;
         private readonly IUsersService _usersService;
         private readonly IUserPermissionsRepository _permissionsRepository;
+        private readonly ISettingsService _userSettingsService;
 
-        public UsersApiController(IUsersService usersService, IUserPermissionsRepository permissionsRepository)
+        public UsersApiController(IUsersService usersService, IUserPermissionsRepository permissionsRepository, ISettingsService userSettingsService)
         {
             _usersService = usersService;
             _permissionsRepository = permissionsRepository;
+            _userSettingsService = userSettingsService;
         }
 
         public ApplicationUserManager UserManager
@@ -68,7 +70,7 @@ namespace ProjectManagementSystem.Controllers
             var currentUser = _usersService.GetCurrentUser();
             using (var context = new ApplicationContext())
             {
-                var api = new UsersApiService(new UserRepository(context), UserManager);
+                var api = CreateService(context);
                 return Json(api.GetUserViewModel(currentUser),JsonRequestBehavior.AllowGet);
             }
         }
@@ -78,7 +80,7 @@ namespace ProjectManagementSystem.Controllers
         {
             using (var context = new ApplicationContext())
             {
-                var api = new UsersApiService(new UserRepository(context), UserManager);
+                var api = CreateService(context);
                 return new JsonResult
                 {
                     Data= api.GetActualUsers(),
@@ -93,7 +95,7 @@ namespace ProjectManagementSystem.Controllers
         {
             using (var context = new ApplicationContext())
             {
-                var api = new UsersApiService(new UserRepository(context), UserManager);
+                var api = CreateService(context);
                 var roles = api.GetRoles();
                 return new JsonResult
                 {
@@ -105,12 +107,12 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser(UserViewModel user, string password)
+        public async Task<ActionResult> AddUser(UserViewModel user, string password)
         {
             using (var context = new ApplicationContext())
             {
-                var api = new UsersApiService(new UserRepository(context), UserManager);
-                var newUser = api.AddUser(user, password);
+                var api = CreateService(context);
+                var newUser = await api.AddUser(user, password);
                 return new JsonResult
                 {
                     Data = newUser,
@@ -125,7 +127,7 @@ namespace ProjectManagementSystem.Controllers
         {
             using (var context = new ApplicationContext())
             {
-                var api = new UsersApiService(new UserRepository(context), UserManager);
+                var api = CreateService(context);
                 api.UpdateUser(user);
                 return new JsonResult
                 {
@@ -141,7 +143,7 @@ namespace ProjectManagementSystem.Controllers
         {
             using (var context = new ApplicationContext())
             {
-                var api = new UsersApiService(new UserRepository(context), UserManager);
+                var api = CreateService(context);
                 api.DeleteUser(userId);
                 return new JsonResult
                 {
@@ -197,5 +199,12 @@ namespace ProjectManagementSystem.Controllers
             //result = queriedPermissions.Select(x=> allowedPermissions.Contains(x) && (x == ))
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
+        private UsersApiService CreateService(ApplicationContext context)
+        {
+            return new UsersApiService(new UserRepository(context), UserManager, _userSettingsService);
+        }
+
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Common.Models;
 using Common.Repositories;
 using PMS.Model.CommonModels;
@@ -16,27 +18,27 @@ namespace PMS.Model.Repositories
         private readonly ApplicationContext _context;
         public WorkItemRepository(ApplicationContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public WorkItem GetById(int id)
         {
-            return this._context.WorkItems.SingleOrDefault(x => x.Id == id);
+            return _context.WorkItems.SingleOrDefault(x => x.Id == id);
         }
 
         public WorkItem GetByIdNoTracking(int id)
         {
-            return this._context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
+            return _context.WorkItems.AsNoTracking().SingleOrDefault(x => x.Id == id);
         }
 
         public WorkItem GetByIdWithParents(int id)
         {
-            return this._context.WorkItems.AsNoTracking().Include(x => x.Executor).Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
+            return _context.WorkItems.AsNoTracking().Include(x => x.Executor).Include(x => x.Parent.Parent.Parent).SingleOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)
+        public IEnumerable<WorkItem> Get(Expression<Func<WorkItem, bool>> filter)
         {
-            return this._context.WorkItems.AsNoTracking().Where(filter);
+            return _context.WorkItems.AsNoTracking().Where(filter);
         }
 
         public IEnumerable<WorkItem> Get(SearchModel searchModel)
@@ -92,20 +94,21 @@ namespace PMS.Model.Repositories
             return CreateFilterQuery(searchModel).Count();
         }
 
-        public IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter)
+        public IEnumerable<WorkItem> GetItemsWithExecutor(Expression<Func<WorkItem, bool>> filter)
         {
-            return this._context.WorkItems.AsNoTracking().Include(x => x.Creator).Include(x => x.Executor).Where(filter);
+            return _context.WorkItems.AsNoTracking().Include(x => x.Creator).Include(x => x.Executor).Where(filter);
         }
 
         public WorkItem GetWorkItemWithAllLinkedItems(int workItemId)
         {
-            return this._context.WorkItems.Include(x=>x.Parent.Parent.Parent).Include(x=>x.Children).Single(x => x.Id == workItemId);
+            return _context.WorkItems.Include(x=>x.Parent.Parent.Parent).Include(x=>x.Children).Single(x => x.Id == workItemId);
         }
 
-        public IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Func<WorkItem, bool> filter)
+
+        public IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Expression<Func<WorkItem, bool>> filter)
         {
             return
-                this._context.WorkItems.Include(x => x.Parent.Parent.Parent)
+                _context.WorkItems.Include(x => x.Parent.Parent.Parent)
                     .Include(x => x.Children.Select(y => y.Children.Select(z => z.Children)))
                     .Include(x => x.Creator)
                     .Include(x => x.Executor)
@@ -114,13 +117,13 @@ namespace PMS.Model.Repositories
 
         public WorkItem Add(WorkItem workItem)
         {
-            return this._context.WorkItems.Add(workItem);
+            return _context.WorkItems.Add(workItem);
         }
 
         public IEnumerable<UserItemsAggregateInfo> GetItemsAggregateInfoPerUser()
         {
-            var itemsUsers = this._context.Users.Where(x => !x.IsDeleted)
-                .GroupJoin(this._context.WorkItems, user => user.Id, item => item.ExecutorId, (user, item) => new {User = user, Item = item})
+            var itemsUsers = _context.Users.Where(x => !x.IsDeleted)
+                .GroupJoin(_context.WorkItems, user => user.Id, item => item.ExecutorId, (user, item) => new {User = user, Item = item})
                 .SelectMany(xy => xy.Item.DefaultIfEmpty(), (x, item) => new {x.User, Item = item})
                 .GroupBy(x => x.User, y => y.Item, (user, items) => new {User = user, Items = items}).ToDictionary(x => x.User, x => x.Items.Where(i=>i!=null).ToArray());
             return itemsUsers.Select(x => new UserItemsAggregateInfo
@@ -135,17 +138,22 @@ namespace PMS.Model.Repositories
 
         public int SaveChanges()
         {
-            return this._context.SaveChanges();
+            return _context.SaveChanges();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
 
         public void Delete(WorkItem item)
         {
-            this._context.WorkItems.Remove(item);
+            _context.WorkItems.Remove(item);
         }
 
-        public ICollection<TreeNode> GetNodes(Func<IHierarchicalEntity, bool> whereExpression)
+        public ICollection<TreeNode> GetNodes(Expression<Func<IHierarchicalEntity, bool>> whereExpression)
         {
-            return Get(whereExpression).Select(x => x.ToTreeNode()).ToList();
+            return _context.WorkItems.AsNoTracking().Where(whereExpression.Compile()).OfType<WorkItem>().Select(x => x.ToTreeNode()).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using PMS.Model.Models.Identity;
@@ -14,12 +15,14 @@ namespace ProjectManagementSystem.Controllers
     {
         private ApplicationUserManager _userManager;
         private readonly DataUpdater _updater;
+        private readonly ISettingsService _settingsService;
         private readonly DataGenerator _dataGenerator;
 
-        public DataUpdaterController(DataUpdater updater, IUserRepository userRepo, IUsersService userService, WorkItemApiService workItemApiService)
+        public DataUpdaterController(DataUpdater updater, IUserRepository userRepo, IUsersService userService, WorkItemApiService workItemApiService, ISettingsService settingsService)
         {
             _updater = updater;
-            _dataGenerator = new DataGenerator(userService, new UsersApiService(userRepo, UserManager), workItemApiService);
+            _settingsService = settingsService;
+            _dataGenerator = new DataGenerator(userService, new UsersApiService(userRepo, UserManager, settingsService), workItemApiService);
         }
 
         public ApplicationUserManager UserManager
@@ -41,16 +44,16 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update()
+        public async Task<ActionResult> Update()
         {
-            _updater.Update();
+            await _updater.Update();
             return Json("OK");
         }
 
         [HttpPost]
-        public ActionResult GenerateUsers()
+        public async Task<ActionResult> GenerateUsers()
         {
-            _dataGenerator.GenerateUsers();
+            await _dataGenerator.GenerateUsers();
             return Json("OK", JsonRequestBehavior.AllowGet);
         }
 

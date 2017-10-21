@@ -14,7 +14,7 @@
                     <input name="stringInput"
                            required
                            ng-pattern="/setting.ValueRegex/"
-                           ng-model="setting.Value"/>
+                           ng-model="setting.Value" />
                     <div ng-messages="editSettingForm.stringInput.$error">
                         <div ng-message-exp="['pattern']">
                             Введено некорректное значение
@@ -29,28 +29,22 @@
                            type="number"
                            min="{{setting.MinValue}}"
                            max="{{setting.MaxValue}}"
-                           ng-model="setting.Value"/>
+                           ng-model="setting.Value" />
                     <div ng-messages="editSettingForm.numberInput.$error">
                         <div ng-message-exp="['min', 'max']">
                             Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
                         </div>
-                        <!--<div ng-message="'min'">
-                            Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
-                        </div>
-                        <div ng-message="'max'">
-                            Введено некорректное значение. Значение должно быть в отрезке [{{setting.MinValue}}, {{setting.MaxValue}}]
-                        </div>-->
                         <div ng-message="required">Необходимо ввести значение</div>
                     </div>
                 </md-input-container>
                 <md-input-container ng-if="setting.ValueType === 2">
-                    <md-checkbox aria-label="bool value" ng-model="setting.Value" >Значение</md-checkbox>
+                    <md-checkbox aria-label="bool value" ng-model="setting.Value">Значение</md-checkbox>
                 </md-input-container>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="save()" ng-disabled="editSettingForm.$invalid || !isValueChanged">
+            <md-button ng-click="save()" ng-disabled="!isValueChanged">
                 Сохранить
             </md-button>
             <md-button ng-click="cancel()">

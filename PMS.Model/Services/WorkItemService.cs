@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using PMS.Model.CommonModels;
 using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
@@ -132,7 +133,7 @@ namespace PMS.Model.Services
             return _repository.GetWorkItemWithAllLinkedItems(workItemId);
         }
 
-        public List<WorkItem> GetWorkItemsWithAllIncludedElements(Func<WorkItem, bool> whereExpression)
+        public List<WorkItem> GetWorkItemsWithAllIncludedElements(Expression<Func<WorkItem, bool>> whereExpression)
         {
             return _repository.GetWorkItemsWithAllIncudedElements(whereExpression).ToList();
         }

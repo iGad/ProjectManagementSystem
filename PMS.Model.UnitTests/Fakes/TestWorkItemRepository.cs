@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using PMS.Model.CommonModels;
 using PMS.Model.CommonModels.FilterModels;
 using PMS.Model.Models;
@@ -58,9 +60,9 @@ namespace PMS.Model.UnitTests.Fakes
             return WorkItems.Count;
         }
 
-        public IEnumerable<WorkItem> Get(Func<WorkItem, bool> filter)
+        public IEnumerable<WorkItem> Get(Expression<Func<WorkItem, bool>> filter)
         {
-            return this.WorkItems.Where(filter);
+            return this.WorkItems.Where(filter.Compile());
         }
 
         public WorkItem Add(WorkItem workItem)
@@ -70,7 +72,7 @@ namespace PMS.Model.UnitTests.Fakes
             return workItem;
         }
 
-        public IEnumerable<WorkItem> GetItemsWithExecutor(Func<WorkItem, bool> filter)
+        public IEnumerable<WorkItem> GetItemsWithExecutor(Expression<Func<WorkItem, bool>> filter)
         {
             var items = Get(filter).ToList();
             foreach (var workItem in items)
@@ -87,9 +89,9 @@ namespace PMS.Model.UnitTests.Fakes
             return workItem;
         }
 
-        public IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Func<WorkItem, bool> filter)
+        public IEnumerable<WorkItem> GetWorkItemsWithAllIncudedElements(Expression<Func<WorkItem, bool>> filter)
         {
-            var items = this.WorkItems.Where(filter);
+            var items = this.WorkItems.Where(filter.Compile());
             return items;
         }
 
@@ -116,6 +118,11 @@ namespace PMS.Model.UnitTests.Fakes
         {
             SaveChangesCalled++;
             return 0;
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return Task.Run(() => SaveChanges());
         }
 
         public void Delete(WorkItem item)

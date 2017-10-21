@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Common.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PMS.Model.Models;
@@ -58,9 +60,20 @@ namespace PMS.Model.UnitTests.Fakes
             return 0;
         }
 
-        public IEnumerable<ApplicationUser> GetUsers(Func<ApplicationUser, bool> whereExpression)
+        public Task<int> SaveChangesAsync()
         {
-            return Users.Where(whereExpression);
+            throw new NotImplementedException();
+        }
+        
+
+        public IEnumerable<ApplicationUser> GetUsers(Expression<Func<ApplicationUser, bool>> whereExpression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ApplicationUser>> GetUsersAsync(Expression<Func<ApplicationUser, bool>> whereExpression)
+        {
+            throw new NotImplementedException();
         }
 
         public ApplicationUser GetById(string id)
@@ -68,9 +81,19 @@ namespace PMS.Model.UnitTests.Fakes
             return Users.SingleOrDefault(x => x.Id == id);
         }
 
+        public Task<ApplicationUser> GetByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ApplicationUser GetByUserName(string userName)
         {
             return Users.SingleOrDefault(x => x.UserName == userName);
+        }
+
+        public Task<ApplicationUser> GetByUserNameAsync(string userName)
+        {
+            throw new NotImplementedException();
         }
 
         public IEnumerable<ApplicationUser> GetUsersByRole(string roleName)
@@ -158,6 +181,11 @@ namespace PMS.Model.UnitTests.Fakes
         public ApplicationUser GetCurrentUser()
         {
             return _currentUser;
+        }
+
+        public Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return Task.Run(() => _currentUser);
         }
     }
 }
